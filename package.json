@@ -5,10 +5,11 @@
   "main": "dist/main.js",
   "scripts": {
     "build": "tsc",
-    "dev": "tsc -w"
+    "dev": "tsc -w "
   },
   "dependencies": {},
   "devDependencies": {
+    "servor": "^4.0.2",
     "typescript": "^6.0.3"
   },
   "private": true
