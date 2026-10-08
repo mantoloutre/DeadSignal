@@ -1,0 +1,15 @@
+{
+  "name": "dead-signal",
+  "version": "1.0.0",
+  "description": "Minimalist text-based survival incremental game",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  },
+  "private": true
+}
