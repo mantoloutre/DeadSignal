@@ -26,3 +26,7 @@
 - maybe a base once the player reach a certain level(
 so like also a part of base building
   )
+## value to use in code?
+- powerLevel (can be useful maybe )
+- current frequency ( to start where u left off )
+- discovered signal ( tab ) (list of signal u found)
