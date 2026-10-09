@@ -12,7 +12,7 @@ interface Room {
     getChoices: () => User_Choice[];
 }
 
-const buttonOpen:HTMLButtonElement = document.getElementById("btn-menu-open") as HTMLButtonElement;
+const buttonOpen: HTMLButtonElement = document.getElementById("btn-menu-open") as HTMLButtonElement;
 const buttonClose: HTMLButtonElement = document.getElementById("btn-menu-close") as HTMLButtonElement;
 const sideMenu: HTMLElement = document.getElementById("side-menu") as HTMLElement;
 const menuOverlay: HTMLElement = document.getElementById("menu-overlay") as HTMLElement;
@@ -21,14 +21,25 @@ const menuOverlay: HTMLElement = document.getElementById("menu-overlay") as HTML
 simple function to open the menu by removing
 the "hidden" class from their classList
  */
-function openMenu():void {
+function openMenu(): void {
     sideMenu.classList.remove("hidden");
     menuOverlay.classList.remove("hidden");
 }
-function closeMenu(): void{
+
+function closeMenu(): void {
     sideMenu.classList.add("hidden");
     menuOverlay.classList.add("hidden");
 }
+
 buttonOpen.addEventListener("click", openMenu);
 buttonClose.addEventListener("click", closeMenu);
 menuOverlay.addEventListener("click", closeMenu);
+
+/*
+shortcut ( press escape to close side menu, instead of having to click a smoll button )
+ */
+window.addEventListener("keydown", (keyEvent) => {
+    if (!sideMenu.classList.contains("hidden") && keyEvent.key === "Escape") {
+        closeMenu();
+    }
+});

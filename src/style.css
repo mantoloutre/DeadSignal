@@ -1,7 +1,8 @@
 /*TODO make global variable for color*/
 :root {
     --top-bar_bck: #14171c;
-    --separetor-color: #232832; /* TODO make this green maybe a fallout style terminal for game or in blue?*/
+    --separetor-color: #2a7c20; /* TODO make this green maybe a fallout style terminal for game or in blue?*/
+    --separator-width: 5px;
 }
 
 #top-bar {
@@ -9,7 +10,7 @@
     align-items: center;
     justify-content: center;
     background: var(--top-bar_bck);
-    border-bottom: var(--separetor-color);
+    border-bottom: var(--separator-width) solid var(--separetor-color);
 }
 
 .side-menu {
@@ -19,7 +20,7 @@
     width: 260px; /* TODO change for something dynamic ? */
     height: 100dvh;
     background: #0f1115; /* TODO make a universal background color? */
-    border-right: 2px solid var(--separetor-color);
+    border-right: var(--separator-width) solid var(--separetor-color);
     z-index: 1000;
     padding: 20px;
     box-sizing: border-box;
@@ -28,6 +29,7 @@
     transform: translateX(0);
     transition: transform 0.25s ease-in-out;
 }
+
 .side-menu.hidden {
     transform: translateX(-100%);
 }

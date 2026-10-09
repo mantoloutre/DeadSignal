@@ -18,3 +18,11 @@ function closeMenu() {
 buttonOpen.addEventListener("click", openMenu);
 buttonClose.addEventListener("click", closeMenu);
 menuOverlay.addEventListener("click", closeMenu);
+/*
+shortcut ( press escape to close side menu, instead of having to click a smoll button )
+ */
+window.addEventListener("keydown", (keyEvent) => {
+    if (!sideMenu.classList.contains("hidden") && keyEvent.key === "Escape") {
+        closeMenu();
+    }
+});
