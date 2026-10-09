@@ -22,3 +22,7 @@
 - a dark room (text based game)
 - mudrunner (open world, world "fixing")
 - project zomboid & VEIN (complicated survival aspect)
+## stuff i would maybe wanna add
+- maybe a base once the player reach a certain level(
+so like also a part of base building
+  )
