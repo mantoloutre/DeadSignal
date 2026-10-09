@@ -1,18 +1,7 @@
 //TODO export in json
 //TODO import from json
 //TODO import with json ( with security )
-
-//base
-export interface GameState {
-    app: string;
-    version: number;
-    chapter: string;
-    powerLevel: number;
-    currentFrequency: number;
-    discoveredSignals: string[];
-}
-
-export const GAME_INITIAL_STATE: GameState = {
+export const GAME_INITIAL_STATE = {
     app: "DEAD_SIGNAL",
     version: 1,
     chapter: "prologue",
@@ -20,7 +9,7 @@ export const GAME_INITIAL_STATE: GameState = {
     currentFrequency: 0,
     discoveredSignals: []
 };
-export let currentState = {...GAME_INITIAL_STATE};
+export let currentState = { ...GAME_INITIAL_STATE };
 /*
 function to export the game in json.<br>
 detailed explanation:
@@ -34,7 +23,7 @@ export function ex() {
     //step 1
     const jString = JSON.stringify(currentState, null, 2);
     //step 2
-    const b = new Blob([jString], { type: "application/json"});
+    const b = new Blob([jString], { type: "application/json" });
     const url = URL.createObjectURL(b);
     //step 3
     const a = document.createElement("a");
