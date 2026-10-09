@@ -19,20 +19,19 @@ detailed explanation:
 3. simulate the click on a download link
 4. clean memory
  */
-export function ex() {
+export function exportSaveFile() {
     //step 1
-    const jString = JSON.stringify(currentState, null, 2);
+    const jsonString = JSON.stringify(currentState, null, 2);
     //step 2
-    const b = new Blob([jString], { type: "application/json" });
-    const url = URL.createObjectURL(b);
+    const blob = new Blob([jsonString], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
     //step 3
     const a = document.createElement("a");
     a.href = url;
     a.download = `save_dead_signal${Date.now()}.json`;
-    document.body.append(a);
+    document.body.appendChild(a);
     a.click();
     //step 4
-    // @ts-ignore
-    document.body.remove(a);
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
 }
