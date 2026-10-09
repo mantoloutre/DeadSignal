@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Dead Signal</title>
     <link rel="stylesheet" href="src/style.css">
+    <script src="src/index.js" defer></script>
 </head>
 <body>
 <header id="top-bar"><!-- for stats -->
@@ -19,7 +20,8 @@
         <!-- <p>Battery: 100%</p> -->
     </div>
 </header>
-<aside>
+<div id="menu-overlay" class="overlay hidden"></div><!-- to darken background -->
+<aside id="side-menu" class="side-menu closed">
     <header class="menu-header">
         <h2>System</h2>
         <button id="btn-menu-close" class="btn-close">x</button>
@@ -28,7 +30,7 @@
         <button class="menu-link" id="btn-save">Save</button>
         <button class="menu-link" id="btn-export">Export</button>
         <button id="btn-import">Import</button>
-        <button class="menu-link"><!--TODO--></button>
+        <button class="menu-link">inventory</button>
     </nav>
 </aside>
 <main><!-- main gameplay -->
