@@ -28,6 +28,6 @@
     transform: translateX(0);
     transition: transform 0.25s ease-in-out;
 }
-.side-menu.closed {
+.side-menu.hidden {
     transform: translateX(-100%);
 }
