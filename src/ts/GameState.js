@@ -1,6 +1,3 @@
-//TODO export in json
-//TODO import from json
-//TODO import with json ( with security )
 export const GAME_INITIAL_STATE = {
     app: "DEAD_SIGNAL",
     version: 1,

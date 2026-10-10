@@ -41,6 +41,7 @@ body {
     width: 100%;
     height: 25dvh;
     background-color: #080d08;
+    color: var(--text-color);
     text-shadow: 0 0 3px rgba(27, 248, 87, 0.4);
     font-size: 14px;
     padding: 12px;

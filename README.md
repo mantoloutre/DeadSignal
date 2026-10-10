@@ -4,6 +4,7 @@ Dead Signal is a simple text based survival game.
 The goal of the game is simple:
 : <details> <summary>!!!Spoiler warning!!!</summary>
 *not defined yet :I*
+</details>
 
 ## How to play
 

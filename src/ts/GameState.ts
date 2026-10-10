@@ -1,7 +1,3 @@
-//TODO export in json
-//TODO import from json
-//TODO import with json ( with security )
-
 //base
 export interface GameState {
     app: string;
