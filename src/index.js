@@ -26,3 +26,13 @@ window.addEventListener("keydown", (keyEvent) => {
         closeMenu();
     }
 });
+const terminalOutput = document.getElementById("terminal-output");
+/*
+function printterminal, take text and is void
+make sure it exist
+make a div as the line
+give it classname for it to be able to modify easier
+give it the text
+appendchild to terminal output
+add scroll to the terminal output?
+ */ 

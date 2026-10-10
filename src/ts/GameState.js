@@ -36,34 +36,75 @@ export function exportSaveFile() {
     URL.revokeObjectURL(url);
 }
 /*
-this function is to import the game from a json file.
+this function is to import the game from a json file, but in a more secure way
 detailed explanation:
-1. create a hidden file input element
-2. listener to listen for when the user select a file
-3. read the selected file as text
-4. parse the json text and update current gameState
-5. trigger the file selection dialog
+1. create a hidden file input accepting only json and MIME type json
+2. handle file selection and validate selection
+3. read file contents as text
+4. parsing json inside a try catch ( for safety )
+5. verifying that parsed data is valid and non-null object
+6. check application signature to confirm it belong to the game
+7. merge imported data with default state to prevent possible undefined variable
+8. notify caller via success or error callback
+9. trigger the file selection dialog
  */
-export function importSaveFile() {
+export function importSaveFile(onSuccess, onError) {
     //step 1
     const input = document.createElement("input");
     input.type = "file";
-    input.accept = ".json";
+    input.accept = ".json,application/json";
     //step 2
     input.onchange = () => {
         const file = input.files?.[0];
-        if (!file)
+        if (!file) {
+            onError("no file selected");
             return;
+        }
         //step 3
         const fileReader = new FileReader();
         fileReader.onload = () => {
-            //step 4
             const text = fileReader.result;
-            const data = JSON.parse(text);
-            currentState = data;
+            //step 4
+            let textParsed;
+            try {
+                textParsed = JSON.parse(text);
+            }
+            catch {
+                onError("file isn't a valid json format");
+                return;
+            }
+            //step 5
+            if (textParsed === null || typeof textParsed !== "object" ||
+                Array.isArray(textParsed)) {
+                onError("invalid save format ( expected object )");
+                return;
+            }
+            const obj = textParsed;
+            //step 6
+            if (obj.app !== "DEAD_SIGNAL") {
+                onError("this file is not a valid dead signal save");
+                return;
+            }
+            // step 7
+            currentState = {
+                ...GAME_INITIAL_STATE,
+                chapter: typeof obj.chapter === "string" ? obj.chapter : GAME_INITIAL_STATE.chapter,
+                powerLevel: typeof obj.powerLevel === "number" ? obj.powerLevel :
+                    GAME_INITIAL_STATE.powerLevel,
+                currentFrequency: typeof obj.currentFrequency === "number" ? obj.currentFrequency :
+                    GAME_INITIAL_STATE.currentFrequency,
+                discoveredSignals: Array.isArray(obj.discoveredSignals)
+                    ? obj.discoveredSignals :
+                    [...GAME_INITIAL_STATE.discoveredSignals]
+            };
+            //step 8
+            onSuccess();
+        };
+        fileReader.onerror = () => {
+            onError("error while trying to real the file on the disk");
         };
         fileReader.readAsText(file);
     };
-    //step 5
+    //step 9
     input.click();
 }
