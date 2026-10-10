@@ -47,3 +47,34 @@ export function exportSaveFile(): void {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 }
+
+/*
+this function is to import the game from a json file.
+detailed explanation:
+1. create a hidden file input element
+2. listener to listen for when the user select a file
+3. read the selected file as text
+4. parse the json text and update current gameState
+5. trigger the file selection dialog
+ */
+export function importSaveFile(): void {
+    //step 1
+    const input: HTMLInputElement = document.createElement("input");
+    input.type = "file";
+    //step 2
+    input.onchange = () => {
+        const file = input.files?.[0];
+        if (!file) return;
+        //step 3
+        const fileReader = new FileReader();
+        fileReader.onload = () => {
+            //step 4
+            const text: string = fileReader.result as string;
+            const data = JSON.parse(text);
+            currentState = data;
+        };
+        fileReader.readAsText(file);
+    };
+    //step 5
+    input.click();
+}
