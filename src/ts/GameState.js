@@ -48,6 +48,7 @@ export function importSaveFile() {
     //step 1
     const input = document.createElement("input");
     input.type = "file";
+    input.accept = ".json";
     //step 2
     input.onchange = () => {
         const file = input.files?.[0];
