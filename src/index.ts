@@ -15,18 +15,9 @@ interface Room {
 button to open side menu
  */
 const buttonOpen: HTMLButtonElement = document.getElementById("btn-menu-open") as HTMLButtonElement;
-/*
-button to close side menu
- */
-const buttonClose: HTMLButtonElement = document.getElementById("btn-menu-close") as HTMLButtonElement;
-/*
-the side menu
- */
+const buttonCloseSideMenu: HTMLButtonElement = document.getElementById("btn-menu-close") as HTMLButtonElement;
 const sideMenu: HTMLElement = document.getElementById("side-menu") as HTMLElement;
-/*
-the side menu overlay
- */
-const menuOverlay: HTMLElement = document.getElementById("menu-overlay") as HTMLElement;
+const sideMenuOverlay: HTMLElement = document.getElementById("menu-overlay") as HTMLElement;
 /*
 the terminal output place
  */
@@ -35,29 +26,30 @@ const terminalOutput: HTMLDivElement = document.getElementById("terminal-output"
 button to test print hello!
  */
 const buttonPrintHi: HTMLButtonElement = document.getElementById("btn-print-hello") as HTMLButtonElement;
-
+const buttonExport: HTMLButtonElement = document.getElementById("btn-export") as HTMLButtonElement;
+const buttonImport: HTMLButtonElement = document.getElementById("btn-import") as HTMLButtonElement;
 /*
 simple function to open the menu by removing
 the "hidden" class from their classList
  */
 function openMenu(): void {
     sideMenu.classList.remove("hidden");
-    menuOverlay.classList.remove("hidden");
+    sideMenuOverlay.classList.remove("hidden");
 }
 /*
 function to close side menu
  */
 function closeMenu(): void {
     sideMenu.classList.add("hidden");
-    menuOverlay.classList.add("hidden");
+    sideMenuOverlay.classList.add("hidden");
 }
 function printHi():void {
     printToTerminal("hi :D");
 }
 
 buttonOpen.addEventListener("click", openMenu);
-buttonClose.addEventListener("click", closeMenu);
-menuOverlay.addEventListener("click", closeMenu);
+buttonCloseSideMenu.addEventListener("click", closeMenu);
+sideMenuOverlay.addEventListener("click", closeMenu);
 buttonPrintHi.addEventListener("click", printHi);
 /*
 shortcut ( press escape to close side menu, instead of having to click a smoll button )
@@ -65,6 +57,8 @@ shortcut ( press escape to close side menu, instead of having to click a smoll b
 window.addEventListener("keydown", (keyEvent) => {
     if (!sideMenu.classList.contains("hidden") && keyEvent.key === "Escape") {
         closeMenu();
+    } else if (sideMenu.classList.contains("hidden") && keyEvent.key === "Escape"){
+        openMenu();
     }
 });
 

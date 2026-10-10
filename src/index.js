@@ -3,18 +3,9 @@
 button to open side menu
  */
 const buttonOpen = document.getElementById("btn-menu-open");
-/*
-button to close side menu
- */
-const buttonClose = document.getElementById("btn-menu-close");
-/*
-the side menu
- */
+const buttonCloseSideMenu = document.getElementById("btn-menu-close");
 const sideMenu = document.getElementById("side-menu");
-/*
-the side menu overlay
- */
-const menuOverlay = document.getElementById("menu-overlay");
+const sideMenuOverlay = document.getElementById("menu-overlay");
 /*
 the terminal output place
  */
@@ -23,27 +14,29 @@ const terminalOutput = document.getElementById("terminal-output");
 button to test print hello!
  */
 const buttonPrintHi = document.getElementById("btn-print-hello");
+const buttonExport = document.getElementById("btn-export");
+const buttonImport = document.getElementById("btn-import");
 /*
 simple function to open the menu by removing
 the "hidden" class from their classList
  */
 function openMenu() {
     sideMenu.classList.remove("hidden");
-    menuOverlay.classList.remove("hidden");
+    sideMenuOverlay.classList.remove("hidden");
 }
 /*
 function to close side menu
  */
 function closeMenu() {
     sideMenu.classList.add("hidden");
-    menuOverlay.classList.add("hidden");
+    sideMenuOverlay.classList.add("hidden");
 }
 function printHi() {
     printToTerminal("hi :D");
 }
 buttonOpen.addEventListener("click", openMenu);
-buttonClose.addEventListener("click", closeMenu);
-menuOverlay.addEventListener("click", closeMenu);
+buttonCloseSideMenu.addEventListener("click", closeMenu);
+sideMenuOverlay.addEventListener("click", closeMenu);
 buttonPrintHi.addEventListener("click", printHi);
 /*
 shortcut ( press escape to close side menu, instead of having to click a smoll button )
@@ -51,6 +44,9 @@ shortcut ( press escape to close side menu, instead of having to click a smoll b
 window.addEventListener("keydown", (keyEvent) => {
     if (!sideMenu.classList.contains("hidden") && keyEvent.key === "Escape") {
         closeMenu();
+    }
+    else if (sideMenu.classList.contains("hidden") && keyEvent.key === "Escape") {
+        openMenu();
     }
 });
 /*

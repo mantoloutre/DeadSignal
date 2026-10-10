@@ -10,10 +10,9 @@
     <script src="src/index.js" defer></script>
 </head>
 <body>
-<header id="top-bar"><!-- for stats -->
+<header id="top-bar" class="border-glow"><!-- for stats -->
     <button id="btn-menu-open" class="icon_btn">M</button>
     <div class="group-menu">
-        <!-- TODO make a export & import button -->
 
         <button id="btn-journal">Journal</button>
         <button id="btn-map">Map</button>
@@ -37,17 +36,13 @@
     </nav>
 </aside>
 <main><!-- main gameplay -->
-    <section id="logs"></section>
-    <section> <!-- commands? -->
-
-    </section>
-    <section class="mvp">
-        <div id="terminal-output">
+    <section id="InOut">
+        <div id="terminal-input" class="border-glow">
+            <button id="btn-print-hello">Print hi :D</button>
+        </div>
+        <div id="terminal-output" class="border-glow">
 
         </div>
-    </section>
-    <section>
-        <button id="btn-print-hello">Print hi :D</button>
     </section>
 </main>
 
