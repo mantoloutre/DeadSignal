@@ -14,6 +14,7 @@ const terminalOutput = document.getElementById("terminal-output");
 button to test print hello!
  */
 const buttonPrintHi = document.getElementById("btn-print-hello");
+const buttonPrintHiAlert = document.getElementById("btn-print-hello-alert");
 const buttonExport = document.getElementById("btn-export");
 const buttonImport = document.getElementById("btn-import");
 /*
@@ -31,15 +32,19 @@ function closeMenu() {
     sideMenu.classList.add("hidden");
     sideMenuOverlay.classList.add("hidden");
 }
-function printHi() {
-    printToTerminal("hi :D");
+function printHiNormal() {
+    printToTerminal("hi :D", "system");
+}
+function printHiAlert() {
+    printToTerminal("hi :D", "alert");
 }
 buttonOpen.addEventListener("click", openMenu);
 buttonCloseSideMenu.addEventListener("click", closeMenu);
 sideMenuOverlay.addEventListener("click", closeMenu);
-buttonPrintHi.addEventListener("click", printHi);
+buttonPrintHi.addEventListener("click", printHiNormal);
+buttonPrintHiAlert.addEventListener("click", printHiAlert);
 /*
-shortcut ( press escape to close side menu, instead of having to click a smoll button )
+shortcut ( press escape to close/open side menu, instead of having to click a smoll button )
  */
 window.addEventListener("keydown", (keyEvent) => {
     if (!sideMenu.classList.contains("hidden") && keyEvent.key === "Escape") {
@@ -51,13 +56,20 @@ window.addEventListener("keydown", (keyEvent) => {
 });
 /*
 function to print to the terminal :D
+@type type of the text (log(yellow), alert(red), normal(green) )
  */
-function printToTerminal(text) {
+function printToTerminal(text, from) {
     if (!terminalOutput)
         return;
     const prettyLine = document.createElement("div");
-    prettyLine.className = "terminal-line";
+    prettyLine.className = `terminal-line ${from}`;
     prettyLine.textContent = text;
     terminalOutput.appendChild(prettyLine);
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
 }
+function initGame() {
+    printToTerminal("TACTICAL TRUCK 04 - MAIN ENGINE DOWN.", "system");
+    printToTerminal("LOADING FILE FOR MISSION #882...", "system");
+    printToTerminal("ERROR, I HAVEN'T DONE MORE THAN THIS FOR NOW T-T, sorry", "alert");
+}
+window.addEventListener("DOMContentLoaded", initGame);

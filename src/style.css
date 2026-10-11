@@ -1,6 +1,6 @@
 :root {
     --top-bar_bck: #14171c;
-    --separetor-color: #2a7c20; /* TODO make this green maybe a fallout style terminal for game or in blue?*/
+    --separetor-color: #2a7c20;
     --separator-width: 5px;
     --text-color: #1bf857;
     --border-color: #39ff14;
@@ -14,7 +14,6 @@ body {
     background-color: #080d08;
     gap: 10px;
     main {
-
     }
 }
 .overlay {
@@ -41,6 +40,7 @@ body {
     background: var(--top-bar_bck);
     border-bottom: var(--separator-width) solid var(--separetor-color);
     margin-bottom: 20px;
+    padding: 0.2%
 }
 
 .side-menu {
@@ -74,6 +74,9 @@ body {
     box-sizing: border-box;
     padding:1%;
 }
+.terminal-line {
+    line-height: 1.5;
+}
 #terminal-input {
     width: 30%;
     padding:1%;
@@ -104,4 +107,16 @@ button:active {
     color: var(--button-hover-color);
     text-shadow: 0 0 2px var(--button-hover-color);
     box-shadow: 0 0 2px #011a3f;
+}
+.alert {
+    color: red;
+}
+.alert::before {
+    content: "[ALERT] : ";
+    color: red;
+    font-weight: bold;
+}
+.system::before{
+    content: "[SYSTEM] : ";
+    font-weight: bold;
 }
