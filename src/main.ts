@@ -1,25 +1,28 @@
 //TODO make the room interface
 //TODO make the player interface
+//imports
+import {
+    exportSaveFile
+} from "./gameState.js";
 
-
-/*
-button to open side menu
- */
+// buttons
 const buttonOpenSideMenu: HTMLButtonElement = document.getElementById("btn-menu-open") as HTMLButtonElement;
 const buttonCloseSideMenu: HTMLButtonElement =
     document.getElementById("btn-menu-close") as HTMLButtonElement;
-const sideMenu: HTMLElement = document.getElementById("side-menu") as HTMLElement;
-const sideMenuOverlay: HTMLElement = document.getElementById("menu-overlay") as HTMLElement;
-const terminalOutput: HTMLDivElement = document.getElementById("terminal-output") as HTMLDivElement;
-/*
-button to test print hello!
- */
 const buttonPrintHi: HTMLButtonElement =
     document.getElementById("btn-print-hello") as HTMLButtonElement;
 const buttonPrintHiAlert: HTMLButtonElement =
     document.getElementById("btn-print-hello-alert") as HTMLButtonElement;
 const buttonExport: HTMLButtonElement = document.getElementById("btn-export") as HTMLButtonElement;
 const buttonImport: HTMLButtonElement = document.getElementById("btn-import") as HTMLButtonElement;
+const buttonPrintHiLog: HTMLButtonElement =
+    document.getElementById("btn-print-hello-log") as HTMLButtonElement;
+
+// elements
+const sideMenu: HTMLElement = document.getElementById("side-menu") as HTMLElement;
+const sideMenuOverlay: HTMLElement = document.getElementById("menu-overlay") as HTMLElement;
+const terminalOutput: HTMLDivElement = document.getElementById("terminal-output") as HTMLDivElement;
+
 
 /*
 simple function to open the menu by removing
@@ -43,14 +46,22 @@ async function printHiNormal(): Promise<void> {
 }
 
 async function printHiAlert(): Promise<void> {
-    await printToTerminal("hi :D", "alert");
+    await printToTerminal("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii :D", "alert");
 }
-
+async function printHiLog(): Promise<void> {
+    await printToTerminal("hi :D", "log")
+}
+// buttons
 buttonOpenSideMenu.addEventListener("click", openMenu);
 buttonCloseSideMenu.addEventListener("click", closeMenu);
-sideMenuOverlay.addEventListener("click", closeMenu);
 buttonPrintHi.addEventListener("click", printHiNormal);
 buttonPrintHiAlert.addEventListener("click", printHiAlert);
+buttonExport.addEventListener("click", exportSaveFile);
+buttonPrintHiLog.addEventListener("click", printHiLog);
+
+// others
+sideMenuOverlay.addEventListener("click", closeMenu);
+
 /*
 shortcut ( press escape to close/open side menu, instead of having to click a smoll button )
  */

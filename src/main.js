@@ -1,21 +1,19 @@
-"use strict";
 //TODO make the room interface
 //TODO make the player interface
-/*
-button to open side menu
- */
+//imports
+import { exportSaveFile } from "./gameState.js";
+// buttons
 const buttonOpenSideMenu = document.getElementById("btn-menu-open");
 const buttonCloseSideMenu = document.getElementById("btn-menu-close");
-const sideMenu = document.getElementById("side-menu");
-const sideMenuOverlay = document.getElementById("menu-overlay");
-const terminalOutput = document.getElementById("terminal-output");
-/*
-button to test print hello!
- */
 const buttonPrintHi = document.getElementById("btn-print-hello");
 const buttonPrintHiAlert = document.getElementById("btn-print-hello-alert");
 const buttonExport = document.getElementById("btn-export");
 const buttonImport = document.getElementById("btn-import");
+const buttonPrintHiLog = document.getElementById("btn-print-hello-log");
+// elements
+const sideMenu = document.getElementById("side-menu");
+const sideMenuOverlay = document.getElementById("menu-overlay");
+const terminalOutput = document.getElementById("terminal-output");
 /*
 simple function to open the menu by removing
 the "hidden" class from their classList
@@ -35,13 +33,20 @@ async function printHiNormal() {
     await printToTerminal("hi :D", "system");
 }
 async function printHiAlert() {
-    await printToTerminal("hi :D", "alert");
+    await printToTerminal("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii :D", "alert");
 }
+async function printHiLog() {
+    await printToTerminal("hi :D", "log");
+}
+// buttons
 buttonOpenSideMenu.addEventListener("click", openMenu);
 buttonCloseSideMenu.addEventListener("click", closeMenu);
-sideMenuOverlay.addEventListener("click", closeMenu);
 buttonPrintHi.addEventListener("click", printHiNormal);
 buttonPrintHiAlert.addEventListener("click", printHiAlert);
+buttonExport.addEventListener("click", exportSaveFile);
+buttonPrintHiLog.addEventListener("click", printHiLog);
+// others
+sideMenuOverlay.addEventListener("click", closeMenu);
 /*
 shortcut ( press escape to close/open side menu, instead of having to click a smoll button )
  */

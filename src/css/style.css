@@ -28,19 +28,6 @@ body {
     pointer-events: none;
 }
 
-#top-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--top-bar_bck);
-    border-bottom: var(--separator-width) solid var(--separetor-color);
-    margin-bottom: 20px;
-    padding: 0.2%;
-    gap: 10px;
-    p {
-        color: var(--text-color);
-    }
-}
 .button-placement{
     display: flex;
     flex-wrap: wrap;
@@ -66,58 +53,13 @@ body {
         color: var(--text-color)
     }
 }
-
 .side-menu.hidden {
     transform: translateX(-100%);
 }
-
-#terminal-output {
-    width: 70%;
-    background-color: #080d08;
-    color: var(--text-color);
-    text-shadow: 0 0 3px var(--text-green-glow);
-    font-size: 14px;
-    overflow-y: auto;
-    box-sizing: border-box;
-    padding: 1%;
-}
-
-.terminal-line {
-    line-height: 1.5;
-}
-
-#terminal-input {
-    width: 30%;
-    padding: 1%;
-}
-
-#InOut {
-    gap: 10px;
-    display: flex;
-    height: 90dvh;
-}
-
 .border-glow {
     border: 2px solid var(--separetor-color);
     box-shadow: 0 0 2px var(--border-color),
     0 0 15px var(--border-color),
     0 0 15px var(--glow-border-color),
     inset 0 0 50px var(--glow-border-color);
-}
-
-
-
-
-
-#frequency::before {
-    content: "frequency : ";
-    font-weight: bold;
-}
-#frequency::after {
-    content: " MHz"
-}
-
-#zone::before {
-    content: "Zone : ";
-    font-weight: bold;
 }
