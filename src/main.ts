@@ -38,12 +38,14 @@ function closeMenu(): void {
     sideMenuOverlay.classList.add("hidden");
 }
 
-function printHiNormal(): void {
-    printToTerminal("hi :D", "system");
+async function printHiNormal(): Promise<void> {
+    await printToTerminal("hi :D", "system");
 }
-function printHiAlert(): void {
-    printToTerminal("hi :D", "alert");
+
+async function printHiAlert(): Promise<void> {
+    await printToTerminal("hi :D", "alert");
 }
+
 buttonOpenSideMenu.addEventListener("click", openMenu);
 buttonCloseSideMenu.addEventListener("click", closeMenu);
 sideMenuOverlay.addEventListener("click", closeMenu);
@@ -65,20 +67,45 @@ window.addEventListener("keydown", (keyEvent) => {
 function to print to the terminal :D
 @param from the place the text come from(log(yellow), alert(red), normal(green) )
  */
-function printToTerminal(text: string, from: string): void {
+async function printToTerminal(text: string, from: string, speedMs: number = 15): Promise<void> {
     if (!terminalOutput) return;
     const prettyLine: HTMLDivElement = document.createElement("div");
     prettyLine.className = `terminal-line ${from}`;
-    prettyLine.textContent = text;
     terminalOutput.appendChild(prettyLine);
-    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    const textNode = document.createTextNode("");
+    prettyLine.appendChild(textNode);
+    for (let i = 0; i < text.length; ++i) {
+        textNode.appendData(text[i]);
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        await sleep(speedMs);
+    }
+
 }
+
+function sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 /*
 function that is call to initialize game
  */
-function initGame():void{
-    printToTerminal("TACTICAL TRUCK 04 - MAIN ENGINE DOWN.", "system");
-    printToTerminal("LOADING FILE FOR MISSION #882...", "system");
-    printToTerminal("ERROR, I HAVEN'T DONE MORE THAN THIS FOR NOW T-T, sorry", "alert");
+async function initGame(): Promise<void> {
+    await printToTerminal("TACTICAL TRUCK 04 - MAIN ENGINE DOWN.", "system");
+    await printToTerminal("LOADING FILE FOR MISSION #882...", "system");
+    await printToTerminal("ERROR, I HAVEN'T DONE MORE THAN THIS FOR NOW T-T, sorry", "alert");
 }
-window.addEventListener("DOMContentLoaded", initGame);
+
+/*
+function in case there is an error while trying to initialize game
+ */
+function startGame(): void {
+    initGame().catch((err: unknown): void => {
+        console.error("failed to initialize game: ", err)
+    });
+}
+
+if (document.readyState === "loading") {
+    window.addEventListener("DOMContentLoaded", startGame);
+} else {
+    startGame();
+}
