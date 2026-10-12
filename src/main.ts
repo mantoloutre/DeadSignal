@@ -96,7 +96,6 @@ async function printToTerminal(text: string, from: string, speedMs: number = 15)
 function sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
 /*
 function that is call to initialize game
  */

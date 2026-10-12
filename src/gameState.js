@@ -1,3 +1,7 @@
+export const StoryFlags = {
+    TRUCK_REPAIRED: "TRUC_REPAIRED",
+    WALKED_TO_TOWER: "WALKED_TO_TOWER"
+};
 export const GAME_INITIAL_STATE = {
     app: "DEAD_SIGNAL",
     version: 1,
@@ -7,9 +11,21 @@ export const GAME_INITIAL_STATE = {
     },
     powerLevel: 100,
     currentFrequency: 0,
-    discoveredSignals: []
+    discoveredSignals: [],
+    storyFlags: []
 };
 export let currentState = { ...GAME_INITIAL_STATE };
+export function addFlag(flag) {
+    if (!currentState.storyFlags.includes(flag)) {
+        currentState.storyFlags.push(flag);
+    }
+}
+export function hasFlag(flag) {
+    return currentState.storyFlags.includes(flag);
+}
+export function removeFlag(flag) {
+    //TODO
+}
 /*
 function to export the game in json.<br>
 detailed explanation:

@@ -6,6 +6,7 @@ export interface GameState {
     powerLevel: number;
     currentFrequency: number;
     discoveredSignals: string[];
+    storyFlags: StoryFlags[]
 }
 
 export interface Chapter {
@@ -13,6 +14,11 @@ export interface Chapter {
     zone: string;
 }
 
+export const StoryFlags = {
+    TRUCK_REPAIRED: "TRUC_REPAIRED",
+    WALKED_TO_TOWER: "WALKED_TO_TOWER"
+}
+export type StoryFlags = typeof StoryFlags[keyof typeof StoryFlags];
 export const GAME_INITIAL_STATE: GameState = {
     app: "DEAD_SIGNAL",
     version: 1,
@@ -22,9 +28,24 @@ export const GAME_INITIAL_STATE: GameState = {
     },
     powerLevel: 100,
     currentFrequency: 0,
-    discoveredSignals: []
+    discoveredSignals: [],
+    storyFlags: []
 };
 export let currentState: GameState = {...GAME_INITIAL_STATE};
+
+export function addFlag(flag: StoryFlags): void {
+    if (!currentState.storyFlags.includes(flag)) {
+        currentState.storyFlags.push(flag);
+    }
+}
+
+export function hasFlag(flag: StoryFlags): boolean {
+    return currentState.storyFlags.includes(flag);
+}
+
+export function removeFlag(flag: StoryFlags): void{
+    //TODO
+}
 
 /*
 function to export the game in json.<br>
