@@ -1,0 +1,17 @@
+button {
+    padding: 8px 15px;
+    border: 2px solid var(--separetor-color);
+    background-color: var(--top-bar_bck);
+    color: var(--text-color);
+}
+
+button:hover {
+    text-shadow: 0 0 2px var(--border-color);
+    box-shadow: 0 0 2px var(--border-color)
+}
+
+button:active {
+    color: var(--button-hover-color);
+    text-shadow: 0 0 2px var(--button-hover-color);
+    box-shadow: 0 0 2px #011a3f;
+}

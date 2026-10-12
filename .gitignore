@@ -13,3 +13,6 @@ dist/
 .DS_Store
 Thumbs.db
 *.log
+
+# wakatime config
+/.wakatime-project

@@ -1,0 +1,18 @@
+:root {
+    /* green colors (default) */
+    --text-color: #1bf857;
+    --text-green-glow: #1BF85766;
+    --border-color: #39ff14;
+    --glow-border-color: #39FF1433;
+    /* red colors ( alert ) */
+    --text-red-color: #f81b1b;
+    --text-red-glow: #f81b1b66;
+    /* yellow colors ( log? ) */
+    --text-yellow-color: #f8db1b;
+    --text-yellow-glow: #f8db1b66;
+    /* other */
+    --button-hover-color: #14fff7;
+    --separator-width: 5px;
+    --top-bar_bck: #14171c;
+    --separetor-color: #2a7c20;
+}

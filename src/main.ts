@@ -1,28 +1,15 @@
 //TODO make the room interface
 //TODO make the player interface
-interface User_Choice {
-    label: string;
-    action: () => void;
-}
 
-interface Room {
-    id: string;
-    name: string;
-    description: string;
-    getChoices: () => User_Choice[];
-}
 
 /*
 button to open side menu
  */
-const buttonOpen: HTMLButtonElement = document.getElementById("btn-menu-open") as HTMLButtonElement;
+const buttonOpenSideMenu: HTMLButtonElement = document.getElementById("btn-menu-open") as HTMLButtonElement;
 const buttonCloseSideMenu: HTMLButtonElement =
     document.getElementById("btn-menu-close") as HTMLButtonElement;
 const sideMenu: HTMLElement = document.getElementById("side-menu") as HTMLElement;
 const sideMenuOverlay: HTMLElement = document.getElementById("menu-overlay") as HTMLElement;
-/*
-the terminal output place
- */
 const terminalOutput: HTMLDivElement = document.getElementById("terminal-output") as HTMLDivElement;
 /*
 button to test print hello!
@@ -57,7 +44,7 @@ function printHiNormal(): void {
 function printHiAlert(): void {
     printToTerminal("hi :D", "alert");
 }
-buttonOpen.addEventListener("click", openMenu);
+buttonOpenSideMenu.addEventListener("click", openMenu);
 buttonCloseSideMenu.addEventListener("click", closeMenu);
 sideMenuOverlay.addEventListener("click", closeMenu);
 buttonPrintHi.addEventListener("click", printHiNormal);
@@ -76,7 +63,7 @@ window.addEventListener("keydown", (keyEvent) => {
 
 /*
 function to print to the terminal :D
-@type type of the text (log(yellow), alert(red), normal(green) )
+@param from the place the text come from(log(yellow), alert(red), normal(green) )
  */
 function printToTerminal(text: string, from: string): void {
     if (!terminalOutput) return;
@@ -86,7 +73,10 @@ function printToTerminal(text: string, from: string): void {
     terminalOutput.appendChild(prettyLine);
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
 }
-function initGame(){
+/*
+function that is call to initialize game
+ */
+function initGame():void{
     printToTerminal("TACTICAL TRUCK 04 - MAIN ENGINE DOWN.", "system");
     printToTerminal("LOADING FILE FOR MISSION #882...", "system");
     printToTerminal("ERROR, I HAVEN'T DONE MORE THAN THIS FOR NOW T-T, sorry", "alert");

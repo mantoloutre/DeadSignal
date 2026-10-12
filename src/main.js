@@ -1,14 +1,13 @@
 "use strict";
+//TODO make the room interface
+//TODO make the player interface
 /*
 button to open side menu
  */
-const buttonOpen = document.getElementById("btn-menu-open");
+const buttonOpenSideMenu = document.getElementById("btn-menu-open");
 const buttonCloseSideMenu = document.getElementById("btn-menu-close");
 const sideMenu = document.getElementById("side-menu");
 const sideMenuOverlay = document.getElementById("menu-overlay");
-/*
-the terminal output place
- */
 const terminalOutput = document.getElementById("terminal-output");
 /*
 button to test print hello!
@@ -38,7 +37,7 @@ function printHiNormal() {
 function printHiAlert() {
     printToTerminal("hi :D", "alert");
 }
-buttonOpen.addEventListener("click", openMenu);
+buttonOpenSideMenu.addEventListener("click", openMenu);
 buttonCloseSideMenu.addEventListener("click", closeMenu);
 sideMenuOverlay.addEventListener("click", closeMenu);
 buttonPrintHi.addEventListener("click", printHiNormal);
@@ -56,7 +55,7 @@ window.addEventListener("keydown", (keyEvent) => {
 });
 /*
 function to print to the terminal :D
-@type type of the text (log(yellow), alert(red), normal(green) )
+@param from the place the text come from(log(yellow), alert(red), normal(green) )
  */
 function printToTerminal(text, from) {
     if (!terminalOutput)
@@ -67,6 +66,9 @@ function printToTerminal(text, from) {
     terminalOutput.appendChild(prettyLine);
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
 }
+/*
+function that is call to initialize game
+ */
 function initGame() {
     printToTerminal("TACTICAL TRUCK 04 - MAIN ENGINE DOWN.", "system");
     printToTerminal("LOADING FILE FOR MISSION #882...", "system");

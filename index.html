@@ -6,45 +6,51 @@
     <title>Dead Signal</title>
     <!-- share tech mono font -->
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="src/style.css">
-    <script src="src/index.js" defer></script>
+    <link rel="stylesheet" href="src/css/variables.css">
+    <link rel="stylesheet" href="src/css/buttons.css">
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/main-content.css">
+    <script src="src/main.js" defer></script>
 </head>
 <body>
 <header id="top-bar" class="border-glow"><!-- for stats -->
-
-    <div class="group-menu">
+    <div class="button-placement">
         <button id="btn-menu-open" class="icon_btn">Menu</button>
         <button id="btn-journal">Journal</button>
         <button id="btn-map">Map</button>
         <button class="btn-inventory">Inventory</button>
     </div>
-    <div class="group status">
-        <p>Zone : --<</p>
-        <!-- <p>Battery: 100%</p> -->
+    <div>
+        <p id="frequency">0.0</p>
+        <p id="zone">setsetset</p>
     </div>
+
 </header>
-<div id="menu-overlay" class="overlay hidden"></div><!-- to darken background -->
+<div id="menu-overlay" class="overlay hidden"></div><!-- to blur background -->
 <aside id="side-menu" class="side-menu hidden">
-    <header class="menu-header">
-        <h2>System</h2>
-        <button id="btn-menu-close" class="btn-close">x</button>
+    <header>
+        <h2>Menu</h2>
     </header>
-    <nav>
+    <div class="button-placement">
+        <button id="btn-menu-close" class="btn-close">back</button>
         <button class="menu-link" id="btn-save">Save</button>
         <button class="menu-link" id="btn-export">Export</button>
         <button id="btn-import">Import</button>
+    </div>
+    <nav>
+
     </nav>
 </aside>
 <main><!-- main gameplay -->
     <section id="InOut">
-        <div id="terminal-input" class="border-glow">
+        <section id="terminal-input" class="border-glow">
             <button id="btn-print-hello">Print hi :D ( normal )</button>
             <button id="btn-print-hello-log">Print hi :D ( log )</button>
             <button id="btn-print-hello-alert">Print hi :D ( alert )</button>
-        </div>
-        <div id="terminal-output" class="border-glow">
+        </section>
+        <section id="terminal-output" class="border-glow">
 
-        </div>
+        </section>
     </section>
 </main>
 

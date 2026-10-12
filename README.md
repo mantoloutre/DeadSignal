@@ -14,7 +14,7 @@ development and it's going to take a while for it to be done.
 I have to say, it doest work, but you can't do much for now but you can go see it there: [Dead Signal](https://mantoloutre.github.io/DeadSignal/)
 
 > ### Some information ( you can skip if you want )
-> when I code, most of the time, I will put what a function does ( exemple: in GameState.ts the function to export)
+> when I code, most of the time, I will put what a function does ( exemple: in gameState.ts the function to export)
 > 
 > There is two reason for this;
 > 1. the first is I encourage other to use it and instead of copying and pasting something they don't understand, they can see what is it and what it does.

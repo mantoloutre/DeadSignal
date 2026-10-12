@@ -1,0 +1,14 @@
+.alert {
+    color: red;
+}
+
+.alert::before {
+    content: "[ALERT] : ";
+    color: red;
+    font-weight: bold;
+}
+
+.system::before {
+    content: "[SYSTEM] : ";
+    font-weight: bold;
+}
