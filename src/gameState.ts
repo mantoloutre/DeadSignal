@@ -1,3 +1,7 @@
+import {
+    Chapter
+} from "./world.js"
+
 //base
 export interface GameState {
     app: string;
@@ -6,19 +10,14 @@ export interface GameState {
     powerLevel: number;
     currentFrequency: number;
     discoveredSignals: string[];
-    storyFlags: StoryFlags[]
+    storyFlags: StoryFlag[]
 }
-
-export interface Chapter {
-    name: string;
-    zone: string;
-}
-
 export const StoryFlags = {
+    CHECKED_TRUCK_TRUNK:"CHECKED_TRUCK_TRUNK",
     TRUCK_REPAIRED: "TRUC_REPAIRED",
     WALKED_TO_TOWER: "WALKED_TO_TOWER"
-}
-export type StoryFlags = typeof StoryFlags[keyof typeof StoryFlags];
+} as const;
+export type StoryFlag = typeof StoryFlags[keyof typeof StoryFlags];
 export const GAME_INITIAL_STATE: GameState = {
     app: "DEAD_SIGNAL",
     version: 1,
@@ -33,18 +32,21 @@ export const GAME_INITIAL_STATE: GameState = {
 };
 export let currentState: GameState = {...GAME_INITIAL_STATE};
 
-export function addFlag(flag: StoryFlags): void {
+export function addFlag(flag: StoryFlag): void {
     if (!currentState.storyFlags.includes(flag)) {
         currentState.storyFlags.push(flag);
     }
 }
 
-export function hasFlag(flag: StoryFlags): boolean {
+export function hasFlag(flag: StoryFlag): boolean {
     return currentState.storyFlags.includes(flag);
 }
 
-export function removeFlag(flag: StoryFlags): void{
-    //TODO
+export function removeFlag(flag: StoryFlag): void {
+    const index: number = currentState.storyFlags.indexOf(flag);
+    if (index !== -1) {
+        currentState.storyFlags.splice(index, 1);
+    }
 }
 
 /*
@@ -128,25 +130,32 @@ export function importSaveFile(
                 return;
             }
             // step 7
-            const maybeInvalidChapter: Partial<Chapter> = (typeof obj.chapter === "object" && obj.chapter !== null)
-                ? (obj.chapter as Partial<Chapter>) : GAME_INITIAL_STATE.chapter;
+            const maybeInvalidChapter: Partial<Chapter> =
+                (typeof obj.chapter === "object" && obj.chapter !== null)
+                    ? (obj.chapter as Partial<Chapter>) : GAME_INITIAL_STATE.chapter;
             const validChapter: Chapter = {
                 name: typeof maybeInvalidChapter.name === "string"
                     ? maybeInvalidChapter.name : GAME_INITIAL_STATE.chapter.name,
                 zone: typeof maybeInvalidChapter.zone === "string"
                     ? maybeInvalidChapter.zone : GAME_INITIAL_STATE.chapter.zone
             };
+            const validStoryFlags: StoryFlag[] = Array.isArray(obj.storyFlags)
+                ? (obj.storyFlags.filter((f):
+                f is StoryFlag => typeof f === "string")) :
+                [...GAME_INITIAL_STATE.storyFlags];
             // step 8
             currentState = {
                 ...GAME_INITIAL_STATE,
                 chapter: validChapter,
                 powerLevel: typeof obj.powerLevel === "number" ? obj.powerLevel :
                     GAME_INITIAL_STATE.powerLevel,
-                currentFrequency: typeof obj.currentFrequency === "number" ? obj.currentFrequency :
+                currentFrequency: typeof obj.currentFrequency === "number"
+                    ? obj.currentFrequency :
                     GAME_INITIAL_STATE.currentFrequency,
                 discoveredSignals: Array.isArray(obj.discoveredSignals)
                     ? (obj.discoveredSignals as string[]) :
-                    [...GAME_INITIAL_STATE.discoveredSignals]
+                    [...GAME_INITIAL_STATE.discoveredSignals],
+                storyFlags: validStoryFlags
             };
             //step 9
             onSuccess();

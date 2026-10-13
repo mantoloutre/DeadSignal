@@ -1,4 +1,5 @@
 export const StoryFlags = {
+    CHECKED_TRUCK_TRUNK: "CHECKED_TRUCK_TRUNK",
     TRUCK_REPAIRED: "TRUC_REPAIRED",
     WALKED_TO_TOWER: "WALKED_TO_TOWER"
 };
@@ -24,7 +25,10 @@ export function hasFlag(flag) {
     return currentState.storyFlags.includes(flag);
 }
 export function removeFlag(flag) {
-    //TODO
+    const index = currentState.storyFlags.indexOf(flag);
+    if (index !== -1) {
+        currentState.storyFlags.splice(index, 1);
+    }
 }
 /*
 function to export the game in json.<br>
@@ -112,17 +116,22 @@ export function importSaveFile(onSuccess, onError) {
                 zone: typeof maybeInvalidChapter.zone === "string"
                     ? maybeInvalidChapter.zone : GAME_INITIAL_STATE.chapter.zone
             };
+            const validStoryFlags = Array.isArray(obj.storyFlags)
+                ? (obj.storyFlags.filter((f) => typeof f === "string")) :
+                [...GAME_INITIAL_STATE.storyFlags];
             // step 8
             currentState = {
                 ...GAME_INITIAL_STATE,
                 chapter: validChapter,
                 powerLevel: typeof obj.powerLevel === "number" ? obj.powerLevel :
                     GAME_INITIAL_STATE.powerLevel,
-                currentFrequency: typeof obj.currentFrequency === "number" ? obj.currentFrequency :
+                currentFrequency: typeof obj.currentFrequency === "number"
+                    ? obj.currentFrequency :
                     GAME_INITIAL_STATE.currentFrequency,
                 discoveredSignals: Array.isArray(obj.discoveredSignals)
                     ? obj.discoveredSignals :
-                    [...GAME_INITIAL_STATE.discoveredSignals]
+                    [...GAME_INITIAL_STATE.discoveredSignals],
+                storyFlags: validStoryFlags
             };
             //step 9
             onSuccess();

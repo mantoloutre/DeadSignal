@@ -58,13 +58,15 @@ window.addEventListener("keydown", (keyEvent) => {
         openMenu();
     }
 });
+export let isPrinting = false;
 /*
 function to print to the terminal :D
 @param from the place the text come from(log(yellow), alert(red), normal(green) )
  */
-async function printToTerminal(text, from, speedMs = 15) {
+export async function printToTerminal(text, from, speedMs = 15) {
     if (!terminalOutput)
         return;
+    isPrinting = true;
     const prettyLine = document.createElement("div");
     prettyLine.className = `terminal-line ${from}`;
     terminalOutput.appendChild(prettyLine);
@@ -75,6 +77,7 @@ async function printToTerminal(text, from, speedMs = 15) {
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
         await sleep(speedMs);
     }
+    isPrinting = false;
 }
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

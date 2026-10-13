@@ -73,13 +73,14 @@ window.addEventListener("keydown", (keyEvent) => {
     }
 });
 
-
+export let isPrinting: boolean = false;
 /*
 function to print to the terminal :D
 @param from the place the text come from(log(yellow), alert(red), normal(green) )
  */
-async function printToTerminal(text: string, from: string, speedMs: number = 15): Promise<void> {
+export async function printToTerminal(text: string, from: string, speedMs: number = 15): Promise<void> {
     if (!terminalOutput) return;
+    isPrinting = true;
     const prettyLine: HTMLDivElement = document.createElement("div");
     prettyLine.className = `terminal-line ${from}`;
     terminalOutput.appendChild(prettyLine);
@@ -90,7 +91,7 @@ async function printToTerminal(text: string, from: string, speedMs: number = 15)
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
         await sleep(speedMs);
     }
-
+    isPrinting = false;
 }
 
 function sleep(ms: number): Promise<void> {
