@@ -42,15 +42,26 @@ function closeMenu(): void {
 }
 
 async function printHiNormal(): Promise<void> {
+    if (checkIfPrinting(buttonPrintHi)) {
+        return;
+    }
     await printToTerminal("hi :D", "system");
 }
 
 async function printHiAlert(): Promise<void> {
+    if (checkIfPrinting(buttonPrintHiAlert)) {
+        return;
+    }
     await printToTerminal("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii :D", "alert");
 }
+
 async function printHiLog(): Promise<void> {
+    if (checkIfPrinting(buttonPrintHiLog)) {
+        return;
+    }
     await printToTerminal("hi :D", "log")
 }
+
 // buttons
 buttonOpenSideMenu.addEventListener("click", openMenu);
 buttonCloseSideMenu.addEventListener("click", closeMenu);
@@ -72,8 +83,23 @@ window.addEventListener("keydown", (keyEvent) => {
         openMenu();
     }
 });
-
 export let isPrinting: boolean = false;
+
+/*
+simple function to see if something is being printed
+@param button the html button element to give to make it flash red
+ */
+function checkIfPrinting(button: HTMLButtonElement): boolean {
+    if (!isPrinting) {
+        return false;
+    }
+    button.classList.add("btn-error-flash");
+    setTimeout((): void => {
+        button.classList.remove("btn-error-flash");
+    }, 300);
+    return true;
+}
+
 /*
 function to print to the terminal :D
 @param from the place the text come from(log(yellow), alert(red), normal(green) )
@@ -97,6 +123,7 @@ export async function printToTerminal(text: string, from: string, speedMs: numbe
 function sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
 /*
 function that is call to initialize game
  */

@@ -30,12 +30,21 @@ function closeMenu() {
     sideMenuOverlay.classList.add("hidden");
 }
 async function printHiNormal() {
+    if (checkIfPrinting(buttonPrintHi)) {
+        return;
+    }
     await printToTerminal("hi :D", "system");
 }
 async function printHiAlert() {
+    if (checkIfPrinting(buttonPrintHiAlert)) {
+        return;
+    }
     await printToTerminal("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii :D", "alert");
 }
 async function printHiLog() {
+    if (checkIfPrinting(buttonPrintHiLog)) {
+        return;
+    }
     await printToTerminal("hi :D", "log");
 }
 // buttons
@@ -59,6 +68,20 @@ window.addEventListener("keydown", (keyEvent) => {
     }
 });
 export let isPrinting = false;
+/*
+simple function to see if something is being printed
+@param button the html button element to give to make it flash red
+ */
+function checkIfPrinting(button) {
+    if (!isPrinting) {
+        return false;
+    }
+    button.classList.add("btn-error-flash");
+    setTimeout(() => {
+        button.classList.remove("btn-error-flash");
+    }, 300);
+    return true;
+}
 /*
 function to print to the terminal :D
 @param from the place the text come from(log(yellow), alert(red), normal(green) )

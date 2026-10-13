@@ -15,3 +15,11 @@ button:active {
     text-shadow: 0 0 2px var(--button-hover-color);
     box-shadow: 0 0 2px #011a3f;
 }
+@keyframes flash-red {
+    0% { color: var(--text-red-color); border-color: var(--text-red-color); }
+    50% { background-color: #aa0000; border-color: #ff0000; }
+    100% { background-color: inherit; border-color: inherit; }
+}
+.btn-error-flash {
+    animation: flash-red 0.3s ease;
+}
