@@ -23,6 +23,19 @@ function openMenu() {
     sideMenuOverlay.classList.remove("hidden");
 }
 /*
+binding a button and an action in a better way
+ ( no repeating myself by always adding a guard clause)
+ */
+function bindingAction(button, action) {
+    button.addEventListener("click", async () => {
+        if (isPrinting) {
+            flashButton(button);
+            return;
+        }
+        await action();
+    });
+}
+/*
 function to close side menu
  */
 function closeMenu() {
@@ -30,30 +43,21 @@ function closeMenu() {
     sideMenuOverlay.classList.add("hidden");
 }
 async function printHiNormal() {
-    if (checkIfPrinting(buttonPrintHi)) {
-        return;
-    }
     await printToTerminal("hi :D", "system");
 }
 async function printHiAlert() {
-    if (checkIfPrinting(buttonPrintHiAlert)) {
-        return;
-    }
     await printToTerminal("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii :D", "alert");
 }
 async function printHiLog() {
-    if (checkIfPrinting(buttonPrintHiLog)) {
-        return;
-    }
     await printToTerminal("hi :D", "log");
 }
 // buttons
+bindingAction(buttonPrintHi, printHiNormal);
+bindingAction(buttonPrintHiLog, printHiLog);
+bindingAction(buttonPrintHiAlert, printHiAlert);
 buttonOpenSideMenu.addEventListener("click", openMenu);
 buttonCloseSideMenu.addEventListener("click", closeMenu);
-buttonPrintHi.addEventListener("click", printHiNormal);
-buttonPrintHiAlert.addEventListener("click", printHiAlert);
 buttonExport.addEventListener("click", exportSaveFile);
-buttonPrintHiLog.addEventListener("click", printHiLog);
 // others
 sideMenuOverlay.addEventListener("click", closeMenu);
 /*
@@ -68,19 +72,9 @@ window.addEventListener("keydown", (keyEvent) => {
     }
 });
 export let isPrinting = false;
-/*
-simple function to see if something is being printed
-@param button the html button element to give to make it flash red
- */
-function checkIfPrinting(button) {
-    if (!isPrinting) {
-        return false;
-    }
-    button.classList.add("btn-error-flash");
-    setTimeout(() => {
-        button.classList.remove("btn-error-flash");
-    }, 300);
-    return true;
+function flashButton(btn) {
+    btn.classList.add("btn-error-flash");
+    setTimeout(() => btn.classList.remove("btn-error-flash"), 300);
 }
 /*
 function to print to the terminal :D
