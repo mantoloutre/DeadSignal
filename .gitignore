@@ -4,15 +4,11 @@
 
 # Node / Dépendances
 node_modules/
-package-lock.json
-
-# Build / Sortie TypeScript
-dist/
 
 # Fichiers système et logs
 .DS_Store
 Thumbs.db
 *.log
 
-# wakatime config
-/.wakatime-project
+# WakaTime
+.wakatime-project
