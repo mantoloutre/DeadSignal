@@ -2,6 +2,7 @@
 //TODO make the player interface
 //imports
 import { exportSaveFile } from "./gameState.js";
+import { checkTruckTrunk } from "./actions.js";
 // buttons
 const buttonOpenSideMenu = document.getElementById("btn-menu-open");
 const buttonCloseSideMenu = document.getElementById("btn-menu-close");
@@ -10,10 +11,15 @@ const buttonPrintHiAlert = document.getElementById("btn-print-hello-alert");
 const buttonExport = document.getElementById("btn-export");
 const buttonImport = document.getElementById("btn-import");
 const buttonPrintHiLog = document.getElementById("btn-print-hello-log");
+const buttonOpenInventory = document.getElementById("btn-open-inventory");
+const buttonCloseInventory = document.getElementById("btn-close-inventory");
+//zone 1
+const buttonOpenTrunk = document.getElementById("btn-open-truck-trunk");
 // elements
 const sideMenu = document.getElementById("side-menu");
 const sideMenuOverlay = document.getElementById("menu-overlay");
 const terminalOutput = document.getElementById("terminal-output");
+const inventory = document.getElementById("inventory");
 /*
 simple function to open the menu by removing
 the "hidden" class from their classList
@@ -42,6 +48,14 @@ function closeMenu() {
     sideMenu.classList.add("hidden");
     sideMenuOverlay.classList.add("hidden");
 }
+function openInventory() {
+    inventory.classList.add("inventory-active");
+    sideMenuOverlay.classList.remove("hidden");
+}
+function closeInventory() {
+    inventory.classList.remove("inventory-active");
+    sideMenuOverlay.classList.add("hidden");
+}
 async function printHiNormal() {
     await printToTerminal("hi :D", "system");
 }
@@ -52,14 +66,32 @@ async function printHiLog() {
     await printToTerminal("hi :D", "log");
 }
 // buttons
-bindingAction(buttonPrintHi, printHiNormal);
-bindingAction(buttonPrintHiLog, printHiLog);
-bindingAction(buttonPrintHiAlert, printHiAlert);
+//general
 buttonOpenSideMenu.addEventListener("click", openMenu);
 buttonCloseSideMenu.addEventListener("click", closeMenu);
 buttonExport.addEventListener("click", exportSaveFile);
+buttonOpenInventory.addEventListener("click", openInventory);
+buttonCloseInventory.addEventListener("click", closeInventory);
+//test
+bindingAction(buttonPrintHi, printHiNormal);
+bindingAction(buttonPrintHiLog, printHiLog);
+bindingAction(buttonPrintHiAlert, printHiAlert);
+//zone 1
+bindingAction(buttonOpenTrunk, checkTruckTrunk);
 // others
-sideMenuOverlay.addEventListener("click", closeMenu);
+/*
+function to close the correct interface ( i dont wanna redo a overlay for everything so
+im just going to reuse the sideMenuOverlay
+ */
+function closeInterface() {
+    if (!sideMenu.classList.contains("hidden")) {
+        closeMenu();
+    }
+    else if (inventory.classList.contains("inventory-active")) {
+        closeInventory();
+    }
+}
+sideMenuOverlay.addEventListener("click", closeInterface);
 /*
 shortcut ( press escape to close/open side menu, instead of having to click a smoll button )
  */
@@ -103,9 +135,7 @@ function sleep(ms) {
 function that is call to initialize game
  */
 async function initGame() {
-    await printToTerminal("TACTICAL TRUCK 04 - MAIN ENGINE DOWN.", "system");
-    await printToTerminal("LOADING FILE FOR MISSION #882...", "system");
-    await printToTerminal("ERROR, I HAVEN'T DONE MORE THAN THIS FOR NOW T-T, sorry", "alert");
+    await printToTerminal("sorry, the game story has not been started yet :c", "alert");
 }
 /*
 function in case there is an error while trying to initialize game

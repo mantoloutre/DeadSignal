@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="src/css/buttons.css">
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="stylesheet" href="src/css/top-bar.css">
+    <link rel="stylesheet" href="src/css/inventory.css">
     <link rel="stylesheet" href="src/css/main-content.css">
     <script type="module" src="src/main.js"></script>
 </head>
@@ -19,7 +20,7 @@
         <button id="btn-menu-open" class="icon_btn">Menu</button>
         <button id="btn-journal">Journal</button>
         <button id="btn-map">Map</button>
-        <button class="btn-inventory">Inventory</button>
+        <button id="btn-open-inventory">Inventory</button>
     </div>
     <div>
         <p id="frequency">null</p>
@@ -39,6 +40,16 @@
         <button id="btn-import">Import</button>
     </div>
 </aside>
+<section id="inventory" class="border-glow">
+    <button id="btn-close-inventory">Back</button>
+    <div id="inventory-container">
+        <ul id="inventory-list">
+        </ul>
+        <div id="inventory-item-details">
+            <p id="inv-description">Select an item</p>
+        </div>
+    </div>
+</section>
 <main><!-- main gameplay -->
     <section id="InOut">
         <div id="terminal-input" class="border-glow">

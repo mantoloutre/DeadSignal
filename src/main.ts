@@ -4,6 +4,7 @@
 import {
     exportSaveFile
 } from "./gameState.js";
+import {checkTruckTrunk} from "./actions.js";
 
 // buttons
 const buttonOpenSideMenu: HTMLButtonElement = document.getElementById("btn-menu-open") as HTMLButtonElement;
@@ -17,11 +18,19 @@ const buttonExport: HTMLButtonElement = document.getElementById("btn-export") as
 const buttonImport: HTMLButtonElement = document.getElementById("btn-import") as HTMLButtonElement;
 const buttonPrintHiLog: HTMLButtonElement =
     document.getElementById("btn-print-hello-log") as HTMLButtonElement;
+const buttonOpenInventory: HTMLButtonElement =
+    document.getElementById("btn-open-inventory") as HTMLButtonElement;
+const buttonCloseInventory: HTMLButtonElement =
+    document.getElementById("btn-close-inventory") as HTMLButtonElement;
+//zone 1
+const buttonOpenTrunk: HTMLButtonElement =
+    document.getElementById("btn-open-truck-trunk") as HTMLButtonElement;
 
 // elements
-const sideMenu: HTMLElement = document.getElementById("side-menu") as HTMLElement;
-const sideMenuOverlay: HTMLElement = document.getElementById("menu-overlay") as HTMLElement;
+const sideMenu: HTMLDivElement = document.getElementById("side-menu") as HTMLDivElement;
+const sideMenuOverlay: HTMLDivElement = document.getElementById("menu-overlay") as HTMLDivElement;
 const terminalOutput: HTMLDivElement = document.getElementById("terminal-output") as HTMLDivElement;
+const inventory: HTMLDivElement = document.getElementById("inventory") as HTMLDivElement;
 
 
 /*
@@ -32,19 +41,21 @@ function openMenu(): void {
     sideMenu.classList.remove("hidden");
     sideMenuOverlay.classList.remove("hidden");
 }
+
 /*
 binding a button and an action in a better way
  ( no repeating myself by always adding a guard clause)
  */
-function bindingAction(button: HTMLButtonElement, action: () => Promise<void>):void{
+function bindingAction(button: HTMLButtonElement, action: () => Promise<void>): void {
     button.addEventListener("click", async (): Promise<void> => {
-        if (isPrinting){
+        if (isPrinting) {
             flashButton(button);
             return;
         }
         await action();
     })
 }
+
 /*
 function to close side menu
  */
@@ -53,6 +64,15 @@ function closeMenu(): void {
     sideMenuOverlay.classList.add("hidden");
 }
 
+function openInventory(): void {
+    inventory.classList.add("inventory-active");
+    sideMenuOverlay.classList.remove("hidden");
+}
+
+function closeInventory(): void {
+    inventory.classList.remove("inventory-active");
+    sideMenuOverlay.classList.add("hidden");
+}
 async function printHiNormal(): Promise<void> {
     await printToTerminal("hi :D", "system");
 }
@@ -66,15 +86,33 @@ async function printHiLog(): Promise<void> {
 }
 
 // buttons
-bindingAction(buttonPrintHi, printHiNormal);
-bindingAction(buttonPrintHiLog, printHiLog);
-bindingAction(buttonPrintHiAlert, printHiAlert);
+//general
 buttonOpenSideMenu.addEventListener("click", openMenu);
 buttonCloseSideMenu.addEventListener("click", closeMenu);
 buttonExport.addEventListener("click", exportSaveFile);
+buttonOpenInventory.addEventListener("click", openInventory);
+buttonCloseInventory.addEventListener("click", closeInventory)
+//test
+bindingAction(buttonPrintHi, printHiNormal);
+bindingAction(buttonPrintHiLog, printHiLog);
+bindingAction(buttonPrintHiAlert, printHiAlert);
+//zone 1
+bindingAction(buttonOpenTrunk, checkTruckTrunk);
 
 // others
-sideMenuOverlay.addEventListener("click", closeMenu);
+/*
+function to close the correct interface ( i dont wanna redo a overlay for everything so
+im just going to reuse the sideMenuOverlay
+ */
+function closeInterface(): void {
+    if (!sideMenu.classList.contains("hidden")) {
+        closeMenu();
+    } else if (inventory.classList.contains("inventory-active")) {
+        closeInventory();
+    }
+}
+
+sideMenuOverlay.addEventListener("click", closeInterface);
 
 /*
 shortcut ( press escape to close/open side menu, instead of having to click a smoll button )
@@ -90,7 +128,7 @@ export let isPrinting: boolean = false;
 
 function flashButton(btn: HTMLButtonElement): void {
     btn.classList.add("btn-error-flash");
-    setTimeout(():void => btn.classList.remove("btn-error-flash"), 300);
+    setTimeout((): void => btn.classList.remove("btn-error-flash"), 300);
 }
 
 /*
@@ -121,9 +159,7 @@ function sleep(ms: number): Promise<void> {
 function that is call to initialize game
  */
 async function initGame(): Promise<void> {
-    await printToTerminal("TACTICAL TRUCK 04 - MAIN ENGINE DOWN.", "system");
-    await printToTerminal("LOADING FILE FOR MISSION #882...", "system");
-    await printToTerminal("ERROR, I HAVEN'T DONE MORE THAN THIS FOR NOW T-T, sorry", "alert");
+    await printToTerminal("sorry, the game story has not been started yet :c", "alert");
 }
 
 /*

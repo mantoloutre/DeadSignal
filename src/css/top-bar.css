@@ -15,7 +15,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--top-bar_bck);
+    background: var(--main-color-background);
     border-bottom: var(--separator-width) solid var(--separetor-color);
     margin-bottom: 20px;
     padding: 0.2%;

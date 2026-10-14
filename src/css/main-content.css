@@ -24,7 +24,7 @@
 }
 #terminal-output {
     width: 70%;
-    background-color: #080d08;
+    background-color: var(--main-color-background);
     color: var(--text-color);
     text-shadow: 0 0 3px var(--text-green-glow);
     font-size: 14px;
@@ -47,6 +47,7 @@
     padding: 1%;
     height: auto;
     align-content: flex-start;
+    background-color: var(--main-color-background);
 }
 .terminal-line {
     line-height: 1.5;

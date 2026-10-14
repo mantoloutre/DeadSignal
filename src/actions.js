@@ -1,9 +1,15 @@
-import { addFlag, hasFlag, StoryFlags } from "./gameState";
+import { addFlag, hasFlag, StoryFlags } from "./gameState.js";
 import { printToTerminal } from "./main.js";
+export async function OpenInventory() {
+}
 export async function checkTruckTrunk() {
     if (!hasFlag("CHECKED_TRUCK_TRUNK")) {
         addFlag(StoryFlags.CHECKED_TRUCK_TRUNK);
-        await printToTerminal("You pry open the frozen trunk. Inside of it, you spot" +
-            " a heavy toolbox, a mysterious black barrel and two spare tires.", "system");
+        await printToTerminal("You force the frozen trunk open with your bare hands. Inside, you spot" +
+            " a heavy toolbox, a small black barrel full of wine and two spare tires.", "system");
+    }
+    else {
+        await printToTerminal("Inside the truck, nothing changed, still a heavy toolbox, " +
+            "the barrel of wine and the two spare tire.", "system");
     }
 }

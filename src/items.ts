@@ -11,4 +11,4 @@ export const items: Item[] = [
         name: "walki-talki",
         description: "little portale radio to be able to communicate"
     }
-]
+];
