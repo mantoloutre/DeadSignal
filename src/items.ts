@@ -1,7 +1,8 @@
+export type ItemType = "tool" | "consumable" | "key";
 interface Item {
     id: string;
     name: string;
-    type: string;
+    type: ItemType;
     description: string;
 }
 export const ITEMS: Record<string, Item> = {
