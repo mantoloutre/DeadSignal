@@ -1,14 +1,26 @@
-interface Item{
+interface Item {
+    id: string;
     name: string;
+    type: string;
     description: string;
 }
-export const items: Item[] = [
-    {
-        name: "crowbar",
-        description: "a simple red crowbar"
+export const ITEMS: Record<string, Item> = {
+    crowbar: {
+        id: "crowbar",
+        name: "Crowbar",
+        type: "tool",
+        description: "A simple fine looking and sturdy red crowbar."
     },
-    {
-        name: "walki-talki",
-        description: "little portale radio to be able to communicate"
+    flare: {
+        id: "flare",
+        name: "Flare",
+        type: "consumable",
+        description: "émit a blinding red light and intense heat for a short amount of time."
+    },
+    encryption_key: {
+        id: "encryption_key",
+        name: "military encryption key",
+        type: "tool",
+        description: "a USB key found on the technician."
     }
-];
+}

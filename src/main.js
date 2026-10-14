@@ -31,6 +31,7 @@ function openMenu() {
 /*
 binding a button and an action in a better way
  ( no repeating myself by always adding a guard clause)
+ @note only usable with function that Promise<void>, with only void it doesnt work
  */
 function bindingAction(button, action) {
     button.addEventListener("click", async () => {
