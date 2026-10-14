@@ -1,6 +1,3 @@
-//TODO make the room interface
-//TODO make the player interface
-//imports
 import { exportSaveFile } from "./gameState.js";
 import { checkTruckTrunk } from "./actions.js";
 // buttons
@@ -13,13 +10,31 @@ const buttonImport = document.getElementById("btn-import");
 const buttonPrintHiLog = document.getElementById("btn-print-hello-log");
 const buttonOpenInventory = document.getElementById("btn-open-inventory");
 const buttonCloseInventory = document.getElementById("btn-close-inventory");
-//zone 1
+// zone 1
 const buttonOpenTrunk = document.getElementById("btn-open-truck-trunk");
-// elements
+// div elements
 const sideMenu = document.getElementById("side-menu");
 const sideMenuOverlay = document.getElementById("menu-overlay");
 const terminalOutput = document.getElementById("terminal-output");
 const inventory = document.getElementById("inventory");
+const terminalInput = document.getElementById("terminal-input");
+export async function loadZone(zone) {
+    await printToTerminal(`ZONE: ${zone.name}`, "system");
+    await printToTerminal(zone.description, "system");
+}
+/*
+function to render in a dynamic way the actions for a zone<br>
+detailed explanation:
+-
+1. remove every buttons from the terminal input area
+2.
+ */
+export function renderZoneActions(zone) {
+    if (!terminalInput)
+        return;
+    //step 1
+    terminalInput.innerHTML = "";
+}
 /*
 simple function to open the menu by removing
 the "hidden" class from their classList
@@ -74,9 +89,11 @@ buttonExport.addEventListener("click", exportSaveFile);
 buttonOpenInventory.addEventListener("click", openInventory);
 buttonCloseInventory.addEventListener("click", closeInventory);
 //test
+/*
 bindingAction(buttonPrintHi, printHiNormal);
 bindingAction(buttonPrintHiLog, printHiLog);
 bindingAction(buttonPrintHiAlert, printHiAlert);
+*/
 //zone 1
 bindingAction(buttonOpenTrunk, checkTruckTrunk);
 // others

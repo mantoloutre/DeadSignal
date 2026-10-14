@@ -1,10 +1,8 @@
-//TODO make the room interface
-//TODO make the player interface
-//imports
 import {
     exportSaveFile
 } from "./gameState.js";
 import {checkTruckTrunk} from "./actions.js";
+import {Zone} from "./world.js";
 
 // buttons
 const buttonOpenSideMenu: HTMLButtonElement = document.getElementById("btn-menu-open") as HTMLButtonElement;
@@ -22,17 +20,37 @@ const buttonOpenInventory: HTMLButtonElement =
     document.getElementById("btn-open-inventory") as HTMLButtonElement;
 const buttonCloseInventory: HTMLButtonElement =
     document.getElementById("btn-close-inventory") as HTMLButtonElement;
-//zone 1
+// zone 1
 const buttonOpenTrunk: HTMLButtonElement =
     document.getElementById("btn-open-truck-trunk") as HTMLButtonElement;
 
-// elements
+// div elements
 const sideMenu: HTMLDivElement = document.getElementById("side-menu") as HTMLDivElement;
 const sideMenuOverlay: HTMLDivElement = document.getElementById("menu-overlay") as HTMLDivElement;
 const terminalOutput: HTMLDivElement = document.getElementById("terminal-output") as HTMLDivElement;
 const inventory: HTMLDivElement = document.getElementById("inventory") as HTMLDivElement;
+const terminalInput: HTMLDivElement =
+    document.getElementById("terminal-input") as HTMLDivElement;
 
+export type fromType = "system" | "alert" | "QG" | "log" | "action";
 
+export async function loadZone(zone: Zone): Promise<void> {
+    await printToTerminal(`ZONE: ${zone.name}`, "system");
+    await printToTerminal(zone.description, "system");
+}
+/*
+function to render in a dynamic way the actions for a zone<br>
+detailed explanation:
+-
+1. remove every buttons from the terminal input area
+2.
+ */
+export function renderZoneActions(zone: Zone): void{
+    if(!terminalInput) return;
+    //step 1
+    terminalInput.innerHTML = "";
+
+}
 /*
 simple function to open the menu by removing
 the "hidden" class from their classList
@@ -74,6 +92,7 @@ function closeInventory(): void {
     inventory.classList.remove("inventory-active");
     sideMenuOverlay.classList.add("hidden");
 }
+
 async function printHiNormal(): Promise<void> {
     await printToTerminal("hi :D", "system");
 }
@@ -94,9 +113,12 @@ buttonExport.addEventListener("click", exportSaveFile);
 buttonOpenInventory.addEventListener("click", openInventory);
 buttonCloseInventory.addEventListener("click", closeInventory)
 //test
+/*
 bindingAction(buttonPrintHi, printHiNormal);
 bindingAction(buttonPrintHiLog, printHiLog);
 bindingAction(buttonPrintHiAlert, printHiAlert);
+*/
+
 //zone 1
 bindingAction(buttonOpenTrunk, checkTruckTrunk);
 
@@ -136,7 +158,7 @@ function flashButton(btn: HTMLButtonElement): void {
 function to print to the terminal :D
 @param from the place the text come from(log(yellow), alert(red), normal(green) )
  */
-export async function printToTerminal(text: string, from: string, speedMs: number = 15): Promise<void> {
+export async function printToTerminal(text: string, from: fromType, speedMs: number = 15): Promise<void> {
     if (!terminalOutput) return;
     isPrinting = true;
     const prettyLine: HTMLDivElement = document.createElement("div");

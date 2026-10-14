@@ -7,13 +7,13 @@ export interface User_Choice {
 export interface ZoneActions {
     command: string;
     description: string;
-    execute: () => void;
+    execute: () => Promise<void> | void;
 }
-export interface ZoneDef {
+export interface Zone {
     id: string;
     name: string;
     description: string;
-    actions: ZoneActions[];
+    getActions: () => ZoneActions[];
 }
 
 export interface Chapter {
@@ -25,7 +25,7 @@ const Chapter1: Chapter = {
     zone: "snowy forest"
 }
 /*
-export const ZONES: Record<string, ZoneDef> = {
+export const ZONES: Record<string, Zone> = {
     SNOWY_FOREST: {
         id: "SNOWY_FOREST",
         name: "SNOWY FOREST",

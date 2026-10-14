@@ -4,7 +4,7 @@ const Chapter1 = {
 };
 export {};
 /*
-export const ZONES: Record<string, ZoneDef> = {
+export const ZONES: Record<string, Zone> = {
     SNOWY_FOREST: {
         id: "SNOWY_FOREST",
         name: "SNOWY FOREST",

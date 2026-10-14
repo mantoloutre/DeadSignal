@@ -1,7 +1,6 @@
 import {addFlag, hasFlag, StoryFlags} from "./gameState.js";
 import {printToTerminal} from "./main.js";
 
-export type consoleType = "alert" | "system" | "journal" | "qg";
 
 export async function OpenInventory(): Promise<void> {
 

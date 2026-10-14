@@ -1,9 +1,12 @@
 export type ItemType = "tool" | "consumable" | "key";
-interface Item {
+export interface Item {
     id: string;
     name: string;
     type: ItemType;
     description: string;
+}
+export interface itemConsumable{
+
 }
 export const ITEMS: Record<string, Item> = {
     crowbar: {

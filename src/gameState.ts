@@ -53,24 +53,27 @@ export function removeFlag(flag: StoryFlag): void {
 function to export the game in json.<br>
 detailed explanation:
 -
-1. convert the state in json with indentation
-2. make a virtual file in the memory
-3. simulate the click on a download link
-4. clean memory
+1. update the player's inventory
+2. convert the state in json with indentation
+3. make a virtual file in the memory
+4. simulate the click on a download link
+5. clean memory
  */
 export function exportSaveFile(): void {
     //step 1
-    const jsonString: string = JSON.stringify(currentState, null, 2);
+    //TODO
     //step 2
+    const jsonString: string = JSON.stringify(currentState, null, 2);
+    //step 3
     const blob = new Blob([jsonString], {type: "application/json"});
     const url: string = URL.createObjectURL(blob);
-    //step 3
+    //step 4
     const a: HTMLAnchorElement = document.createElement("a");
     a.href = url;
     a.download = `save_dead_signal${Date.now()}.json`;
     document.body.appendChild(a);
     a.click();
-    //step 4
+    //step 5
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 }
