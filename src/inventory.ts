@@ -23,7 +23,7 @@ export function addItemToInventory(itemId: string, amount: number = 1): boolean 
             return true;
         }
         //if its not a consumable (and its in inventory), we just return false ( and ask.. why..)
-        printToTerminal('you already have one in your inventory, you don''t need 2 of it', "system");
+        printToTerminal('you already have one in your inventory, you don\'t need 2 of it', "system");
     }
     //can stack consumable, cant stack the rest. no you are not gonna hold 48 crowbar in your inventory.
     if (!playerInventory.includes(itemId) && ITEMS[itemId].type !== "consumable") {
