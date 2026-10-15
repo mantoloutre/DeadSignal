@@ -34,6 +34,10 @@ export async function addItemToInventory(itemId: string, amount: number = 1): Pr
 }
 
 export function removeItemFromInventory(itemId: string, amount: number = 1): boolean {
+    //if you dont have it in ur inventory
+    if(!doesThePlayerHasTheItem(itemId)){
+        return false;
+    }
     const slotIndex: number = playerInventory.findIndex(slot => slot.itemId === itemId);
     //if you dont have it in ur inventory
     if(slotIndex == -1) return false;
