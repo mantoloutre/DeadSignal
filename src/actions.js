@@ -1,7 +1,11 @@
 import { addFlag, hasFlag, StoryFlags } from "./gameState.js";
 import { printToTerminal } from "./main.js";
+import { addItemToInventory } from "./inventory.js";
 export async function OpenInventory() {
 }
+/*
+pretty self explanatory function
+ */
 export async function checkTruckTrunk() {
     if (!hasFlag("CHECKED_TRUCK_TRUNK")) {
         addFlag(StoryFlags.CHECKED_TRUCK_TRUNK);
@@ -12,4 +16,16 @@ export async function checkTruckTrunk() {
         await printToTerminal("Inside the truck, nothing changed, still a heavy toolbox, " +
             "the barrel of wine and the two spare tire.", "system");
     }
+}
+/*
+pretty self explanatory function x1
+ */
+export async function addCrowBarToThePlayerInventory() {
+    await addItemToInventory("crowbar");
+}
+/*
+pretty self explanatory function x2
+ */
+export async function addWinterGlovesToThePlayerInventory() {
+    await addItemToInventory("winterGlove");
 }

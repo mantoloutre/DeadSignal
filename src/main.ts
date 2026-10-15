@@ -1,46 +1,44 @@
 import {
     exportSaveFile
 } from "./gameState.js";
-import {checkTruckTrunk} from "./actions.js";
-import {Zone} from "./world.js";
+import {addCrowBarToThePlayerInventory, checkTruckTrunk} from "./actions.js";
+import {Zone, ZoneActions, ZONES} from "./world.js";
 import {playerInventory} from "./inventory.js";
 import {Item, ITEMS} from "./items.js";
 
 // buttons
 const buttonOpenSideMenu: HTMLButtonElement = document.getElementById("btn-menu-open") as HTMLButtonElement;
-const buttonCloseSideMenu: HTMLButtonElement =
-    document.getElementById("btn-menu-close") as HTMLButtonElement;
-const buttonPrintHi: HTMLButtonElement =
-    document.getElementById("btn-print-hello") as HTMLButtonElement;
-const buttonPrintHiAlert: HTMLButtonElement =
-    document.getElementById("btn-print-hello-alert") as HTMLButtonElement;
+const buttonCloseSideMenu: HTMLButtonElement = document.getElementById("btn-menu-close") as HTMLButtonElement;
+const buttonPrintHi: HTMLButtonElement = document.getElementById("btn-print-hello") as HTMLButtonElement;
+const buttonPrintHiAlert: HTMLButtonElement = document.getElementById("btn-print-hello-alert") as HTMLButtonElement;
 const buttonExport: HTMLButtonElement = document.getElementById("btn-export") as HTMLButtonElement;
 const buttonImport: HTMLButtonElement = document.getElementById("btn-import") as HTMLButtonElement;
-const buttonPrintHiLog: HTMLButtonElement =
-    document.getElementById("btn-print-hello-log") as HTMLButtonElement;
-const buttonOpenInventory: HTMLButtonElement =
-    document.getElementById("btn-open-inventory") as HTMLButtonElement;
-const buttonCloseInventory: HTMLButtonElement =
-    document.getElementById("btn-close-inventory") as HTMLButtonElement;
+const buttonPrintHiLog: HTMLButtonElement = document.getElementById("btn-print-hello-log") as HTMLButtonElement;
+const buttonOpenInventory: HTMLButtonElement = document.getElementById("btn-open-inventory") as HTMLButtonElement;
+const buttonCloseInventory: HTMLButtonElement = document.getElementById("btn-close-inventory") as HTMLButtonElement;
 // zone 1
-const buttonOpenTrunk: HTMLButtonElement =
-    document.getElementById("btn-open-truck-trunk") as HTMLButtonElement;
-
+const buttonOpenTrunk: HTMLButtonElement = document.getElementById("btn-open-truck-trunk") as HTMLButtonElement;
+const buttonPickUpCrowBar: HTMLButtonElement = document.getElementById("btn-test-1") as HTMLButtonElement;
+const buttonApplyZone1: HTMLButtonElement = document.getElementById("applyZone1") as HTMLButtonElement;
 // div elements
 const sideMenu: HTMLDivElement = document.getElementById("side-menu") as HTMLDivElement;
 const sideMenuOverlay: HTMLDivElement = document.getElementById("menu-overlay") as HTMLDivElement;
 const terminalOutput: HTMLDivElement = document.getElementById("terminal-output") as HTMLDivElement;
 const inventory: HTMLDivElement = document.getElementById("inventory") as HTMLDivElement;
-const inventoryDesc: HTMLParagraphElement =
-    document.getElementById("inventory-item-details") as HTMLParagraphElement;
-const terminalInput: HTMLDivElement =
-    document.getElementById("terminal-input") as HTMLDivElement;
+const inventoryDesc: HTMLParagraphElement = document.getElementById("inventory-item-details") as HTMLParagraphElement;
+const terminalInput: HTMLDivElement = document.getElementById("terminal-input") as HTMLDivElement;
+const zoneActions: HTMLDivElement = document.getElementById("zone-action") as HTMLDivElement;
+const inventoryItemList: HTMLDivElement = document.getElementById("inventory-items-list") as HTMLDivElement;
+const zoneTag: HTMLParagraphElement = document.getElementById("zone") as HTMLParagraphElement;
+
 
 export type fromType = "system" | "alert" | "QG" | "log" | "action";
 
 export async function loadZone(zone: Zone): Promise<void> {
+    zoneActions.textContent = `${zone.name}`;
     await printToTerminal(`ZONE: ${zone.name}`, "system");
     await printToTerminal(zone.description, "system");
+    renderZoneActions(zone);
 }
 
 /*
@@ -48,35 +46,55 @@ function to render in a dynamic way the actions for a zone<br>
 detailed explanation:
 -
 1. remove every buttons from the terminal input area
-2.
+2. get the choice from the zone
+3. make button for each action
+4. bind it to its action
  */
 export function renderZoneActions(zone: Zone): void {
     if (!terminalInput) return;
     //step 1
-    terminalInput.innerHTML = "";
-
+    zoneActions.innerHTML = "";
+    //step 2
+    const actions: ZoneActions[] = zone.getActions();
+    //sstep 3
+    actions.forEach((action: ZoneActions): void => {
+        const button: HTMLButtonElement = document.createElement("button");
+        button.textContent = `${action.command}`;
+        button.className = "action-btn";
+        button.title = action.description;
+        // step 4
+        bindingAction(button, async (): Promise<void> => {
+            await action.execute();
+            /*
+            this can be added its to reload the zone again but for
+            now useless cuz inventory deal with it
+            renderZoneActions(zone);
+            */
+        });
+        zoneActions.appendChild(button);
+    });
 }
-export function renderThePlayerInventory(): void{
-    if(!inventory || !inventoryDesc) return;
-    inventory.innerHTML = "";
+
+export function renderThePlayerInventory(): void {
+    if (!inventory || !inventoryDesc) return;
+    inventoryItemList.innerHTML = "";
     inventoryDesc.textContent = "Select an item to inspect.";
     if (playerInventory.length === 0) {
         const nothingToSeeThereMsg = document.createElement("p");
         nothingToSeeThereMsg.textContent = "Nothing to see there, its empty";
         nothingToSeeThereMsg.className = "nothing-here-msg";
-        inventory.appendChild(nothingToSeeThereMsg);
+        inventoryItemList.appendChild(nothingToSeeThereMsg);
         //if the inventory is not there or no item
-        inventory.appendChild(buttonCloseInventory);
         return;
     }
     playerInventory.forEach((slot) => {
-        const item:Item = ITEMS[slot.itemId];
+        const item: Item = ITEMS[slot.itemId];
         if (!item) return;
         const buttonForDaItem: HTMLButtonElement = document.createElement("button");
         buttonForDaItem.className = "inventory-item-btn";
 
         //we need to not forget the little counter for consumable item :D!
-        if (item.type === "consumable"){
+        if (item.type === "consumable") {
             buttonForDaItem.textContent = `> ${item.name} x${slot.count}`;
         } else {
             buttonForDaItem.textContent = `> ${item.name}`;
@@ -88,8 +106,7 @@ export function renderThePlayerInventory(): void{
             buttonForDaItem.classList.add("TheOneAndOnlySelectedInventoryItemButton");
             inventoryDesc.textContent = `[${item.type.toUpperCase()}] ${item.description}`;
         });
-        inventory.appendChild(buttonForDaItem);
-        inventory.appendChild(buttonCloseInventory);
+        inventoryItemList.appendChild(buttonForDaItem);
     });
 
 }
@@ -149,6 +166,10 @@ async function printHiLog(): Promise<void> {
     await printToTerminal("hi :D", "log")
 }
 
+async function applyZone1Test(): Promise<void> {
+    await loadZone(ZONES.SNOWY_FOREST);
+}
+
 // buttons
 //general
 buttonOpenSideMenu.addEventListener("click", openMenu);
@@ -165,7 +186,8 @@ bindingAction(buttonPrintHiAlert, printHiAlert);
 
 //zone 1
 bindingAction(buttonOpenTrunk, checkTruckTrunk);
-
+bindingAction(buttonPickUpCrowBar, addCrowBarToThePlayerInventory);
+bindingAction(buttonApplyZone1, applyZone1Test);
 // others
 /*
 function to close the correct interface ( i dont wanna redo a overlay for everything so

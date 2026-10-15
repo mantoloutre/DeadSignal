@@ -16,5 +16,11 @@ export const ITEMS = {
         name: "military encryption key",
         type: "tool",
         description: "a USB key found on the technician."
+    },
+    winter_gloves: {
+        id: "winterGlove",
+        name: "Winter Gloves",
+        type: "tool",
+        description: "a warm pair of gloves, be careful to not burn them."
     }
 };

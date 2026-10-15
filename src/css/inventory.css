@@ -10,8 +10,9 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.15s ease-out, transform 0.15s ease-out;
-    color: var(--text-color)
+    color: var(--text-color);
     /* TODO could make display: none; */
+    gap: 10px
 }
 
 #inventory.inventory-active {
@@ -19,6 +20,12 @@
     pointer-events: auto;
     transform: translate(-50%, -50%) scale(1);
 }
+
 .inventory-item {
     padding: 10px;
+}
+
+#inventory-container {
+    gap: 10px;
+    display: grid;
 }

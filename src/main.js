@@ -1,5 +1,6 @@
 import { exportSaveFile } from "./gameState.js";
-import { checkTruckTrunk } from "./actions.js";
+import { addCrowBarToThePlayerInventory, checkTruckTrunk } from "./actions.js";
+import { ZONES } from "./world.js";
 import { playerInventory } from "./inventory.js";
 import { ITEMS } from "./items.js";
 // buttons
@@ -14,6 +15,8 @@ const buttonOpenInventory = document.getElementById("btn-open-inventory");
 const buttonCloseInventory = document.getElementById("btn-close-inventory");
 // zone 1
 const buttonOpenTrunk = document.getElementById("btn-open-truck-trunk");
+const buttonPickUpCrowBar = document.getElementById("btn-test-1");
+const buttonApplyZone1 = document.getElementById("applyZone1");
 // div elements
 const sideMenu = document.getElementById("side-menu");
 const sideMenuOverlay = document.getElementById("menu-overlay");
@@ -21,35 +24,60 @@ const terminalOutput = document.getElementById("terminal-output");
 const inventory = document.getElementById("inventory");
 const inventoryDesc = document.getElementById("inventory-item-details");
 const terminalInput = document.getElementById("terminal-input");
+const zoneActions = document.getElementById("zone-action");
+const inventoryItemList = document.getElementById("inventory-items-list");
+const zoneTag = document.getElementById("zone");
 export async function loadZone(zone) {
+    zoneActions.textContent = `${zone.name}`;
     await printToTerminal(`ZONE: ${zone.name}`, "system");
     await printToTerminal(zone.description, "system");
+    renderZoneActions(zone);
 }
 /*
 function to render in a dynamic way the actions for a zone<br>
 detailed explanation:
 -
 1. remove every buttons from the terminal input area
-2.
+2. get the choice from the zone
+3. make button for each action
+4. bind it to its action
  */
 export function renderZoneActions(zone) {
     if (!terminalInput)
         return;
     //step 1
-    terminalInput.innerHTML = "";
+    zoneActions.innerHTML = "";
+    //step 2
+    const actions = zone.getActions();
+    //sstep 3
+    actions.forEach((action) => {
+        const button = document.createElement("button");
+        button.textContent = `${action.command}`;
+        button.className = "action-btn";
+        button.title = action.description;
+        // step 4
+        bindingAction(button, async () => {
+            await action.execute();
+            /*
+            this can be added its to reload the zone again but for
+            now useless cuz inventory deal with it
+            renderZoneActions(zone);
+            */
+        });
+        zoneActions.appendChild(button);
+    });
 }
 export function renderThePlayerInventory() {
     if (!inventory || !inventoryDesc)
         return;
-    inventory.innerHTML = "";
+    inventoryItemList.innerHTML = "";
     inventoryDesc.textContent = "Select an item to inspect.";
     if (playerInventory.length === 0) {
         const nothingToSeeThereMsg = document.createElement("p");
         nothingToSeeThereMsg.textContent = "Nothing to see there, its empty";
         nothingToSeeThereMsg.className = "nothing-here-msg";
-        inventory.appendChild(nothingToSeeThereMsg);
+        inventoryItemList.appendChild(nothingToSeeThereMsg);
         //if the inventory is not there or no item
-        inventory.appendChild(buttonCloseInventory);
         return;
     }
     playerInventory.forEach((slot) => {
@@ -72,8 +100,7 @@ export function renderThePlayerInventory() {
             buttonForDaItem.classList.add("TheOneAndOnlySelectedInventoryItemButton");
             inventoryDesc.textContent = `[${item.type.toUpperCase()}] ${item.description}`;
         });
-        inventory.appendChild(buttonForDaItem);
-        inventory.appendChild(buttonCloseInventory);
+        inventoryItemList.appendChild(buttonForDaItem);
     });
 }
 /*
@@ -123,6 +150,9 @@ async function printHiAlert() {
 async function printHiLog() {
     await printToTerminal("hi :D", "log");
 }
+async function applyZone1Test() {
+    await loadZone(ZONES.SNOWY_FOREST);
+}
 // buttons
 //general
 buttonOpenSideMenu.addEventListener("click", openMenu);
@@ -138,6 +168,8 @@ bindingAction(buttonPrintHiAlert, printHiAlert);
 */
 //zone 1
 bindingAction(buttonOpenTrunk, checkTruckTrunk);
+bindingAction(buttonPickUpCrowBar, addCrowBarToThePlayerInventory);
+bindingAction(buttonApplyZone1, applyZone1Test);
 // others
 /*
 function to close the correct interface ( i dont wanna redo a overlay for everything so
