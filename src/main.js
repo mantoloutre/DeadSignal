@@ -1,5 +1,7 @@
 import { exportSaveFile } from "./gameState.js";
 import { checkTruckTrunk } from "./actions.js";
+import { playerInventory } from "./inventory.js";
+import { ITEMS } from "./items.js";
 // buttons
 const buttonOpenSideMenu = document.getElementById("btn-menu-open");
 const buttonCloseSideMenu = document.getElementById("btn-menu-close");
@@ -17,6 +19,7 @@ const sideMenu = document.getElementById("side-menu");
 const sideMenuOverlay = document.getElementById("menu-overlay");
 const terminalOutput = document.getElementById("terminal-output");
 const inventory = document.getElementById("inventory");
+const inventoryDesc = document.getElementById("inventory-item-details");
 const terminalInput = document.getElementById("terminal-input");
 export async function loadZone(zone) {
     await printToTerminal(`ZONE: ${zone.name}`, "system");
@@ -34,6 +37,42 @@ export function renderZoneActions(zone) {
         return;
     //step 1
     terminalInput.innerHTML = "";
+}
+export function renderThePlayerInventory() {
+    if (!inventory || !inventoryDesc)
+        return;
+    inventory.innerHTML = "";
+    inventoryDesc.textContent = "Select an item to inspect.";
+    if (playerInventory.length === 0) {
+        const nothingToSeeThereMsg = document.createElement("p");
+        nothingToSeeThereMsg.textContent = "Nothing to see there, its empty";
+        nothingToSeeThereMsg.className = "nothing-here-msg";
+        inventory.appendChild(nothingToSeeThereMsg);
+        //if the inventory is not there
+        return;
+    }
+    playerInventory.forEach((slot) => {
+        const item = ITEMS[slot.itemId];
+        if (!item)
+            return;
+        const buttonForDaItem = document.createElement("button");
+        buttonForDaItem.className = "inventory-item-btn";
+        //we need to not forget the little counter for consumable item :D!
+        if (item.type === "consumable") {
+            buttonForDaItem.textContent = `> ${item.name} x${slot.count}`;
+        }
+        else {
+            buttonForDaItem.textContent = `> ${item.name}`;
+        }
+        buttonForDaItem.addEventListener("click", () => {
+            document.querySelectorAll(".inventory-item-btn").forEach(btn => {
+                btn.classList.remove("TheOneAndOnlySelectedInventoryItemButton");
+            });
+            buttonForDaItem.classList.add("TheOneAndOnlySelectedInventoryItemButton");
+            inventoryDesc.textContent = `[${item.type.toUpperCase()}] ${item.description}`;
+        });
+        inventory.appendChild(buttonForDaItem);
+    });
 }
 /*
 simple function to open the menu by removing
@@ -67,6 +106,7 @@ function closeMenu() {
 function openInventory() {
     inventory.classList.add("inventory-active");
     sideMenuOverlay.classList.remove("hidden");
+    renderThePlayerInventory();
 }
 function closeInventory() {
     inventory.classList.remove("inventory-active");

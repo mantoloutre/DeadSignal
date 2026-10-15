@@ -11,6 +11,7 @@
     pointer-events: none;
     transition: opacity 0.15s ease-out, transform 0.15s ease-out;
     color: var(--text-color)
+    /* TODO could make display: none; */
 }
 
 #inventory.inventory-active {

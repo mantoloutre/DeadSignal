@@ -19,7 +19,7 @@ export const ITEMS: Record<string, Item> = {
         id: "flare",
         name: "Flare",
         type: "consumable",
-        description: "émit a blinding red light and intense heat for a short amount of time."
+        description: "emit a blinding red light and intense heat for a short amount of time."
     },
     encryption_key: {
         id: "encryption_key",

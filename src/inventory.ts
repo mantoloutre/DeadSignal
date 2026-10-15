@@ -35,20 +35,24 @@ export async function addItemToInventory(itemId: string, amount: number = 1): Pr
 
 export function removeItemFromInventory(itemId: string, amount: number = 1): boolean {
     //if you dont have it in ur inventory
-    if(!doesThePlayerHasTheItem(itemId)){
+    if (!doesThePlayerHasTheItem(itemId)) {
         return false;
     }
     const slotIndex: number = playerInventory.findIndex(slot => slot.itemId === itemId);
-    //if you dont have it in ur inventory
-    if(slotIndex == -1) return false;
-
     playerInventory[slotIndex].count -= amount;
-    if (playerInventory[slotIndex].count <= 0){
+    if (playerInventory[slotIndex].count <= 0) {
         playerInventory.splice(slotIndex, 1);
     }
     //if you have it in your inventory
     return true;
 }
-export function doesThePlayerHasTheItem(itemId: string): boolean{
+
+export function doesThePlayerHasTheItem(itemId: string): boolean {
     return playerInventory.some(slot => slot.itemId === itemId && slot.count > 0);
+}
+
+export function getThePlayerInventoryItem(): Item[] {
+    return playerInventory
+        .map(slot => ITEMS[slot.itemId])
+        .filter((item): item is Item => item !== undefined);
 }

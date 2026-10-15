@@ -3,6 +3,8 @@ import {
 } from "./gameState.js";
 import {checkTruckTrunk} from "./actions.js";
 import {Zone} from "./world.js";
+import {playerInventory} from "./inventory.js";
+import {Item, ITEMS} from "./items.js";
 
 // buttons
 const buttonOpenSideMenu: HTMLButtonElement = document.getElementById("btn-menu-open") as HTMLButtonElement;
@@ -29,6 +31,8 @@ const sideMenu: HTMLDivElement = document.getElementById("side-menu") as HTMLDiv
 const sideMenuOverlay: HTMLDivElement = document.getElementById("menu-overlay") as HTMLDivElement;
 const terminalOutput: HTMLDivElement = document.getElementById("terminal-output") as HTMLDivElement;
 const inventory: HTMLDivElement = document.getElementById("inventory") as HTMLDivElement;
+const inventoryDesc: HTMLParagraphElement =
+    document.getElementById("inventory-item-details") as HTMLParagraphElement;
 const terminalInput: HTMLDivElement =
     document.getElementById("terminal-input") as HTMLDivElement;
 
@@ -38,6 +42,7 @@ export async function loadZone(zone: Zone): Promise<void> {
     await printToTerminal(`ZONE: ${zone.name}`, "system");
     await printToTerminal(zone.description, "system");
 }
+
 /*
 function to render in a dynamic way the actions for a zone<br>
 detailed explanation:
@@ -45,12 +50,47 @@ detailed explanation:
 1. remove every buttons from the terminal input area
 2.
  */
-export function renderZoneActions(zone: Zone): void{
-    if(!terminalInput) return;
+export function renderZoneActions(zone: Zone): void {
+    if (!terminalInput) return;
     //step 1
     terminalInput.innerHTML = "";
 
 }
+export function renderThePlayerInventory(): void{
+    if(!inventory || !inventoryDesc) return;
+    inventory.innerHTML = "";
+    inventoryDesc.textContent = "Select an item to inspect.";
+    if (playerInventory.length === 0) {
+        const nothingToSeeThereMsg = document.createElement("p");
+        nothingToSeeThereMsg.textContent = "Nothing to see there, its empty";
+        nothingToSeeThereMsg.className = "nothing-here-msg";
+        inventory.appendChild(nothingToSeeThereMsg);
+        //if the inventory is not there
+        return;
+    }
+    playerInventory.forEach((slot) => {
+        const item:Item = ITEMS[slot.itemId];
+        if (!item) return;
+        const buttonForDaItem: HTMLButtonElement = document.createElement("button");
+        buttonForDaItem.className = "inventory-item-btn";
+
+        //we need to not forget the little counter for consumable item :D!
+        if (item.type === "consumable"){
+            buttonForDaItem.textContent = `> ${item.name} x${slot.count}`;
+        } else {
+            buttonForDaItem.textContent = `> ${item.name}`;
+        }
+        buttonForDaItem.addEventListener("click", () => {
+            document.querySelectorAll(".inventory-item-btn").forEach(btn => {
+                btn.classList.remove("TheOneAndOnlySelectedInventoryItemButton");
+            });
+            buttonForDaItem.classList.add("TheOneAndOnlySelectedInventoryItemButton");
+            inventoryDesc.textContent = `[${item.type.toUpperCase()}] ${item.description}`;
+        });
+        inventory.appendChild(buttonForDaItem);
+    })
+}
+
 /*
 simple function to open the menu by removing
 the "hidden" class from their classList
@@ -86,6 +126,7 @@ function closeMenu(): void {
 function openInventory(): void {
     inventory.classList.add("inventory-active");
     sideMenuOverlay.classList.remove("hidden");
+    renderThePlayerInventory();
 }
 
 function closeInventory(): void {

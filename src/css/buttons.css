@@ -1,7 +1,7 @@
 button {
     padding: 8px 15px;
     border: 2px solid var(--separetor-color);
-    background-color: var(--top-bar_bck);
+    background-color: var(--main-color-background);
     color: var(--text-color);
 }
 

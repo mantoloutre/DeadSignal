@@ -26,10 +26,11 @@ export async function addItemToInventory(itemId, amount = 1) {
     return true;
 }
 export function removeItemFromInventory(itemId, amount = 1) {
-    const slotIndex = playerInventory.findIndex(slot => slot.itemId === itemId);
     //if you dont have it in ur inventory
-    if (slotIndex == -1)
+    if (!doesThePlayerHasTheItem(itemId)) {
         return false;
+    }
+    const slotIndex = playerInventory.findIndex(slot => slot.itemId === itemId);
     playerInventory[slotIndex].count -= amount;
     if (playerInventory[slotIndex].count <= 0) {
         playerInventory.splice(slotIndex, 1);
@@ -39,4 +40,9 @@ export function removeItemFromInventory(itemId, amount = 1) {
 }
 export function doesThePlayerHasTheItem(itemId) {
     return playerInventory.some(slot => slot.itemId === itemId && slot.count > 0);
+}
+export function getThePlayerInventoryItem() {
+    return playerInventory
+        .map(slot => ITEMS[slot.itemId])
+        .filter((item) => item !== undefined);
 }
