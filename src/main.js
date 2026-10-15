@@ -48,7 +48,8 @@ export function renderThePlayerInventory() {
         nothingToSeeThereMsg.textContent = "Nothing to see there, its empty";
         nothingToSeeThereMsg.className = "nothing-here-msg";
         inventory.appendChild(nothingToSeeThereMsg);
-        //if the inventory is not there
+        //if the inventory is not there or no item
+        inventory.appendChild(buttonCloseInventory);
         return;
     }
     playerInventory.forEach((slot) => {
@@ -72,6 +73,7 @@ export function renderThePlayerInventory() {
             inventoryDesc.textContent = `[${item.type.toUpperCase()}] ${item.description}`;
         });
         inventory.appendChild(buttonForDaItem);
+        inventory.appendChild(buttonCloseInventory);
     });
 }
 /*
