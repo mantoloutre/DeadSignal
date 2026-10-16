@@ -17,6 +17,8 @@ const buttonOpenInventory: HTMLButtonElement = document.getElementById("btn-open
 const buttonCloseInventory: HTMLButtonElement = document.getElementById("btn-close-inventory") as HTMLButtonElement;
 // zone 1
 const buttonApplyZone1: HTMLButtonElement = document.getElementById("applyZone1") as HTMLButtonElement;
+// zone 2
+const buttonApplyZone2: HTMLButtonElement = document.getElementById("applyZone2") as HTMLButtonElement;
 // div elements
 const sideMenu: HTMLDivElement = document.getElementById("side-menu") as HTMLDivElement;
 const sideMenuOverlay: HTMLDivElement = document.getElementById("menu-overlay") as HTMLDivElement;
@@ -164,6 +166,10 @@ async function printHiLog(): Promise<void> {
 }
 
 async function applyZone1Test(): Promise<void> {
+    await loadZone(ZONES.TRUCK_CABIN);
+}
+
+async function applyZone2Test(): Promise<void> {
     await loadZone(ZONES.SNOWY_FOREST);
 }
 
@@ -180,9 +186,10 @@ bindingAction(buttonPrintHi, printHiNormal);
 bindingAction(buttonPrintHiLog, printHiLog);
 bindingAction(buttonPrintHiAlert, printHiAlert);
 */
-
-//zone 1
+// zone 1
 bindingAction(buttonApplyZone1, applyZone1Test);
+//zone 2
+bindingAction(buttonApplyZone2, applyZone2Test);
 // others
 /*
 function to close the correct interface ( i dont wanna redo a overlay for everything so
