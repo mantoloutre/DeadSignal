@@ -32,7 +32,9 @@ const Chapter1: Chapter = {
     name: "chapter 0",
     zone: "snowy forest"
 }
-
+/*
+the const containing all the zone that i'm using in the game
+ */
 export const ZONES = {
     SNOWY_FOREST: {
         id: "SNOWY_FOREST",
@@ -61,8 +63,8 @@ export const ZONES = {
     TRUCK_CABIN: {
         id: "TRUCK_CABIN",
         name: "truck cabin",
-        description: "The inside of your the tactical truck cabin that was assigned to you, something doesn't feel " +
-            "right about the truck...",
+        description: "You are sitting on the driver's seat, the truck came to a sudden stop and there is smoke" +
+            " coming out of the engine",
         getActions: (): ZoneActions[] => {
             const actions: ZoneActions[] = [];
             if (!hasFlag(StoryFlags.OPENED_GLOVE_BOX)) {
@@ -85,7 +87,5 @@ export const ZONES = {
             }
             return actions;
         }
-
-
     }
 } satisfies Record<string, Zone>

@@ -1,13 +1,13 @@
 import { ITEMS } from "./items.js";
 import { printToTerminal } from "./main.js";
-export const playerInventory = [];
+import { currentState } from "./gameState";
 export async function addItemToInventory(itemId, amount = 1) {
     if (!ITEMS[itemId]) {
         console.error(`why is that here: ${itemId} ???`);
         //false if item came outta nowhere and is unknown
         return false;
     }
-    const existSlot = playerInventory.find(slot => slot.itemId === itemId);
+    const existSlot = currentState.playerInventory.find(slot => slot.itemId === itemId);
     if (existSlot) {
         //if tha item is a consumable we gonna add one to the ammount
         //can stack consumable, cant stack the rest. no you are not gonna hold 48 crowbar in your inventory.
@@ -24,7 +24,7 @@ export async function addItemToInventory(itemId, amount = 1) {
     if (!(ITEMS[itemId].type === "consumable")) {
         await printToTerminal(`you picked up a ${ITEMS[itemId].name}. It is now in your inventory`, "action");
     }
-    playerInventory.push({ itemId, count: amount });
+    currentState.playerInventory.push({ itemId, count: amount });
     return true;
 }
 export function removeItemFromInventory(itemId, amount = 1) {
@@ -32,19 +32,19 @@ export function removeItemFromInventory(itemId, amount = 1) {
     if (!doesThePlayerHasTheItem(itemId)) {
         return false;
     }
-    const slotIndex = playerInventory.findIndex(slot => slot.itemId === itemId);
-    playerInventory[slotIndex].count -= amount;
-    if (playerInventory[slotIndex].count <= 0) {
-        playerInventory.splice(slotIndex, 1);
+    const slotIndex = currentState.playerInventory.findIndex(slot => slot.itemId === itemId);
+    currentState.playerInventory[slotIndex].count -= amount;
+    if (currentState.playerInventory[slotIndex].count <= 0) {
+        currentState.playerInventory.splice(slotIndex, 1);
     }
     //if you have it in your inventory
     return true;
 }
 export function doesThePlayerHasTheItem(itemId) {
-    return playerInventory.some(slot => slot.itemId === itemId && slot.count > 0);
+    return currentState.playerInventory.some(slot => slot.itemId === itemId && slot.count > 0);
 }
 export function getThePlayerInventoryItem() {
-    return playerInventory
+    return currentState.playerInventory
         .map(slot => ITEMS[slot.itemId])
         .filter((item) => item !== undefined);
 }

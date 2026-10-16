@@ -1,6 +1,5 @@
-import { exportSaveFile } from "./gameState.js";
+import { exportSaveFile, currentState } from "./gameState.js";
 import { ZONES } from "./world.js";
-import { playerInventory } from "./inventory.js";
 import { ITEMS } from "./items.js";
 // buttons
 const buttonOpenSideMenu = document.getElementById("btn-menu-open");
@@ -68,7 +67,7 @@ export function renderThePlayerInventory() {
         return;
     inventoryItemList.innerHTML = "";
     inventoryDesc.textContent = "Select an item to inspect.";
-    if (playerInventory.length === 0) {
+    if (currentState.playerInventory.length === 0) {
         const nothingToSeeThereMsg = document.createElement("p");
         nothingToSeeThereMsg.textContent = "Nothing to see there, its empty";
         nothingToSeeThereMsg.className = "nothing-here-msg";
@@ -76,7 +75,7 @@ export function renderThePlayerInventory() {
         //if the inventory is not there or no item
         return;
     }
-    playerInventory.forEach((slot) => {
+    currentState.playerInventory.forEach((slot) => {
         const item = ITEMS[slot.itemId];
         if (!item)
             return;
@@ -226,7 +225,8 @@ function sleep(ms) {
 function that is call to initialize game
  */
 async function initGame() {
-    await printToTerminal("sorry, the game story has not been started yet :c", "alert");
+    await printToTerminal("the game story is really far from being finished, sorry :c", "alert");
+    await loadZone(ZONES.TRUCK_CABIN);
 }
 /*
 function in case there is an error while trying to initialize game

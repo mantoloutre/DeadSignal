@@ -1,6 +1,7 @@
 import {
     Chapter
 } from "./world.js"
+import {InventorySlot} from "./inventory.js";
 
 //base
 export interface GameState {
@@ -10,7 +11,8 @@ export interface GameState {
     powerLevel: number;
     currentFrequency: number;
     discoveredSignals: string[];
-    storyFlags: StoryFlag[]
+    storyFlags: StoryFlag[];
+    playerInventory: InventorySlot[];
 }
 export const StoryFlags = {
     //zone 1
@@ -33,7 +35,8 @@ export const GAME_INITIAL_STATE: GameState = {
     powerLevel: 100,
     currentFrequency: 0,
     discoveredSignals: [],
-    storyFlags: []
+    storyFlags: [],
+    playerInventory: []
 };
 export let currentState: GameState = {...GAME_INITIAL_STATE};
 
