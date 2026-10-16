@@ -1,7 +1,6 @@
 import {
     exportSaveFile
 } from "./gameState.js";
-import {addCrowBarToThePlayerInventory, checkTruckTrunk} from "./actions.js";
 import {Zone, ZoneActions, ZONES} from "./world.js";
 import {playerInventory} from "./inventory.js";
 import {Item, ITEMS} from "./items.js";
@@ -17,8 +16,6 @@ const buttonPrintHiLog: HTMLButtonElement = document.getElementById("btn-print-h
 const buttonOpenInventory: HTMLButtonElement = document.getElementById("btn-open-inventory") as HTMLButtonElement;
 const buttonCloseInventory: HTMLButtonElement = document.getElementById("btn-close-inventory") as HTMLButtonElement;
 // zone 1
-const buttonOpenTrunk: HTMLButtonElement = document.getElementById("btn-open-truck-trunk") as HTMLButtonElement;
-const buttonPickUpCrowBar: HTMLButtonElement = document.getElementById("btn-test-1") as HTMLButtonElement;
 const buttonApplyZone1: HTMLButtonElement = document.getElementById("applyZone1") as HTMLButtonElement;
 // div elements
 const sideMenu: HTMLDivElement = document.getElementById("side-menu") as HTMLDivElement;
@@ -35,7 +32,7 @@ const zoneTag: HTMLParagraphElement = document.getElementById("zone") as HTMLPar
 export type fromType = "system" | "alert" | "QG" | "log" | "action";
 
 export async function loadZone(zone: Zone): Promise<void> {
-    zoneActions.textContent = `${zone.name}`;
+    zoneTag.textContent = `${zone.name}`;
     await printToTerminal(`ZONE: ${zone.name}`, "system");
     await printToTerminal(zone.description, "system");
     renderZoneActions(zone);
@@ -185,8 +182,6 @@ bindingAction(buttonPrintHiAlert, printHiAlert);
 */
 
 //zone 1
-bindingAction(buttonOpenTrunk, checkTruckTrunk);
-bindingAction(buttonPickUpCrowBar, addCrowBarToThePlayerInventory);
 bindingAction(buttonApplyZone1, applyZone1Test);
 // others
 /*

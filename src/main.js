@@ -1,5 +1,4 @@
 import { exportSaveFile } from "./gameState.js";
-import { addCrowBarToThePlayerInventory, checkTruckTrunk } from "./actions.js";
 import { ZONES } from "./world.js";
 import { playerInventory } from "./inventory.js";
 import { ITEMS } from "./items.js";
@@ -14,8 +13,6 @@ const buttonPrintHiLog = document.getElementById("btn-print-hello-log");
 const buttonOpenInventory = document.getElementById("btn-open-inventory");
 const buttonCloseInventory = document.getElementById("btn-close-inventory");
 // zone 1
-const buttonOpenTrunk = document.getElementById("btn-open-truck-trunk");
-const buttonPickUpCrowBar = document.getElementById("btn-test-1");
 const buttonApplyZone1 = document.getElementById("applyZone1");
 // div elements
 const sideMenu = document.getElementById("side-menu");
@@ -28,7 +25,7 @@ const zoneActions = document.getElementById("zone-action");
 const inventoryItemList = document.getElementById("inventory-items-list");
 const zoneTag = document.getElementById("zone");
 export async function loadZone(zone) {
-    zoneActions.textContent = `${zone.name}`;
+    zoneTag.textContent = `${zone.name}`;
     await printToTerminal(`ZONE: ${zone.name}`, "system");
     await printToTerminal(zone.description, "system");
     renderZoneActions(zone);
@@ -167,8 +164,6 @@ bindingAction(buttonPrintHiLog, printHiLog);
 bindingAction(buttonPrintHiAlert, printHiAlert);
 */
 //zone 1
-bindingAction(buttonOpenTrunk, checkTruckTrunk);
-bindingAction(buttonPickUpCrowBar, addCrowBarToThePlayerInventory);
 bindingAction(buttonApplyZone1, applyZone1Test);
 // others
 /*
