@@ -3,6 +3,9 @@
     "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "rootDir": "./src",
+    "outDir": "./src/js",
     "strict": true,
     "skipLibCheck": true,
     "noEmit": false
