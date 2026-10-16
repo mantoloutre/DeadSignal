@@ -1,6 +1,6 @@
 import {ITEMS, Item} from "./items.js";
 import {printToTerminal} from "./main.js";
-import {currentState} from "./gameState";
+import {currentState} from "./gameState.js";
 
 export interface InventorySlot {
     itemId: string;

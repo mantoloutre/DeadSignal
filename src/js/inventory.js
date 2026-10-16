@@ -1,6 +1,6 @@
 import { ITEMS } from "./items.js";
 import { printToTerminal } from "./main.js";
-import { currentState } from "./gameState";
+import { currentState } from "./gameState.js";
 export async function addItemToInventory(itemId, amount = 1) {
     if (!ITEMS[itemId]) {
         console.error(`why is that here: ${itemId} ???`);
