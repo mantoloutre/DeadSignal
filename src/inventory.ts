@@ -28,7 +28,7 @@ export async function addItemToInventory(itemId: string, amount: number = 1): Pr
         return false;
     }
     //if not in inventory, then i allow you to pick it up
-    //TODO add a text saying u picked the item? with item name ofc
+    await printToTerminal(`you picked up a ${ITEMS[itemId].name}. It is now in your inventory`, "action")
     playerInventory.push({itemId, count: amount});
     return true;
 }

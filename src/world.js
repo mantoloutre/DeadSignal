@@ -1,4 +1,5 @@
-import { addCrowBarToThePlayerInventory, addWinterGlovesToThePlayerInventory, checkTruckTrunk } from "./actions.js";
+import { addCrowBarToThePlayerInventory, addFlareTruckCabin, addWinterGlovesToThePlayerInventory, checkTruckTrunk, lookInGloveBoxInTruckCabin } from "./actions.js";
+import { hasFlag, StoryFlags } from "./gameState.js";
 const Chapter1 = {
     name: "chapter 0",
     zone: "snowy forest"
@@ -27,12 +28,27 @@ export const ZONES = {
         name: "truck cabin",
         description: "The inside of your the tactical truck cabin that was assigned to you, something doesn't feel " +
             "right about the truck...",
-        getActions: () => [
-            {
-                command: "take gloves",
-                description: "take the good looking winter gloves next to you on the seat",
-                execute: addWinterGlovesToThePlayerInventory
+        getActions: () => {
+            const actions = [];
+            if (!hasFlag(StoryFlags.OPENED_GLOVE_BOX)) {
+                actions.push({
+                    command: "open glove box",
+                    description: "open the glove box to see what's inside",
+                    execute: lookInGloveBoxInTruckCabin //TODO
+                });
             }
-        ]
+            else {
+                actions.push({
+                    command: "take gloves",
+                    description: "take the good looking winter gloves inside the glove box",
+                    execute: addWinterGlovesToThePlayerInventory
+                });
+                actions.push({
+                    command: "take flares",
+                    description: "take the two flares from the glove box",
+                    execute: addFlareTruckCabin
+                });
+            }
+        }
     }
 };

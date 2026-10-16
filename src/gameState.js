@@ -1,7 +1,11 @@
 export const StoryFlags = {
+    //zone 1
     CHECKED_TRUCK_TRUNK: "CHECKED_TRUCK_TRUNK",
-    TRUCK_REPAIRED: "TRUC_REPAIRED",
-    WALKED_TO_TOWER: "WALKED_TO_TOWER"
+    TRUCK_REPAIRED: "TRUCl_REPAIRED",
+    WALKED_TO_TOWER: "WALKED_TO_TOWER",
+    OPENED_GLOVE_BOX: "OPENED_GLOVE_BOX",
+    TOOK_FLARE_FROM_GLOVE_BOX: "TOOK_FLARE_FROM_GLOVE_BOX",
+    TOOK_WINTER_GLOVE: "TOOK_WINTER_GLOVE"
 };
 export const GAME_INITIAL_STATE = {
     app: "DEAD_SIGNAL",
@@ -42,7 +46,7 @@ detailed explanation:
  */
 export function exportSaveFile() {
     //step 1
-    //TODO
+    //TODO update player inventory
     //step 2
     const jsonString = JSON.stringify(currentState, null, 2);
     //step 3
