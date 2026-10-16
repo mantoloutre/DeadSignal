@@ -32,5 +32,11 @@ export const ITEMS: Record<string, Item> = {
         name:"Winter Gloves",
         type: "tool",
         description: "a warm pair of gloves, be careful to not burn them."
+    },
+    truck_insurance_papers: {
+        id: "trucInsurancePapers",
+        name: "The truck insurance Paper",
+        type: "tool",
+        description: "i mean... its the truck's insurance papers.."
     }
 }

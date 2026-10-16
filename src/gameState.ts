@@ -19,7 +19,8 @@ export const StoryFlags = {
     WALKED_TO_TOWER: "WALKED_TO_TOWER",
     OPENED_GLOVE_BOX: "OPENED_GLOVE_BOX",
     TOOK_FLARE_FROM_GLOVE_BOX: "TOOK_FLARE_FROM_GLOVE_BOX",
-    TOOK_WINTER_GLOVE: "TOOK_WINTER_GLOVE"
+    TOOK_WINTER_GLOVE: "TOOK_WINTER_GLOVE",
+    OUT_OF_TRUCK_INIT: "OUT_OF_TRUCK_INIT"
 } as const;
 export type StoryFlag = typeof StoryFlags[keyof typeof StoryFlags];
 export const GAME_INITIAL_STATE: GameState = {

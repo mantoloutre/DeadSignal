@@ -21,7 +21,9 @@ export async function addItemToInventory(itemId, amount = 1) {
         return false;
     }
     //if not in inventory, then i allow you to pick it up
-    await printToTerminal(`you picked up a ${ITEMS[itemId].name}. It is now in your inventory`, "action");
+    if (!(ITEMS[itemId].type === "consumable")) {
+        await printToTerminal(`you picked up a ${ITEMS[itemId].name}. It is now in your inventory`, "action");
+    }
     playerInventory.push({ itemId, count: amount });
     return true;
 }

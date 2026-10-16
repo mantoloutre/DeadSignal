@@ -43,12 +43,12 @@
 }
 
 #InOut {
-    gap: 10px;
     display: flex;
+    gap: 10px;
     height: 90dvh;
 }
 
-#terminal-input {
+#terminal-input, #permanent-button{
     display: flex;
     flex-wrap: wrap;
     column-gap: 12px;
@@ -60,7 +60,17 @@
     align-content: flex-start;
     background-color: var(--main-color-background);
 }
-
+#zone-action {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    column-gap: 12px;
+    row-gap: 12px;
+    align-items: flex-start;
+    width: 30%;
+    height: auto;
+    align-content: flex-start;
+}
 .terminal-line {
     line-height: 1.5;
 }

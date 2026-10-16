@@ -27,7 +27,7 @@ export async function addCrowBarToThePlayerInventory() {
 pretty self explanatory function x2
  */
 export async function addWinterGlovesToThePlayerInventory() {
-    await addItemToInventory("winterGlove");
+    await addItemToInventory("winter_gloves");
 }
 export async function lookInGloveBoxInTruckCabin() {
     await printToTerminal("You open the glove box you look what is inside. you find 2 flares and " +

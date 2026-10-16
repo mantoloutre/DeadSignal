@@ -57,11 +57,8 @@ export function renderZoneActions(zone) {
         // step 4
         bindingAction(button, async () => {
             await action.execute();
-            /*
-            this can be added its to reload the zone again but for
-            now useless cuz inventory deal with it
+            // needed to reload missing actions that needed a flag to appear
             renderZoneActions(zone);
-            */
         });
         zoneActions.appendChild(button);
     });

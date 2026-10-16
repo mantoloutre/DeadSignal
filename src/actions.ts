@@ -32,7 +32,7 @@ export async function addCrowBarToThePlayerInventory(): Promise<void> {
 pretty self explanatory function x2
  */
 export async function addWinterGlovesToThePlayerInventory(): Promise<void> {
-    await addItemToInventory("winterGlove");
+    await addItemToInventory("winter_gloves");
 }
 
 export async function lookInGloveBoxInTruckCabin(): Promise<void> {

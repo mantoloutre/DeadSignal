@@ -39,18 +39,24 @@ export const ZONES = {
         name: "SNOWY FOREST",
         description: "The freezing wind howl through the pines. The truck sits engine "
             + "fuming on the side of the road",
-        getActions: () => [
-            {
-                command: "check truck's trunk",
-                description: "check the truck trunk's to see if there is anything useful in there",
-                execute: checkTruckTrunk
-            },
-            {
-                command: "add crowbar",
-                description: "test feature, add a crowbar to the player inventory",
-                execute: addCrowBarToThePlayerInventory
+        getActions: (): ZoneActions[] => {
+            const actions: ZoneActions[] = [];
+            if (!hasFlag(StoryFlags.OUT_OF_TRUCK_INIT)) {
+                actions.push({
+                    command: "check truck's trunk",
+                    description: "check the truck trunk's to see if there is anything useful in there",
+                    execute: checkTruckTrunk
+                });
             }
-        ]
+            if (hasFlag(StoryFlags.CHECKED_TRUCK_TRUNK)) {
+                actions.push({
+                    command: "add crowbar",
+                    description: "test feature, add a crowbar to the player inventory",
+                    execute: addCrowBarToThePlayerInventory
+                });
+            }
+            return actions;
+        }
     },
     TRUCK_CABIN: {
         id: "TRUCK_CABIN",
