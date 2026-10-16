@@ -1,5 +1,4 @@
 import {
-    addANumberOfFlares,
     addCrowBarToThePlayerInventory, addFlareTruckCabin,
     addWinterGlovesToThePlayerInventory,
     checkTruckTrunk, lookInGloveBoxInTruckCabin
@@ -21,7 +20,7 @@ export interface Zone {
     id: string;
     name: string;
     description: string;
-    getActions: () => ZoneActions[] | void;
+    getActions: () => ZoneActions[];
 }
 
 export interface Chapter {
@@ -64,7 +63,7 @@ export const ZONES = {
                 actions.push({
                     command: "open glove box",
                     description: "open the glove box to see what's inside",
-                    execute: lookInGloveBoxInTruckCabin //TODO
+                    execute: lookInGloveBoxInTruckCabin
                 });
             } else {
                 actions.push({
@@ -78,8 +77,7 @@ export const ZONES = {
                     execute: addFlareTruckCabin
                 });
             }
-
-
+            return actions;
         }
 
 

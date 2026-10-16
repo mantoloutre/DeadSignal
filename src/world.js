@@ -34,7 +34,7 @@ export const ZONES = {
                 actions.push({
                     command: "open glove box",
                     description: "open the glove box to see what's inside",
-                    execute: lookInGloveBoxInTruckCabin //TODO
+                    execute: lookInGloveBoxInTruckCabin
                 });
             }
             else {
@@ -49,6 +49,7 @@ export const ZONES = {
                     execute: addFlareTruckCabin
                 });
             }
+            return actions;
         }
     }
 };
