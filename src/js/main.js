@@ -31,6 +31,8 @@ export async function loadZone(zone) {
     await printToTerminal(zone.description, "system");
     renderZoneActions(zone);
 }
+//we need to keep track of which button to not load
+export const inactiveCommands = new Set();
 /*
 function to render in a dynamic way the actions for a zone<br>
 detailed explanation:
@@ -49,6 +51,10 @@ export function renderZoneActions(zone) {
     const actions = zone.getActions();
     //sstep 3
     actions.forEach((action) => {
+        if (inactiveCommands.has(action.command)) {
+            return;
+        }
+        inactiveCommands.add(action.command);
         const button = document.createElement("button");
         button.textContent = `${action.command}`;
         button.className = "action-btn";
