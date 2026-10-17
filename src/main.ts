@@ -71,7 +71,7 @@ detailed explanation:
 4. bind it to its action
  */
 export function renderZoneActions(zone: Zone): void {
-    if (!getEl("terminal-input")) return;
+    if (!(getEl("terminal-input"))) return;
     //step 1
     getEl("zone-action").innerHTML = "";
     //step 2

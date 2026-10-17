@@ -6,7 +6,7 @@
     content: " MHz"
 }
 
-#zone::before {
+#zone-tag::before {
     content: "Zone : ";
     font-weight: bold;
 }
