@@ -15,9 +15,10 @@ export interface GameState {
     playerInventory: InventorySlot[];
     inactiveCommands: string[];
 }
+
 export const StoryFlags = {
     //zone 1
-    CHECKED_TRUCK_TRUNK:"CHECKED_TRUCK_TRUNK",
+    CHECKED_TRUCK_TRUNK: "CHECKED_TRUCK_TRUNK",
     TRUCK_REPAIRED: "TRUCl_REPAIRED",
     WALKED_TO_TOWER: "WALKED_TO_TOWER",
     OPENED_GLOVE_BOX: "OPENED_GLOVE_BOX",
@@ -143,16 +144,27 @@ export function importSaveFile(
             const maybeInvalidZone = (key: unknown): key is ZoneId => {
                 return typeof key === "string" && key in ZONES;
             }
-            const validCurrentZone: ZoneId = maybeInvalidZone(obj.currentZone)
-            ? obj.currentZone : GAME_INITIAL_STATE.currentZone;
+            const maybeInvalidInventorySlot = (slot: unknown): slot is InventorySlot => {
+                if (slot === null || typeof slot !== "object") return false;
+                if (!("itemId" in slot) || !("count" in slot)) return false;
+                const entry = slot as Record<keyof InventorySlot, unknown>;
+                return typeof entry.itemId === "string" && typeof entry.count === "number";
+            }
+            const maybeInvalidInactiveCommand = (cmd: unknown): cmd is string => {
+                return typeof cmd === "string";
+            }
             const validStoryFlags: StoryFlag[] = Array.isArray(obj.storyFlags)
                 ? (obj.storyFlags.filter((f):
                 f is StoryFlag => typeof f === "string")) :
                 [...GAME_INITIAL_STATE.storyFlags];
-            const validInventory: InventorySlot[] = Array.isArray(obj.playerInventory)
-            ? obj.playerInventory.filter((slot): slot is InventorySlot =>
-                slot !== null && typeof slot === "object" && typeof (slot as InventorySlot).itemId === "string" &&
-                typeof (slot as InventorySlot).count === "number") : [...GAME_INITIAL_STATE.playerInventory];
+            const validCurrentZone: ZoneId = maybeInvalidZone(obj.currentZone)
+                ? obj.currentZone : GAME_INITIAL_STATE.currentZone;
+            const validPlayerInventory: InventorySlot[] = Array.isArray(obj.playerInventory)
+                ? obj.playerInventory.filter(maybeInvalidInventorySlot)
+                : [...GAME_INITIAL_STATE.playerInventory];
+            const validInactiveCommands: string[] = Array.isArray(obj.inactiveCommands)
+                ? obj.inactiveCommands.filter(maybeInvalidInactiveCommand)
+                : [...GAME_INITIAL_STATE.inactiveCommands];
             // step 8
             currentState = {
                 ...GAME_INITIAL_STATE,
@@ -165,7 +177,9 @@ export function importSaveFile(
                 discoveredSignals: Array.isArray(obj.discoveredSignals)
                     ? (obj.discoveredSignals as string[]) :
                     [...GAME_INITIAL_STATE.discoveredSignals],
-                storyFlags: validStoryFlags
+                storyFlags: validStoryFlags,
+                playerInventory: validPlayerInventory,
+                inactiveCommands: validInactiveCommands
             };
             //step 9
             onSuccess();

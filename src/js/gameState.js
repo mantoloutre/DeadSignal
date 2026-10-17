@@ -119,11 +119,28 @@ export function importSaveFile(onSuccess, onError) {
             const maybeInvalidZone = (key) => {
                 return typeof key === "string" && key in ZONES;
             };
-            const validCurrentZone = maybeInvalidZone(obj.currentZone)
-                ? obj.currentZone : GAME_INITIAL_STATE.currentZone;
+            const maybeInvalidInventorySlot = (slot) => {
+                if (slot === null || typeof slot !== "object")
+                    return false;
+                if (!("itemId" in slot) || !("count" in slot))
+                    return false;
+                const entry = slot;
+                return typeof entry.itemId === "string" && typeof entry.count === "number";
+            };
+            const maybeInvalidInactiveCommand = (cmd) => {
+                return typeof cmd === "string";
+            };
             const validStoryFlags = Array.isArray(obj.storyFlags)
                 ? (obj.storyFlags.filter((f) => typeof f === "string")) :
                 [...GAME_INITIAL_STATE.storyFlags];
+            const validCurrentZone = maybeInvalidZone(obj.currentZone)
+                ? obj.currentZone : GAME_INITIAL_STATE.currentZone;
+            const validPlayerInventory = Array.isArray(obj.playerInventory)
+                ? obj.playerInventory.filter(maybeInvalidInventorySlot)
+                : [...GAME_INITIAL_STATE.playerInventory];
+            const validInactiveCommands = Array.isArray(obj.inactiveCommands)
+                ? obj.inactiveCommands.filter(maybeInvalidInactiveCommand)
+                : [...GAME_INITIAL_STATE.inactiveCommands];
             // step 8
             currentState = {
                 ...GAME_INITIAL_STATE,
@@ -136,7 +153,9 @@ export function importSaveFile(onSuccess, onError) {
                 discoveredSignals: Array.isArray(obj.discoveredSignals)
                     ? obj.discoveredSignals :
                     [...GAME_INITIAL_STATE.discoveredSignals],
-                storyFlags: validStoryFlags
+                storyFlags: validStoryFlags,
+                playerInventory: validPlayerInventory,
+                inactiveCommands: validInactiveCommands
             };
             //step 9
             onSuccess();
