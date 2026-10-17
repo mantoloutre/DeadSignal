@@ -62,8 +62,11 @@ export function renderZoneActions(zone) {
                 currentState.inactiveCommands.push(action.command);
             }
             await action.execute();
-            // needed to reload missing actions that needed a flag to appear
-            renderZoneActions(zone);
+            //we need to make sure we are still in the same zone
+            if (currentState.chapter.zone === zone.id) {
+                // needed to reload missing actions that needed a flag to appear
+                renderZoneActions(zone);
+            }
         });
         zoneActions.appendChild(button);
     }
