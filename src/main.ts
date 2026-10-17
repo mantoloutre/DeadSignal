@@ -70,7 +70,7 @@ export function renderZoneActions(zone: Zone): void {
             }
             await action.execute();
             //we need to make sure we are still in the same zone
-            if(currentState.chapter.zone === zone.id){
+            if(currentState.currentZone === zone.id){
                 // needed to reload missing actions that needed a flag to appear
                 renderZoneActions(zone);
             }
