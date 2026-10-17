@@ -13,6 +13,7 @@ export interface GameState {
     discoveredSignals: string[];
     storyFlags: StoryFlag[];
     playerInventory: InventorySlot[];
+    inactiveCommands: string[];
 }
 export const StoryFlags = {
     //zone 1
@@ -36,7 +37,8 @@ export const GAME_INITIAL_STATE: GameState = {
     currentFrequency: 0,
     discoveredSignals: [],
     storyFlags: [],
-    playerInventory: []
+    playerInventory: [],
+    inactiveCommands: [],
 };
 export let currentState: GameState = {...GAME_INITIAL_STATE};
 

@@ -39,8 +39,6 @@ export async function loadZone(zone: Zone): Promise<void> {
     await printToTerminal(zone.description, "system");
     renderZoneActions(zone);
 }
-//we need to keep track of which button to not load
-export const inactiveCommands = new Set<string>();
 /*
 function to render in a dynamic way the actions for a zone<br>
 detailed explanation:
@@ -58,7 +56,7 @@ export function renderZoneActions(zone: Zone): void {
     const actions: ZoneActions[] = zone.getActions();
     //sstep 3
     for(const action of actions){
-        if (action.oneTime && inactiveCommands.has(action.command)){
+        if (action.oneTime && currentState.inactiveCommands.includes(action.command)){
             continue;
         }
         const button: HTMLButtonElement = document.createElement("button");
@@ -68,7 +66,7 @@ export function renderZoneActions(zone: Zone): void {
         // step 4
         bindingAction(button, async (): Promise<void> => {
             if (action.oneTime){
-                inactiveCommands.add(action.command);
+                currentState.inactiveCommands.push(action.command);
             }
             await action.execute();
             // needed to reload missing actions that needed a flag to appear

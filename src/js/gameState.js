@@ -19,7 +19,8 @@ export const GAME_INITIAL_STATE = {
     currentFrequency: 0,
     discoveredSignals: [],
     storyFlags: [],
-    playerInventory: []
+    playerInventory: [],
+    inactiveCommands: [],
 };
 export let currentState = { ...GAME_INITIAL_STATE };
 export function addFlag(flag) {
