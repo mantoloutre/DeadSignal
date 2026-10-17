@@ -17,14 +17,14 @@
 <body>
 <header id="top-bar" class="border-glow"><!-- for stats -->
     <div class="button-placement">
-        <button id="btn-menu-open" class="icon_btn">Menu</button>
+        <button id="button-open-side-menu" class="icon_btn">Menu</button>
         <button id="btn-journal">Journal</button>
         <button id="btn-map">Map</button>
         <button id="btn-open-inventory">Inventory</button>
     </div>
     <div>
         <p id="frequency">null</p>
-        <p id="zone">null</p>
+        <p id="zone-tag">null</p>
     </div>
 
 </header>
@@ -34,13 +34,13 @@
         <h2>Menu</h2>
     </header>
     <div class="button-placement">
-        <button id="btn-menu-close" class="btn-close">back</button>
+        <button id="button-close-side-menu" class="btn-close">back</button>
         <button class="menu-link" id="btn-save">Save</button>
         <button class="menu-link" id="btn-export">Export</button>
         <button id="btn-import">Import</button>
     </div>
 </aside>
-<section id="inventory" class="border-glow">
+<div id="inventory" class="border-glow">
     <div id="inventory-container">
         <div id="inventory-items-list">
         </div>
@@ -49,7 +49,7 @@
         </div>
     </div>
     <button id="btn-close-inventory">Back</button>
-</section>
+</div>
 <main><!-- main gameplay -->
     <section id="InOut">
         <div id="terminal-input" class="border-glow">
@@ -59,8 +59,8 @@
             <button id="btn-print-hello-log">Print hi :D ( log )</button>
             <button id="btn-print-hello-alert">Print hi :D ( alert )</button>
             -->
-                <button id="applyZone1">zone 1 ( truck_cabin )</button>
-                <button id="applyZone2">zone 2(snowy_forest)</button>
+                <button id="btn-apply-zone-truck-cabin">zone 1 ( truck_cabin )</button>
+                <button id="btn-apply-zone-snowy-forest">zone 2(snowy_forest)</button>
             </div>
 
             <div id="zone-action"></div>

@@ -1,5 +1,5 @@
 import {addFlag, hasFlag, StoryFlags} from "./gameState.js";
-import {loadZone, printToTerminal, renderZoneActions} from "./main.js";
+import {loadZone, printToTerminal} from "./main.js";
 import {addItemToInventory} from "./inventory.js";
 import {ZONES} from "./world.js";
 

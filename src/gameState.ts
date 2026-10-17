@@ -1,5 +1,5 @@
 import {
-    Chapter, Zone, ZoneId, ZONES
+    ZoneId, ZONES
 } from "./world.js"
 import {InventorySlot} from "./inventory.js";
 
