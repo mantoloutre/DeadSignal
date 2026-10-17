@@ -1,6 +1,7 @@
 import {addFlag, hasFlag, StoryFlags} from "./gameState.js";
-import {printToTerminal} from "./main.js";
+import {loadZone, printToTerminal} from "./main.js";
 import {addItemToInventory} from "./inventory.js";
+import {ZONES} from "./world.js";
 
 
 export async function lookAroundYou(): Promise<void> {
@@ -19,6 +20,10 @@ export async function checkTruckTrunk(): Promise<void> {
         await printToTerminal("Inside the truck, nothing changed, still a heavy toolbox, " +
             "the barrel of wine and the two spare tire.", "system");
     }
+}
+
+export async function getOutOfTheDamnTruck(): Promise<void> {
+    await loadZone(ZONES.SNOWY_FOREST);
 }
 
 /*
@@ -40,14 +45,16 @@ export async function lookInGloveBoxInTruckCabin(): Promise<void> {
         "the truck's insurance paper", "action");
     addFlag("OPENED_GLOVE_BOX");
 }
-export async function addFlareTruckCabin(): Promise<void>{
+
+export async function addFlareTruckCabin(): Promise<void> {
     await addANumberOfFlares(2);
 }
+
 async function addANumberOfFlares(count: number): Promise<void> {
-    if (count > 1){
+    if (count > 1) {
         await printToTerminal(`You take ${count} flares`, "action");
         await addItemToInventory("flare", count);
-    } else if (count === 1){
+    } else if (count === 1) {
         await printToTerminal("You take 1 flare", "action");
         await addItemToInventory("flare");
     }

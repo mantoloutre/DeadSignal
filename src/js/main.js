@@ -50,23 +50,25 @@ export function renderZoneActions(zone) {
     //step 2
     const actions = zone.getActions();
     //sstep 3
-    actions.forEach((action) => {
-        if (inactiveCommands.has(action.command)) {
-            return;
+    for (const action of actions) {
+        if (action.oneTime && inactiveCommands.has(action.command)) {
+            continue;
         }
-        inactiveCommands.add(action.command);
         const button = document.createElement("button");
         button.textContent = `${action.command}`;
         button.className = "action-btn";
         button.title = action.description;
         // step 4
         bindingAction(button, async () => {
+            if (action.oneTime) {
+                inactiveCommands.add(action.command);
+            }
             await action.execute();
             // needed to reload missing actions that needed a flag to appear
             renderZoneActions(zone);
         });
         zoneActions.appendChild(button);
-    });
+    }
 }
 export function renderThePlayerInventory() {
     if (!inventory || !inventoryDesc)

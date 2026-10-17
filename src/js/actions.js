@@ -1,6 +1,7 @@
 import { addFlag, hasFlag, StoryFlags } from "./gameState.js";
-import { printToTerminal } from "./main.js";
+import { loadZone, printToTerminal } from "./main.js";
 import { addItemToInventory } from "./inventory.js";
+import { ZONES } from "./world.js";
 export async function lookAroundYou() {
 }
 /*
@@ -16,6 +17,9 @@ export async function checkTruckTrunk() {
         await printToTerminal("Inside the truck, nothing changed, still a heavy toolbox, " +
             "the barrel of wine and the two spare tire.", "system");
     }
+}
+export async function getOutOfTheDamnTruck() {
+    await loadZone(ZONES.SNOWY_FOREST);
 }
 /*
 pretty self explanatory function x1

@@ -1,4 +1,4 @@
-import { addCrowBarToThePlayerInventory, addFlareTruckCabin, addWinterGlovesToThePlayerInventory, checkTruckTrunk, lookInGloveBoxInTruckCabin } from "./actions.js";
+import { addCrowBarToThePlayerInventory, addFlareTruckCabin, addWinterGlovesToThePlayerInventory, checkTruckTrunk, getOutOfTheDamnTruck, lookInGloveBoxInTruckCabin } from "./actions.js";
 import { hasFlag, StoryFlags } from "./gameState.js";
 const Chapter1 = {
     name: "chapter 0",
@@ -19,14 +19,16 @@ export const ZONES = {
                 actions.push({
                     command: "check truck's trunk",
                     description: "check the truck trunk's to see if there is anything useful in there",
-                    execute: checkTruckTrunk
+                    execute: checkTruckTrunk,
+                    oneTime: true
                 });
             }
             if (hasFlag(StoryFlags.CHECKED_TRUCK_TRUNK)) {
                 actions.push({
                     command: "add crowbar",
                     description: "test feature, add a crowbar to the player inventory",
-                    execute: addCrowBarToThePlayerInventory
+                    execute: addCrowBarToThePlayerInventory,
+                    oneTime: true
                 });
             }
             return actions;
@@ -39,6 +41,11 @@ export const ZONES = {
             " coming out of the engine",
         getActions: () => {
             const actions = [];
+            actions.push({
+                command: "get out of the truck",
+                description: "simply get out of the truck",
+                execute: getOutOfTheDamnTruck,
+            });
             if (!hasFlag(StoryFlags.OPENED_GLOVE_BOX)) {
                 actions.push({
                     command: "open glove box",
@@ -50,12 +57,14 @@ export const ZONES = {
                 actions.push({
                     command: "take gloves",
                     description: "take the good looking winter gloves inside the glove box",
-                    execute: addWinterGlovesToThePlayerInventory
+                    execute: addWinterGlovesToThePlayerInventory,
+                    oneTime: true,
                 });
                 actions.push({
                     command: "take flares",
                     description: "take the two flares from the glove box",
-                    execute: addFlareTruckCabin
+                    execute: addFlareTruckCabin,
+                    oneTime: true,
                 });
             }
             return actions;
