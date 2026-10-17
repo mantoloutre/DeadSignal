@@ -16,9 +16,9 @@ export interface ZoneActions {
     execute: () => Promise<void>;
     oneTime?: boolean;
 }
-
+export type ZoneId = "SNOWY_FOREST" | "TRUCK_CABIN";
 export interface Zone {
-    id: string;
+    id: ZoneId;
     name: string;
     description: string;
     getActions: () => ZoneActions[];
@@ -99,4 +99,3 @@ export const ZONES = {
         }
     }
 } satisfies Record<string, Zone>
-export type ZoneId = keyof typeof ZONES;

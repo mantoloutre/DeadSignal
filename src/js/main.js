@@ -21,6 +21,7 @@ export function getEl(id) {
     return element;
 }
 export async function loadZone(zone) {
+    currentState.currentZone = zone.id;
     getEl("zone-tag").textContent = `${zone.name}`;
     await printToTerminal(`ZONE: ${zone.name}`, "system");
     await printToTerminal(zone.description, "system");

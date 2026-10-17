@@ -55,6 +55,7 @@ export function getEl<Key extends keyof UIElements>(id: Key): UIElements[Key] {
 export type fromType = "system" | "alert" | "QG" | "log" | "action";
 
 export async function loadZone(zone: Zone): Promise<void> {
+    currentState.currentZone = zone.id;
     getEl("zone-tag").textContent = `${zone.name}`;
     await printToTerminal(`ZONE: ${zone.name}`, "system");
     await printToTerminal(zone.description, "system");
