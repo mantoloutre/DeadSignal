@@ -1,5 +1,5 @@
 import {
-    Chapter
+    Chapter, Zone, ZoneId, ZONES
 } from "./world.js"
 import {InventorySlot} from "./inventory.js";
 
@@ -7,7 +7,7 @@ import {InventorySlot} from "./inventory.js";
 export interface GameState {
     app: string;
     version: number;
-    chapter: Chapter;
+    currentZone: ZoneId;
     powerLevel: number;
     currentFrequency: number;
     discoveredSignals: string[];
@@ -29,10 +29,7 @@ export type StoryFlag = typeof StoryFlags[keyof typeof StoryFlags];
 export const GAME_INITIAL_STATE: GameState = {
     app: "DEAD_SIGNAL",
     version: 1,
-    chapter: {
-        name: "prologue",
-        zone: "snowy forest"
-    },
+    currentZone: "TRUCK_CABIN",
     powerLevel: 100,
     currentFrequency: 0,
     discoveredSignals: [],
@@ -143,15 +140,11 @@ export function importSaveFile(
                 return;
             }
             // step 7
-            const maybeInvalidChapter: Partial<Chapter> =
-                (typeof obj.chapter === "object" && obj.chapter !== null)
-                    ? (obj.chapter as Partial<Chapter>) : GAME_INITIAL_STATE.chapter;
-            const validChapter: Chapter = {
-                name: typeof maybeInvalidChapter.name === "string"
-                    ? maybeInvalidChapter.name : GAME_INITIAL_STATE.chapter.name,
-                zone: typeof maybeInvalidChapter.zone === "string"
-                    ? maybeInvalidChapter.zone : GAME_INITIAL_STATE.chapter.zone
-            };
+            const maybeInvalidZone = (key: unknown): key is ZoneId => {
+                return typeof key === "string" && key in ZONES;
+            }
+            const validCurrentZone: ZoneId = maybeInvalidZone(obj.currentZone)
+            ? obj.currentZone : GAME_INITIAL_STATE.currentZone;
             const validStoryFlags: StoryFlag[] = Array.isArray(obj.storyFlags)
                 ? (obj.storyFlags.filter((f):
                 f is StoryFlag => typeof f === "string")) :
@@ -159,7 +152,7 @@ export function importSaveFile(
             // step 8
             currentState = {
                 ...GAME_INITIAL_STATE,
-                chapter: validChapter,
+                currentZone: validCurrentZone,
                 powerLevel: typeof obj.powerLevel === "number" ? obj.powerLevel :
                     GAME_INITIAL_STATE.powerLevel,
                 currentFrequency: typeof obj.currentFrequency === "number"

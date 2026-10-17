@@ -1,3 +1,4 @@
+import { ZONES } from "./world.js";
 export const StoryFlags = {
     //zone 1
     CHECKED_TRUCK_TRUNK: "CHECKED_TRUCK_TRUNK",
@@ -11,10 +12,7 @@ export const StoryFlags = {
 export const GAME_INITIAL_STATE = {
     app: "DEAD_SIGNAL",
     version: 1,
-    chapter: {
-        name: "prologue",
-        zone: "snowy forest"
-    },
+    currentZone: "TRUCK_CABIN",
     powerLevel: 100,
     currentFrequency: 0,
     discoveredSignals: [],
@@ -118,21 +116,18 @@ export function importSaveFile(onSuccess, onError) {
                 return;
             }
             // step 7
-            const maybeInvalidChapter = (typeof obj.chapter === "object" && obj.chapter !== null)
-                ? obj.chapter : GAME_INITIAL_STATE.chapter;
-            const validChapter = {
-                name: typeof maybeInvalidChapter.name === "string"
-                    ? maybeInvalidChapter.name : GAME_INITIAL_STATE.chapter.name,
-                zone: typeof maybeInvalidChapter.zone === "string"
-                    ? maybeInvalidChapter.zone : GAME_INITIAL_STATE.chapter.zone
+            const maybeInvalidZone = (key) => {
+                return typeof key === "string" && key in ZONES;
             };
+            const validCurrentZone = maybeInvalidZone(obj.currentZone)
+                ? obj.currentZone : GAME_INITIAL_STATE.currentZone;
             const validStoryFlags = Array.isArray(obj.storyFlags)
                 ? (obj.storyFlags.filter((f) => typeof f === "string")) :
                 [...GAME_INITIAL_STATE.storyFlags];
             // step 8
             currentState = {
                 ...GAME_INITIAL_STATE,
-                chapter: validChapter,
+                currentZone: validCurrentZone,
                 powerLevel: typeof obj.powerLevel === "number" ? obj.powerLevel :
                     GAME_INITIAL_STATE.powerLevel,
                 currentFrequency: typeof obj.currentFrequency === "number"

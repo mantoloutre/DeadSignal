@@ -74,7 +74,7 @@ export const ZONES = {
                 command: "get out of the truck",
                 description: "simply get out of the truck",
                 execute: getOutOfTheDamnTruck,
-            })
+            });
             if (!hasFlag(StoryFlags.OPENED_GLOVE_BOX)) {
                 actions.push({
                     command: "open glove box",
@@ -99,3 +99,4 @@ export const ZONES = {
         }
     }
 } satisfies Record<string, Zone>
+export type ZoneId = keyof typeof ZONES;
