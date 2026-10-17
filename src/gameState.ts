@@ -149,6 +149,10 @@ export function importSaveFile(
                 ? (obj.storyFlags.filter((f):
                 f is StoryFlag => typeof f === "string")) :
                 [...GAME_INITIAL_STATE.storyFlags];
+            const validInventory: InventorySlot[] = Array.isArray(obj.playerInventory)
+            ? obj.playerInventory.filter((slot): slot is InventorySlot =>
+                slot !== null && typeof slot === "object" && typeof (slot as InventorySlot).itemId === "string" &&
+                typeof (slot as InventorySlot).count === "number") : [...GAME_INITIAL_STATE.playerInventory];
             // step 8
             currentState = {
                 ...GAME_INITIAL_STATE,
