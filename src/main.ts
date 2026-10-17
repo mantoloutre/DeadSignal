@@ -5,30 +5,66 @@ import {
 import {Zone, ZoneActions, ZONES} from "./world.js";
 import {Item, ITEMS} from "./items.js";
 
+interface UIElements {
+    // buttons ( test )
+    "btn-side-menu-open": HTMLButtonElement;
+    "btn-print-hi-system": HTMLButtonElement;
+    "btn-print-hi-log": HTMLButtonElement;
+    "btn-print-hi-alert": HTMLButtonElement;
+    "btn-apply-zone-truck-cabin": HTMLButtonElement;
+    "btn-apply-zone-snowy-forest": HTMLButtonElement;
+    // buttons
+    "button-open-side-menu": HTMLButtonElement;
+    "button-close-side-menu": HTMLButtonElement;
+    "btn-export": HTMLButtonElement;
+    "btn-import": HTMLButtonElement;
+    "btn-close-inventory": HTMLButtonElement;
+    "btn-open-inventory": HTMLButtonElement;
+    // div elements
+    "side-menu": HTMLDivElement;
+    "menu-overlay": HTMLDivElement;
+    "inventory": HTMLDivElement;
+    "inventory-items-list": HTMLDivElement;
+    "inventory-item-details": HTMLParagraphElement;
+    "terminal-output": HTMLDivElement;
+    "terminal-input": HTMLDivElement;
+    "zone-action": HTMLDivElement;
+    "zone-tag": HTMLParagraphElement;
+}
+
+function getUi<Key extends keyof UIElements>(id: Key): UIElements[Key] {
+    const element = document.getElementById(id);
+    if (!element) {
+        throw new Error(`Element ${id} not found in DOM`);
+    }
+    return element as UIElements[Key];
+}
+
 // buttons
-const buttonOpenSideMenu: HTMLButtonElement = document.getElementById("btn-menu-open") as HTMLButtonElement;
-const buttonCloseSideMenu: HTMLButtonElement = document.getElementById("btn-menu-close") as HTMLButtonElement;
-const buttonPrintHi: HTMLButtonElement = document.getElementById("btn-print-hello") as HTMLButtonElement;
-const buttonPrintHiAlert: HTMLButtonElement = document.getElementById("btn-print-hello-alert") as HTMLButtonElement;
-const buttonExport: HTMLButtonElement = document.getElementById("btn-export") as HTMLButtonElement;
-const buttonImport: HTMLButtonElement = document.getElementById("btn-import") as HTMLButtonElement;
-const buttonPrintHiLog: HTMLButtonElement = document.getElementById("btn-print-hello-log") as HTMLButtonElement;
-const buttonOpenInventory: HTMLButtonElement = document.getElementById("btn-open-inventory") as HTMLButtonElement;
-const buttonCloseInventory: HTMLButtonElement = document.getElementById("btn-close-inventory") as HTMLButtonElement;
+//const buttonOpenSideMenu: HTMLButtonElement = document.getElementById("btn-menu-open") as HTMLButtonElement;
+//const buttonCloseSideMenu: HTMLButtonElement = document.getElementById("btn-menu-close") as HTMLButtonElement;
+//const buttonPrintHi: HTMLButtonElement = document.getElementById("btn-print-hello") as HTMLButtonElement;
+//const buttonPrintHiAlert: HTMLButtonElement = document.getElementById("btn-print-hello-alert") as HTMLButtonElement;
+//const buttonExport: HTMLButtonElement = document.getElementById("btn-export") as HTMLButtonElement;
+//const buttonImport: HTMLButtonElement = document.getElementById("btn-import") as HTMLButtonElement;
+//const buttonPrintHiLog: HTMLButtonElement = document.getElementById("btn-print-hello-log") as HTMLButtonElement;
+//const buttonOpenInventory: HTMLButtonElement = document.getElementById("btn-open-inventory") as HTMLButtonElement;
+//const buttonCloseInventory: HTMLButtonElement = document.getElementById("btn-close-inventory") as HTMLButtonElement;
 // zone 1
-const buttonApplyZone1: HTMLButtonElement = document.getElementById("applyZone1") as HTMLButtonElement;
+//const buttonApplyZone1: HTMLButtonElement = document.getElementById("applyZone1") as HTMLButtonElement;
 // zone 2
-const buttonApplyZone2: HTMLButtonElement = document.getElementById("applyZone2") as HTMLButtonElement;
+//const buttonApplyZone2: HTMLButtonElement = document.getElementById("applyZone2") as HTMLButtonElement;
 // div elements
-const sideMenu: HTMLDivElement = document.getElementById("side-menu") as HTMLDivElement;
-const sideMenuOverlay: HTMLDivElement = document.getElementById("menu-overlay") as HTMLDivElement;
-const terminalOutput: HTMLDivElement = document.getElementById("terminal-output") as HTMLDivElement;
-const inventory: HTMLDivElement = document.getElementById("inventory") as HTMLDivElement;
-const inventoryDesc: HTMLParagraphElement = document.getElementById("inventory-item-details") as HTMLParagraphElement;
-const terminalInput: HTMLDivElement = document.getElementById("terminal-input") as HTMLDivElement;
-const zoneActions: HTMLDivElement = document.getElementById("zone-action") as HTMLDivElement;
-const inventoryItemList: HTMLDivElement = document.getElementById("inventory-items-list") as HTMLDivElement;
-const zoneTag: HTMLParagraphElement = document.getElementById("zone") as HTMLParagraphElement;
+//const sideMenu: HTMLDivElement = document.getElementById("side-menu") as HTMLDivElement;
+//const sideMenuOverlay: HTMLDivElement = document.getElementById("menu-overlay") as HTMLDivElement;
+
+// const terminalOutput: HTMLDivElement = document.getElementById("terminal-output") as HTMLDivElement;
+// const inventory: HTMLDivElement = document.getElementById("inventory") as HTMLDivElement;
+// const inventoryDesc: HTMLParagraphElement = document.getElementById("inventory-item-details") as HTMLParagraphElement;
+// const terminalInput: HTMLDivElement = document.getElementById("terminal-input") as HTMLDivElement;
+// const zoneActions: HTMLDivElement = document.getElementById("zone-action") as HTMLDivElement;
+// const inventoryItemList: HTMLDivElement = document.getElementById("inventory-items-list") as HTMLDivElement;
+// const zoneTag: HTMLParagraphElement = document.getElementById("zone") as HTMLParagraphElement;
 
 
 export type fromType = "system" | "alert" | "QG" | "log" | "action";
@@ -39,6 +75,7 @@ export async function loadZone(zone: Zone): Promise<void> {
     await printToTerminal(zone.description, "system");
     renderZoneActions(zone);
 }
+
 /*
 function to render in a dynamic way the actions for a zone<br>
 detailed explanation:
@@ -55,8 +92,8 @@ export function renderZoneActions(zone: Zone): void {
     //step 2
     const actions: ZoneActions[] = zone.getActions();
     //sstep 3
-    for(const action of actions){
-        if (action.oneTime && currentState.inactiveCommands.includes(action.command)){
+    for (const action of actions) {
+        if (action.oneTime && currentState.inactiveCommands.includes(action.command)) {
             continue;
         }
         const button: HTMLButtonElement = document.createElement("button");
@@ -65,12 +102,12 @@ export function renderZoneActions(zone: Zone): void {
         button.title = action.description;
         // step 4
         bindingAction(button, async (): Promise<void> => {
-            if (action.oneTime){
+            if (action.oneTime) {
                 currentState.inactiveCommands.push(action.command);
             }
             await action.execute();
             //we need to make sure we are still in the same zone
-            if(currentState.currentZone === zone.id){
+            if (currentState.currentZone === zone.id) {
                 // needed to reload missing actions that needed a flag to appear
                 renderZoneActions(zone);
             }

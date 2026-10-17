@@ -1,30 +1,13 @@
 import { exportSaveFile, currentState } from "./gameState.js";
 import { ZONES } from "./world.js";
 import { ITEMS } from "./items.js";
-// buttons
-const buttonOpenSideMenu = document.getElementById("btn-menu-open");
-const buttonCloseSideMenu = document.getElementById("btn-menu-close");
-const buttonPrintHi = document.getElementById("btn-print-hello");
-const buttonPrintHiAlert = document.getElementById("btn-print-hello-alert");
-const buttonExport = document.getElementById("btn-export");
-const buttonImport = document.getElementById("btn-import");
-const buttonPrintHiLog = document.getElementById("btn-print-hello-log");
-const buttonOpenInventory = document.getElementById("btn-open-inventory");
-const buttonCloseInventory = document.getElementById("btn-close-inventory");
-// zone 1
-const buttonApplyZone1 = document.getElementById("applyZone1");
-// zone 2
-const buttonApplyZone2 = document.getElementById("applyZone2");
-// div elements
-const sideMenu = document.getElementById("side-menu");
-const sideMenuOverlay = document.getElementById("menu-overlay");
-const terminalOutput = document.getElementById("terminal-output");
-const inventory = document.getElementById("inventory");
-const inventoryDesc = document.getElementById("inventory-item-details");
-const terminalInput = document.getElementById("terminal-input");
-const zoneActions = document.getElementById("zone-action");
-const inventoryItemList = document.getElementById("inventory-items-list");
-const zoneTag = document.getElementById("zone");
+function getUi(id) {
+    const element = document.getElementById(id);
+    if (!element) {
+        throw new Error(`Element ${id} not found in DOM`);
+    }
+    return element;
+}
 export async function loadZone(zone) {
     zoneTag.textContent = `${zone.name}`;
     await printToTerminal(`ZONE: ${zone.name}`, "system");
