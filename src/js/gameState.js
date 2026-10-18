@@ -64,6 +64,110 @@ export function exportSaveFile() {
     URL.revokeObjectURL(url);
 }
 /*
+function to parse data into the currentState
+ */
+export function parseSaveData(json) {
+    let textParsed;
+    try {
+        textParsed = JSON.parse(json);
+    }
+    catch {
+        return null;
+    }
+    //step 5
+    if (textParsed === null || typeof textParsed !== "object" ||
+        Array.isArray(textParsed)) {
+        return null;
+    }
+    const obj = textParsed;
+    //step 6
+    if (obj.app !== "DEAD_SIGNAL") {
+        return null;
+    }
+    // step 7
+    const maybeInvalidZone = (key) => {
+        return typeof key === "string" && key in ZONES;
+    };
+    const maybeInvalidInventorySlot = (slot) => {
+        if (slot === null || typeof slot !== "object")
+            return false;
+        if (!("itemId" in slot) || !("count" in slot))
+            return false;
+        const entry = slot;
+        return typeof entry.itemId === "string" && typeof entry.count === "number";
+    };
+    const maybeInvalidInactiveCommand = (cmd) => {
+        return typeof cmd === "string";
+    };
+    const validStoryFlags = Array.isArray(obj.storyFlags)
+        ? (obj.storyFlags.filter((f) => typeof f === "string")) :
+        [...GAME_INITIAL_STATE.storyFlags];
+    const validCurrentZone = maybeInvalidZone(obj.currentZone)
+        ? obj.currentZone : GAME_INITIAL_STATE.currentZone;
+    const validPlayerInventory = Array.isArray(obj.playerInventory)
+        ? obj.playerInventory.filter(maybeInvalidInventorySlot)
+        : [...GAME_INITIAL_STATE.playerInventory];
+    const validInactiveCommands = Array.isArray(obj.inactiveCommands)
+        ? obj.inactiveCommands.filter(maybeInvalidInactiveCommand)
+        : [...GAME_INITIAL_STATE.inactiveCommands];
+    // step 8
+    return {
+        ...GAME_INITIAL_STATE,
+        currentZone: validCurrentZone,
+        powerLevel: typeof obj.powerLevel === "number" ? obj.powerLevel :
+            GAME_INITIAL_STATE.powerLevel,
+        currentFrequency: typeof obj.currentFrequency === "number"
+            ? obj.currentFrequency :
+            GAME_INITIAL_STATE.currentFrequency,
+        discoveredSignals: Array.isArray(obj.discoveredSignals)
+            ? obj.discoveredSignals :
+            [...GAME_INITIAL_STATE.discoveredSignals],
+        storyFlags: validStoryFlags,
+        playerInventory: validPlayerInventory,
+        inactiveCommands: validInactiveCommands
+    };
+}
+const LOCAL_STORAGE_KEY = "DEAD_SIGNAL_AUTOSAVE";
+export function saveTheDataToLocalStorage() {
+    try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(currentState));
+    }
+    catch {
+        //ignored if full or private mode
+    }
+}
+/*
+function to load from the local storage <br>
+detailed explanation
+-
+1. retrieve the item from local storage and put in in a const
+2. if it doesnt exist note as failed
+3. parse the data and catch if there is an error ( ex: private mode )
+4. its its corrupted, remove it from local storage
+5. if everything went well, load it in and mark as success ( return true )
+ */
+export function loadFromTheLocalStorage() {
+    // step 1
+    const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+    // step 2
+    if (!raw)
+        return false;
+    // step 3
+    const parsedData = parseSaveData(raw);
+    if (!parsedData) {
+        //corrupted or invalid ( step 4 )
+        localStorage.removeItem(LOCAL_STORAGE_KEY);
+        return false;
+    }
+    //step 5
+    currentState = parsedData;
+    return true;
+}
+export function clearTheLocalStorage() {
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+}
+/*
+TODO correct the documentation <br>
 this function is to import the game from a json file, but in a more secure way <br>
 detailed explanation:
 -
@@ -93,70 +197,13 @@ export function importSaveFile(onSuccess, onError) {
         //step 3
         const fileReader = new FileReader();
         fileReader.onload = () => {
-            const text = fileReader.result;
+            const parsedData = parseSaveData(fileReader.result);
+            if (!parsedData) {
+                onError("invalid save file format");
+                return;
+            }
             //step 4
-            let textParsed;
-            try {
-                textParsed = JSON.parse(text);
-            }
-            catch {
-                onError("file isn't a valid json format");
-                return;
-            }
-            //step 5
-            if (textParsed === null || typeof textParsed !== "object" ||
-                Array.isArray(textParsed)) {
-                onError("invalid save format ( expected object )");
-                return;
-            }
-            const obj = textParsed;
-            //step 6
-            if (obj.app !== "DEAD_SIGNAL") {
-                onError("this file is not a valid dead signal save");
-                return;
-            }
-            // step 7
-            const maybeInvalidZone = (key) => {
-                return typeof key === "string" && key in ZONES;
-            };
-            const maybeInvalidInventorySlot = (slot) => {
-                if (slot === null || typeof slot !== "object")
-                    return false;
-                if (!("itemId" in slot) || !("count" in slot))
-                    return false;
-                const entry = slot;
-                return typeof entry.itemId === "string" && typeof entry.count === "number";
-            };
-            const maybeInvalidInactiveCommand = (cmd) => {
-                return typeof cmd === "string";
-            };
-            const validStoryFlags = Array.isArray(obj.storyFlags)
-                ? (obj.storyFlags.filter((f) => typeof f === "string")) :
-                [...GAME_INITIAL_STATE.storyFlags];
-            const validCurrentZone = maybeInvalidZone(obj.currentZone)
-                ? obj.currentZone : GAME_INITIAL_STATE.currentZone;
-            const validPlayerInventory = Array.isArray(obj.playerInventory)
-                ? obj.playerInventory.filter(maybeInvalidInventorySlot)
-                : [...GAME_INITIAL_STATE.playerInventory];
-            const validInactiveCommands = Array.isArray(obj.inactiveCommands)
-                ? obj.inactiveCommands.filter(maybeInvalidInactiveCommand)
-                : [...GAME_INITIAL_STATE.inactiveCommands];
-            // step 8
-            currentState = {
-                ...GAME_INITIAL_STATE,
-                currentZone: validCurrentZone,
-                powerLevel: typeof obj.powerLevel === "number" ? obj.powerLevel :
-                    GAME_INITIAL_STATE.powerLevel,
-                currentFrequency: typeof obj.currentFrequency === "number"
-                    ? obj.currentFrequency :
-                    GAME_INITIAL_STATE.currentFrequency,
-                discoveredSignals: Array.isArray(obj.discoveredSignals)
-                    ? obj.discoveredSignals :
-                    [...GAME_INITIAL_STATE.discoveredSignals],
-                storyFlags: validStoryFlags,
-                playerInventory: validPlayerInventory,
-                inactiveCommands: validInactiveCommands
-            };
+            currentState = parsedData;
             //step 9
             onSuccess();
         };
@@ -167,4 +214,7 @@ export function importSaveFile(onSuccess, onError) {
     };
     //step 10
     input.click();
+}
+export function resetGameState() {
+    currentState = { ...GAME_INITIAL_STATE };
 }

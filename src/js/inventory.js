@@ -17,12 +17,12 @@ export async function addItemToInventory(itemId, amount = 1) {
             return true;
         }
         //if its not a consumable (and its in inventory), we just return false ( and ask.. why..)
-        await printToTerminal(`you already have a ${ITEMS[itemId].name} in your inventory, you don't need 2 of it`, "system");
+        await printToTerminal(`you already have the item :  ${ITEMS[itemId].name} in your inventory, you don't need 2 of it`, "system");
         return false;
     }
     //if not in inventory, then i allow you to pick it up
     if (!(ITEMS[itemId].type === "consumable")) {
-        await printToTerminal(`you picked up a ${ITEMS[itemId].name}. It is now in your inventory`, "action");
+        await printToTerminal(`you picked up the following item : ${ITEMS[itemId].name}. It is now in your inventory`, "action");
     }
     currentState.playerInventory.push({ itemId, count: amount });
     return true;

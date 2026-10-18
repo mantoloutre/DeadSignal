@@ -2,6 +2,7 @@ import {
     ZoneId, ZONES
 } from "./world.js"
 import {InventorySlot} from "./inventory.js";
+import {loadZone} from "./main.js";
 
 //base
 export interface GameState {
@@ -87,6 +88,111 @@ export function exportSaveFile(): void {
 }
 
 /*
+function to parse data into the currentState
+ */
+export function parseSaveData(json: string): GameState | null {
+    let textParsed: unknown;
+    try {
+        textParsed = JSON.parse(json);
+    } catch {
+        return null;
+    }
+    //step 5
+    if (textParsed === null || typeof textParsed !== "object" ||
+        Array.isArray(textParsed)) {
+        return null;
+    }
+    const obj = textParsed as Record<string, unknown>;
+    //step 6
+    if (obj.app !== "DEAD_SIGNAL") {
+        return null;
+    }
+    // step 7
+    const maybeInvalidZone = (key: unknown): key is ZoneId => {
+        return typeof key === "string" && key in ZONES;
+    }
+    const maybeInvalidInventorySlot = (slot: unknown): slot is InventorySlot => {
+        if (slot === null || typeof slot !== "object") return false;
+        if (!("itemId" in slot) || !("count" in slot)) return false;
+        const entry = slot as Record<keyof InventorySlot, unknown>;
+        return typeof entry.itemId === "string" && typeof entry.count === "number";
+    }
+    const maybeInvalidInactiveCommand = (cmd: unknown): cmd is string => {
+        return typeof cmd === "string";
+    }
+    const validStoryFlags: StoryFlag[] = Array.isArray(obj.storyFlags)
+        ? (obj.storyFlags.filter((f):
+        f is StoryFlag => typeof f === "string")) :
+        [...GAME_INITIAL_STATE.storyFlags];
+    const validCurrentZone: ZoneId = maybeInvalidZone(obj.currentZone)
+        ? obj.currentZone : GAME_INITIAL_STATE.currentZone;
+    const validPlayerInventory: InventorySlot[] = Array.isArray(obj.playerInventory)
+        ? obj.playerInventory.filter(maybeInvalidInventorySlot)
+        : [...GAME_INITIAL_STATE.playerInventory];
+    const validInactiveCommands: string[] = Array.isArray(obj.inactiveCommands)
+        ? obj.inactiveCommands.filter(maybeInvalidInactiveCommand)
+        : [...GAME_INITIAL_STATE.inactiveCommands];
+    // step 8
+    return {
+        ...GAME_INITIAL_STATE,
+        currentZone: validCurrentZone,
+        powerLevel: typeof obj.powerLevel === "number" ? obj.powerLevel :
+            GAME_INITIAL_STATE.powerLevel,
+        currentFrequency: typeof obj.currentFrequency === "number"
+            ? obj.currentFrequency :
+            GAME_INITIAL_STATE.currentFrequency,
+        discoveredSignals: Array.isArray(obj.discoveredSignals)
+            ? (obj.discoveredSignals as string[]) :
+            [...GAME_INITIAL_STATE.discoveredSignals],
+        storyFlags: validStoryFlags,
+        playerInventory: validPlayerInventory,
+        inactiveCommands: validInactiveCommands
+    };
+}
+
+const LOCAL_STORAGE_KEY = "DEAD_SIGNAL_AUTOSAVE";
+
+export function saveTheDataToLocalStorage(): void {
+    try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(currentState));
+    } catch {
+        //ignored if full or private mode
+    }
+}
+
+/*
+function to load from the local storage <br>
+detailed explanation
+-
+1. retrieve the item from local storage and put in in a const
+2. if it doesnt exist note as failed
+3. parse the data and catch if there is an error ( ex: private mode )
+4. its its corrupted, remove it from local storage
+5. if everything went well, load it in and mark as success ( return true )
+ */
+export function loadFromTheLocalStorage(): boolean {
+    // step 1
+    const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+    // step 2
+    if (!raw) return false;
+    // step 3
+    const parsedData = parseSaveData(raw);
+    if (!parsedData) {
+        //corrupted or invalid ( step 4 )
+        localStorage.removeItem(LOCAL_STORAGE_KEY);
+        return false;
+    }
+    //step 5
+    currentState = parsedData;
+    return true;
+}
+
+export function clearTheLocalStorage(): void {
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+}
+
+/*
+TODO correct the documentation <br>
 this function is to import the game from a json file, but in a more secure way <br>
 detailed explanation:
 -
@@ -119,68 +225,13 @@ export function importSaveFile(
         //step 3
         const fileReader = new FileReader();
         fileReader.onload = () => {
-            const text: string = fileReader.result as string;
+            const parsedData = parseSaveData(fileReader.result as string);
+            if (!parsedData) {
+                onError("invalid save file format");
+                return;
+            }
             //step 4
-            let textParsed: unknown;
-            try {
-                textParsed = JSON.parse(text);
-            } catch {
-                onError("file isn't a valid json format");
-                return;
-            }
-            //step 5
-            if (textParsed === null || typeof textParsed !== "object" ||
-                Array.isArray(textParsed)) {
-                onError("invalid save format ( expected object )");
-                return;
-            }
-            const obj = textParsed as Record<string, unknown>;
-            //step 6
-            if (obj.app !== "DEAD_SIGNAL") {
-                onError("this file is not a valid dead signal save");
-                return;
-            }
-            // step 7
-            const maybeInvalidZone = (key: unknown): key is ZoneId => {
-                return typeof key === "string" && key in ZONES;
-            }
-            const maybeInvalidInventorySlot = (slot: unknown): slot is InventorySlot => {
-                if (slot === null || typeof slot !== "object") return false;
-                if (!("itemId" in slot) || !("count" in slot)) return false;
-                const entry = slot as Record<keyof InventorySlot, unknown>;
-                return typeof entry.itemId === "string" && typeof entry.count === "number";
-            }
-            const maybeInvalidInactiveCommand = (cmd: unknown): cmd is string => {
-                return typeof cmd === "string";
-            }
-            const validStoryFlags: StoryFlag[] = Array.isArray(obj.storyFlags)
-                ? (obj.storyFlags.filter((f):
-                f is StoryFlag => typeof f === "string")) :
-                [...GAME_INITIAL_STATE.storyFlags];
-            const validCurrentZone: ZoneId = maybeInvalidZone(obj.currentZone)
-                ? obj.currentZone : GAME_INITIAL_STATE.currentZone;
-            const validPlayerInventory: InventorySlot[] = Array.isArray(obj.playerInventory)
-                ? obj.playerInventory.filter(maybeInvalidInventorySlot)
-                : [...GAME_INITIAL_STATE.playerInventory];
-            const validInactiveCommands: string[] = Array.isArray(obj.inactiveCommands)
-                ? obj.inactiveCommands.filter(maybeInvalidInactiveCommand)
-                : [...GAME_INITIAL_STATE.inactiveCommands];
-            // step 8
-            currentState = {
-                ...GAME_INITIAL_STATE,
-                currentZone: validCurrentZone,
-                powerLevel: typeof obj.powerLevel === "number" ? obj.powerLevel :
-                    GAME_INITIAL_STATE.powerLevel,
-                currentFrequency: typeof obj.currentFrequency === "number"
-                    ? obj.currentFrequency :
-                    GAME_INITIAL_STATE.currentFrequency,
-                discoveredSignals: Array.isArray(obj.discoveredSignals)
-                    ? (obj.discoveredSignals as string[]) :
-                    [...GAME_INITIAL_STATE.discoveredSignals],
-                storyFlags: validStoryFlags,
-                playerInventory: validPlayerInventory,
-                inactiveCommands: validInactiveCommands
-            };
+            currentState = parsedData;
             //step 9
             onSuccess();
         };
@@ -191,4 +242,8 @@ export function importSaveFile(
     };
     //step 10
     input.click();
+}
+
+export function resetGameState(): void {
+    currentState = {...GAME_INITIAL_STATE};
 }

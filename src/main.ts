@@ -1,6 +1,7 @@
 import {
     exportSaveFile,
-    currentState
+    currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage,
+    saveTheDataToLocalStorage
 } from "./gameState.js";
 import {Zone, ZoneActions, ZONES} from "./world.js";
 import {Item, ITEMS} from "./items.js";
@@ -20,6 +21,8 @@ interface UIElements {
     "btn-import": HTMLButtonElement;
     "btn-close-inventory": HTMLButtonElement;
     "btn-open-inventory": HTMLButtonElement;
+    "btn-restart": HTMLButtonElement;
+    "btn-save": HTMLButtonElement;
     // div elements
     "side-menu": HTMLDivElement;
     "menu-overlay": HTMLDivElement;
@@ -31,6 +34,7 @@ interface UIElements {
     "zone-action": HTMLDivElement;
     "zone-tag": HTMLParagraphElement;
 }
+
 /*
 used to optimize a bit the performance
  */
@@ -201,11 +205,28 @@ async function applyZone2Test(): Promise<void> {
     await loadZone(ZONES.SNOWY_FOREST);
 }
 
+async function saveGame(): Promise<void> {
+    saveTheDataToLocalStorage();
+    await printToTerminal("Game Saved", "system");
+}
+
 // buttons
 //general
 getEl("button-open-side-menu").addEventListener("click", openMenu);
 getEl("button-close-side-menu").addEventListener("click", closeMenu);
 getEl("btn-export").addEventListener("click", exportSaveFile);
+getEl("btn-import").addEventListener("click", async (): Promise<void> => {
+    getEl("terminal-output").innerHTML = "";
+    importSaveFile(
+        async (): Promise<void> => {
+            await loadZone(ZONES[currentState.currentZone]);
+            await printToTerminal("Save file loaded with success", "system");
+        },
+        async (errorMsg: string): Promise<void> => {
+            await printToTerminal(`Import error: ${errorMsg}`, "alert");
+        }
+    );
+});
 getEl("btn-open-inventory").addEventListener("click", openInventory);
 getEl("btn-close-inventory").addEventListener("click", closeInventory)
 //test
@@ -219,6 +240,8 @@ bindingAction(getEl("btn-apply-zone-truck-cabin"), applyZone1Test);
 //zone 2
 bindingAction(getEl("btn-apply-zone-snowy-forest"), applyZone2Test);
 // others
+bindingAction(getEl("btn-save"), saveGame);
+
 /*
 function to close the correct interface ( i dont wanna redo a overlay for everything so
 im just going to reuse the sideMenuOverlay
@@ -270,16 +293,50 @@ export async function printToTerminal(text: string, from: fromType, speedMs: num
     isPrinting = false;
 }
 
+let confirmingReset: boolean = false;
+let resetTimeout: number | null = null;
+getEl("btn-restart").addEventListener("click", async () => {
+    if (!confirmingReset) {
+        // first click
+        confirmingReset = true;
+        getEl("btn-restart").textContent = "Are you sure? (click again)";
+        flashButton(getEl("btn-restart"));
+        // 4 seconds timeout
+        resetTimeout = window.setTimeout(() => {
+            confirmingReset = false;
+            getEl("btn-restart").textContent = "Restart the whole game";
+        }, 4000);
+        return;
+    }
+    if (resetTimeout !== null) {
+        window.clearTimeout(resetTimeout);
+    }
+    confirmingReset = false;
+    getEl("btn-restart").textContent = "Restart the whole game";
+    clearTheLocalStorage();
+    resetGameState();
+    //reloading the game
+    location.reload();
+});
+
+
 function sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 /*
-function that is call to initialize game
+function that is called to initialize game
  */
 async function initGame(): Promise<void> {
-    await printToTerminal("the game story is really far from being finished, sorry :c", "alert");
-    await loadZone(ZONES.TRUCK_CABIN);
+    const hasSave = loadFromTheLocalStorage();
+    if (hasSave) {
+        await printToTerminal("Restoring previous session...", "system");
+        await loadZone(ZONES[currentState.currentZone]);
+    } else {
+        await printToTerminal("the game story is really far from being finished, sorry :c", "alert");
+        await loadZone(ZONES[GAME_INITIAL_STATE.currentZone]);
+    }
+
 }
 
 /*

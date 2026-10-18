@@ -1,6 +1,7 @@
 {
   "name": "dead-signal",
   "version": "1.0.0",
+  "license": "BSD-3-Clause",
   "description": "Minimalist text-based survival incremental game",
   "main": "dist/main.js",
   "scripts": {

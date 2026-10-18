@@ -34,7 +34,7 @@ export async function addWinterGlovesToThePlayerInventory() {
     await addItemToInventory("winter_gloves");
 }
 export async function lookInGloveBoxInTruckCabin() {
-    await printToTerminal("You open the glove box you look what is inside. you find 2 flares and " +
+    await printToTerminal("You open the glove box you look inside. you find 2 flares and " +
         "the truck's insurance paper", "action");
     addFlag("OPENED_GLOVE_BOX");
 }
