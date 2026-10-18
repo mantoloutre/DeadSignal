@@ -3,7 +3,8 @@ import {
     addWinterGlovesToThePlayerInventory,
     checkTruckTrunk, getOutOfTheDamnTruck, lookInGloveBoxInTruckCabin
 } from "./actions.js";
-import {hasFlag, StoryFlags} from "./gameState.js";
+import {hasFlag} from "./gameState.js";
+import {StoryFlags} from "./storyFlags.js";
 
 export interface User_Choice {
     label: string;
@@ -16,7 +17,9 @@ export interface ZoneActions {
     execute: () => Promise<void>;
     oneTime?: boolean;
 }
+
 export type ZoneId = "SNOWY_FOREST" | "TRUCK_CABIN";
+
 export interface Zone {
     id: ZoneId;
     name: string;
@@ -46,19 +49,27 @@ export const ZONES = {
             const actions: ZoneActions[] = [];
             if (!hasFlag(StoryFlags.OUT_OF_TRUCK_INIT)) {
                 actions.push({
-                    command: "check truck's trunk",
+                    command: hasFlag("OPENED_TRUCK_TRUNK_INIT")
+                        ? "look into the truck's trunk" : "open the truck's trunk",
                     description: "check the truck trunk's to see if there is anything useful in there",
                     execute: checkTruckTrunk,
                     oneTime: true
                 });
             }
-            if (hasFlag(StoryFlags.CHECKED_TRUCK_TRUNK)) {
+            if (hasFlag(StoryFlags.OPENED_TRUCK_TRUNK_INIT)) {
                 actions.push({
                     command: "add crowbar",
-                    description: "test feature, add a crowbar to the player inventory",
+                    description: "take the crowbar from the trunk",
                     execute: addCrowBarToThePlayerInventory,
                     oneTime: true
                 });
+                /*
+                actions.push({
+                    command: hasFlag("OPENED_TOOLBOX_INIT") ? "look into the toolbox" : "open the toolbox",
+                    description: "open the toolbox ",
+                    execute: //TODO
+                });
+                 */
             }
             return actions;
         }

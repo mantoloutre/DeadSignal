@@ -2,7 +2,7 @@ import {
     ZoneId, ZONES
 } from "./world.js"
 import {InventorySlot} from "./inventory.js";
-import {loadZone} from "./main.js";
+import {StoryFlags} from "./storyFlags.js";
 
 //base
 export interface GameState {
@@ -17,16 +17,7 @@ export interface GameState {
     inactiveCommands: string[];
 }
 
-export const StoryFlags = {
-    //zone 1
-    CHECKED_TRUCK_TRUNK: "CHECKED_TRUCK_TRUNK",
-    TRUCK_REPAIRED: "TRUCl_REPAIRED",
-    WALKED_TO_TOWER: "WALKED_TO_TOWER",
-    OPENED_GLOVE_BOX: "OPENED_GLOVE_BOX",
-    TOOK_FLARE_FROM_GLOVE_BOX: "TOOK_FLARE_FROM_GLOVE_BOX",
-    TOOK_WINTER_GLOVE: "TOOK_WINTER_GLOVE",
-    OUT_OF_TRUCK_INIT: "OUT_OF_TRUCK_INIT"
-} as const;
+
 export type StoryFlag = typeof StoryFlags[keyof typeof StoryFlags];
 export const GAME_INITIAL_STATE: GameState = {
     app: "DEAD_SIGNAL",

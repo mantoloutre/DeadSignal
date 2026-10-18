@@ -1,15 +1,16 @@
-import { addFlag, hasFlag, StoryFlags } from "./gameState.js";
+import { addFlag, hasFlag } from "./gameState.js";
 import { loadZone, printToTerminal } from "./main.js";
 import { addItemToInventory } from "./inventory.js";
 import { ZONES } from "./world.js";
+import { StoryFlags } from "./storyFlags.js";
 export async function lookAroundYou() {
 }
 /*
 pretty self explanatory function
  */
 export async function checkTruckTrunk() {
-    if (!hasFlag("CHECKED_TRUCK_TRUNK")) {
-        addFlag(StoryFlags.CHECKED_TRUCK_TRUNK);
+    if (!hasFlag("OPENED_TRUCK_TRUNK_INIT")) {
+        addFlag(StoryFlags.OPENED_TRUCK_TRUNK_INIT);
         await printToTerminal("You force the frozen trunk open with your bare hands. Inside, you spot" +
             " a heavy toolbox, a small black barrel full of wine and two spare tires.", "action");
     }
@@ -41,6 +42,13 @@ export async function lookInGloveBoxInTruckCabin() {
 export async function addFlareTruckCabin() {
     await addANumberOfFlares(2);
 }
+/*
+export async function openToolBoxTruckTrunk(): Promise<void> {
+    if (!hasFlag(StoryFlags.OPENED_TOOLBOX_INIT)){
+        await printToTerminal("")
+    }
+}
+*/
 async function addANumberOfFlares(count) {
     if (count > 1) {
         await printToTerminal(`You take ${count} flares`, "action");
