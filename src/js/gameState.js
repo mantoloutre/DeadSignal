@@ -47,10 +47,10 @@ export function exportSaveFile() {
     const a = document.createElement("a");
     a.href = url;
     a.download = `save_dead_signal${Date.now()}.json`;
-    document.body.appendChild(a);
+    document.body.append(a);
     a.click();
     //step 5
-    document.body.removeChild(a);
+    a.remove();
     URL.revokeObjectURL(url);
 }
 /*

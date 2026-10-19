@@ -1,13 +1,16 @@
 export type ItemType = "tool" | "consumable" | "key";
+
 export interface Item {
     id: string;
     name: string;
     type: ItemType;
     description: string;
 }
-export interface itemConsumable{
+
+export interface itemConsumable {
 
 }
+
 export const ITEMS: Record<string, Item> = {
     crowbar: {
         id: "crowbar",
@@ -29,7 +32,7 @@ export const ITEMS: Record<string, Item> = {
     },
     winter_gloves: {
         id: "winterGlove",
-        name:"Winter Gloves",
+        name: "Winter Gloves",
         type: "tool",
         description: "a warm pair of gloves, be careful to not burn them."
     },
@@ -38,5 +41,17 @@ export const ITEMS: Record<string, Item> = {
         name: "The truck insurance Paper",
         type: "tool",
         description: "i mean... its the truck's insurance papers.."
+    },
+    duct_tape: {
+        id: "ductTape",
+        name: "roll of duct tape",
+        type: "consumable",
+        description: "a roll of heavy duty duct tape"
+    },
+    ajustable_wrench: {
+        id: "ajustableWrench",
+        name: "ajustable wrench",
+        type: "tool",
+        description: "an ajustable wrench"
     }
 }

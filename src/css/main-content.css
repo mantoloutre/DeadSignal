@@ -61,6 +61,7 @@
     background-color: var(--main-color-background);
 }
 #zone-action {
+    background-color: var(--main-color-background);
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -70,6 +71,9 @@
     width: 30%;
     height: auto;
     align-content: flex-start;
+}
+#permanent-button{
+    background-color: var(--main-color-background);
 }
 .terminal-line {
     line-height: 1.5;

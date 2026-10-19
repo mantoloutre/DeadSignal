@@ -1,7 +1,13 @@
 import {
-    addCrowBarToThePlayerInventory, addFlareTruckCabin,
+    addCrowBarToThePlayerInventory,
+    addFlareTruckCabin,
     addWinterGlovesToThePlayerInventory,
-    checkTruckTrunk, getOutOfTheDamnTruck, lookInGloveBoxInTruckCabin
+    checkTruckTrunk,
+    getOutOfTheDamnTruck,
+    goBackInThePrettyTruck,
+    lookInGloveBoxInTruckCabin,
+    openToolBoxTruckTrunkInit, takeAjustableWrenchFromToolBoxInit,
+    takeDuctTapeFromToolBoxInit
 } from "./actions.js";
 import {hasFlag} from "./gameState.js";
 import {StoryFlags} from "./storyFlags.js";
@@ -40,6 +46,7 @@ const Chapter1: Chapter = {
 the const containing all the zone that i'm using in the game
  */
 export const ZONES = {
+    //###################################################################
     SNOWY_FOREST: {
         id: "SNOWY_FOREST",
         name: "SNOWY FOREST",
@@ -47,15 +54,17 @@ export const ZONES = {
             + "fuming on the side of the road",
         getActions: (): ZoneActions[] => {
             const actions: ZoneActions[] = [];
-            if (!hasFlag(StoryFlags.OUT_OF_TRUCK_INIT)) {
-                actions.push({
-                    command: hasFlag("OPENED_TRUCK_TRUNK_INIT")
-                        ? "look into the truck's trunk" : "open the truck's trunk",
-                    description: "check the truck trunk's to see if there is anything useful in there",
-                    execute: checkTruckTrunk,
-                    oneTime: true
-                });
-            }
+            actions.push({
+                command: hasFlag("OPENED_TRUCK_TRUNK_INIT")
+                    ? "look into the truck's trunk" : "open the truck's trunk",
+                description: "check the truck trunk's to see if there is anything useful in there",
+                execute: checkTruckTrunk,
+            });
+            actions.push({
+                command: "get back in the truck",
+                description: "go back inside the truck",
+                execute: goBackInThePrettyTruck
+            });
             if (hasFlag(StoryFlags.OPENED_TRUCK_TRUNK_INIT)) {
                 actions.push({
                     command: "add crowbar",
@@ -63,17 +72,30 @@ export const ZONES = {
                     execute: addCrowBarToThePlayerInventory,
                     oneTime: true
                 });
-                /*
                 actions.push({
                     command: hasFlag("OPENED_TOOLBOX_INIT") ? "look into the toolbox" : "open the toolbox",
                     description: "open the toolbox ",
-                    execute: //TODO
+                    execute: openToolBoxTruckTrunkInit,
                 });
-                 */
+                if(hasFlag(StoryFlags.OPENED_TOOLBOX_INIT)){
+                    actions.push({
+                        command: "pickup duct tape",
+                        description: "take the roll of duct tape from the toolbox",
+                        execute: takeDuctTapeFromToolBoxInit,
+                        oneTime: true
+                    });
+                    actions.push({
+                        command: "pickup ajustable wrench",
+                        description: "take the ajustable wrench from the toolbox",
+                        execute: takeAjustableWrenchFromToolBoxInit,
+                        oneTime: true
+                    })
+                }
             }
             return actions;
         }
     },
+    //###################################################################
     TRUCK_CABIN: {
         id: "TRUCK_CABIN",
         name: "truck cabin",

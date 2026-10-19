@@ -6,6 +6,11 @@ import { StoryFlags } from "./storyFlags.js";
 export async function lookAroundYou() {
 }
 /*
+##################
+ZONE : TRUCK CABIN
+##################
+ */
+/*
 pretty self explanatory function
  */
 export async function checkTruckTrunk() {
@@ -23,12 +28,6 @@ export async function getOutOfTheDamnTruck() {
     await loadZone(ZONES.SNOWY_FOREST);
 }
 /*
-pretty self explanatory function x1
- */
-export async function addCrowBarToThePlayerInventory() {
-    await addItemToInventory("crowbar");
-}
-/*
 pretty self explanatory function x2
  */
 export async function addWinterGlovesToThePlayerInventory() {
@@ -39,16 +38,41 @@ export async function lookInGloveBoxInTruckCabin() {
         "the truck's insurance paper", "action");
     addFlag("OPENED_GLOVE_BOX");
 }
+/*
+function to add 2 flare to inventory
+ */
 export async function addFlareTruckCabin() {
     await addANumberOfFlares(2);
 }
 /*
-export async function openToolBoxTruckTrunk(): Promise<void> {
-    if (!hasFlag(StoryFlags.OPENED_TOOLBOX_INIT)){
-        await printToTerminal("")
+###################
+ZONE : SNOWY FOREST
+###################
+ */
+export async function goBackInThePrettyTruck() {
+    await loadZone(ZONES.TRUCK_CABIN);
+}
+/*
+pretty self explanatory function x1
+ */
+export async function addCrowBarToThePlayerInventory() {
+    await addItemToInventory("crowbar");
+}
+export async function openToolBoxTruckTrunkInit() {
+    if (!hasFlag(StoryFlags.OPENED_TOOLBOX_INIT)) {
+        await printToTerminal("you try to open the toolbox, but the lock appear to be frozen, " +
+            "how do you want to try to open it?", "system");
+    }
+    else {
+        await printToTerminal("you look back in the toolbox", "system");
     }
 }
-*/
+export async function takeAjustableWrenchFromToolBoxInit() {
+    await addItemToInventory("ajustableWrench");
+}
+export async function takeDuctTapeFromToolBoxInit() {
+    await addItemToInventory("ductTape");
+}
 async function addANumberOfFlares(count) {
     if (count > 1) {
         await printToTerminal(`You take ${count} flares`, "action");

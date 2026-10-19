@@ -28,5 +28,17 @@ export const ITEMS = {
         name: "The truck insurance Paper",
         type: "tool",
         description: "i mean... its the truck's insurance papers.."
+    },
+    duct_tape: {
+        id: "ductTape",
+        name: "roll of duct tape",
+        type: "consumable",
+        description: "a roll of heavy duty duct tape"
+    },
+    ajustable_wrench: {
+        id: "ajustableWrench",
+        name: "ajustable wrench",
+        type: "tool",
+        description: "an ajustable wrench"
     }
 };

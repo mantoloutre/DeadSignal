@@ -71,10 +71,10 @@ export function exportSaveFile(): void {
     const a: HTMLAnchorElement = document.createElement("a");
     a.href = url;
     a.download = `save_dead_signal${Date.now()}.json`;
-    document.body.appendChild(a);
+    document.body.append(a);
     a.click();
     //step 5
-    document.body.removeChild(a);
+    a.remove();
     URL.revokeObjectURL(url);
 }
 
@@ -215,7 +215,7 @@ export function importSaveFile(
         }
         //step 3
         const fileReader = new FileReader();
-        fileReader.onload = () => {
+        fileReader.onload = ():void => {
             const parsedData = parseSaveData(fileReader.result as string);
             if (!parsedData) {
                 onError("invalid save file format");

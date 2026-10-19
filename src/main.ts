@@ -103,7 +103,7 @@ export function renderZoneActions(zone: Zone): void {
                 renderZoneActions(zone);
             }
         });
-        getEl("zone-action").appendChild(button);
+        getEl("zone-action").append(button);
     }
 }
 
@@ -115,7 +115,7 @@ export function renderThePlayerInventory(): void {
         const nothingToSeeThereMsg = document.createElement("p");
         nothingToSeeThereMsg.textContent = "Nothing to see there, its empty";
         nothingToSeeThereMsg.className = "nothing-here-msg";
-        getEl("inventory-items-list").appendChild(nothingToSeeThereMsg);
+        getEl("inventory-items-list").append(nothingToSeeThereMsg);
         //if the inventory is not there or no item
         return;
     }
@@ -138,18 +138,9 @@ export function renderThePlayerInventory(): void {
             buttonForDaItem.classList.add("TheOneAndOnlySelectedInventoryItemButton");
             getEl("inventory-item-details").textContent = `[${item.type.toUpperCase()}] ${item.description}`;
         });
-        getEl("inventory-items-list").appendChild(buttonForDaItem);
+        getEl("inventory-items-list").append(buttonForDaItem);
     });
 
-}
-
-/*
-simple function to open the menu by removing
-the "hidden" class from their classList
- */
-function openMenu(): void {
-    getEl("side-menu").classList.remove("hidden");
-    getEl("menu-overlay").classList.remove("hidden");
 }
 
 /*
@@ -168,7 +159,7 @@ function bindingAction(button: HTMLButtonElement, action: () => Promise<void>): 
 }
 
 /*
-function to close side menu
+function to toggle the hidden class to open or close the menu
  */
 function openOrCloseMenu(): void {
     getEl("side-menu").classList.toggle("hidden");
@@ -177,15 +168,13 @@ function openOrCloseMenu(): void {
     }
 }
 
-function openInventory(): void {
-    getEl("inventory").classList.add("inventory-active");
-    getEl("menu-overlay").classList.remove("hidden");
+/*
+function to toggle the hidden / active class to open or close the inventory
+ */
+function openOrCloseInventory(): void {
+    getEl("inventory").classList.toggle("inventory-active");
+    getEl("menu-overlay").classList.toggle("hidden");
     renderThePlayerInventory();
-}
-
-function closeInventory(): void {
-    getEl("inventory").classList.remove("inventory-active");
-    getEl("menu-overlay").classList.add("hidden");
 }
 
 async function printHiNormal(): Promise<void> {
@@ -215,8 +204,8 @@ async function saveGame(): Promise<void> {
 
 // buttons
 //general
-getEl("button-open-side-menu").addEventListener("click", openMenu);
-getEl("button-close-side-menu").addEventListener("click", closeMenu);
+getEl("button-open-side-menu").addEventListener("click", openOrCloseMenu);
+getEl("button-close-side-menu").addEventListener("click", openOrCloseMenu);
 getEl("btn-export").addEventListener("click", exportSaveFile);
 getEl("btn-import").addEventListener("click", async (): Promise<void> => {
     getEl("terminal-output").innerHTML = "";
@@ -230,8 +219,8 @@ getEl("btn-import").addEventListener("click", async (): Promise<void> => {
         }
     );
 });
-getEl("btn-open-inventory").addEventListener("click", openInventory);
-getEl("btn-close-inventory").addEventListener("click", closeInventory)
+getEl("btn-open-inventory").addEventListener("click", openOrCloseInventory);
+getEl("btn-close-inventory").addEventListener("click", openOrCloseInventory)
 //test
 /*
 bindingAction(buttonPrintHi, printHiNormal);
@@ -251,9 +240,9 @@ im just going to reuse the sideMenuOverlay
  */
 function closeInterface(): void {
     if (!getEl("side-menu").classList.contains("hidden")) {
-        closeMenu();
+        openOrCloseMenu();
     } else if (getEl("inventory").classList.contains("inventory-active")) {
-        closeInventory();
+        openOrCloseInventory();
     }
 }
 
@@ -264,9 +253,9 @@ shortcut ( press escape to close/open side menu, instead of having to click a sm
  */
 window.addEventListener("keydown", (keyEvent) => {
     if (!getEl("side-menu").classList.contains("hidden") && keyEvent.key === "Escape") {
-        closeMenu();
+        openOrCloseMenu();
     } else if (getEl("side-menu").classList.contains("hidden") && keyEvent.key === "Escape") {
-        openMenu();
+        openOrCloseMenu();
     }
 });
 export let isPrinting: boolean = false;
@@ -285,9 +274,9 @@ export async function printToTerminal(text: string, from: fromType, speedMs: num
     isPrinting = true;
     const prettyLine: HTMLDivElement = document.createElement("div");
     prettyLine.className = `terminal-line ${from}`;
-    getEl("terminal-output").appendChild(prettyLine);
+    getEl("terminal-output").append(prettyLine);
     const textNode = document.createTextNode("");
-    prettyLine.appendChild(textNode);
+    prettyLine.append(textNode);
     for (let i = 0; i < text.length; ++i) {
         textNode.appendData(text[i]);
         getEl("terminal-output").scrollTop = getEl("terminal-output").scrollHeight;
