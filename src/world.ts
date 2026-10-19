@@ -3,19 +3,47 @@ import {
     addFlareTruckCabin,
     addWinterGlovesToThePlayerInventory,
     checkTruckTrunk,
+    forceToolBoxOpenWithHand,
     getOutOfTheDamnTruck,
     goBackInThePrettyTruck,
     lookInGloveBoxInTruckCabin, openTheHoodAndOrLookAtTheEngineInit,
-    openToolBoxTruckTrunkInit, takeAjustableWrenchFromToolBoxInit,
+    openToolBoxTruckTrunkInit, outOfToolBoxFocus, pryToolBoxWithCrowbar, takeAjustableWrenchFromToolBoxInit,
     takeDuctTapeFromToolBoxInit
 } from "./actions.js";
 import {hasFlag} from "./gameState.js";
 import {StoryFlags} from "./storyFlags.js";
+import {doesThePlayerHasTheItem} from "./inventory.js";
 
 export interface User_Choice {
     label: string;
     action: () => void;
 }
+
+/*
+this is for subzone ( mainly puzzle )
+ */
+export const FOCUS = {
+    TOOLBOX: "TOOLBOX",
+} as const;
+
+export type ZoneFocus = typeof FOCUS[keyof typeof FOCUS];
+
+let currentFocus: ZoneFocus | null = null;
+
+/*
+basic function to get the currentFocus
+ */
+export function getFocus(): ZoneFocus | null {
+    return currentFocus;
+}
+
+/*
+basic function to set the current focus
+ */
+export function setFocus(focus: ZoneFocus | null): void {
+    currentFocus = focus;
+}
+
 
 export interface ZoneActions {
     command: string;
@@ -53,6 +81,11 @@ export const ZONES = {
         description: "The freezing wind howl through the pines. The truck sits engine "
             + "fuming on the side of the road and a hole through the hood",
         getActions: (): ZoneActions[] => {
+            //for the focus of the toolbox ( "puzzle" )
+            if (getFocus() === FOCUS.TOOLBOX) {
+                return getTooBoxActions();
+            }
+            //if there is no current focus then we do the normal thing
             const actions: ZoneActions[] = [];
             actions.push({
                 command: "get back in the truck",
@@ -83,20 +116,6 @@ export const ZONES = {
                     description: "open the toolbox ",
                     execute: openToolBoxTruckTrunkInit,
                 });
-                if (hasFlag("OPENED_TOOLBOX_INIT")) {
-                    actions.push({
-                        command: "pickup duct tape",
-                        description: "take the roll of duct tape from the toolbox",
-                        execute: takeDuctTapeFromToolBoxInit,
-                        oneTime: true
-                    });
-                    actions.push({
-                        command: "pickup ajustable wrench",
-                        description: "take the ajustable wrench from the toolbox",
-                        execute: takeAjustableWrenchFromToolBoxInit,
-                        oneTime: true
-                    })
-                }
             }
             return actions;
         }
@@ -138,3 +157,40 @@ export const ZONES = {
         }
     }
 } satisfies Record<string, Zone>
+
+function getTooBoxActions(): ZoneActions[] {
+    const actions: ZoneActions[] = [];
+    actions.push({
+        command: "do something else",
+        description: "do something else than trying to open the toolbox",
+        execute: outOfToolBoxFocus
+    });
+    if (!hasFlag("OPENED_TOOLBOX_INIT")) {
+        actions.push({
+            command: "force latche barehanded / with gloves",
+            description: "try to break / force open the latch on the toolbox with your hands",
+            execute: forceToolBoxOpenWithHand
+        });
+        if (doesThePlayerHasTheItem("crowbar")) {
+            actions.push({
+                command: "force latche with crowbar",
+                description: "try to pry open the toolbox with your crowbar",
+                execute: pryToolBoxWithCrowbar
+            })
+        }
+    } else {
+        actions.push({
+            command: "pickup duct tape",
+            description: "take the roll of duct tape from the toolbox",
+            execute: takeDuctTapeFromToolBoxInit,
+            oneTime: true
+        });
+        actions.push({
+            command: "pickup ajustable wrench",
+            description: "take the ajustable wrench from the toolbox",
+            execute: takeAjustableWrenchFromToolBoxInit,
+            oneTime: true
+        });
+    }
+    return actions;
+}

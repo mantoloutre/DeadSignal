@@ -1,7 +1,7 @@
 import { addFlag, hasFlag } from "./gameState.js";
 import { loadZone, printToTerminal } from "./main.js";
 import { addItemToInventory } from "./inventory.js";
-import { ZONES } from "./world.js";
+import { setFocus, ZONES } from "./world.js";
 import { StoryFlags } from "./storyFlags.js";
 export async function lookAroundYou() {
 }
@@ -65,7 +65,8 @@ export async function addCrowBarToThePlayerInventory() {
     await addItemToInventory("crowbar");
 }
 export async function openToolBoxTruckTrunkInit() {
-    if (!hasFlag(StoryFlags.OPENED_TOOLBOX_INIT)) {
+    if (!hasFlag("OPENED_TOOLBOX_INIT")) {
+        setFocus("TOOLBOX");
         await printToTerminal("you try to open the toolbox, but the lock appear to be frozen, " +
             "how do you want to try to open it?", "system");
     }
@@ -73,11 +74,28 @@ export async function openToolBoxTruckTrunkInit() {
         await printToTerminal("you look back in the toolbox", "system");
     }
 }
+/*
+simple function to get out of the toolbox focus
+*/
+export async function outOfToolBoxFocus() {
+    await printToTerminal("you decide to do something else than trying to open the toolbox", "action");
+    setFocus(null);
+}
 export async function takeAjustableWrenchFromToolBoxInit() {
     await addItemToInventory("ajustableWrench");
 }
 export async function takeDuctTapeFromToolBoxInit() {
     await addItemToInventory("ductTape");
+}
+export async function forceToolBoxOpenWithHand() {
+    await printToTerminal("You try to open the latch with your hands, it doesnt seem to budge", "action");
+    //TODO something else?
+}
+export async function pryToolBoxWithCrowbar() {
+    await printToTerminal("you hit a few time the latch with your crowbar and manage to break it." +
+        " The toolbox is now open", "action");
+    addFlag("OPENED_TOOLBOX_INIT");
+    setFocus(null);
 }
 /*
 ######

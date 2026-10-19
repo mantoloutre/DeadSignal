@@ -20,10 +20,12 @@ export async function addItemToInventory(itemId, amount = 1) {
         await printToTerminal(`you already have the item :  ${ITEMS[itemId].name} in your inventory, you don't need 2 of it`, "system");
         return false;
     }
+    /*
     //if not in inventory, then i allow you to pick it up
     if (!(ITEMS[itemId].type === "consumable")) {
         await printToTerminal(`you picked up the following item : ${ITEMS[itemId].name}. It is now in your inventory`, "action");
     }
+     */
     currentState.playerInventory.push({ itemId, count: amount });
     return true;
 }

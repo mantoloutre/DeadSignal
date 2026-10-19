@@ -1,5 +1,5 @@
 import { exportSaveFile, currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage, saveTheDataToLocalStorage } from "./gameState.js";
-import { ZONES } from "./world.js";
+import { setFocus, ZONES } from "./world.js";
 import { ITEMS } from "./items.js";
 /*
 used to optimize a bit the performance
@@ -21,6 +21,7 @@ export function getEl(id) {
     return element;
 }
 export async function loadZone(zone) {
+    setFocus(null);
     saveTheDataToLocalStorage();
     currentState.currentZone = zone.id;
     getEl("zone-tag").textContent = `${zone.name}`;

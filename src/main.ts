@@ -3,7 +3,7 @@ import {
     currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage,
     saveTheDataToLocalStorage
 } from "./gameState.js";
-import {Zone, ZoneActions, ZONES} from "./world.js";
+import {setFocus, Zone, ZoneActions, ZONES} from "./world.js";
 import {Item, ITEMS} from "./items.js";
 
 interface UIElements {
@@ -58,6 +58,7 @@ export function getEl<Key extends keyof UIElements>(id: Key): UIElements[Key] {
 export type fromType = "system" | "alert" | "QG" | "log" | "action";
 
 export async function loadZone(zone: Zone): Promise<void> {
+    setFocus(null);
     saveTheDataToLocalStorage();
     currentState.currentZone = zone.id;
     getEl("zone-tag").textContent = `${zone.name}`;
