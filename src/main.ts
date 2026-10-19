@@ -8,7 +8,6 @@ import {Item, ITEMS} from "./items.js";
 
 interface UIElements {
     // buttons ( test )
-    "btn-side-menu-open": HTMLButtonElement;
     "btn-print-hi-system": HTMLButtonElement;
     "btn-print-hi-log": HTMLButtonElement;
     "btn-print-hi-alert": HTMLButtonElement;
@@ -326,6 +325,9 @@ async function initGame(): Promise<void> {
         await loadZone(ZONES[currentState.currentZone]);
     } else {
         await printToTerminal("the game story is really far from being finished, sorry :c", "alert");
+        await printToTerminal("You were sent up the mountain pass to reach the summit observation tower.", "log");
+        await printToTerminal("Originally a fire watch post, it now houses the master broadcast relay that feeds " +
+            "three smaller repeater stations across the valley", "log")
         await loadZone(ZONES[GAME_INITIAL_STATE.currentZone]);
     }
 

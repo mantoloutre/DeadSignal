@@ -21,7 +21,7 @@ pretty self explanatory function
 export async function checkTruckTrunk(): Promise<void> {
     if (!hasFlag("OPENED_TRUCK_TRUNK_INIT")) {
         addFlag(StoryFlags.OPENED_TRUCK_TRUNK_INIT);
-        await printToTerminal("You force the frozen trunk open with your bare hands. Inside, you spot" +
+        await printToTerminal("You force the frozen trunk open with your hands. Inside, you spot" +
             " a heavy toolbox, a small black barrel full of wine and two spare tires.", "action")
     } else {
         await printToTerminal("Inside the truck, nothing changed, still a heavy toolbox, " +
@@ -38,6 +38,7 @@ export async function getOutOfTheDamnTruck(): Promise<void> {
 pretty self explanatory function x2
  */
 export async function addWinterGlovesToThePlayerInventory(): Promise<void> {
+    addFlag("TOOK_WINTER_GLOVE");
     await addItemToInventory("winter_gloves");
 }
 
@@ -59,13 +60,18 @@ export async function addFlareTruckCabin(): Promise<void> {
 ZONE : SNOWY FOREST
 ###################
  */
+
 export async function goBackInThePrettyTruck(): Promise<void> {
     await loadZone(ZONES.TRUCK_CABIN);
 }
-
-/*
-pretty self explanatory function x1
- */
+export async function openTheHoodAndOrLookAtTheEngineInit(): Promise<void> {
+    if (!hasFlag(StoryFlags.OPENED_HOOD_TRUCK_INIT)){
+        await printToTerminal(hasFlag("TOOK_WINTER_GLOVE")
+            ? "You open the truck's hood"
+            : "You open the hood with your hands, its really cold out there without gloves...", "action");
+    }
+    addFlag("OPENED_HOOD_TRUCK_INIT");
+}
 export async function addCrowBarToThePlayerInventory(): Promise<void> {
     await addItemToInventory("crowbar");
 }
@@ -87,6 +93,12 @@ export async function takeAjustableWrenchFromToolBoxInit(): Promise<void> {
 export async function takeDuctTapeFromToolBoxInit(): Promise<void> {
     await addItemToInventory("ductTape");
 }
+
+/*
+######
+OTHER
+######
+ */
 
 async function addANumberOfFlares(count: number): Promise<void> {
     if (count > 1) {

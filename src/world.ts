@@ -5,7 +5,7 @@ import {
     checkTruckTrunk,
     getOutOfTheDamnTruck,
     goBackInThePrettyTruck,
-    lookInGloveBoxInTruckCabin,
+    lookInGloveBoxInTruckCabin, openTheHoodAndOrLookAtTheEngineInit,
     openToolBoxTruckTrunkInit, takeAjustableWrenchFromToolBoxInit,
     takeDuctTapeFromToolBoxInit
 } from "./actions.js";
@@ -51,21 +51,27 @@ export const ZONES = {
         id: "SNOWY_FOREST",
         name: "SNOWY FOREST",
         description: "The freezing wind howl through the pines. The truck sits engine "
-            + "fuming on the side of the road",
+            + "fuming on the side of the road and a hole through the hood",
         getActions: (): ZoneActions[] => {
             const actions: ZoneActions[] = [];
+            actions.push({
+                command: "get back in the truck",
+                description: "go back inside the truck",
+                execute: goBackInThePrettyTruck
+            });
+            actions.push({
+                command: hasFlag("OPENED_HOOD_TRUCK_INIT")
+                    ? "look at the engine" : "open the hood and look at the engine",
+                description: "look at the engine and open the hood if its in the way",
+                execute: openTheHoodAndOrLookAtTheEngineInit
+            })
             actions.push({
                 command: hasFlag("OPENED_TRUCK_TRUNK_INIT")
                     ? "look into the truck's trunk" : "open the truck's trunk",
                 description: "check the truck trunk's to see if there is anything useful in there",
                 execute: checkTruckTrunk,
             });
-            actions.push({
-                command: "get back in the truck",
-                description: "go back inside the truck",
-                execute: goBackInThePrettyTruck
-            });
-            if (hasFlag(StoryFlags.OPENED_TRUCK_TRUNK_INIT)) {
+            if (hasFlag("OPENED_TRUCK_TRUNK_INIT")) {
                 actions.push({
                     command: "add crowbar",
                     description: "take the crowbar from the trunk",
@@ -77,7 +83,7 @@ export const ZONES = {
                     description: "open the toolbox ",
                     execute: openToolBoxTruckTrunkInit,
                 });
-                if(hasFlag(StoryFlags.OPENED_TOOLBOX_INIT)){
+                if (hasFlag("OPENED_TOOLBOX_INIT")) {
                     actions.push({
                         command: "pickup duct tape",
                         description: "take the roll of duct tape from the toolbox",
@@ -108,7 +114,7 @@ export const ZONES = {
                 description: "simply get out of the truck",
                 execute: getOutOfTheDamnTruck,
             });
-            if (!hasFlag(StoryFlags.OPENED_GLOVE_BOX)) {
+            if (!hasFlag("OPENED_GLOVE_BOX")) {
                 actions.push({
                     command: "open glove box",
                     description: "open the glove box to see what's inside",
