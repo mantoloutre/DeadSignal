@@ -157,7 +157,9 @@ export const ZONES = {
         }
     }
 } satisfies Record<string, Zone>
-
+/*
+function to get the actions related to opening the toolbox
+ */
 function getTooBoxActions(): ZoneActions[] {
     const actions: ZoneActions[] = [];
     actions.push({
@@ -176,7 +178,7 @@ function getTooBoxActions(): ZoneActions[] {
                 command: "force latche with crowbar",
                 description: "try to pry open the toolbox with your crowbar",
                 execute: pryToolBoxWithCrowbar
-            })
+            });
         }
     } else {
         actions.push({

@@ -112,6 +112,9 @@ export const ZONES = {
         }
     }
 };
+/*
+function to get the actions related to opening the toolbox
+ */
 function getTooBoxActions() {
     const actions = [];
     actions.push({

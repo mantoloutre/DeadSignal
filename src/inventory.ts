@@ -1,13 +1,13 @@
-import {ITEMS, Item} from "./items.js";
+import {ITEMS, Item, ItemId} from "./items.js";
 import {printToTerminal} from "./main.js";
 import {currentState} from "./gameState.js";
 
 export interface InventorySlot {
-    itemId: string;
+    itemId: ItemId;
     count: number;
 }
 
-export async function addItemToInventory(itemId: string, amount: number = 1): Promise<boolean> {
+export async function addItemToInventory(itemId: ItemId, amount: number = 1): Promise<boolean> {
     if (!ITEMS[itemId]) {
         console.error(`why is that here: ${itemId} ???`);
         //false if item came outta nowhere and is unknown

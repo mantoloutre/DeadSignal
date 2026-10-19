@@ -1,5 +1,5 @@
 export type ItemType = "tool" | "consumable" | "key";
-
+export type ItemId = keyof typeof ITEMS;
 export interface Item {
     id: string;
     name: string;
@@ -11,7 +11,7 @@ export interface itemConsumable {
 
 }
 
-export const ITEMS: Record<string, Item> = {
+export const ITEMS = {
     crowbar: {
         id: "crowbar",
         name: "Crowbar",
@@ -54,4 +54,4 @@ export const ITEMS: Record<string, Item> = {
         type: "tool",
         description: "an ajustable wrench"
     }
-}
+}as const satisfies Record<string, Item>;
