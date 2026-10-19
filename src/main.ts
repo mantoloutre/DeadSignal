@@ -170,9 +170,11 @@ function bindingAction(button: HTMLButtonElement, action: () => Promise<void>): 
 /*
 function to close side menu
  */
-function closeMenu(): void {
-    getEl("side-menu").classList.add("hidden");
-    getEl("menu-overlay").classList.add("hidden");
+function openOrCloseMenu(): void {
+    getEl("side-menu").classList.toggle("hidden");
+    if (!(getEl("inventory").classList.contains("inventory-active"))) {
+        getEl("menu-overlay").classList.toggle("hidden");
+    }
 }
 
 function openInventory(): void {
