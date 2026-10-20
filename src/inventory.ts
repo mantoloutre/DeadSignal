@@ -26,12 +26,6 @@ export async function addItemToInventory(itemId: ItemId, amount: number = 1): Pr
         await printToTerminal(`you already have the item :  ${ITEMS[itemId].name} in your inventory, you don't need 2 of it`, "system");
         return false;
     }
-    /*
-    //if not in inventory, then i allow you to pick it up
-    if (!(ITEMS[itemId].type === "consumable")) {
-        await printToTerminal(`you picked up the following item : ${ITEMS[itemId].name}. It is now in your inventory`, "action");
-    }
-     */
     currentState.playerInventory.push({itemId, count: amount});
     return true;
 }
@@ -55,7 +49,5 @@ export function doesThePlayerHasTheItem(itemId: string): boolean {
 }
 
 export function getThePlayerInventoryItem(): Item[] {
-    return currentState.playerInventory
-        .map(slot => ITEMS[slot.itemId])
-        .filter((item): item is Item => item !== undefined);
+    return currentState.playerInventory.map(slot => ITEMS[slot.itemId]);
 }

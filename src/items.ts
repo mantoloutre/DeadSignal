@@ -1,10 +1,10 @@
 export type ItemType = "tool" | "consumable" | "key";
 export type ItemId = keyof typeof ITEMS;
 export interface Item {
-    id: string;
-    name: string;
-    type: ItemType;
-    description: string;
+    readonly id: string;
+    readonly name: string;
+    readonly type: ItemType;
+    readonly description: string;
 }
 
 export interface itemConsumable {
@@ -54,4 +54,4 @@ export const ITEMS = {
         type: "tool",
         description: "an ajustable wrench"
     }
-}as const satisfies Record<string, Item>;
+}as const;
