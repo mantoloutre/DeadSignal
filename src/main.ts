@@ -61,6 +61,7 @@ export async function loadZone(zone: Zone): Promise<void> {
     setFocus(null);
     saveTheDataToLocalStorage();
     currentState.currentZone = zone.id;
+    saveTheDataToLocalStorage();
     getEl("zone-tag").textContent = `${zone.name}`;
     await printToTerminal(`ZONE: ${zone.name}`, "system");
     await printToTerminal(zone.description, "system");
