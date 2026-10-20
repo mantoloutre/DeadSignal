@@ -97,7 +97,7 @@ export const ZONES = {
                     ? "look at the engine" : "open the hood and look at the engine",
                 description: "look at the engine and open the hood if its in the way",
                 execute: openTheHoodAndOrLookAtTheEngineInit
-            })
+            });
             actions.push({
                 command: hasFlag("OPENED_TRUCK_TRUNK_INIT")
                     ? "look into the truck's trunk" : "open the truck's trunk",
@@ -116,6 +116,20 @@ export const ZONES = {
                     description: "open the toolbox ",
                     execute: openToolBoxTruckTrunkInit,
                 });
+            }
+            if (hasFlag("OPENED_TOOLBOX_INIT")){
+                    actions.push({
+                        command: "pickup duct tape",
+                        description: "take the roll of duct tape from the toolbox",
+                        execute: takeDuctTapeFromToolBoxInit,
+                        oneTime: true
+                    });
+                    actions.push({
+                        command: "pickup ajustable wrench",
+                        description: "take the ajustable wrench from the toolbox",
+                        execute: takeAjustableWrenchFromToolBoxInit,
+                        oneTime: true
+                    });
             }
             return actions;
         }
@@ -180,19 +194,6 @@ function getTooBoxActions(): ZoneActions[] {
                 execute: pryToolBoxWithCrowbar
             });
         }
-    } else {
-        actions.push({
-            command: "pickup duct tape",
-            description: "take the roll of duct tape from the toolbox",
-            execute: takeDuctTapeFromToolBoxInit,
-            oneTime: true
-        });
-        actions.push({
-            command: "pickup ajustable wrench",
-            description: "take the ajustable wrench from the toolbox",
-            execute: takeAjustableWrenchFromToolBoxInit,
-            oneTime: true
-        });
     }
     return actions;
 }

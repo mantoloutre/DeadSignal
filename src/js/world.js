@@ -71,6 +71,20 @@ export const ZONES = {
                     execute: openToolBoxTruckTrunkInit,
                 });
             }
+            if (hasFlag("OPENED_TOOLBOX_INIT")) {
+                actions.push({
+                    command: "pickup duct tape",
+                    description: "take the roll of duct tape from the toolbox",
+                    execute: takeDuctTapeFromToolBoxInit,
+                    oneTime: true
+                });
+                actions.push({
+                    command: "pickup ajustable wrench",
+                    description: "take the ajustable wrench from the toolbox",
+                    execute: takeAjustableWrenchFromToolBoxInit,
+                    oneTime: true
+                });
+            }
             return actions;
         }
     },
@@ -135,20 +149,6 @@ function getTooBoxActions() {
                 execute: pryToolBoxWithCrowbar
             });
         }
-    }
-    else {
-        actions.push({
-            command: "pickup duct tape",
-            description: "take the roll of duct tape from the toolbox",
-            execute: takeDuctTapeFromToolBoxInit,
-            oneTime: true
-        });
-        actions.push({
-            command: "pickup ajustable wrench",
-            description: "take the ajustable wrench from the toolbox",
-            execute: takeAjustableWrenchFromToolBoxInit,
-            oneTime: true
-        });
     }
     return actions;
 }

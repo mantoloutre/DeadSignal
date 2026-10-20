@@ -69,11 +69,14 @@ export async function goBackInThePrettyTruck(): Promise<void> {
 
 export async function openTheHoodAndOrLookAtTheEngineInit(): Promise<void> {
     if (!hasFlag("OPENED_HOOD_TRUCK_INIT")) {
+        addFlag("OPENED_HOOD_TRUCK_INIT");
         await printToTerminal(hasFlag("TOOK_WINTER_GLOVE")
             ? "You open the truck's hood"
             : "You open the hood with your hands, its really cold out there without gloves...", "action");
+    } else {
+        await printToTerminal("What you see is the engine that see to be missing a piston, " +
+            "which might explain the big explosion and the hole in the hood", "system");
     }
-    addFlag("OPENED_HOOD_TRUCK_INIT");
 }
 
 export async function addCrowBarToThePlayerInventory(): Promise<void> {
@@ -100,10 +103,12 @@ export async function outOfToolBoxFocus(): Promise<void> {
 }
 
 export async function takeAjustableWrenchFromToolBoxInit(): Promise<void> {
-    await addItemToInventory("ajustable_wrench")
+    await printToTerminal("you pickup the ajustable wrench from the toolbox", "action");
+    await addItemToInventory("ajustable_wrench");
 }
 
 export async function takeDuctTapeFromToolBoxInit(): Promise<void> {
+    await printToTerminal("you pickup the roll of duct tape from the toolbox", "action");
     await addItemToInventory("duct_tape");
 }
 

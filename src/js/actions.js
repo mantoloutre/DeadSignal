@@ -56,11 +56,15 @@ export async function goBackInThePrettyTruck() {
 }
 export async function openTheHoodAndOrLookAtTheEngineInit() {
     if (!hasFlag("OPENED_HOOD_TRUCK_INIT")) {
+        addFlag("OPENED_HOOD_TRUCK_INIT");
         await printToTerminal(hasFlag("TOOK_WINTER_GLOVE")
             ? "You open the truck's hood"
             : "You open the hood with your hands, its really cold out there without gloves...", "action");
     }
-    addFlag("OPENED_HOOD_TRUCK_INIT");
+    else {
+        await printToTerminal("What you see is the engine that see to be missing a piston, " +
+            "which might explain the big explosion and the hole in the hood", "system");
+    }
 }
 export async function addCrowBarToThePlayerInventory() {
     await printToTerminal("you take the crowbar from the trunk", "action");
@@ -84,9 +88,11 @@ export async function outOfToolBoxFocus() {
     setFocus(null);
 }
 export async function takeAjustableWrenchFromToolBoxInit() {
+    await printToTerminal("you pickup the ajustable wrench from the toolbox", "action");
     await addItemToInventory("ajustable_wrench");
 }
 export async function takeDuctTapeFromToolBoxInit() {
+    await printToTerminal("you pickup the roll of duct tape from the toolbox", "action");
     await addItemToInventory("duct_tape");
 }
 export async function forceToolBoxOpenWithHand() {
