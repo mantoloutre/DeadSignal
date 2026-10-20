@@ -9,14 +9,14 @@ export async function addItemToInventory(itemId, amount = 1) {
     }
     const existSlot = currentState.playerInventory.find(slot => slot.itemId === itemId);
     if (existSlot) {
-        //if tha item is a consumable we gonna add one to the ammount
+        //if tha item is a consumable we gonna add one to the amount
         //can stack consumable, cant stack the rest. no you are not gonna hold 48 crowbar in your inventory.
         if (ITEMS[itemId].type === "consumable") {
             existSlot.count += amount;
             //then we return true :3
             return true;
         }
-        //if its not a consumable (and its in inventory), we just return false ( and ask.. why..)
+        //if it's not a consumable (and its in inventory), we just return false ( and ask... why...)
         await printToTerminal(`you already have the item :  ${ITEMS[itemId].name} in your inventory, you don't need 2 of it`, "system");
         return false;
     }
@@ -24,7 +24,7 @@ export async function addItemToInventory(itemId, amount = 1) {
     return true;
 }
 export function removeItemFromInventory(itemId, amount = 1) {
-    //if you dont have it in ur inventory
+    //if you don't have it in ur inventory
     if (!doesThePlayerHasTheItem(itemId)) {
         return false;
     }

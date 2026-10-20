@@ -71,7 +71,7 @@ export async function loadZone(zone: Zone): Promise<void> {
 function to render in a dynamic way the actions for a zone<br>
 detailed explanation:
 -
-1. remove every buttons from the terminal input area
+1. remove every button from the terminal input area
 2. get the choice from the zone
 3. make button for each action
 4. bind it to its action
@@ -157,7 +157,6 @@ function bindingAction(button: HTMLButtonElement, action: () => Promise<void>): 
         await action();
     })
 }
-
 /*
 function to toggle the hidden class to open or close the menu
  */

@@ -1,13 +1,8 @@
 import {addFlag, hasFlag} from "./gameState.js";
 import {loadZone, printToTerminal} from "./main.js";
-import {addItemToInventory, doesThePlayerHasTheItem} from "./inventory.js";
-import {FOCUS, setFocus, ZONES} from "./world.js";
-import {StoryFlags} from "./storyFlags.js";
+import {addItemToInventory} from "./inventory.js";
+import {setFocus, ZONES} from "./world.js";
 
-
-export async function lookAroundYou(): Promise<void> {
-
-}
 
 /*
 ##################
@@ -16,7 +11,7 @@ ZONE : TRUCK CABIN
  */
 
 /*
-pretty self explanatory function
+pretty self-explanatory function
  */
 export async function checkTruckTrunk(): Promise<void> {
     if (!hasFlag("OPENED_TRUCK_TRUNK_INIT")) {
@@ -30,12 +25,11 @@ export async function checkTruckTrunk(): Promise<void> {
 }
 
 export async function getOutOfTheDamnTruck(): Promise<void> {
-    await loadZone(ZONES.SNOWY_FOREST);
+    await loadZone(ZONES.OUTSIDE_TRUCK);
 }
 
-
 /*
-pretty self explanatory function x2
+pretty self-explanatory function x2
  */
 export async function addWinterGlovesToThePlayerInventory(): Promise<void> {
     addFlag("TOOK_WINTER_GLOVE");
@@ -58,9 +52,9 @@ export async function addFlareTruckCabin(): Promise<void> {
 }
 
 /*
-###################
-ZONE : SNOWY FOREST
-###################
+#####################
+ZONE : OUTSIDE TRUCK
+#####################
  */
 
 export async function goBackInThePrettyTruck(): Promise<void> {
@@ -102,9 +96,9 @@ export async function outOfToolBoxFocus(): Promise<void> {
     setFocus(null);
 }
 
-export async function takeAjustableWrenchFromToolBoxInit(): Promise<void> {
-    await printToTerminal("you pickup the ajustable wrench from the toolbox", "action");
-    await addItemToInventory("ajustable_wrench");
+export async function takeAdjustableWrenchFromToolBoxInit(): Promise<void> {
+    await printToTerminal("you pickup the adjustable wrench from the toolbox", "action");
+    await addItemToInventory("adjustable_wrench");
 }
 
 export async function takeDuctTapeFromToolBoxInit(): Promise<void> {
@@ -122,6 +116,18 @@ export async function pryToolBoxWithCrowbar(): Promise<void> {
         " The toolbox is now open", "action");
     addFlag("OPENED_TOOLBOX_INIT");
     setFocus(null);
+}
+
+/*
+###################
+ZONE : SNOWY FOREST
+###################
+ */
+
+export async function goBackToTheTruck(): Promise<void> {
+    await printToTerminal("You walk back to the truck", "action");
+    //TODO maybe do another thing here idk?
+    await loadZone(ZONES.OUTSIDE_TRUCK);
 }
 
 /*

@@ -5,14 +5,15 @@ import {
     checkTruckTrunk,
     forceToolBoxOpenWithHand,
     getOutOfTheDamnTruck,
-    goBackInThePrettyTruck,
+    goBackInThePrettyTruck, goBackToTheTruck,
     lookInGloveBoxInTruckCabin, openTheHoodAndOrLookAtTheEngineInit,
-    openToolBoxTruckTrunkInit, outOfToolBoxFocus, pryToolBoxWithCrowbar, takeAjustableWrenchFromToolBoxInit,
+    openToolBoxTruckTrunkInit, outOfToolBoxFocus, pryToolBoxWithCrowbar, takeAdjustableWrenchFromToolBoxInit,
     takeDuctTapeFromToolBoxInit
 } from "./actions.js";
 import {hasFlag} from "./gameState.js";
 import {StoryFlags} from "./storyFlags.js";
 import {doesThePlayerHasTheItem} from "./inventory.js";
+import {ZoneId} from "./types.js";
 
 export interface User_Choice {
     label: string;
@@ -52,7 +53,6 @@ export interface ZoneActions {
     oneTime?: boolean;
 }
 
-export type ZoneId = "SNOWY_FOREST" | "TRUCK_CABIN";
 
 export interface Zone {
     id: ZoneId;
@@ -78,6 +78,31 @@ export const ZONES = {
     SNOWY_FOREST: {
         id: "SNOWY_FOREST",
         name: "SNOWY FOREST",
+        description: "It's snowing, the freezing wind howl through the pines, there doesnt seem to be any trace " +
+            "of anything living except vegetation",
+        getActions: (): ZoneActions[] => {
+            //if focus its here
+
+            //if there is no current focus then we do the normal thing
+            const actions: ZoneActions[] = [];
+            actions.push({
+                command: "go back to the truck",
+                description: "walk back to the truck",
+                execute: goBackToTheTruck,
+            });
+            /*
+            actions.push({
+                command: "walk toward the watch tower",
+                description: "walk toward the watch tower which also serve as the main relay tower",
+                execute: //TODO
+            });
+            */
+            return actions;
+        }
+    },
+    OUTSIDE_TRUCK: {
+        id: "OUTSIDE_TRUCK",
+        name: "OUTSIDE THE TRUCK",
         description: "The freezing wind howl through the pines. The truck sits engine "
             + "fuming on the side of the road and a hole through the hood",
         getActions: (): ZoneActions[] => {
@@ -85,7 +110,7 @@ export const ZONES = {
             if (getFocus() === FOCUS.TOOLBOX) {
                 return getTooBoxActions();
             }
-            //if there is no current focus then we do the normal thing
+            //if no focus then normal things
             const actions: ZoneActions[] = [];
             actions.push({
                 command: "get back in the truck",
@@ -117,19 +142,19 @@ export const ZONES = {
                     execute: openToolBoxTruckTrunkInit,
                 });
             }
-            if (hasFlag("OPENED_TOOLBOX_INIT")){
-                    actions.push({
-                        command: "pickup duct tape",
-                        description: "take the roll of duct tape from the toolbox",
-                        execute: takeDuctTapeFromToolBoxInit,
-                        oneTime: true
-                    });
-                    actions.push({
-                        command: "pickup ajustable wrench",
-                        description: "take the ajustable wrench from the toolbox",
-                        execute: takeAjustableWrenchFromToolBoxInit,
-                        oneTime: true
-                    });
+            if (hasFlag("OPENED_TOOLBOX_INIT")) {
+                actions.push({
+                    command: "pickup duct tape",
+                    description: "take the roll of duct tape from the toolbox",
+                    execute: takeDuctTapeFromToolBoxInit,
+                    oneTime: true
+                });
+                actions.push({
+                    command: "pickup ajustable wrench",
+                    description: "take the ajustable wrench from the toolbox",
+                    execute: takeAdjustableWrenchFromToolBoxInit,
+                    oneTime: true
+                });
             }
             return actions;
         }
@@ -137,7 +162,7 @@ export const ZONES = {
     //###################################################################
     TRUCK_CABIN: {
         id: "TRUCK_CABIN",
-        name: "truck cabin",
+        name: "TRUCK CABIN",
         description: "You are sitting on the driver's seat, the truck came to a sudden stop and there is smoke" +
             " coming out of the engine",
         getActions: (): ZoneActions[] => {
@@ -169,8 +194,10 @@ export const ZONES = {
             }
             return actions;
         }
-    }
-} satisfies Record<string, Zone>
+    },
+
+} satisfies Record<ZoneId, Zone>;
+
 /*
 function to get the actions related to opening the toolbox
  */

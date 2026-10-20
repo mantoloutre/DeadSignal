@@ -1,4 +1,4 @@
-import { addCrowBarToThePlayerInventory, addFlareTruckCabin, addWinterGlovesToThePlayerInventory, checkTruckTrunk, forceToolBoxOpenWithHand, getOutOfTheDamnTruck, goBackInThePrettyTruck, lookInGloveBoxInTruckCabin, openTheHoodAndOrLookAtTheEngineInit, openToolBoxTruckTrunkInit, outOfToolBoxFocus, pryToolBoxWithCrowbar, takeAjustableWrenchFromToolBoxInit, takeDuctTapeFromToolBoxInit } from "./actions.js";
+import { addCrowBarToThePlayerInventory, addFlareTruckCabin, addWinterGlovesToThePlayerInventory, checkTruckTrunk, forceToolBoxOpenWithHand, getOutOfTheDamnTruck, goBackInThePrettyTruck, goBackToTheTruck, lookInGloveBoxInTruckCabin, openTheHoodAndOrLookAtTheEngineInit, openToolBoxTruckTrunkInit, outOfToolBoxFocus, pryToolBoxWithCrowbar, takeAdjustableWrenchFromToolBoxInit, takeDuctTapeFromToolBoxInit } from "./actions.js";
 import { hasFlag } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 /*
@@ -32,6 +32,30 @@ export const ZONES = {
     SNOWY_FOREST: {
         id: "SNOWY_FOREST",
         name: "SNOWY FOREST",
+        description: "It's snowing, the freezing wind howl through the pines, there doesnt seem to be any trace " +
+            "of anything living except vegetation",
+        getActions: () => {
+            //if focus its here
+            //if there is no current focus then we do the normal thing
+            const actions = [];
+            actions.push({
+                command: "go back to the truck",
+                description: "walk back to the truck",
+                execute: goBackToTheTruck,
+            });
+            /*
+            actions.push({
+                command: "walk toward the watch tower",
+                description: "walk toward the watch tower which also serve as the main relay tower",
+                execute: //TODO
+            });
+            */
+            return actions;
+        }
+    },
+    OUTSIDE_TRUCK: {
+        id: "OUTSIDE_TRUCK",
+        name: "OUTSIDE THE TRUCK",
         description: "The freezing wind howl through the pines. The truck sits engine "
             + "fuming on the side of the road and a hole through the hood",
         getActions: () => {
@@ -39,7 +63,7 @@ export const ZONES = {
             if (getFocus() === FOCUS.TOOLBOX) {
                 return getTooBoxActions();
             }
-            //if there is no current focus then we do the normal thing
+            //if no focus then normal things
             const actions = [];
             actions.push({
                 command: "get back in the truck",
@@ -81,7 +105,7 @@ export const ZONES = {
                 actions.push({
                     command: "pickup ajustable wrench",
                     description: "take the ajustable wrench from the toolbox",
-                    execute: takeAjustableWrenchFromToolBoxInit,
+                    execute: takeAdjustableWrenchFromToolBoxInit,
                     oneTime: true
                 });
             }
@@ -91,7 +115,7 @@ export const ZONES = {
     //###################################################################
     TRUCK_CABIN: {
         id: "TRUCK_CABIN",
-        name: "truck cabin",
+        name: "TRUCK CABIN",
         description: "You are sitting on the driver's seat, the truck came to a sudden stop and there is smoke" +
             " coming out of the engine",
         getActions: () => {
@@ -124,7 +148,7 @@ export const ZONES = {
             }
             return actions;
         }
-    }
+    },
 };
 /*
 function to get the actions related to opening the toolbox

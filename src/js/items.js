@@ -35,10 +35,10 @@ export const ITEMS = {
         type: "consumable",
         description: "a roll of heavy duty duct tape"
     },
-    ajustable_wrench: {
-        id: "ajustableWrench",
-        name: "ajustable wrench",
+    adjustable_wrench: {
+        id: "adjustableWrench",
+        name: "adjustable wrench",
         type: "tool",
-        description: "an ajustable wrench"
+        description: "an adjustable wrench"
     }
 };

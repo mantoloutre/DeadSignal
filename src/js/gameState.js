@@ -130,10 +130,10 @@ export function saveTheDataToLocalStorage() {
 function to load from the local storage <br>
 detailed explanation
 -
-1. retrieve the item from local storage and put in in a const
-2. if it doesnt exist note as failed
+1. retrieve the item from local storage and put it in a const
+2. if it doesn't exist note as failed
 3. parse the data and catch if there is an error ( ex: private mode )
-4. its its corrupted, remove it from local storage
+4. its corrupted, remove it from local storage
 5. if everything went well, load it in and mark as success ( return true )
  */
 export function loadFromTheLocalStorage() {

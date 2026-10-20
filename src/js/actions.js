@@ -2,15 +2,13 @@ import { addFlag, hasFlag } from "./gameState.js";
 import { loadZone, printToTerminal } from "./main.js";
 import { addItemToInventory } from "./inventory.js";
 import { setFocus, ZONES } from "./world.js";
-export async function lookAroundYou() {
-}
 /*
 ##################
 ZONE : TRUCK CABIN
 ##################
  */
 /*
-pretty self explanatory function
+pretty self-explanatory function
  */
 export async function checkTruckTrunk() {
     if (!hasFlag("OPENED_TRUCK_TRUNK_INIT")) {
@@ -24,10 +22,10 @@ export async function checkTruckTrunk() {
     }
 }
 export async function getOutOfTheDamnTruck() {
-    await loadZone(ZONES.SNOWY_FOREST);
+    await loadZone(ZONES.OUTSIDE_TRUCK);
 }
 /*
-pretty self explanatory function x2
+pretty self-explanatory function x2
  */
 export async function addWinterGlovesToThePlayerInventory() {
     addFlag("TOOK_WINTER_GLOVE");
@@ -47,9 +45,9 @@ export async function addFlareTruckCabin() {
     await printToTerminal("you took 2 flares from the glove's box", "action");
 }
 /*
-###################
-ZONE : SNOWY FOREST
-###################
+#####################
+ZONE : OUTSIDE TRUCK
+#####################
  */
 export async function goBackInThePrettyTruck() {
     await loadZone(ZONES.TRUCK_CABIN);
@@ -87,9 +85,9 @@ export async function outOfToolBoxFocus() {
     await printToTerminal("you decide to do something else than trying to open the toolbox", "action");
     setFocus(null);
 }
-export async function takeAjustableWrenchFromToolBoxInit() {
-    await printToTerminal("you pickup the ajustable wrench from the toolbox", "action");
-    await addItemToInventory("ajustable_wrench");
+export async function takeAdjustableWrenchFromToolBoxInit() {
+    await printToTerminal("you pickup the adjustable wrench from the toolbox", "action");
+    await addItemToInventory("adjustable_wrench");
 }
 export async function takeDuctTapeFromToolBoxInit() {
     await printToTerminal("you pickup the roll of duct tape from the toolbox", "action");
@@ -104,6 +102,16 @@ export async function pryToolBoxWithCrowbar() {
         " The toolbox is now open", "action");
     addFlag("OPENED_TOOLBOX_INIT");
     setFocus(null);
+}
+/*
+###################
+ZONE : SNOWY FOREST
+###################
+ */
+export async function goBackToTheTruck() {
+    await printToTerminal("You walk back to the truck", "action");
+    //TODO maybe do another thing here idk?
+    await loadZone(ZONES.OUTSIDE_TRUCK);
 }
 /*
 ######
