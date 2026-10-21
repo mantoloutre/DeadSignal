@@ -107,7 +107,10 @@ export function parseSaveData(json: string): GameState | null {
         if (slot === null || typeof slot !== "object") return false;
         if (!("itemId" in slot) || !("count" in slot)) return false;
         const entry = slot as Record<keyof InventorySlot, unknown>;
-        return typeof entry.itemId === "string" && typeof entry.count === "number";
+        return (
+            typeof entry.itemId === "string" && typeof entry.count === "number"
+            && Number.isInteger(entry.count) && entry.count > 0
+        );
     }
     const maybeInvalidInactiveCommand = (cmd: unknown): cmd is string => {
         return typeof cmd === "string";
