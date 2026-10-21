@@ -9,6 +9,7 @@
     padding: 10px;
     opacity: 0;
     pointer-events: none;
+    visibility: hidden;
     transition: opacity 0.15s ease-out, transform 0.15s ease-out;
     color: var(--text-color);
     /* TODO could make display: none; */
