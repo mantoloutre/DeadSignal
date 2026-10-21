@@ -106,9 +106,15 @@ export function renderThePlayerInventory() {
     });
 }
 /*
+simple function to toggle the overlay cuz i dont want to repeat myself
+ */
+function toggleOverlay() {
+    getEl("menu-overlay").classList.toggle("hidden");
+}
+/*
 binding a button and an action in a better way
- ( no repeating myself by always adding a guard clause)
- @note only usable with function that Promise<void>, with only void it doesnt work
+ (no repeating myself by always adding a guard clause)
+ @note only usable with function that Promise<void>, with only void it doesn't work
  */
 function bindingAction(button, action) {
     button.addEventListener("click", async () => {
@@ -124,17 +130,44 @@ function to toggle the hidden class to open or close the menu
  */
 function openOrCloseMenu() {
     getEl("side-menu").classList.toggle("hidden");
-    if (!(getEl("inventory").classList.contains("inventory-active"))) {
-        getEl("menu-overlay").classList.toggle("hidden");
+    if (!(getEl("inventory").classList.contains("inventory-active"))
+        && !(getEl("radio-interface").classList.contains("radio-interface-active"))) {
+        toggleOverlay();
     }
 }
 /*
 function to toggle the hidden / active class to open or close the inventory
  */
-function openOrCloseInventory() {
+function openInventory() {
     getEl("inventory").classList.toggle("inventory-active");
-    getEl("menu-overlay").classList.toggle("hidden");
     renderThePlayerInventory();
+    getEl("menu-overlay").classList.remove("hidden");
+}
+/*
+function to close the inventory
+ */
+function closeInventory() {
+    getEl("inventory").classList.toggle("inventory-active");
+    renderThePlayerInventory();
+    if ((getEl("side-menu").classList.contains("hidden"))) {
+        toggleOverlay();
+    }
+}
+/*
+function for opening or closing the radio interface for tuning the radio
+ */
+function CloseRadioInterface() {
+    getEl("radio-interface").classList.toggle("radio-interface-active");
+    toggleOverlay();
+    if (!(getEl("side-menu").classList.contains("hidden"))) {
+        toggleOverlay();
+    }
+}
+function OpenRadioInterface() {
+    getEl("radio-interface").classList.add("radio-interface-active");
+    if ((getEl("side-menu").classList.contains("hidden"))) {
+        toggleOverlay();
+    }
 }
 async function printHiNormal() {
     await printToTerminal("hi :D", "system");
@@ -156,6 +189,10 @@ async function saveGame() {
     await printToTerminal("Game Saved", "system");
 }
 // buttons
+getEl("btn-open-inventory").addEventListener("click", openInventory);
+getEl("btn-close-inventory").addEventListener("click", closeInventory);
+getEl("btn-open-radio-interface").addEventListener("click", OpenRadioInterface);
+getEl("btn-close-radio-interface").addEventListener("click", CloseRadioInterface);
 //general
 getEl("button-open-side-menu").addEventListener("click", openOrCloseMenu);
 getEl("button-close-side-menu").addEventListener("click", openOrCloseMenu);
@@ -169,8 +206,6 @@ getEl("btn-import").addEventListener("click", async () => {
         await printToTerminal(`Import error: ${errorMsg}`, "alert");
     });
 });
-getEl("btn-open-inventory").addEventListener("click", openOrCloseInventory);
-getEl("btn-close-inventory").addEventListener("click", openOrCloseInventory);
 //test
 /*
 bindingAction(buttonPrintHi, printHiNormal);
@@ -192,7 +227,10 @@ function closeInterface() {
         openOrCloseMenu();
     }
     else if (getEl("inventory").classList.contains("inventory-active")) {
-        openOrCloseInventory();
+        closeInventory();
+    }
+    else if (getEl("radio-interface").classList.contains("radio-interface-active")) {
+        CloseRadioInterface();
     }
 }
 getEl("menu-overlay").addEventListener("click", closeInterface);

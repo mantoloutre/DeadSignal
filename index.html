@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="stylesheet" href="src/css/top-bar.css">
     <link rel="stylesheet" href="src/css/inventory.css">
+    <link rel="stylesheet" href="src/css/radio-interface.css">
     <link rel="stylesheet" href="src/css/main-content.css">
     <script type="module" src="src/js/main.js"></script>
 </head>
@@ -18,9 +19,10 @@
 <header id="top-bar" class="border-glow"><!-- for stats -->
     <div class="button-placement">
         <button id="button-open-side-menu" class="icon_btn">Menu</button>
-        <button id="btn-journal">Journal</button>
-        <button id="btn-map">Map</button>
+        <button id="btn-journal">Journal [NYT]</button>
+        <button id="btn-map">Map [NYT]</button>
         <button id="btn-open-inventory">Inventory</button>
+        <button id="btn-open-radio-interface">Radio [WIP]</button>
     </div>
     <div>
         <p id="frequency">null</p>
@@ -39,6 +41,7 @@
         <button class="menu-link" id="btn-export">Export</button>
         <button id="btn-import">Import</button>
         <button id="btn-restart">Restart the whole game</button>
+        <button id="keyPoint1">keyPoint1 [NYT]</button>
     </div>
 </aside>
 <div id="inventory" class="border-glow">
@@ -50,6 +53,24 @@
         </div>
     </div>
     <button id="btn-close-inventory">Back</button>
+</div>
+<div id="radio-interface" class="border-glow">
+    <p id="radio-current-frequency">test</p>
+    <div id="radio-keyboard">
+        <button id="btn-k1">1</button>
+        <button id="btn-k2">2</button>
+        <button id="btn-k3">3</button>
+        <button id="btn-k4">4</button>
+        <button id="btn-k5">5</button>
+        <button id="btn-k6">6</button>
+        <button id="btn-k7">7</button>
+        <button id="btn-k8">8</button>
+        <button id="btn-k9">9</button>
+        <button id="btn-p">.</button>
+        <button id="btn-k0">0</button>
+        <button id="btn-tune">tune</button>
+    </div>
+    <button id="btn-close-radio-interface">Close</button>
 </div>
 <main><!-- main gameplay -->
     <section id="InOut">

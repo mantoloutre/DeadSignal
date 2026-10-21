@@ -22,16 +22,21 @@ interface UIElements {
     "btn-open-inventory": HTMLButtonElement;
     "btn-restart": HTMLButtonElement;
     "btn-save": HTMLButtonElement;
+    "btn-open-radio-interface": HTMLButtonElement;
+    "btn-close-radio-interface": HTMLButtonElement;
     // div elements
     "side-menu": HTMLDivElement;
     "menu-overlay": HTMLDivElement;
     "inventory": HTMLDivElement;
     "inventory-items-list": HTMLDivElement;
-    "inventory-item-details": HTMLParagraphElement;
     "terminal-output": HTMLDivElement;
     "terminal-input": HTMLDivElement;
     "zone-action": HTMLDivElement;
     "zone-tag": HTMLParagraphElement;
+    "radio-interface": HTMLDivElement;
+    // paragraph elements
+    "inventory-item-details": HTMLParagraphElement;
+    "radio-current-frequency": HTMLParagraphElement;
 }
 
 /*
@@ -144,9 +149,16 @@ export function renderThePlayerInventory(): void {
 }
 
 /*
+simple function to toggle the overlay cuz i dont want to repeat myself
+ */
+function toggleOverlay(): void {
+    getEl("menu-overlay").classList.toggle("hidden");
+}
+
+/*
 binding a button and an action in a better way
- ( no repeating myself by always adding a guard clause)
- @note only usable with function that Promise<void>, with only void it doesnt work
+ (no repeating myself by always adding a guard clause)
+ @note only usable with function that Promise<void>, with only void it doesn't work
  */
 function bindingAction(button: HTMLButtonElement, action: () => Promise<void>): void {
     button.addEventListener("click", async (): Promise<void> => {
@@ -157,25 +169,53 @@ function bindingAction(button: HTMLButtonElement, action: () => Promise<void>): 
         await action();
     })
 }
+
 /*
 function to toggle the hidden class to open or close the menu
  */
 function openOrCloseMenu(): void {
     getEl("side-menu").classList.toggle("hidden");
-    if (!(getEl("inventory").classList.contains("inventory-active"))) {
-        getEl("menu-overlay").classList.toggle("hidden");
+    if (!(getEl("inventory").classList.contains("inventory-active"))
+        && !(getEl("radio-interface").classList.contains("radio-interface-active"))) {
+        toggleOverlay();
     }
 }
 
 /*
 function to toggle the hidden / active class to open or close the inventory
  */
-function openOrCloseInventory(): void {
+function openInventory(): void {
     getEl("inventory").classList.toggle("inventory-active");
-    getEl("menu-overlay").classList.toggle("hidden");
     renderThePlayerInventory();
+    getEl("menu-overlay").classList.remove("hidden");
+}
+/*
+function to close the inventory
+ */
+function closeInventory(): void{
+    getEl("inventory").classList.toggle("inventory-active");
+    renderThePlayerInventory();
+    if((getEl("side-menu").classList.contains("hidden"))){
+        toggleOverlay();
+    }
 }
 
+/*
+function for opening or closing the radio interface for tuning the radio
+ */
+function CloseRadioInterface(): void {
+    getEl("radio-interface").classList.toggle("radio-interface-active");
+    toggleOverlay();
+    if (!(getEl("side-menu").classList.contains("hidden"))) {
+        toggleOverlay();
+    }
+}
+function OpenRadioInterface(): void{
+    getEl("radio-interface").classList.add("radio-interface-active");
+    if ((getEl("side-menu").classList.contains("hidden"))) {
+        toggleOverlay();
+    }
+}
 async function printHiNormal(): Promise<void> {
     await printToTerminal("hi :D", "system");
 }
@@ -202,6 +242,10 @@ async function saveGame(): Promise<void> {
 }
 
 // buttons
+getEl("btn-open-inventory").addEventListener("click", openInventory);
+getEl("btn-close-inventory").addEventListener("click", closeInventory);
+getEl("btn-open-radio-interface").addEventListener("click", OpenRadioInterface);
+getEl("btn-close-radio-interface").addEventListener("click", CloseRadioInterface);
 //general
 getEl("button-open-side-menu").addEventListener("click", openOrCloseMenu);
 getEl("button-close-side-menu").addEventListener("click", openOrCloseMenu);
@@ -218,8 +262,6 @@ getEl("btn-import").addEventListener("click", async (): Promise<void> => {
         }
     );
 });
-getEl("btn-open-inventory").addEventListener("click", openOrCloseInventory);
-getEl("btn-close-inventory").addEventListener("click", openOrCloseInventory)
 //test
 /*
 bindingAction(buttonPrintHi, printHiNormal);
@@ -241,7 +283,9 @@ function closeInterface(): void {
     if (!getEl("side-menu").classList.contains("hidden")) {
         openOrCloseMenu();
     } else if (getEl("inventory").classList.contains("inventory-active")) {
-        openOrCloseInventory();
+        closeInventory();
+    } else if (getEl("radio-interface").classList.contains("radio-interface-active")) {
+        CloseRadioInterface();
     }
 }
 

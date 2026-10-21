@@ -135,8 +135,9 @@ export async function goBackToTheTruck() {
     await loadZone(ZONES.OUTSIDE_TRUCK);
 }
 export async function walkTowardMainWatchPost() {
-    await printToTerminal("You walk toward the main watch tower and you arrive at an intersection", "action");
-    //TODO choice 1: frozen lake?, choice 2: watch tower
+    await printToTerminal("You walk toward the main watch tower and you arrive at destination", "action");
+    await printToTerminal("You are not standing outside the watch tower", "system");
+    //TODO add lore ?
 }
 export async function inspectDirectionSign() {
     await printToTerminal("You inspect the sign...", "action");

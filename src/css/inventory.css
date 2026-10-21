@@ -12,11 +12,11 @@
     visibility: hidden;
     transition: opacity 0.15s ease-out, transform 0.15s ease-out;
     color: var(--text-color);
-    /* TODO could make display: none; */
     gap: 10px
 }
 
 #inventory.inventory-active {
+    visibility: visible;
     opacity: 1;
     pointer-events: auto;
     transform: translate(-50%, -50%) scale(1);
