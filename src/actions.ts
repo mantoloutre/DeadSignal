@@ -118,6 +118,12 @@ export async function pryToolBoxWithCrowbar(): Promise<void> {
     setFocus(null);
 }
 
+export async function walkTowardSnowyForestFromOutsideTruck(): Promise<void> {
+    await printToTerminal("You walk toward the forest away from the truck", "action");
+    //TODO load zone
+    loadZone(ZONES.SNOWY_FOREST);
+}
+
 /*
 ###################
 ZONE : SNOWY FOREST
@@ -128,6 +134,11 @@ export async function goBackToTheTruck(): Promise<void> {
     await printToTerminal("You walk back to the truck", "action");
     //TODO maybe do another thing here idk?
     await loadZone(ZONES.OUTSIDE_TRUCK);
+}
+
+export async function walktowardMainWatchPost(): Promise<void> {
+    await printToTerminal("You walk toward the main watch tower and you arrive at an intersection", "action");
+    //TODO choice 1: frozen lake?, choice 2: watch tower
 }
 
 /*

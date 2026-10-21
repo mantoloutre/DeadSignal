@@ -1,4 +1,4 @@
-import { addCrowBarToThePlayerInventory, addFlareTruckCabin, addWinterGlovesToThePlayerInventory, checkTruckTrunk, forceToolBoxOpenWithHand, getOutOfTheDamnTruck, goBackInThePrettyTruck, goBackToTheTruck, lookInGloveBoxInTruckCabin, openTheHoodAndOrLookAtTheEngineInit, openToolBoxTruckTrunkInit, outOfToolBoxFocus, pryToolBoxWithCrowbar, takeAdjustableWrenchFromToolBoxInit, takeDuctTapeFromToolBoxInit } from "./actions.js";
+import { addCrowBarToThePlayerInventory, addFlareTruckCabin, addWinterGlovesToThePlayerInventory, checkTruckTrunk, forceToolBoxOpenWithHand, getOutOfTheDamnTruck, goBackInThePrettyTruck, goBackToTheTruck, lookInGloveBoxInTruckCabin, openTheHoodAndOrLookAtTheEngineInit, openToolBoxTruckTrunkInit, outOfToolBoxFocus, pryToolBoxWithCrowbar, takeAdjustableWrenchFromToolBoxInit, takeDuctTapeFromToolBoxInit, walktowardMainWatchPost, walkTowardSnowyForestFromOutsideTruck } from "./actions.js";
 import { hasFlag } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 /*
@@ -43,13 +43,11 @@ export const ZONES = {
                 description: "walk back to the truck",
                 execute: goBackToTheTruck,
             });
-            /*
             actions.push({
                 command: "walk toward the watch tower",
                 description: "walk toward the watch tower which also serve as the main relay tower",
-                execute: //TODO
+                execute: walktowardMainWatchPost,
             });
-            */
             return actions;
         }
     },
@@ -71,10 +69,15 @@ export const ZONES = {
                 execute: goBackInThePrettyTruck
             });
             actions.push({
+                command: "walk toward forest",
+                description: "start walking toward the forest",
+                execute: walkTowardSnowyForestFromOutsideTruck,
+            });
+            actions.push({
                 command: hasFlag("OPENED_HOOD_TRUCK_INIT")
                     ? "look at the engine" : "open the hood and look at the engine",
                 description: "look at the engine and open the hood if its in the way",
-                execute: openTheHoodAndOrLookAtTheEngineInit
+                execute: openTheHoodAndOrLookAtTheEngineInit,
             });
             actions.push({
                 command: hasFlag("OPENED_TRUCK_TRUNK_INIT")
@@ -116,7 +119,8 @@ export const ZONES = {
     TRUCK_CABIN: {
         id: "TRUCK_CABIN",
         name: "TRUCK CABIN",
-        description: "You are sitting on the driver's seat, the truck came to a sudden stop and there is smoke" +
+        description: "You are sitting on the driver's seat, the truck came to a sudden stop after a violent explosion " +
+            "of the engine and there is smoke" +
             " coming out of the engine",
         getActions: () => {
             const actions = [];
