@@ -10,7 +10,7 @@ export const GAME_INITIAL_STATE = {
     playerInventory: [],
     inactiveCommands: [],
 };
-export let currentState = { ...GAME_INITIAL_STATE };
+export let currentState = structuredClone(GAME_INITIAL_STATE);
 export function addFlag(flag) {
     if (!currentState.storyFlags.includes(flag)) {
         currentState.storyFlags.push(flag);
@@ -84,7 +84,8 @@ export function parseSaveData(json) {
         if (!("itemId" in slot) || !("count" in slot))
             return false;
         const entry = slot;
-        return typeof entry.itemId === "string" && typeof entry.count === "number";
+        return (typeof entry.itemId === "string" && typeof entry.count === "number"
+            && Number.isInteger(entry.count) && entry.count > 0);
     };
     const maybeInvalidInactiveCommand = (cmd) => {
         return typeof cmd === "string";
@@ -104,14 +105,15 @@ export function parseSaveData(json) {
     return {
         ...GAME_INITIAL_STATE,
         currentZone: validCurrentZone,
-        powerLevel: typeof obj.powerLevel === "number" ? obj.powerLevel :
+        powerLevel: typeof obj.powerLevel === "number" && Number.isFinite(obj.powerLevel)
+            ? Math.max(0, obj.powerLevel) :
             GAME_INITIAL_STATE.powerLevel,
         currentFrequency: typeof obj.currentFrequency === "number"
             ? obj.currentFrequency :
             GAME_INITIAL_STATE.currentFrequency,
         discoveredSignals: Array.isArray(obj.discoveredSignals)
-            ? obj.discoveredSignals :
-            [...GAME_INITIAL_STATE.discoveredSignals],
+            ? obj.discoveredSignals.filter((s) => typeof s === "string")
+            : [...GAME_INITIAL_STATE.discoveredSignals],
         storyFlags: validStoryFlags,
         playerInventory: validPlayerInventory,
         inactiveCommands: validInactiveCommands
@@ -206,5 +208,5 @@ export function importSaveFile(onSuccess, onError) {
     input.click();
 }
 export function resetGameState() {
-    currentState = { ...GAME_INITIAL_STATE };
+    currentState = structuredClone(GAME_INITIAL_STATE);
 }

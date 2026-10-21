@@ -1,4 +1,5 @@
-import {ZONES
+import {
+    ZONES
 } from "./world.js"
 import {InventorySlot} from "./inventory.js";
 import {StoryFlags} from "./storyFlags.js";
@@ -31,7 +32,7 @@ export const GAME_INITIAL_STATE: GameState = {
     playerInventory: [],
     inactiveCommands: [],
 };
-export let currentState: GameState = {...GAME_INITIAL_STATE};
+export let currentState: GameState = structuredClone(GAME_INITIAL_STATE);
 
 export function addFlag(flag: StoryFlag): void {
     if (!currentState.storyFlags.includes(flag)) {
@@ -220,7 +221,7 @@ export function importSaveFile(
         }
         //step 3
         const fileReader = new FileReader();
-        fileReader.onload = ():void => {
+        fileReader.onload = (): void => {
             const parsedData = parseSaveData(fileReader.result as string);
             if (!parsedData) {
                 onError("invalid save file format");
@@ -241,5 +242,5 @@ export function importSaveFile(
 }
 
 export function resetGameState(): void {
-    currentState = {...GAME_INITIAL_STATE};
+    currentState = structuredClone(GAME_INITIAL_STATE);
 }
