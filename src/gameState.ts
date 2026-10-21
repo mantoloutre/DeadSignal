@@ -128,7 +128,8 @@ export function parseSaveData(json: string): GameState | null {
     return {
         ...GAME_INITIAL_STATE,
         currentZone: validCurrentZone,
-        powerLevel: typeof obj.powerLevel === "number" ? obj.powerLevel :
+        powerLevel: typeof obj.powerLevel === "number" && Number.isFinite(obj.powerLevel)
+            ? Math.max(0, obj.powerLevel) :
             GAME_INITIAL_STATE.powerLevel,
         currentFrequency: typeof obj.currentFrequency === "number"
             ? obj.currentFrequency :
