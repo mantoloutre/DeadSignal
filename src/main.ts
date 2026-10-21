@@ -227,9 +227,9 @@ bindingAction(buttonPrintHiLog, printHiLog);
 bindingAction(buttonPrintHiAlert, printHiAlert);
 */
 // zone 1
-bindingAction(getEl("btn-apply-zone-truck-cabin"), applyZone1Test);
+//bindingAction(getEl("btn-apply-zone-truck-cabin"), applyZone1Test);
 //zone 2
-bindingAction(getEl("btn-apply-zone-snowy-forest"), applyZone2Test);
+//bindingAction(getEl("btn-apply-zone-snowy-forest"), applyZone2Test);
 // others
 bindingAction(getEl("btn-save"), saveGame);
 

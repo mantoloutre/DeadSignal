@@ -5,21 +5,15 @@ import {
     checkTruckTrunk,
     forceToolBoxOpenWithHand,
     getOutOfTheDamnTruck,
-    goBackInThePrettyTruck, goBackToTheTruck,
+    goBackInThePrettyTruck, goBackToTheTruck, inspectDirectionSign,
     lookInGloveBoxInTruckCabin, openTheHoodAndOrLookAtTheEngineInit,
     openToolBoxTruckTrunkInit, outOfToolBoxFocus, pryToolBoxWithCrowbar, takeAdjustableWrenchFromToolBoxInit,
-    takeDuctTapeFromToolBoxInit, walktowardMainWatchPost, walkTowardSnowyForestFromOutsideTruck
+    takeDuctTapeFromToolBoxInit,
+    walkBackSnowyForestTowardTruck, walkTowardMainWatchPost, walkTowardSnowyForestFromOutsideTruck
 } from "./actions.js";
 import {hasFlag} from "./gameState.js";
-import {StoryFlags} from "./storyFlags.js";
 import {doesThePlayerHasTheItem} from "./inventory.js";
 import {ZoneId} from "./types.js";
-
-export interface User_Choice {
-    label: string;
-    action: () => void;
-}
-
 /*
 this is for subzone ( mainly puzzle )
  */
@@ -90,12 +84,19 @@ export const ZONES = {
                 description: "walk back to the truck",
                 execute: goBackToTheTruck,
             });
-            actions.push({
-                command: "walk toward the watch tower",
-                description: "walk toward the watch tower which also serve as the main relay tower",
-                execute: walktowardMainWatchPost,
-            });
 
+            actions.push({
+                command: "inspect the direction sign",
+                description: "inspect it to know where to go",
+                execute: inspectDirectionSign,
+            });
+            if (hasFlag("INSPECTED_DIRECTION_SIGN")) {
+                actions.push({
+                    command: "walk toward the watch tower",
+                    description: "walk toward the watch tower which also serve as the main relay tower",
+                    execute: walkTowardMainWatchPost,
+                });
+            }
             return actions;
         }
     },
@@ -200,6 +201,23 @@ export const ZONES = {
             return actions;
         }
     },
+    WATCH_POST_OUTSIDE: {
+        id: "WATCH_POST_OUTSIDE",
+        name: "OUTSIDE WATCH POST",
+        description: "you stand just outside the watch post, not finished",
+        getActions: (): ZoneActions[] => {
+            const actions: ZoneActions[] = [];
+            //focus
+
+            //normal actions
+            actions.push({
+                command: "go back in forest toward truck",
+                description: "walk back in the forest toward the truck ( to the intersection )",
+                execute: walkBackSnowyForestTowardTruck,
+            });
+            return actions;
+        }
+    }
 
 } satisfies Record<ZoneId, Zone>;
 

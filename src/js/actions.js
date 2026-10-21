@@ -8,7 +8,7 @@ ZONE : TRUCK CABIN
 ##################
  */
 /*
-pretty self-explanatory function
+function to check the truck's trunk at the begining of the game
  */
 export async function checkTruckTrunk() {
     if (!hasFlag("OPENED_TRUCK_TRUNK_INIT")) {
@@ -25,20 +25,24 @@ export async function getOutOfTheDamnTruck() {
     await loadZone(ZONES.OUTSIDE_TRUCK);
 }
 /*
-pretty self-explanatory function x2
+function to add winter gloves to the player inventory when the player look inside the glove box
+and decide to take the gloves
  */
 export async function addWinterGlovesToThePlayerInventory() {
     addFlag("TOOK_WINTER_GLOVE");
     await printToTerminal("you take the gloves in the glove box", "action");
     await addItemToInventory("winter_gloves");
 }
+/*
+look inside the glove box to be able to take what's inside
+ */
 export async function lookInGloveBoxInTruckCabin() {
     await printToTerminal("You open the glove box you look inside. you find 2 flares, " +
         "the truck's insurance paper and a pair of winter gloves.", "action");
     addFlag("OPENED_GLOVE_BOX");
 }
 /*
-function to add 2 flare to inventory
+function to add 2 flare to inventory when the player take them from the glove box
  */
 export async function addFlareTruckCabin() {
     await addItemToInventory("flare", 2);
@@ -49,9 +53,15 @@ export async function addFlareTruckCabin() {
 ZONE : OUTSIDE TRUCK
 #####################
  */
+/*
+function to load the zone truck cabin, in case the player want to go back inside the truck
+ */
 export async function goBackInThePrettyTruck() {
     await loadZone(ZONES.TRUCK_CABIN);
 }
+/*
+function that depending on if the hood is already open, will display different chat
+ */
 export async function openTheHoodAndOrLookAtTheEngineInit() {
     if (!hasFlag("OPENED_HOOD_TRUCK_INIT")) {
         addFlag("OPENED_HOOD_TRUCK_INIT");
@@ -64,10 +74,16 @@ export async function openTheHoodAndOrLookAtTheEngineInit() {
             "which might explain the big explosion and the hole in the hood", "system");
     }
 }
+/*
+add a crowbar to the player inventory when the player decide to take it from the truck's trunk
+ */
 export async function addCrowBarToThePlayerInventory() {
     await printToTerminal("you take the crowbar from the trunk", "action");
     await addItemToInventory("crowbar");
 }
+/*
+open the truck's trunk when the player decides to do so
+ */
 export async function openToolBoxTruckTrunkInit() {
     if (!hasFlag("OPENED_TOOLBOX_INIT")) {
         setFocus("TOOLBOX");
@@ -118,9 +134,32 @@ export async function goBackToTheTruck() {
     //TODO maybe do another thing here idk?
     await loadZone(ZONES.OUTSIDE_TRUCK);
 }
-export async function walktowardMainWatchPost() {
+export async function walkTowardMainWatchPost() {
     await printToTerminal("You walk toward the main watch tower and you arrive at an intersection", "action");
     //TODO choice 1: frozen lake?, choice 2: watch tower
+}
+export async function inspectDirectionSign() {
+    await printToTerminal("You inspect the sign...", "action");
+    await printToTerminal("on the sign you see: left for frozen lake and right to go to main watch post", "system");
+    addFlag("INSPECTED_DIRECTION_SIGN");
+    //TODO continue?
+}
+export async function walkTowardTheMainTower() {
+    await printToTerminal("You go right and start walking toward the watch post", "action");
+    //TODO load the zone
+}
+/*
+########################
+ZONE : OUTSIDE WATCHPOST
+########################
+ */
+/*
+walk toward the intersection of : outside watchpost, broken down truck, frozen lake
+ */
+export async function walkBackSnowyForestTowardTruck() {
+    await printToTerminal("You go back in the forest toward the intersection" +
+        " of the frozen lake and the truck", "action");
+    loadZone(ZONES.SNOWY_FOREST);
 }
 /*
 ######
