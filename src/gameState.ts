@@ -135,8 +135,8 @@ export function parseSaveData(json: string): GameState | null {
             ? obj.currentFrequency :
             GAME_INITIAL_STATE.currentFrequency,
         discoveredSignals: Array.isArray(obj.discoveredSignals)
-            ? (obj.discoveredSignals as string[]) :
-            [...GAME_INITIAL_STATE.discoveredSignals],
+            ? obj.discoveredSignals.filter((s): s is string => typeof s === "string")
+            : [...GAME_INITIAL_STATE.discoveredSignals],
         storyFlags: validStoryFlags,
         playerInventory: validPlayerInventory,
         inactiveCommands: validInactiveCommands
