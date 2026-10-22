@@ -162,6 +162,19 @@ export async function walkBackSnowyForestTowardTruck() {
         " of the frozen lake and the truck", "action");
     loadZone(ZONES.SNOWY_FOREST);
 }
+export async function goInsideTheWatchPost() {
+    await printToTerminal("You go inside the watch post", "action"); //TODO make the lore
+    loadZone(ZONES.WATCH_POST);
+}
+/*
+#################
+ZONE : WATCH_POST
+#################
+ */
+export async function walkBackOutside() {
+    await printToTerminal("You walk back outside the watch tower", "action");
+    loadZone(ZONES.WATCH_POST_OUTSIDE);
+}
 /*
 ######
 OTHER

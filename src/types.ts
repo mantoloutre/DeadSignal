@@ -9,7 +9,8 @@ export type ZoneId =
     | "SNOWY_FOREST"
     | "TRUCK_CABIN"
     | "OUTSIDE_TRUCK"
-    | "WATCH_POST_OUTSIDE";
+    | "WATCH_POST_OUTSIDE"
+    | "WATCH_POST";
 /*
 | "FROZEN LAKE"
 | "WATCH_POST"

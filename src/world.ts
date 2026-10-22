@@ -5,10 +5,10 @@ import {
     checkTruckTrunk,
     forceToolBoxOpenWithHand,
     getOutOfTheDamnTruck,
-    goBackInThePrettyTruck, goBackToTheTruck, inspectDirectionSign,
+    goBackInThePrettyTruck, goBackToTheTruck, goInsideTheWatchPost, inspectDirectionSign,
     lookInGloveBoxInTruckCabin, openTheHoodAndOrLookAtTheEngineInit,
     openToolBoxTruckTrunkInit, outOfToolBoxFocus, pryToolBoxWithCrowbar, takeAdjustableWrenchFromToolBoxInit,
-    takeDuctTapeFromToolBoxInit,
+    takeDuctTapeFromToolBoxInit, walkBackOutside,
     walkBackSnowyForestTowardTruck, walkTowardMainWatchPost, walkTowardSnowyForestFromOutsideTruck
 } from "./actions.js";
 import {hasFlag} from "./gameState.js";
@@ -201,6 +201,7 @@ export const ZONES = {
             return actions;
         }
     },
+    //################################################
     WATCH_POST_OUTSIDE: {
         id: "WATCH_POST_OUTSIDE",
         name: "OUTSIDE WATCH POST",
@@ -215,10 +216,32 @@ export const ZONES = {
                 description: "walk back in the forest toward the truck ( to the intersection )",
                 execute: walkBackSnowyForestTowardTruck,
             });
+            actions.push({
+                command: "go inside the watch post",
+                description: "walk inside the watch post",
+                execute: goInsideTheWatchPost,
+            })
+            return actions;
+        }
+    },
+    //############################################
+    WATCH_POST: {
+        id: "WATCH_POST",
+        name: "INSIDE WATCH POST",
+        description: "you are now standing inside the watch post", //TODO do the lore
+        getActions: (): ZoneActions[] => {
+            const actions: ZoneActions[] = [];
+            //focus
+
+            //normal action
+            actions.push({
+                command: "go back outside",
+                description: "go back outside the watch post",
+                execute: walkBackOutside,
+            })
             return actions;
         }
     }
-
 } satisfies Record<ZoneId, Zone>;
 
 /*

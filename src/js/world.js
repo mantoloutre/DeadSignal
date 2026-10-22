@@ -1,4 +1,4 @@
-import { addCrowBarToThePlayerInventory, addFlareTruckCabin, addWinterGlovesToThePlayerInventory, checkTruckTrunk, forceToolBoxOpenWithHand, getOutOfTheDamnTruck, goBackInThePrettyTruck, goBackToTheTruck, inspectDirectionSign, lookInGloveBoxInTruckCabin, openTheHoodAndOrLookAtTheEngineInit, openToolBoxTruckTrunkInit, outOfToolBoxFocus, pryToolBoxWithCrowbar, takeAdjustableWrenchFromToolBoxInit, takeDuctTapeFromToolBoxInit, walkBackSnowyForestTowardTruck, walkTowardMainWatchPost, walkTowardSnowyForestFromOutsideTruck } from "./actions.js";
+import { addCrowBarToThePlayerInventory, addFlareTruckCabin, addWinterGlovesToThePlayerInventory, checkTruckTrunk, forceToolBoxOpenWithHand, getOutOfTheDamnTruck, goBackInThePrettyTruck, goBackToTheTruck, goInsideTheWatchPost, inspectDirectionSign, lookInGloveBoxInTruckCabin, openTheHoodAndOrLookAtTheEngineInit, openToolBoxTruckTrunkInit, outOfToolBoxFocus, pryToolBoxWithCrowbar, takeAdjustableWrenchFromToolBoxInit, takeDuctTapeFromToolBoxInit, walkBackOutside, walkBackSnowyForestTowardTruck, walkTowardMainWatchPost, walkTowardSnowyForestFromOutsideTruck } from "./actions.js";
 import { hasFlag } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 /*
@@ -160,6 +160,7 @@ export const ZONES = {
             return actions;
         }
     },
+    //################################################
     WATCH_POST_OUTSIDE: {
         id: "WATCH_POST_OUTSIDE",
         name: "OUTSIDE WATCH POST",
@@ -172,6 +173,28 @@ export const ZONES = {
                 command: "go back in forest toward truck",
                 description: "walk back in the forest toward the truck ( to the intersection )",
                 execute: walkBackSnowyForestTowardTruck,
+            });
+            actions.push({
+                command: "go inside the watch post",
+                description: "walk inside the watch post",
+                execute: goInsideTheWatchPost,
+            });
+            return actions;
+        }
+    },
+    //############################################
+    WATCH_POST: {
+        id: "WATCH_POST",
+        name: "INSIDE WATCH POST",
+        description: "you are now standing inside the watch post", //TODO do the lore
+        getActions: () => {
+            const actions = [];
+            //focus
+            //normal action
+            actions.push({
+                command: "go back outside",
+                description: "go back outside the watch post",
+                execute: walkBackOutside,
             });
             return actions;
         }

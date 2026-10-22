@@ -1,6 +1,7 @@
 import { exportSaveFile, currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage, saveTheDataToLocalStorage } from "./gameState.js";
 import { setFocus, ZONES } from "./world.js";
 import { ITEMS } from "./items.js";
+import { appendDigitToFrequency } from "./radioFrequency.js";
 /*
 used to optimize a bit the performance
  */
@@ -55,7 +56,7 @@ export function renderZoneActions(zone) {
         button.className = "action-btn";
         button.title = action.description;
         // step 4
-        bindingAction(button, async () => {
+        bindingAsyncAction(button, async () => {
             if (action.oneTime) {
                 currentState.inactiveCommands.push(action.command);
             }
@@ -69,6 +70,9 @@ export function renderZoneActions(zone) {
         getEl("zone-action").append(button);
     }
 }
+/*
+function to render the player inventory
+ */
 export function renderThePlayerInventory() {
     if (!getEl("inventory") || !getEl("inventory-item-details"))
         return;
@@ -105,6 +109,17 @@ export function renderThePlayerInventory() {
         getEl("inventory-items-list").append(buttonForDaItem);
     });
 }
+// buttons ( radio interface )
+const keypadButtons = document.querySelectorAll(".radio-key");
+const currentFrequencyDisplay = getEl("radio-current-frequency");
+keypadButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        const value = btn.dataset.value;
+        if (!value || !currentFrequencyDisplay)
+            return;
+        currentFrequencyDisplay.textContent = appendDigitToFrequency(value);
+    });
+});
 /*
 simple function to toggle the overlay cuz i dont want to repeat myself
  */
@@ -112,17 +127,31 @@ function toggleOverlay() {
     getEl("menu-overlay").classList.toggle("hidden");
 }
 /*
-binding a button and an action in a better way
+binding a button and an async action in a better way
  (no repeating myself by always adding a guard clause)
  @note only usable with function that Promise<void>, with only void it doesn't work
  */
-function bindingAction(button, action) {
+function bindingAsyncAction(button, action) {
     button.addEventListener("click", async () => {
         if (isPrinting) {
             flashButton(button);
             return;
         }
         await action();
+    });
+}
+/*
+binding a button and an action in a better way
+ (no repeating myself by always adding a guard clause)
+ @note only usable with function that return void
+ */
+function bindingAction(button, action) {
+    button.addEventListener("click", () => {
+        if (isPrinting) {
+            flashButton(button);
+            return;
+        }
+        action();
     });
 }
 /*
@@ -156,27 +185,18 @@ function closeInventory() {
 /*
 function for opening or closing the radio interface for tuning the radio
  */
-function CloseRadioInterface() {
+function closeRadioInterface() {
     getEl("radio-interface").classList.toggle("radio-interface-active");
     toggleOverlay();
     if (!(getEl("side-menu").classList.contains("hidden"))) {
         toggleOverlay();
     }
 }
-function OpenRadioInterface() {
+function openRadioInterface() {
     getEl("radio-interface").classList.add("radio-interface-active");
     if ((getEl("side-menu").classList.contains("hidden"))) {
         toggleOverlay();
     }
-}
-async function printHiNormal() {
-    await printToTerminal("hi :D", "system");
-}
-async function printHiAlert() {
-    await printToTerminal("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii :D", "alert");
-}
-async function printHiLog() {
-    await printToTerminal("hi :D", "log");
 }
 async function applyZone1Test() {
     await loadZone(ZONES.TRUCK_CABIN);
@@ -189,13 +209,13 @@ async function saveGame() {
     await printToTerminal("Game Saved", "system");
 }
 // buttons
-getEl("btn-open-inventory").addEventListener("click", openInventory);
-getEl("btn-close-inventory").addEventListener("click", closeInventory);
-getEl("btn-open-radio-interface").addEventListener("click", OpenRadioInterface);
-getEl("btn-close-radio-interface").addEventListener("click", CloseRadioInterface);
+bindingAction(getEl("btn-open-inventory"), openInventory);
+bindingAction(getEl("btn-close-inventory"), closeInventory);
+bindingAction(getEl("btn-open-radio-interface"), openRadioInterface);
+bindingAction(getEl("btn-close-radio-interface"), closeRadioInterface);
 //general
-getEl("button-open-side-menu").addEventListener("click", openOrCloseMenu);
-getEl("button-close-side-menu").addEventListener("click", openOrCloseMenu);
+bindingAction(getEl("button-open-side-menu"), openOrCloseMenu);
+bindingAction(getEl("button-close-side-menu"), openOrCloseMenu);
 getEl("btn-export").addEventListener("click", exportSaveFile);
 getEl("btn-import").addEventListener("click", async () => {
     getEl("terminal-output").innerHTML = "";
@@ -207,17 +227,12 @@ getEl("btn-import").addEventListener("click", async () => {
     });
 });
 //test
-/*
-bindingAction(buttonPrintHi, printHiNormal);
-bindingAction(buttonPrintHiLog, printHiLog);
-bindingAction(buttonPrintHiAlert, printHiAlert);
-*/
 // zone 1
-//bindingAction(getEl("btn-apply-zone-truck-cabin"), applyZone1Test);
+//bindingAsyncAction(getEl("btn-apply-zone-truck-cabin"), applyZone1Test);
 //zone 2
-//bindingAction(getEl("btn-apply-zone-snowy-forest"), applyZone2Test);
+//bindingAsyncAction(getEl("btn-apply-zone-snowy-forest"), applyZone2Test);
 // others
-bindingAction(getEl("btn-save"), saveGame);
+bindingAsyncAction(getEl("btn-save"), saveGame);
 /*
 function to close the correct interface ( i dont wanna redo a overlay for everything so
 im just going to reuse the sideMenuOverlay
@@ -230,7 +245,7 @@ function closeInterface() {
         closeInventory();
     }
     else if (getEl("radio-interface").classList.contains("radio-interface-active")) {
-        CloseRadioInterface();
+        closeRadioInterface();
     }
 }
 getEl("menu-overlay").addEventListener("click", closeInterface);
@@ -238,6 +253,8 @@ getEl("menu-overlay").addEventListener("click", closeInterface);
 shortcut ( press escape to close/open side menu, instead of having to click a smoll button )
  */
 window.addEventListener("keydown", (keyEvent) => {
+    if (isPrinting)
+        return; //clause guard if it's writing in terminal
     if (!getEl("side-menu").classList.contains("hidden") && keyEvent.key === "Escape") {
         openOrCloseMenu();
     }

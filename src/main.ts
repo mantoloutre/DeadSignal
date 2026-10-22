@@ -5,6 +5,7 @@ import {
 } from "./gameState.js";
 import {setFocus, Zone, ZoneActions, ZONES} from "./world.js";
 import {Item, ITEMS} from "./items.js";
+import {appendDigitToFrequency} from "./radioFrequency.js";
 
 interface UIElements {
     // buttons ( test )
@@ -24,6 +25,18 @@ interface UIElements {
     "btn-save": HTMLButtonElement;
     "btn-open-radio-interface": HTMLButtonElement;
     "btn-close-radio-interface": HTMLButtonElement;
+    "btn-k1": HTMLButtonElement;
+    "btn-k2": HTMLButtonElement;
+    "btn-k3": HTMLButtonElement;
+    "btn-k4": HTMLButtonElement;
+    "btn-k5": HTMLButtonElement;
+    "btn-k6": HTMLButtonElement;
+    "btn-k7": HTMLButtonElement;
+    "btn-k8": HTMLButtonElement;
+    "btn-k9": HTMLButtonElement;
+    "btn-p": HTMLButtonElement;
+    "btn-k0": HTMLButtonElement;
+    "btn-tune": HTMLButtonElement;
     // div elements
     "side-menu": HTMLDivElement;
     "menu-overlay": HTMLDivElement;
@@ -97,7 +110,7 @@ export function renderZoneActions(zone: Zone): void {
         button.className = "action-btn";
         button.title = action.description;
         // step 4
-        bindingAction(button, async (): Promise<void> => {
+        bindingAsyncAction(button, async (): Promise<void> => {
             if (action.oneTime) {
                 currentState.inactiveCommands.push(action.command);
             }
@@ -112,6 +125,9 @@ export function renderZoneActions(zone: Zone): void {
     }
 }
 
+/*
+function to render the player inventory
+ */
 export function renderThePlayerInventory(): void {
     if (!getEl("inventory") || !getEl("inventory-item-details")) return;
     getEl("inventory-items-list").innerHTML = "";
@@ -148,6 +164,17 @@ export function renderThePlayerInventory(): void {
 
 }
 
+// buttons ( radio interface )
+const keypadButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll<HTMLButtonElement>(".radio-key");
+const currentFrequencyDisplay: HTMLParagraphElement = getEl("radio-current-frequency");
+keypadButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        const value = btn.dataset.value;
+        if (!value || !currentFrequencyDisplay) return;
+        currentFrequencyDisplay.textContent = appendDigitToFrequency(value);
+    });
+});
+
 /*
 simple function to toggle the overlay cuz i dont want to repeat myself
  */
@@ -156,18 +183,33 @@ function toggleOverlay(): void {
 }
 
 /*
-binding a button and an action in a better way
+binding a button and an async action in a better way
  (no repeating myself by always adding a guard clause)
  @note only usable with function that Promise<void>, with only void it doesn't work
  */
-function bindingAction(button: HTMLButtonElement, action: () => Promise<void>): void {
+function bindingAsyncAction(button: HTMLButtonElement, action: () => Promise<void>): void {
     button.addEventListener("click", async (): Promise<void> => {
         if (isPrinting) {
             flashButton(button);
             return;
         }
         await action();
-    })
+    });
+}
+
+/*
+binding a button and an action in a better way
+ (no repeating myself by always adding a guard clause)
+ @note only usable with function that return void
+ */
+function bindingAction(button: HTMLButtonElement, action: () => void): void {
+    button.addEventListener("click", (): void => {
+        if (isPrinting) {
+            flashButton(button);
+            return;
+        }
+        action();
+    });
 }
 
 /*
@@ -189,13 +231,14 @@ function openInventory(): void {
     renderThePlayerInventory();
     getEl("menu-overlay").classList.remove("hidden");
 }
+
 /*
 function to close the inventory
  */
-function closeInventory(): void{
+function closeInventory(): void {
     getEl("inventory").classList.toggle("inventory-active");
     renderThePlayerInventory();
-    if((getEl("side-menu").classList.contains("hidden"))){
+    if ((getEl("side-menu").classList.contains("hidden"))) {
         toggleOverlay();
     }
 }
@@ -203,29 +246,19 @@ function closeInventory(): void{
 /*
 function for opening or closing the radio interface for tuning the radio
  */
-function CloseRadioInterface(): void {
+function closeRadioInterface(): void {
     getEl("radio-interface").classList.toggle("radio-interface-active");
     toggleOverlay();
     if (!(getEl("side-menu").classList.contains("hidden"))) {
         toggleOverlay();
     }
 }
-function OpenRadioInterface(): void{
+
+function openRadioInterface(): void {
     getEl("radio-interface").classList.add("radio-interface-active");
     if ((getEl("side-menu").classList.contains("hidden"))) {
         toggleOverlay();
     }
-}
-async function printHiNormal(): Promise<void> {
-    await printToTerminal("hi :D", "system");
-}
-
-async function printHiAlert(): Promise<void> {
-    await printToTerminal("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii :D", "alert");
-}
-
-async function printHiLog(): Promise<void> {
-    await printToTerminal("hi :D", "log")
 }
 
 async function applyZone1Test(): Promise<void> {
@@ -242,13 +275,13 @@ async function saveGame(): Promise<void> {
 }
 
 // buttons
-getEl("btn-open-inventory").addEventListener("click", openInventory);
-getEl("btn-close-inventory").addEventListener("click", closeInventory);
-getEl("btn-open-radio-interface").addEventListener("click", OpenRadioInterface);
-getEl("btn-close-radio-interface").addEventListener("click", CloseRadioInterface);
+bindingAction(getEl("btn-open-inventory"), openInventory);
+bindingAction(getEl("btn-close-inventory"), closeInventory);
+bindingAction(getEl("btn-open-radio-interface"), openRadioInterface);
+bindingAction(getEl("btn-close-radio-interface"), closeRadioInterface)
 //general
-getEl("button-open-side-menu").addEventListener("click", openOrCloseMenu);
-getEl("button-close-side-menu").addEventListener("click", openOrCloseMenu);
+bindingAction(getEl("button-open-side-menu"), openOrCloseMenu);
+bindingAction(getEl("button-close-side-menu"), openOrCloseMenu);
 getEl("btn-export").addEventListener("click", exportSaveFile);
 getEl("btn-import").addEventListener("click", async (): Promise<void> => {
     getEl("terminal-output").innerHTML = "";
@@ -263,17 +296,12 @@ getEl("btn-import").addEventListener("click", async (): Promise<void> => {
     );
 });
 //test
-/*
-bindingAction(buttonPrintHi, printHiNormal);
-bindingAction(buttonPrintHiLog, printHiLog);
-bindingAction(buttonPrintHiAlert, printHiAlert);
-*/
 // zone 1
-//bindingAction(getEl("btn-apply-zone-truck-cabin"), applyZone1Test);
+//bindingAsyncAction(getEl("btn-apply-zone-truck-cabin"), applyZone1Test);
 //zone 2
-//bindingAction(getEl("btn-apply-zone-snowy-forest"), applyZone2Test);
+//bindingAsyncAction(getEl("btn-apply-zone-snowy-forest"), applyZone2Test);
 // others
-bindingAction(getEl("btn-save"), saveGame);
+bindingAsyncAction(getEl("btn-save"), saveGame);
 
 /*
 function to close the correct interface ( i dont wanna redo a overlay for everything so
@@ -285,7 +313,7 @@ function closeInterface(): void {
     } else if (getEl("inventory").classList.contains("inventory-active")) {
         closeInventory();
     } else if (getEl("radio-interface").classList.contains("radio-interface-active")) {
-        CloseRadioInterface();
+        closeRadioInterface();
     }
 }
 
@@ -294,7 +322,8 @@ getEl("menu-overlay").addEventListener("click", closeInterface);
 /*
 shortcut ( press escape to close/open side menu, instead of having to click a smoll button )
  */
-window.addEventListener("keydown", (keyEvent) => {
+window.addEventListener("keydown", (keyEvent: KeyboardEvent): void => {
+    if (isPrinting) return; //clause guard if it's writing in terminal
     if (!getEl("side-menu").classList.contains("hidden") && keyEvent.key === "Escape") {
         openOrCloseMenu();
     } else if (getEl("side-menu").classList.contains("hidden") && keyEvent.key === "Escape") {
