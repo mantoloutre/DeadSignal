@@ -40,7 +40,7 @@ export function setFocus(focus: ZoneFocus | null): void {
 }
 
 
-export interface ZoneActions {
+export interface ZoneAction {
     command: string;
     description: string;
     execute: () => Promise<void>;
@@ -52,7 +52,7 @@ export interface Zone {
     id: ZoneId;
     name: string;
     description: string;
-    getActions: () => ZoneActions[];
+    getActions: () => ZoneAction[];
 }
 
 export interface Chapter {
@@ -74,11 +74,11 @@ export const ZONES = {
         name: "SNOWY FOREST",
         description: "It's snowing, the freezing wind howl through the pines, there doesnt seem to be any trace " +
             "of anything living except vegetation",
-        getActions: (): ZoneActions[] => {
+        getActions: (): ZoneAction[] => {
             //if focus its here
 
             //if there is no current focus then we do the normal thing
-            const actions: ZoneActions[] = [];
+            const actions: ZoneAction[] = [];
             actions.push({
                 command: "go back to the truck",
                 description: "walk back to the truck",
@@ -105,13 +105,13 @@ export const ZONES = {
         name: "OUTSIDE THE TRUCK",
         description: "The freezing wind howl through the pines. The truck sits engine "
             + "fuming on the side of the road and a hole through the hood",
-        getActions: (): ZoneActions[] => {
+        getActions: (): ZoneAction[] => {
             //for the focus of the toolbox ( "puzzle" )
             if (getFocus() === FOCUS.TOOLBOX) {
                 return getTooBoxActions();
             }
             //if no focus then normal things
-            const actions: ZoneActions[] = [];
+            const actions: ZoneAction[] = [];
             actions.push({
                 command: "get back in the truck",
                 description: "go back inside the truck",
@@ -171,8 +171,8 @@ export const ZONES = {
         description: "You are sitting on the driver's seat, the truck came to a sudden stop after a violent explosion " +
             "of the engine and there is smoke" +
             " coming out of the engine",
-        getActions: (): ZoneActions[] => {
-            const actions: ZoneActions[] = [];
+        getActions: (): ZoneAction[] => {
+            const actions: ZoneAction[] = [];
             actions.push({
                 command: "get out of the truck",
                 description: "simply get out of the truck",
@@ -206,8 +206,8 @@ export const ZONES = {
         id: "WATCH_POST_OUTSIDE",
         name: "OUTSIDE WATCH POST",
         description: "you stand just outside the watch post, not finished",
-        getActions: (): ZoneActions[] => {
-            const actions: ZoneActions[] = [];
+        getActions: (): ZoneAction[] => {
+            const actions: ZoneAction[] = [];
             //focus
 
             //normal actions
@@ -229,8 +229,8 @@ export const ZONES = {
         id: "WATCH_POST",
         name: "INSIDE WATCH POST",
         description: "you are now standing inside the watch post", //TODO do the lore
-        getActions: (): ZoneActions[] => {
-            const actions: ZoneActions[] = [];
+        getActions: (): ZoneAction[] => {
+            const actions: ZoneAction[] = [];
             //focus
 
             //normal action
@@ -247,8 +247,8 @@ export const ZONES = {
 /*
 function to get the actions related to opening the toolbox
  */
-function getTooBoxActions(): ZoneActions[] {
-    const actions: ZoneActions[] = [];
+function getTooBoxActions(): ZoneAction[] {
+    const actions: ZoneAction[] = [];
     actions.push({
         command: "do something else",
         description: "do something else than trying to open the toolbox",

@@ -154,7 +154,8 @@ export async function goBackToTheTruck(): Promise<void> {
 
 export async function walkTowardMainWatchPost(): Promise<void> {
     await printToTerminal("You walk toward the main watch tower and you arrive at destination", "action");
-    await printToTerminal("You are not standing outside the watch tower", "system");
+    await printToTerminal("You are now standing outside the watch tower", "system");
+    loadZone(ZONES.WATCH_POST_OUTSIDE);
     //TODO add lore ?
 
 }
@@ -164,11 +165,6 @@ export async function inspectDirectionSign(): Promise<void> {
     await printToTerminal("on the sign you see: left for frozen lake and right to go to main watch post", "system");
     addFlag("INSPECTED_DIRECTION_SIGN");
     //TODO continue?
-}
-
-export async function walkTowardTheMainTower(): Promise<void> {
-    await printToTerminal("You go right and start walking toward the watch post", "action");
-    //TODO load the zone
 }
 
 /*

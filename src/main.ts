@@ -3,7 +3,7 @@ import {
     currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage,
     saveTheDataToLocalStorage
 } from "./gameState.js";
-import {setFocus, Zone, ZoneActions, ZONES} from "./world.js";
+import {setFocus, Zone, ZoneAction, ZONES} from "./world.js";
 import {Item, ITEMS} from "./items.js";
 import {appendDigitToFrequency} from "./radioFrequency.js";
 
@@ -58,7 +58,8 @@ used to optimize a bit the performance
 export const elementCache = new Map<string, HTMLElement>();
 
 /*
-function to get an element from the ui
+get an element from the ui
+@param id the id of the element we want
  */
 export function getEl<Key extends keyof UIElements>(id: Key): UIElements[Key] {
     const cached = elementCache.get(id);
@@ -85,7 +86,9 @@ export async function loadZone(zone: Zone): Promise<void> {
     renderZoneActions(zone);
 }
 
+
 /*
+//TODO correct the documentation <br>
 function to render in a dynamic way the actions for a zone<br>
 detailed explanation:
 -
@@ -93,34 +96,19 @@ detailed explanation:
 2. get the choice from the zone
 3. make button for each action
 4. bind it to its action
+@param zone the zone we want to render the actions
  */
 export function renderZoneActions(zone: Zone): void {
     //step 1
     getEl("zone-action").innerHTML = "";
     //step 2
-    const actions: ZoneActions[] = zone.getActions();
+    const actions: ZoneAction[] = zone.getActions();
     //step 3
     for (const action of actions) {
         if (action.oneTime && currentState.inactiveCommands.includes(action.command)) {
             continue;
         }
-        const button: HTMLButtonElement = document.createElement("button");
-        button.textContent = `${action.command}`;
-        button.className = "action-btn";
-        button.title = action.description;
-        // step 4
-        bindingAsyncAction(button, async (): Promise<void> => {
-            if (action.oneTime) {
-                currentState.inactiveCommands.push(action.command);
-            }
-            await action.execute();
-            //we need to make sure we are still in the same zone
-            if (currentState.currentZone === zone.id) {
-                // needed to reload missing actions that needed a flag to appear
-                renderZoneActions(zone);
-            }
-        });
-        getEl("zone-action").append(button);
+        createButtonZoneActions(action, zone);
     }
 }
 
@@ -128,14 +116,14 @@ export function renderZoneActions(zone: Zone): void {
 function to render the player inventory
  */
 export function renderThePlayerInventory(): void {
-    if (!getEl("inventory") || !getEl("inventory-item-details")) return;
-    getEl("inventory-items-list").innerHTML = "";
+    const inventoryItemList: HTMLDivElement = getEl("inventory-items-list");
+    inventoryItemList.innerHTML = "";
     getEl("inventory-item-details").textContent = "Select an item to inspect.";
     if (currentState.playerInventory.length === 0) {
         const nothingToSeeThereMsg = document.createElement("p");
         nothingToSeeThereMsg.textContent = "Nothing to see there, its empty";
         nothingToSeeThereMsg.className = "nothing-here-msg";
-        getEl("inventory-items-list").append(nothingToSeeThereMsg);
+        inventoryItemList.append(nothingToSeeThereMsg);
         //if the inventory is not there or no item
         return;
     }
@@ -182,8 +170,9 @@ function toggleOverlay(): void {
 }
 
 /*
-binding a button and an async action in a better way
- (no repeating myself by always adding a guard clause)
+binding a button and an async action
+@param button the button we want to bind the action to
+@param action the action we want to bind to the button
  @note only usable with function that Promise<void>, with only void it doesn't work
  */
 function bindingAsyncAction(button: HTMLButtonElement, action: () => Promise<void>): void {
@@ -197,8 +186,9 @@ function bindingAsyncAction(button: HTMLButtonElement, action: () => Promise<voi
 }
 
 /*
-binding a button and an action in a better way
- (no repeating myself by always adding a guard clause)
+binding a button and an action while making sure nothing is being printed to terminalOutput
+ @param button the HTMLButtonElement we want to bind the action to
+ @param action the action we want to bind to the button
  @note only usable with function that return void
  */
 function bindingAction(button: HTMLButtonElement, action: () => void): void {
@@ -212,7 +202,7 @@ function bindingAction(button: HTMLButtonElement, action: () => void): void {
 }
 
 /*
-function to toggle the hidden class to open or close the menu
+toggle the hidden class to open or close the menu
  */
 function openOrCloseMenu(): void {
     getEl("side-menu").classList.toggle("hidden");
@@ -303,7 +293,7 @@ getEl("btn-import").addEventListener("click", async (): Promise<void> => {
 bindingAsyncAction(getEl("btn-save"), saveGame);
 
 /*
-function to close the correct interface ( i dont wanna redo a overlay for everything so
+function to close the correct interface ( i don't wanna redo a overlay for everything so
 im just going to reuse the sideMenuOverlay
  */
 function closeInterface(): void {
@@ -323,6 +313,7 @@ shortcut ( press escape to close/open side menu, instead of having to click a sm
  */
 window.addEventListener("keydown", (keyEvent: KeyboardEvent): void => {
     if (isPrinting) return; //clause guard if it's writing in terminal
+    const sideMenu:HTMLDivElement = getEl("side-menu");
     if (!getEl("side-menu").classList.contains("hidden") && keyEvent.key === "Escape") {
         openOrCloseMenu();
     } else if (getEl("side-menu").classList.contains("hidden") && keyEvent.key === "Escape") {
@@ -341,16 +332,16 @@ function to print to the terminal :D
 @param from the place the text come from(log(yellow), alert(red), normal(green) )
  */
 export async function printToTerminal(text: string, from: fromType, speedMs: number = 15): Promise<void> {
-    if (!getEl("terminal-output")) return;
+    const outputTerminal = getEl("terminal-output");
     isPrinting = true;
     const prettyLine: HTMLDivElement = document.createElement("div");
     prettyLine.className = `terminal-line ${from}`;
-    getEl("terminal-output").append(prettyLine);
+    outputTerminal.append(prettyLine);
     const textNode = document.createTextNode("");
     prettyLine.append(textNode);
     for (let i = 0; i < text.length; ++i) {
         textNode.appendData(text[i]);
-        getEl("terminal-output").scrollTop = getEl("terminal-output").scrollHeight;
+        outputTerminal.scrollTop = outputTerminal.scrollHeight;
         await sleep(speedMs);
     }
     isPrinting = false;
@@ -359,15 +350,16 @@ export async function printToTerminal(text: string, from: fromType, speedMs: num
 let confirmingReset: boolean = false;
 let resetTimeout: number | null = null;
 getEl("btn-restart").addEventListener("click", async () => {
+    const buttonRestart = getEl("btn-restart");
     if (!confirmingReset) {
         // first click
         confirmingReset = true;
-        getEl("btn-restart").textContent = "Are you sure? (click again)";
-        flashButton(getEl("btn-restart"));
+        buttonRestart.textContent = "Are you sure? (click again)";
+        flashButton(buttonRestart);
         // 4 seconds timeout
         resetTimeout = window.setTimeout(() => {
             confirmingReset = false;
-            getEl("btn-restart").textContent = "Restart the whole game";
+            buttonRestart.textContent = "Restart the whole game";
         }, 4000);
         return;
     }
@@ -375,13 +367,36 @@ getEl("btn-restart").addEventListener("click", async () => {
         window.clearTimeout(resetTimeout);
     }
     confirmingReset = false;
-    getEl("btn-restart").textContent = "Restart the whole game";
+    buttonRestart.textContent = "Restart the whole game";
     clearTheLocalStorage();
     resetGameState();
     //reloading the game
     location.reload();
 });
 
+/*
+function to create the button for each action in a zone
+ */
+function createButtonZoneActions(action: ZoneAction, zone: Zone) {
+    const actionZone: HTMLDivElement = getEl("zone-action");
+    const button: HTMLButtonElement = document.createElement("button");
+    button.textContent = `${action.command}`;
+    button.className = "action-btn";
+    button.title = action.description;
+    // step 4
+    bindingAsyncAction(button, async (): Promise<void> => {
+        if (action.oneTime) {
+            currentState.inactiveCommands.push(action.command);
+        }
+        await action.execute();
+        //we need to make sure we are still in the same zone
+        if (currentState.currentZone === zone.id) {
+            // needed to reload missing actions that needed a flag to appear
+            renderZoneActions(zone);
+        }
+    });
+    actionZone.append(button);
+}
 
 function sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
