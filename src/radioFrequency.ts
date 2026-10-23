@@ -1,3 +1,5 @@
+import {currentState} from "./gameState.js";
+
 export interface RadioFrequency {
     frequency: number;
     id: string;
@@ -10,7 +12,15 @@ export interface RadioFrequency {
 //TODO make this using the currentState
 let currentBuffer: string = "";
 
-function formatBuffer(): string {
+/*
+safely set the buffer ( only at the begining at the game or on page reload )
+ */
+export function setBuffer(theBuffer: number):void{
+    if (currentBuffer.length === 0){
+        currentBuffer = theBuffer.toString();
+    }
+}
+export function formatBuffer(): string {
     if (currentBuffer.length === 0){
         return "---.---";
     }

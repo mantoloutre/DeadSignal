@@ -5,7 +5,13 @@ import {
 } from "./gameState.js";
 import {setFocus, Zone, ZoneAction, ZONES} from "./world.js";
 import {Item, ITEMS} from "./items.js";
-import {appendDigitToFrequency, getFloatCurrentBuffer, removeOneFromBuffer} from "./radioFrequency.js";
+import {
+    appendDigitToFrequency,
+    formatBuffer,
+    getFloatCurrentBuffer,
+    removeOneFromBuffer,
+    setBuffer
+} from "./radioFrequency.js";
 
 interface UIElements {
     // buttons ( test )
@@ -426,16 +432,21 @@ function sleep(ms: number): Promise<void> {
 function that is called to initialize game
  */
 async function initGame(): Promise<void> {
-    const hasSave = loadFromTheLocalStorage();
+    const hasSave: boolean = loadFromTheLocalStorage();
     if (hasSave) {
         await printToTerminal("Restoring previous session...", "system");
         await loadZone(ZONES[currentState.currentZone]);
+        setBuffer(currentState.currentFrequency);
+        const theFrequency: string = currentState.currentFrequency.toString();
+        getEl("frequency").textContent = theFrequency
+        getEl("radio-current-frequency").textContent = theFrequency;
     } else {
         await printToTerminal("the game story is really far from being finished, sorry :c", "alert");
         await printToTerminal("You were sent up the mountain pass to reach the summit observation tower.", "log");
         await printToTerminal("Originally a fire watch post, it now houses the master broadcast relay that feeds " +
             "three smaller repeater stations across the valley", "log")
         await loadZone(ZONES[GAME_INITIAL_STATE.currentZone]);
+        getEl("frequency").textContent = "null";
     }
 
 }

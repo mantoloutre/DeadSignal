@@ -1,7 +1,7 @@
 import { exportSaveFile, currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage, saveTheDataToLocalStorage } from "./gameState.js";
 import { setFocus, ZONES } from "./world.js";
 import { ITEMS } from "./items.js";
-import { appendDigitToFrequency, getFloatCurrentBuffer, removeOneFromBuffer } from "./radioFrequency.js";
+import { appendDigitToFrequency, getFloatCurrentBuffer, removeOneFromBuffer, setBuffer } from "./radioFrequency.js";
 /*
 used to optimize a bit the performance
  */
@@ -351,6 +351,10 @@ async function initGame() {
     if (hasSave) {
         await printToTerminal("Restoring previous session...", "system");
         await loadZone(ZONES[currentState.currentZone]);
+        setBuffer(currentState.currentFrequency);
+        const theFrequency = currentState.currentFrequency.toString();
+        getEl("frequency").textContent = theFrequency;
+        getEl("radio-current-frequency").textContent = theFrequency;
     }
     else {
         await printToTerminal("the game story is really far from being finished, sorry :c", "alert");
@@ -358,6 +362,7 @@ async function initGame() {
         await printToTerminal("Originally a fire watch post, it now houses the master broadcast relay that feeds " +
             "three smaller repeater stations across the valley", "log");
         await loadZone(ZONES[GAME_INITIAL_STATE.currentZone]);
+        getEl("frequency").textContent = "null";
     }
 }
 /*

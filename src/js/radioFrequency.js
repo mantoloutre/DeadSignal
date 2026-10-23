@@ -1,6 +1,14 @@
 //TODO make this using the currentState
 let currentBuffer = "";
-function formatBuffer() {
+/*
+safely set the buffer ( only at the begining at the game or on page reload )
+ */
+export function setBuffer(theBuffer) {
+    if (currentBuffer.length === 0) {
+        currentBuffer = theBuffer.toString();
+    }
+}
+export function formatBuffer() {
     if (currentBuffer.length === 0) {
         return "---.---";
     }
