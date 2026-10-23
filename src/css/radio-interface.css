@@ -26,8 +26,8 @@
     "k1 k2 k3" 40px
     "k4 k5 k6" 40px
     "k7 k8 k9" 40px
-    "p k0 tune" 40px
-    "back . delete"40px / 1fr 1fr 1fr;
+    ". k0 ." 40px
+    "back delete tune"40px / 1fr 1fr 1fr;
     gap: 2px;
 }
 #radio-current-frequency {

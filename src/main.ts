@@ -5,7 +5,7 @@ import {
 } from "./gameState.js";
 import {setFocus, Zone, ZoneAction, ZONES} from "./world.js";
 import {Item, ITEMS} from "./items.js";
-import {appendDigitToFrequency} from "./radioFrequency.js";
+import {appendDigitToFrequency, removeOneFromBuffer} from "./radioFrequency.js";
 
 interface UIElements {
     // buttons ( test )
@@ -37,6 +37,7 @@ interface UIElements {
     "btn-p": HTMLButtonElement;
     "btn-k0": HTMLButtonElement;
     "btn-tune": HTMLButtonElement;
+    "btn-delete-key": HTMLButtonElement;
     // div elements
     "side-menu": HTMLDivElement;
     "menu-overlay": HTMLDivElement;
@@ -76,6 +77,10 @@ export function getEl<Key extends keyof UIElements>(id: Key): UIElements[Key] {
 
 export type fromType = "system" | "alert" | "QG" | "log" | "action";
 
+/*
+load a zone
+@param zone the zone we want to load
+ */
 export async function loadZone(zone: Zone): Promise<void> {
     setFocus(null);
     currentState.currentZone = zone.id;
@@ -117,8 +122,9 @@ function to render the player inventory
  */
 export function renderThePlayerInventory(): void {
     const inventoryItemList: HTMLDivElement = getEl("inventory-items-list");
+    const inventoryItemDetails: HTMLParagraphElement = getEl("inventory-item-details");
     inventoryItemList.innerHTML = "";
-    getEl("inventory-item-details").textContent = "Select an item to inspect.";
+    inventoryItemDetails.textContent = "Select an item to inspect.";
     if (currentState.playerInventory.length === 0) {
         const nothingToSeeThereMsg = document.createElement("p");
         nothingToSeeThereMsg.textContent = "Nothing to see there, its empty";
@@ -127,6 +133,7 @@ export function renderThePlayerInventory(): void {
         //if the inventory is not there or no item
         return;
     }
+    const fragment: DocumentFragment = document.createDocumentFragment();
     currentState.playerInventory.forEach((slot) => {
         const item: Item = ITEMS[slot.itemId];
         if (!item) return;
@@ -144,9 +151,9 @@ export function renderThePlayerInventory(): void {
                 btn.classList.remove("TheOneAndOnlySelectedInventoryItemButton");
             });
             buttonForDaItem.classList.add("TheOneAndOnlySelectedInventoryItemButton");
-            getEl("inventory-item-details").textContent = `[${item.type.toUpperCase()}] ${item.description}`;
+            inventoryItemDetails.textContent = `[${item.type.toUpperCase()}] ${item.description}`;
         });
-        getEl("inventory-items-list").append(buttonForDaItem);
+        inventoryItemList.append(buttonForDaItem);
     });
 
 }
@@ -155,15 +162,18 @@ export function renderThePlayerInventory(): void {
 const keypadButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll<HTMLButtonElement>(".radio-key");
 const currentFrequencyDisplay: HTMLParagraphElement = getEl("radio-current-frequency");
 keypadButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-        const value = btn.dataset.value;
-        if (!value || !currentFrequencyDisplay) return;
+    btn.addEventListener("click", (): void => {
+        const value: string = btn.value;
+        if (!btn.value || !currentFrequencyDisplay) return;
         currentFrequencyDisplay.textContent = appendDigitToFrequency(value);
     });
 });
+getEl("btn-delete-key").addEventListener("click", ():void => {
+    currentFrequencyDisplay.textContent = removeOneFromBuffer();
+});
 
 /*
-simple function to toggle the overlay cuz i dont want to repeat myself
+simple function to toggle the overlay cuz I don't want to repeat myself
  */
 function toggleOverlay(): void {
     getEl("menu-overlay").classList.toggle("hidden");
@@ -173,7 +183,7 @@ function toggleOverlay(): void {
 binding a button and an async action
 @param button the button we want to bind the action to
 @param action the action we want to bind to the button
- @note only usable with function that Promise<void>, with only void it doesn't work
+ @note only usable wifunction to th function that Promise<void>, with only void it doesn't work
  */
 function bindingAsyncAction(button: HTMLButtonElement, action: () => Promise<void>): void {
     button.addEventListener("click", async (): Promise<void> => {
@@ -242,7 +252,9 @@ function closeRadioInterface(): void {
         toggleOverlay();
     }
 }
-
+/*
+open the interface for the radio tuning
+ */
 function openRadioInterface(): void {
     getEl("radio-interface").classList.add("radio-interface-active");
     if ((getEl("side-menu").classList.contains("hidden"))) {
@@ -309,11 +321,11 @@ function closeInterface(): void {
 getEl("menu-overlay").addEventListener("click", closeInterface);
 
 /*
-shortcut ( press escape to close/open side menu, instead of having to click a smoll button )
+shortcut ( press escape to close/open side menu, instead of having to click a small button )
  */
 window.addEventListener("keydown", (keyEvent: KeyboardEvent): void => {
     if (isPrinting) return; //clause guard if it's writing in terminal
-    const sideMenu:HTMLDivElement = getEl("side-menu");
+    const sideMenu: HTMLDivElement = getEl("side-menu");
     if (!getEl("side-menu").classList.contains("hidden") && keyEvent.key === "Escape") {
         openOrCloseMenu();
     } else if (getEl("side-menu").classList.contains("hidden") && keyEvent.key === "Escape") {
