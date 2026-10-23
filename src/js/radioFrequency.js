@@ -1,47 +1,43 @@
 //TODO make this using the currentState
 let currentBuffer = "";
-function formatBuffer(rawBuffer) {
-    if (rawBuffer.length <= 3) {
-        return rawBuffer;
+function formatBuffer() {
+    if (currentBuffer.length === 0) {
+        return "---.---";
     }
-    return `${rawBuffer.slice(0, 3)}.${rawBuffer.slice(3)}`;
+    if (currentBuffer.length <= 3) {
+        return currentBuffer;
+    }
+    return `${currentBuffer.slice(0, 3)}.${currentBuffer.slice(3)}`;
 }
 export function appendDigitToFrequency(char) {
-    if (char < "0" || char > "9") {
-        return formatBuffer(currentBuffer); //TODO maybe do something else?
+    const digitString = char.toString();
+    if (digitString < "0" || digitString > "9") {
+        return formatBuffer();
     }
-    if (currentBuffer.length >= 6) { // its maximum (cuz i said so) like 88.6 Mhz so no more than 4 digit
-        return formatBuffer(currentBuffer); //TODO maybe again do something else?
+    if (currentBuffer.length >= 6) {
+        return formatBuffer();
     }
-    currentBuffer += char;
-    return formatBuffer(currentBuffer);
-}
-/*
-clear the whole buffer
- */
-export function clearBuffer() {
-    currentBuffer = "";
-    return currentBuffer;
+    currentBuffer += digitString;
+    return formatBuffer();
 }
 /*
 get the current buffer
  */
-export function getCurrentBuffer() {
-    return currentBuffer;
+export function getFloatCurrentBuffer() {
+    if (currentBuffer.length === 0) {
+        return 0;
+    }
+    if (currentBuffer.length <= 3) {
+        return parseInt(currentBuffer, 10);
+    }
+    return parseFloat(formatBuffer());
 }
 /*
 remove one from the buffer
  */
 export function removeOneFromBuffer() {
-    currentBuffer = currentBuffer.slice(0, -1);
-    return formatBuffer(currentBuffer);
-}
-/*
-tune the radio ( save it to the current state //TODO [NYT]
- */
-export function tuneRadio() {
-    if (currentBuffer.substring(-2, -1) !== ".") {
-        console.log("test");
+    if (currentBuffer.length > 0) {
+        currentBuffer = currentBuffer.slice(0, -1);
     }
-    return "";
+    return formatBuffer();
 }

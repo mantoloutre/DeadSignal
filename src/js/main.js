@@ -1,7 +1,7 @@
 import { exportSaveFile, currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage, saveTheDataToLocalStorage } from "./gameState.js";
 import { setFocus, ZONES } from "./world.js";
 import { ITEMS } from "./items.js";
-import { appendDigitToFrequency, removeOneFromBuffer } from "./radioFrequency.js";
+import { appendDigitToFrequency, getFloatCurrentBuffer, removeOneFromBuffer } from "./radioFrequency.js";
 /*
 used to optimize a bit the performance
  */
@@ -111,7 +111,13 @@ keypadButtons.forEach(btn => {
     });
 });
 getEl("btn-delete-key").addEventListener("click", () => {
-    currentFrequencyDisplay.textContent = removeOneFromBuffer();
+    currentFrequencyDisplay.textContent = removeOneFromBuffer().toString();
+});
+getEl("btn-tune").addEventListener("click", () => {
+    if (getFloatCurrentBuffer().toString().length === 7) {
+        currentState.currentFrequency = getFloatCurrentBuffer();
+        getEl("frequency").textContent = currentState.currentFrequency.toString();
+    }
 });
 /*
 simple function to toggle the overlay cuz I don't want to repeat myself

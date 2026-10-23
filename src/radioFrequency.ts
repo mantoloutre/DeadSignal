@@ -6,50 +6,51 @@ export interface RadioFrequency {
     lockedText: string;
     successText: string[];
 }
+
 //TODO make this using the currentState
 let currentBuffer: string = "";
-function formatBuffer(rawBuffer: string): string{
-    if (rawBuffer.length <= 3){
-        return rawBuffer;
+
+function formatBuffer(): string {
+    if (currentBuffer.length === 0){
+        return "---.---";
     }
-    return `${rawBuffer.slice(0,3)}.${rawBuffer.slice(3)}`;
-}
-export function appendDigitToFrequency(char: string): string {
-    if (char < "0" || char > "9") {
-        return formatBuffer(currentBuffer); //TODO maybe do something else?
+    if (currentBuffer.length <= 3) {
+        return currentBuffer;
     }
-    if (currentBuffer.length >= 6){ // its maximum (cuz i said so) like 88.6 Mhz so no more than 4 digit
-        return formatBuffer(currentBuffer); //TODO maybe again do something else?
+    return `${currentBuffer.slice(0,3)}.${currentBuffer.slice(3)}`;
+}
+export function appendDigitToFrequency(char: string | number): string {
+    const digitString:string = char.toString();
+    if (digitString < "0" || digitString > "9"){
+        return formatBuffer();
     }
-    currentBuffer += char;
-    return formatBuffer(currentBuffer);
+    if (currentBuffer.length >= 6){
+        return formatBuffer();
+    }
+    currentBuffer += digitString;
+    return formatBuffer();
 }
-/*
-clear the whole buffer
- */
-export function clearBuffer(): string {
-    currentBuffer = "";
-    return currentBuffer;
-}
+
+
 /*
 get the current buffer
  */
-export function getCurrentBuffer(): string {
-    return currentBuffer;
+export function getFloatCurrentBuffer(): number {
+    if (currentBuffer.length === 0){
+        return 0;
+    }
+    if (currentBuffer.length <= 3){
+        return parseInt(currentBuffer, 10);
+    }
+    return parseFloat(formatBuffer());
 }
+
 /*
 remove one from the buffer
  */
-export function removeOneFromBuffer(): string {
-    currentBuffer = currentBuffer.slice(0, -1);
-    return formatBuffer(currentBuffer);
-}
-/*
-tune the radio ( save it to the current state //TODO [NYT]
- */
-export function tuneRadio(): string {
-    if (currentBuffer.substring(-2, -1) !== "."){
-        console.log("test");
+export function removeOneFromBuffer(): string{
+    if (currentBuffer.length > 0) {
+        currentBuffer = currentBuffer.slice(0, -1);
     }
-    return "";
+    return formatBuffer();
 }

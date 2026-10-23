@@ -5,7 +5,7 @@ import {
 } from "./gameState.js";
 import {setFocus, Zone, ZoneAction, ZONES} from "./world.js";
 import {Item, ITEMS} from "./items.js";
-import {appendDigitToFrequency, removeOneFromBuffer} from "./radioFrequency.js";
+import {appendDigitToFrequency, getFloatCurrentBuffer, removeOneFromBuffer} from "./radioFrequency.js";
 
 interface UIElements {
     // buttons ( test )
@@ -51,6 +51,7 @@ interface UIElements {
     // paragraph elements
     "inventory-item-details": HTMLParagraphElement;
     "radio-current-frequency": HTMLParagraphElement;
+    "frequency": HTMLParagraphElement;
 }
 
 /*
@@ -168,9 +169,15 @@ keypadButtons.forEach(btn => {
         currentFrequencyDisplay.textContent = appendDigitToFrequency(value);
     });
 });
-getEl("btn-delete-key").addEventListener("click", ():void => {
-    currentFrequencyDisplay.textContent = removeOneFromBuffer();
+getEl("btn-delete-key").addEventListener("click", (): void => {
+    currentFrequencyDisplay.textContent = removeOneFromBuffer().toString();
 });
+getEl("btn-tune").addEventListener("click", (): void => {
+    if (getFloatCurrentBuffer().toString().length === 7){
+        currentState.currentFrequency = getFloatCurrentBuffer();
+        getEl("frequency").textContent = currentState.currentFrequency.toString();
+    }
+})
 
 /*
 simple function to toggle the overlay cuz I don't want to repeat myself
@@ -252,6 +259,7 @@ function closeRadioInterface(): void {
         toggleOverlay();
     }
 }
+
 /*
 open the interface for the radio tuning
  */
