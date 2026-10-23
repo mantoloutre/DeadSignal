@@ -20,3 +20,9 @@ I have to say, it does work, but you can't do much for now but you can go see it
 > 1. the first is I encourage other to use it and instead of copying and pasting something they don't understand, they can see what is it and what it does.
 > 2. Sometimes it's also for myself, as a human, i don't know everything and commenting my code is a good way to remember stuff more easily
 > 3. It also gives the option to use one part of a function faster, i read the explanation, see "step 3 does that" and I find the step 3 faster.
+
+<details><summary>note for the reviewers</summary>
+i am working on implementing a preset so you can later test the farther zone without having to
+do the whole story every time. its not implemented for now and the reason is because the story is really short for now. so you can just quickly
+stuff for now because there aint a lot of puzzle or action that requires items ( only one is opening the toolbox which requires the crowbar )
+</details>
