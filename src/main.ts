@@ -179,7 +179,8 @@ getEl("btn-delete-key").addEventListener("click", (): void => {
     currentFrequencyDisplay.textContent = removeOneFromBuffer().toString();
 });
 getEl("btn-tune").addEventListener("click", (): void => {
-    if (getFloatCurrentBuffer().toString().length === 7){
+    if (formatBuffer().toString().length === 7){
+
         currentState.currentFrequency = getFloatCurrentBuffer();
         getEl("frequency").textContent = currentState.currentFrequency.toString();
     } else {
@@ -360,7 +361,7 @@ function to print to the terminal :D
 @param from the place the text come from(log(yellow), alert(red), normal(green) )
  */
 export async function printToTerminal(text: string, from: fromType, speedMs: number = 15): Promise<void> {
-    const outputTerminal = getEl("terminal-output");
+    const outputTerminal: HTMLDivElement = getEl("terminal-output");
     isPrinting = true;
     const prettyLine: HTMLDivElement = document.createElement("div");
     prettyLine.className = `terminal-line ${from}`;
@@ -438,7 +439,7 @@ async function initGame(): Promise<void> {
     if (hasSave) {
         await printToTerminal("Restoring previous session...", "system");
         await loadZone(ZONES[currentState.currentZone]);
-        setBuffer(currentState.currentFrequency);
+        setBuffer(currentState.currentFrequency.toFixed(3));
         const theFrequency: string = currentState.currentFrequency.toString();
         getEl("frequency").textContent = theFrequency
         getEl("radio-current-frequency").textContent = theFrequency;

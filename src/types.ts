@@ -12,13 +12,21 @@ export type ZoneId =
     | "GATE_CHECKPOINT"
     | "WATCH_POST_OUTSIDE"
     | "WATCH_POST"
+    /*
     | "RELAY_ALPHA_EXTERIOR"
     | "RELAY_ALPHA_BUNKER"
     | "EXCAVATION_CAMP"
     | "SHATTERED_RIDGE"
     | "RELAY_BRAVO_STATION"
     | "SUB_BUNKER_AIRLOCK"
-    | "CORE_CONTROL_ROOM";
+    | "CORE_CONTROL_ROOM"
 
+*/
 export type RadioFrequencyName =
-    | "QG_FREQUENCY";
+    | "QG_FREQUENCY"
+    | "PROMETHEUS_BEACON"
+    | "RELAY_A01_SYNC"
+    | "CREW_BLACKBOX"
+    | "MIL_OVERRIDE"
+    | "KILL_SWITCH_PULSE"
+    | "UVBdash76"

@@ -5,7 +5,7 @@ export const GAME_INITIAL_STATE = {
     currentZone: "TRUCK_CABIN",
     powerLevel: 100,
     pendingQGMessages: [],
-    currentFrequency: 0,
+    currentFrequency: "---.---",
     discoveredSignals: [],
     storyFlags: [],
     playerInventory: [],
@@ -91,6 +91,9 @@ export function parseSaveData(json) {
     const maybeInvalidInactiveCommand = (cmd) => {
         return typeof cmd === "string";
     };
+    const maybeInvalidPendingQGMessages = (msg) => {
+        return typeof msg === "string";
+    };
     const validStoryFlags = Array.isArray(obj.storyFlags)
         ? (obj.storyFlags.filter((f) => typeof f === "string")) :
         [...GAME_INITIAL_STATE.storyFlags];
@@ -102,6 +105,9 @@ export function parseSaveData(json) {
     const validInactiveCommands = Array.isArray(obj.inactiveCommands)
         ? obj.inactiveCommands.filter(maybeInvalidInactiveCommand)
         : [...GAME_INITIAL_STATE.inactiveCommands];
+    const validPendingQGMessages = Array.isArray(obj.pendingQGMessages)
+        ? obj.pendingQGMessages.filter(maybeInvalidPendingQGMessages)
+        : [...GAME_INITIAL_STATE.pendingQGMessages];
     // step 8
     return {
         ...GAME_INITIAL_STATE,
@@ -109,7 +115,8 @@ export function parseSaveData(json) {
         powerLevel: typeof obj.powerLevel === "number" && Number.isFinite(obj.powerLevel)
             ? Math.max(0, obj.powerLevel) :
             GAME_INITIAL_STATE.powerLevel,
-        currentFrequency: typeof obj.currentFrequency === "number"
+        pendingQGMessages: validPendingQGMessages,
+        currentFrequency: typeof obj.currentFrequency === "string"
             ? obj.currentFrequency :
             GAME_INITIAL_STATE.currentFrequency,
         discoveredSignals: Array.isArray(obj.discoveredSignals)

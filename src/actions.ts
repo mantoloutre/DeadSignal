@@ -2,7 +2,7 @@ import {addFlag, hasFlag} from "./gameState.js";
 import {loadZone, printToTerminal} from "./main.js";
 import {addItemToInventory} from "./inventory.js";
 import {setFocus, ZONES} from "./world.js";
-import {addDiscoveredFrequency} from "./radioFrequency";
+import {addDiscoveredFrequency} from "./radioFrequency.js";
 
 
 /*

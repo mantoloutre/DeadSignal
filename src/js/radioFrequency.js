@@ -1,5 +1,35 @@
 import { currentState, saveTheDataToLocalStorage } from "./gameState.js";
 import { printToTerminal } from "./main.js";
+export const FREQUENCY_REGISTRY = {
+    QG_FREQUENCY: {
+        frequency: 112.400,
+        requiredFlag: ["READ_MANUAL"]
+    },
+    PROMETHEUS_BEACON: {
+        frequency: 940.700,
+        requiredFlag: ["READ_KELLER_MESSAGE"]
+    },
+    RELAY_A01_SYNC: {
+        frequency: 104.525,
+        requiredFlag: ["ALPHA_DOOR_UNLOCKED"]
+    },
+    CREW_BLACKBOX: {
+        frequency: 148.500,
+        requiredFlag: ["RELAY_A01_ONLINE"]
+    },
+    MIL_OVERRIDE: {
+        frequency: 225.075,
+        requiredFlag: ["RELAY_B02_ONLINE"]
+    },
+    KILL_SWITCH_PULSE: {
+        frequency: 111.111,
+        requiredFlag: ["SEARCHED_KELLER_BODY", "READ_PROMETHEUSE_LOGS"]
+    },
+    UVBdash76: {
+        frequency: 142.800,
+        requiredFlag: []
+    },
+};
 export function addDiscoveredFrequency(frequency) {
 }
 //TODO make this using the currentState
@@ -12,7 +42,7 @@ export function setBuffer(theBuffer) {
         currentBuffer = theBuffer.toString();
     }
 }
-export function formatBuffer() {
+export function getFormattedBuffer() {
     if (currentBuffer.length === 0) {
         return "---.---";
     }
@@ -25,25 +55,13 @@ export function formatBuffer() {
 export function appendDigitToFrequency(char) {
     const digitString = char.toString();
     if (digitString < "0" || digitString > "9") {
-        return formatBuffer();
+        return getFormattedBuffer();
     }
     if (currentBuffer.length >= 6) {
-        return formatBuffer();
+        return getFormattedBuffer();
     }
     currentBuffer += digitString;
-    return formatBuffer();
-}
-/*
-get the current buffer
- */
-export function getFloatCurrentBuffer() {
-    if (currentBuffer.length === 0) {
-        return 0;
-    }
-    if (currentBuffer.length <= 3) {
-        return parseInt(currentBuffer, 10);
-    }
-    return parseFloat(formatBuffer());
+    return getFormattedBuffer();
 }
 /*
 remove one from the buffer
@@ -52,7 +70,7 @@ export function removeOneFromBuffer() {
     if (currentBuffer.length > 0) {
         currentBuffer = currentBuffer.slice(0, -1);
     }
-    return formatBuffer();
+    return getFormattedBuffer();
 }
 /*
 add a message from qg to the queue and inform the player there is pending message

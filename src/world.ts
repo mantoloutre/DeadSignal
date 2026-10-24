@@ -191,7 +191,7 @@ export const ZONES = {
                 actions.push({
                     command: "read emergency manual",
                     description: "read the emergency manual to know what to do in case of an emergency",
-                    execute: //TODO
+                    execute: walkBackSnowyForestTowardTruck//TODO
                 })
             }
             return actions;
@@ -258,7 +258,7 @@ export const ZONES = {
             actions.push({
                 command: "enter guard shack",
                 description: "enter the guard shack",
-                execute: //TODO
+                execute: walkBackSnowyForestTowardTruck //TODO
             });
             return actions;
         }
