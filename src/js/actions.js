@@ -129,7 +129,7 @@ export async function pryToolBoxWithCrowbar() {
 export async function walkTowardSnowyForestFromOutsideTruck() {
     await printToTerminal("You walk toward the forest away from the truck", "action");
     //TODO load zone
-    loadZone(ZONES.SNOWY_FOREST);
+    await loadZone(ZONES.SNOWY_FOREST);
 }
 /*
 ###################
@@ -144,7 +144,7 @@ export async function goBackToTheTruck() {
 export async function walkTowardMainWatchPost() {
     await printToTerminal("You walk toward the main watch tower and you arrive at destination", "action");
     await printToTerminal("You are now standing outside the watch tower", "system");
-    loadZone(ZONES.WATCH_POST_OUTSIDE);
+    await loadZone(ZONES.WATCH_POST_OUTSIDE);
     //TODO add lore ?
 }
 export async function inspectDirectionSign() {
@@ -164,11 +164,11 @@ walk toward the intersection of : outside watchpost, broken down truck, frozen l
 export async function walkBackSnowyForestTowardTruck() {
     await printToTerminal("You go back in the forest toward the intersection" +
         " of the frozen lake and the truck", "action");
-    loadZone(ZONES.SNOWY_FOREST);
+    await loadZone(ZONES.SNOWY_FOREST);
 }
 export async function goInsideTheWatchPost() {
     await printToTerminal("You go inside the watch post", "action"); //TODO make the lore
-    loadZone(ZONES.WATCH_POST);
+    await loadZone(ZONES.WATCH_POST);
 }
 /*
 #################
@@ -177,7 +177,7 @@ ZONE : WATCH_POST
  */
 export async function walkBackOutside() {
     await printToTerminal("You walk back outside the watch tower", "action");
-    loadZone(ZONES.WATCH_POST_OUTSIDE);
+    await loadZone(ZONES.WATCH_POST_OUTSIDE);
 }
 /*
 ######

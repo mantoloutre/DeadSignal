@@ -29,4 +29,3 @@ export type RadioFrequencyName =
     | "CREW_BLACKBOX"
     | "MIL_OVERRIDE"
     | "KILL_SWITCH_PULSE"
-    | "UVBdash76"

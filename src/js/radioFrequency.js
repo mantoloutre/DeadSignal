@@ -2,32 +2,28 @@ import { currentState, hasFlag, saveTheDataToLocalStorage } from "./gameState.js
 import { printToTerminal } from "./main.js";
 export const FREQUENCY_REGISTRY = {
     QG_FREQUENCY: {
-        frequency: 112.400,
+        frequency: "112.400",
         requiredFlag: ["READ_MANUAL"]
     },
     PROMETHEUS_BEACON: {
-        frequency: 940.700,
+        frequency: "940.700",
         requiredFlag: ["READ_KELLER_MESSAGE"]
     },
     RELAY_A01_SYNC: {
-        frequency: 104.525,
+        frequency: "104.525",
         requiredFlag: ["ALPHA_DOOR_UNLOCKED"]
     },
     CREW_BLACKBOX: {
-        frequency: 148.500,
+        frequency: "148.500",
         requiredFlag: ["RELAY_A01_ONLINE"]
     },
     MIL_OVERRIDE: {
-        frequency: 225.075,
+        frequency: "225.075",
         requiredFlag: ["RELAY_B02_ONLINE"]
     },
     KILL_SWITCH_PULSE: {
-        frequency: 111.111,
+        frequency: "111.111",
         requiredFlag: ["SEARCHED_KELLER_BODY", "READ_PROMETHEUSE_LOGS"]
-    },
-    UVBdash76: {
-        frequency: 142.800,
-        requiredFlag: []
     },
 };
 export function addDiscoveredFrequency(frequency) {
@@ -38,9 +34,12 @@ let currentBuffer = "";
 safely set the buffer ( only at the begining at the game or on page reload )
  */
 export function setBuffer(theBuffer) {
-    if (currentBuffer.length === 0) {
-        currentBuffer = theBuffer.toString();
+    if (!theBuffer || theBuffer === "---.---") {
+        currentBuffer = "";
+        return;
     }
+    currentBuffer =
+    ;
 }
 export function getFormattedBuffer() {
     if (currentBuffer.length === 0) {
@@ -53,14 +52,13 @@ export function getFormattedBuffer() {
     return `${currentBuffer.slice(0, 3)}.${currentBuffer.slice(3)}`;
 }
 export function appendDigitToFrequency(char) {
-    const digitString = char.toString();
-    if (digitString < "0" || digitString > "9") {
+    if (char < "0" || char > "9") {
         return getFormattedBuffer();
     }
     if (currentBuffer.length >= 6) {
         return getFormattedBuffer();
     }
-    currentBuffer += digitString;
+    currentBuffer += char;
     return getFormattedBuffer();
 }
 /*
@@ -109,7 +107,21 @@ export function isFrequencyUnlocked(reqFlags) {
     return reqFlags.every((flag) => hasFlag(flag));
 }
 export async function handleFrequencyTune() {
-    switch (getFormattedBuffer()) {
+    const formattedFreq = getFormattedBuffer();
+    const entry = Object.values(FREQUENCY_REGISTRY).find((reg) => reg.frequency === formattedFreq);
+    //if frequency no exist then nothing
+    if (!entry) {
+        await printToTerminal("Heavy carrier distortion. Signal unreadable.", "alert"); //TODO remove?
+        return;
+    }
+    if (!isFrequencyUnlocked(entry.requiredFlag)) {
+        await printToTerminal("Heavy carrier distortion. Signal unreadable.", "alert");
+        return;
+    }
+    // if everything is good
+    switch (formattedFreq) {
         case "112.400":
+            await handleQGFrequency();
+            break;
     }
 }
