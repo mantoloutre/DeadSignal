@@ -51,7 +51,7 @@ export function setBuffer(theBuffer: string): void {
         currentBuffer = "";
         return;
     }
-    currentBuffer =
+    currentBuffer = theBuffer.replace(/[^0-9]/g, "").slice(0, 6);
 }
 
 export function getFormattedBuffer(): string {

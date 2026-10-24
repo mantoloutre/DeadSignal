@@ -306,6 +306,7 @@ getEl("btn-import").addEventListener("click", async (): Promise<void> => {
     getEl("terminal-output").innerHTML = "";
     importSaveFile(
         async (): Promise<void> => {
+            setDisplayFrequency()
             await loadZone(ZONES[currentState.currentZone]);
             await printToTerminal("Save file loaded with success", "system");
         },
@@ -431,7 +432,15 @@ function createButtonZoneActions(action: ZoneAction, zone: Zone) {
 function sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
+/*
+to set the display and current frequency to the right values
+ */
+function setDisplayFrequency(): void{
+    setBuffer(currentState.currentFrequency);
+    const theFrequency: string = getFormattedBuffer();
+    getEl("frequency").textContent = theFrequency
+    getEl("radio-current-frequency").textContent = theFrequency;
+}
 /*
 function that is called to initialize game
  */
@@ -439,10 +448,7 @@ async function initGame(): Promise<void> {
     const hasSave: boolean = loadFromTheLocalStorage();
     if (hasSave) {
         await printToTerminal("Restoring previous session...", "system");
-        setBuffer(currentState.currentFrequency);
-        const theFrequency: string = getFormattedBuffer();
-        getEl("frequency").textContent = theFrequency
-        getEl("radio-current-frequency").textContent = theFrequency;
+        setDisplayFrequency();
         await handleQGFrequency();
         await loadZone(ZONES[currentState.currentZone]);
 

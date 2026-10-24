@@ -38,8 +38,7 @@ export function setBuffer(theBuffer) {
         currentBuffer = "";
         return;
     }
-    currentBuffer =
-    ;
+    currentBuffer = theBuffer.replace(/[^0-9]/g, "").slice(0, 6);
 }
 export function getFormattedBuffer() {
     if (currentBuffer.length === 0) {
