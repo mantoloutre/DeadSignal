@@ -8,7 +8,7 @@ import {Item, ITEMS} from "./items.js";
 import {
     appendDigitToFrequency,
     formatBuffer,
-    getFloatCurrentBuffer,
+    getFloatCurrentBuffer, handleQGFrequency,
     removeOneFromBuffer,
     setBuffer
 } from "./radioFrequency.js";
@@ -442,11 +442,13 @@ async function initGame(): Promise<void> {
         const theFrequency: string = currentState.currentFrequency.toString();
         getEl("frequency").textContent = theFrequency
         getEl("radio-current-frequency").textContent = theFrequency;
+        handleQGFrequency();
     } else {
         await printToTerminal("the game story is really far from being finished, sorry :c", "alert");
         await printToTerminal("CRITICAL ALERT: engine failure detected.", "alert");
         await loadZone(ZONES[GAME_INITIAL_STATE.currentZone]);
         getEl("frequency").textContent = "null";
+
     }
 
 }

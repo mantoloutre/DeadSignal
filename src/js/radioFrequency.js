@@ -1,3 +1,7 @@
+import { currentState, saveTheDataToLocalStorage } from "./gameState.js";
+import { printToTerminal } from "./main.js";
+export function addDiscoveredFrequency(frequency) {
+}
 //TODO make this using the currentState
 let currentBuffer = "";
 /*
@@ -49,4 +53,37 @@ export function removeOneFromBuffer() {
         currentBuffer = currentBuffer.slice(0, -1);
     }
     return formatBuffer();
+}
+/*
+add a message from qg to the queue and inform the player there is pending message
+ */
+export async function queueQGMessage(message) {
+    currentState.pendingQGMessages.push(message);
+    saveTheDataToLocalStorage();
+    await printToTerminal(`incoming transmission from qg ( 112.400 MHz ). 
+    ${currentState.pendingQGMessages.length} pending`, "alert");
+}
+/*
+handle the reading of pending messages from the QG
+ */
+export async function handleQGFrequency() {
+    // if no message from QG
+    if (currentState.pendingQGMessages.length === 0) {
+        await printToTerminal("Dispatch carrier active. Standing by for " +
+            "telemetry verification", "log");
+        return;
+    }
+    // if there is more than 1 pending messages
+    if (currentState.pendingQGMessages.length > 1) {
+        await printToTerminal("Technician, multiple dispatches were left " +
+            "unacknowledged. Maintain radio discipline and be more " +
+            "responsive", "QG");
+        await printToTerminal("Here are all the dispatches.", "QG");
+    }
+    // reading all messages
+    for (const msg of currentState.pendingQGMessages) {
+        await printToTerminal(`${msg}`, "QG");
+    }
+    currentState.pendingQGMessages = [];
+    saveTheDataToLocalStorage();
 }

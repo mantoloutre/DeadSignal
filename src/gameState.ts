@@ -12,6 +12,7 @@ export interface GameState {
     version: number;
     currentZone: ZoneId;
     powerLevel: number;
+    pendingQGMessages: string[];
     currentFrequency: number;
     discoveredSignals: string[];
     storyFlags: StoryFlag[];
@@ -26,6 +27,7 @@ export const GAME_INITIAL_STATE: GameState = {
     version: 1,
     currentZone: "TRUCK_CABIN",
     powerLevel: 100,
+    pendingQGMessages: [],
     currentFrequency: 0,
     discoveredSignals: [],
     storyFlags: [],

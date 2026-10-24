@@ -2,6 +2,7 @@ import {addFlag, hasFlag} from "./gameState.js";
 import {loadZone, printToTerminal} from "./main.js";
 import {addItemToInventory} from "./inventory.js";
 import {setFocus, ZONES} from "./world.js";
+import {addDiscoveredFrequency} from "./radioFrequency";
 
 
 /*
@@ -56,7 +57,11 @@ export async function addFlareTruckCabin(): Promise<void> {
 }
 
 export async function readEmergencyManual(): Promise<void> {
-    await printToTerminal("")
+    await printToTerminal("In case of real Emergency, please set the " +
+        "QG at the following frequency: 112.400", "system");
+    await printToTerminal("You are to not contact the QG as the QG will contact you first " +
+        "when you set your radio at this frequency" ,"system");
+    addDiscoveredFrequency()
 }
 
 /*

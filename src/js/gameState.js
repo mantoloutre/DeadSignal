@@ -4,6 +4,7 @@ export const GAME_INITIAL_STATE = {
     version: 1,
     currentZone: "TRUCK_CABIN",
     powerLevel: 100,
+    pendingQGMessages: [],
     currentFrequency: 0,
     discoveredSignals: [],
     storyFlags: [],

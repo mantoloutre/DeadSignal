@@ -267,7 +267,7 @@ export const ZONES = {
 
 function getJunctionBoxActions(): ZoneAction[] {
     const actions: ZoneAction[] = [];
-
+    //TODO
     return actions;
 }
 /*

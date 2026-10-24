@@ -1,7 +1,7 @@
 import { exportSaveFile, currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage, saveTheDataToLocalStorage } from "./gameState.js";
 import { setFocus, ZONES } from "./world.js";
 import { ITEMS } from "./items.js";
-import { appendDigitToFrequency, getFloatCurrentBuffer, removeOneFromBuffer, setBuffer } from "./radioFrequency.js";
+import { appendDigitToFrequency, getFloatCurrentBuffer, handleQGFrequency, removeOneFromBuffer, setBuffer } from "./radioFrequency.js";
 /*
 used to optimize a bit the performance
  */
@@ -358,6 +358,7 @@ async function initGame() {
         const theFrequency = currentState.currentFrequency.toString();
         getEl("frequency").textContent = theFrequency;
         getEl("radio-current-frequency").textContent = theFrequency;
+        handleQGFrequency();
     }
     else {
         await printToTerminal("the game story is really far from being finished, sorry :c", "alert");
