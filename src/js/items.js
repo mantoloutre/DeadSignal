@@ -40,5 +40,11 @@ export const ITEMS = {
         name: "adjustable wrench",
         type: "tool",
         description: "an adjustable wrench"
+    },
+    insulated_wirecutter: {
+        id: "insulatedWirecutter",
+        name: "insulated Wirecutter",
+        type: "tool",
+        description: "a pair of insulated wire cutter. protects from electricity when using with breaker box"
     }
 };

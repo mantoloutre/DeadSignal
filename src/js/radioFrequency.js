@@ -15,6 +15,7 @@ export function formatBuffer() {
     if (currentBuffer.length <= 3) {
         return currentBuffer;
     }
+    currentBuffer = currentBuffer.replace(".", "");
     return `${currentBuffer.slice(0, 3)}.${currentBuffer.slice(3)}`;
 }
 export function appendDigitToFrequency(char) {

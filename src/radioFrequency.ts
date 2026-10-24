@@ -1,14 +1,12 @@
-import {currentState} from "./gameState.js";
+import {currentState, StoryFlag} from "./gameState.js";
 
 export interface RadioFrequency {
     frequency: number;
     id: string;
-    requiredChapter: string;
-    requiredItem: string;
-    lockedText: string;
-    successText: string[];
+    text: string;
+    requiredFlag: StoryFlag[];
 }
-
+export function addDiscoveredFrequency(frequency: )
 //TODO make this using the currentState
 let currentBuffer: string = "";
 
@@ -27,6 +25,7 @@ export function formatBuffer(): string {
     if (currentBuffer.length <= 3) {
         return currentBuffer;
     }
+    currentBuffer = currentBuffer.replace(".", "");
     return `${currentBuffer.slice(0,3)}.${currentBuffer.slice(3)}`;
 }
 export function appendDigitToFrequency(char: string | number): string {

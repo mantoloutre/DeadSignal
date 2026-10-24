@@ -6,6 +6,7 @@ this is for subzone ( mainly puzzle )
  */
 export const FOCUS = {
     TOOLBOX: "TOOLBOX",
+    JUNCTION_BOX: "JUNCTION_BOX",
 };
 let currentFocus = null;
 /*
@@ -20,20 +21,17 @@ basic function to set the current focus
 export function setFocus(focus) {
     currentFocus = focus;
 }
-const Chapter1 = {
-    name: "chapter 0",
-    zone: "snowy forest"
-};
 /*
-the const containing all the zone that i'm using in the game
+the const containing all the zone that I'm using in the game
  */
 export const ZONES = {
     //###################################################################
     SNOWY_FOREST: {
         id: "SNOWY_FOREST",
-        name: "SNOWY FOREST",
-        description: "It's snowing, the freezing wind howl through the pines, there doesnt seem to be any trace " +
-            "of anything living except vegetation",
+        name: "PERIMETER FOREST TRAIL",
+        description: "Towering ice-coated pine tree in a frozen service path. Heavy " +
+            "perimeter fencing runs parallel to the trail, warping and sheared appart as if " +
+            "hit by something big.",
         getActions: () => {
             //if focus its here
             //if there is no current focus then we do the normal thing
@@ -61,12 +59,12 @@ export const ZONES = {
     OUTSIDE_TRUCK: {
         id: "OUTSIDE_TRUCK",
         name: "OUTSIDE THE TRUCK",
-        description: "The freezing wind howl through the pines. The truck sits engine "
-            + "fuming on the side of the road and a hole through the hood",
+        description: "Sub-zero wind tears through the valley. The service rig rests dead" +
+            " in the middle of the road, engine fuming and a hole thought the hood",
         getActions: () => {
             //for the focus of the toolbox ( "puzzle" )
             if (getFocus() === FOCUS.TOOLBOX) {
-                return getTooBoxActions();
+                return getToolBoxActions();
             }
             //if no focus then normal things
             const actions = [];
@@ -126,9 +124,8 @@ export const ZONES = {
     TRUCK_CABIN: {
         id: "TRUCK_CABIN",
         name: "TRUCK CABIN",
-        description: "You are sitting on the driver's seat, the truck came to a sudden stop after a violent explosion " +
-            "of the engine and there is smoke" +
-            " coming out of the engine",
+        description: "The dashboard gauges flicker erratically under low battery voltage. Outside the cracked windshield, " +
+            "steam slowly dissipate in the glacial crosswinds",
         getActions: () => {
             const actions = [];
             actions.push({
@@ -156,6 +153,11 @@ export const ZONES = {
                     execute: addFlareTruckCabin,
                     oneTime: true,
                 });
+                actions.push({
+                    command: "read emergency manual",
+                    description: "read the emergency manual to know what to do in case of an emergency",
+                    execute:  //TODO
+                });
             }
             return actions;
         }
@@ -166,9 +168,9 @@ export const ZONES = {
         name: "OUTSIDE WATCH POST",
         description: "you stand just outside the watch post, not finished",
         getActions: () => {
-            const actions = [];
             //focus
             //normal actions
+            const actions = [];
             actions.push({
                 command: "go back in forest toward truck",
                 description: "walk back in the forest toward the truck ( to the intersection )",
@@ -188,9 +190,9 @@ export const ZONES = {
         name: "INSIDE WATCH POST",
         description: "you are now standing inside the watch post", //TODO do the lore
         getActions: () => {
-            const actions = [];
             //focus
             //normal action
+            const actions = [];
             actions.push({
                 command: "go back outside",
                 description: "go back outside the watch post",
@@ -198,12 +200,41 @@ export const ZONES = {
             });
             return actions;
         }
+    },
+    GATE_CHECKPOINT: {
+        id: "GATE_CHECKPOINT",
+        name: "SECURITY GATE AND BOOTH",
+        description: "A metal gate squeal under a flickering floodlight. The guard shack's front window" +
+            " is shattered outward into the snow.",
+        getActions: () => {
+            //focus
+            if (getFocus() === FOCUS.JUNCTION_BOX) {
+                return getJunctionBoxActions();
+            }
+            //normal action
+            const actions = [];
+            actions.push({
+                command: "walk back to forest trail",
+                description: "walk back to the snowy forest",
+                execute: walkBackSnowyForestTowardTruck,
+            });
+            actions.push({
+                command: "enter guard shack",
+                description: "enter the guard shack",
+                execute:  //TODO
+            });
+            return actions;
+        }
     }
 };
+function getJunctionBoxActions() {
+    const actions = [];
+    return actions;
+}
 /*
 function to get the actions related to opening the toolbox
  */
-function getTooBoxActions() {
+function getToolBoxActions() {
     const actions = [];
     actions.push({
         command: "do something else",
@@ -212,13 +243,13 @@ function getTooBoxActions() {
     });
     if (!hasFlag("OPENED_TOOLBOX_INIT")) {
         actions.push({
-            command: "force latche barehanded / with gloves",
+            command: "force latch barehanded / with gloves",
             description: "try to break / force open the latch on the toolbox with your hands",
             execute: forceToolBoxOpenWithHand
         });
         if (doesThePlayerHasTheItem("crowbar")) {
             actions.push({
-                command: "force latche with crowbar",
+                command: "force latch with crowbar",
                 description: "try to pry open the toolbox with your crowbar",
                 execute: pryToolBoxWithCrowbar
             });

@@ -55,6 +55,10 @@ export async function addFlareTruckCabin(): Promise<void> {
     await printToTerminal("you took 2 flares from the glove's box", "action");
 }
 
+export async function readEmergencyManual(): Promise<void> {
+    await printToTerminal("")
+}
+
 /*
 #####################
 ZONE : OUTSIDE TRUCK
@@ -162,7 +166,7 @@ export async function walkTowardMainWatchPost(): Promise<void> {
 
 export async function inspectDirectionSign(): Promise<void> {
     await printToTerminal("You inspect the sign...", "action");
-    await printToTerminal("on the sign you see: left for frozen lake and right to go to main watch post", "system");
+    await printToTerminal("on the sign you see: left for frozen lake and right to go to the gate checkpoint", "system");
     addFlag("INSPECTED_DIRECTION_SIGN");
     //TODO continue?
 }

@@ -48,6 +48,9 @@ export async function addFlareTruckCabin() {
     await addItemToInventory("flare", 2);
     await printToTerminal("you took 2 flares from the glove's box", "action");
 }
+export async function readEmergencyManual() {
+    await printToTerminal("");
+}
 /*
 #####################
 ZONE : OUTSIDE TRUCK
@@ -142,7 +145,7 @@ export async function walkTowardMainWatchPost() {
 }
 export async function inspectDirectionSign() {
     await printToTerminal("You inspect the sign...", "action");
-    await printToTerminal("on the sign you see: left for frozen lake and right to go to main watch post", "system");
+    await printToTerminal("on the sign you see: left for frozen lake and right to go to the gate checkpoint", "system");
     addFlag("INSPECTED_DIRECTION_SIGN");
     //TODO continue?
 }

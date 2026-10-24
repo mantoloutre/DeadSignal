@@ -182,8 +182,10 @@ getEl("btn-tune").addEventListener("click", (): void => {
     if (getFloatCurrentBuffer().toString().length === 7){
         currentState.currentFrequency = getFloatCurrentBuffer();
         getEl("frequency").textContent = currentState.currentFrequency.toString();
+    } else {
+        flashButton(getEl("btn-tune"));
     }
-})
+});
 
 /*
 simple function to toggle the overlay cuz I don't want to repeat myself
@@ -196,7 +198,7 @@ function toggleOverlay(): void {
 binding a button and an async action
 @param button the button we want to bind the action to
 @param action the action we want to bind to the button
- @note only usable wifunction to th function that Promise<void>, with only void it doesn't work
+ @note only usable with async function that gives a void promise, with only void it doesn't work
  */
 function bindingAsyncAction(button: HTMLButtonElement, action: () => Promise<void>): void {
     button.addEventListener("click", async (): Promise<void> => {
@@ -442,9 +444,7 @@ async function initGame(): Promise<void> {
         getEl("radio-current-frequency").textContent = theFrequency;
     } else {
         await printToTerminal("the game story is really far from being finished, sorry :c", "alert");
-        await printToTerminal("You were sent up the mountain pass to reach the summit observation tower.", "log");
-        await printToTerminal("Originally a fire watch post, it now houses the master broadcast relay that feeds " +
-            "three smaller repeater stations across the valley", "log")
+        await printToTerminal("CRITICAL ALERT: engine failure detected.", "alert");
         await loadZone(ZONES[GAME_INITIAL_STATE.currentZone]);
         getEl("frequency").textContent = "null";
     }
