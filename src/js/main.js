@@ -1,7 +1,7 @@
 import { exportSaveFile, currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage, saveTheDataToLocalStorage } from "./gameState.js";
 import { setFocus, ZONES } from "./world.js";
 import { ITEMS } from "./items.js";
-import { appendDigitToFrequency, formatBuffer, getFloatCurrentBuffer, handleQGFrequency, removeOneFromBuffer, setBuffer } from "./radioFrequency.js";
+import { appendDigitToFrequency, getFormattedBuffer, handleQGFrequency, removeOneFromBuffer, setBuffer } from "./radioFrequency.js";
 /*
 used to optimize a bit the performance
  */
@@ -114,9 +114,11 @@ getEl("btn-delete-key").addEventListener("click", () => {
     currentFrequencyDisplay.textContent = removeOneFromBuffer().toString();
 });
 getEl("btn-tune").addEventListener("click", () => {
-    if (formatBuffer().toString().length === 7) {
-        currentState.currentFrequency = getFloatCurrentBuffer();
-        getEl("frequency").textContent = currentState.currentFrequency.toString();
+    const buffer = getFormattedBuffer();
+    if (buffer.length === 7) {
+        currentState.currentFrequency = buffer;
+        getEl("frequency").textContent = buffer;
+        //TODO handle the frequency
     }
     else {
         flashButton(getEl("btn-tune"));
@@ -353,18 +355,18 @@ async function initGame() {
     const hasSave = loadFromTheLocalStorage();
     if (hasSave) {
         await printToTerminal("Restoring previous session...", "system");
-        await loadZone(ZONES[currentState.currentZone]);
-        setBuffer(currentState.currentFrequency.toFixed(3));
-        const theFrequency = currentState.currentFrequency.toString();
+        setBuffer(currentState.currentFrequency);
+        const theFrequency = getFormattedBuffer();
         getEl("frequency").textContent = theFrequency;
         getEl("radio-current-frequency").textContent = theFrequency;
-        handleQGFrequency();
+        await handleQGFrequency();
+        await loadZone(ZONES[currentState.currentZone]);
     }
     else {
         await printToTerminal("the game story is really far from being finished, sorry :c", "alert");
         await printToTerminal("CRITICAL ALERT: engine failure detected.", "alert");
         await loadZone(ZONES[GAME_INITIAL_STATE.currentZone]);
-        getEl("frequency").textContent = "null";
+        getEl("frequency").textContent = currentState.currentFrequency;
     }
 }
 /*

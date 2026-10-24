@@ -1,4 +1,4 @@
-import { currentState, saveTheDataToLocalStorage } from "./gameState.js";
+import { currentState, hasFlag, saveTheDataToLocalStorage } from "./gameState.js";
 import { printToTerminal } from "./main.js";
 export const FREQUENCY_REGISTRY = {
     QG_FREQUENCY: {
@@ -104,4 +104,12 @@ export async function handleQGFrequency() {
     }
     currentState.pendingQGMessages = [];
     saveTheDataToLocalStorage();
+}
+export function isFrequencyUnlocked(reqFlags) {
+    return reqFlags.every((flag) => hasFlag(flag));
+}
+export async function handleFrequencyTune() {
+    switch (getFormattedBuffer()) {
+        case "112.400":
+    }
 }

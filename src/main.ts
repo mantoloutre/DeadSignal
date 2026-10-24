@@ -7,8 +7,7 @@ import {setFocus, Zone, ZoneAction, ZONES} from "./world.js";
 import {Item, ITEMS} from "./items.js";
 import {
     appendDigitToFrequency,
-    formatBuffer,
-    getFloatCurrentBuffer, handleQGFrequency,
+    getFormattedBuffer, handleQGFrequency,
     removeOneFromBuffer,
     setBuffer
 } from "./radioFrequency.js";
@@ -179,10 +178,11 @@ getEl("btn-delete-key").addEventListener("click", (): void => {
     currentFrequencyDisplay.textContent = removeOneFromBuffer().toString();
 });
 getEl("btn-tune").addEventListener("click", (): void => {
-    if (formatBuffer().toString().length === 7){
-
-        currentState.currentFrequency = getFloatCurrentBuffer();
-        getEl("frequency").textContent = currentState.currentFrequency.toString();
+    const buffer: string = getFormattedBuffer();
+    if (buffer.length === 7){
+        currentState.currentFrequency = buffer;
+        getEl("frequency").textContent = buffer;
+        //TODO handle the frequency
     } else {
         flashButton(getEl("btn-tune"));
     }
@@ -438,17 +438,18 @@ async function initGame(): Promise<void> {
     const hasSave: boolean = loadFromTheLocalStorage();
     if (hasSave) {
         await printToTerminal("Restoring previous session...", "system");
-        await loadZone(ZONES[currentState.currentZone]);
-        setBuffer(currentState.currentFrequency.toFixed(3));
-        const theFrequency: string = currentState.currentFrequency.toString();
+        setBuffer(currentState.currentFrequency);
+        const theFrequency: string = getFormattedBuffer();
         getEl("frequency").textContent = theFrequency
         getEl("radio-current-frequency").textContent = theFrequency;
-        handleQGFrequency();
+        await handleQGFrequency();
+        await loadZone(ZONES[currentState.currentZone]);
+
     } else {
         await printToTerminal("the game story is really far from being finished, sorry :c", "alert");
         await printToTerminal("CRITICAL ALERT: engine failure detected.", "alert");
         await loadZone(ZONES[GAME_INITIAL_STATE.currentZone]);
-        getEl("frequency").textContent = "null";
+        getEl("frequency").textContent = currentState.currentFrequency;
 
     }
 

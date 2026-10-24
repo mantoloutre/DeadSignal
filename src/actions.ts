@@ -61,7 +61,7 @@ export async function readEmergencyManual(): Promise<void> {
         "QG at the following frequency: 112.400", "system");
     await printToTerminal("You are to not contact the QG as the QG will contact you first " +
         "when you set your radio at this frequency" ,"system");
-    addDiscoveredFrequency()
+    //addDiscoveredFrequency()
 }
 
 /*

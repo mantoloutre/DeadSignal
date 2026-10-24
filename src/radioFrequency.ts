@@ -1,4 +1,4 @@
-import {currentState, saveTheDataToLocalStorage, StoryFlag} from "./gameState.js";
+import {currentState, hasFlag, saveTheDataToLocalStorage, StoryFlag} from "./gameState.js";
 import {printToTerminal} from "./main.js";
 import {RadioFrequencyName} from "./types.js";
 
@@ -122,4 +122,14 @@ export async function handleQGFrequency(): Promise<void> {
     }
     currentState.pendingQGMessages = [];
     saveTheDataToLocalStorage();
+}
+
+export function isFrequencyUnlocked(reqFlags: StoryFlag[]): boolean {
+    return reqFlags.every((flag: StoryFlag): boolean => hasFlag(flag));
+}
+
+export async function handleFrequencyTune(): Promise<void> {
+    switch (getFormattedBuffer()) {
+        case "112.400":
+    }
 }
