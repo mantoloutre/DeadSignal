@@ -1,54 +1,51 @@
 import {currentState, hasFlag, saveTheDataToLocalStorage, StoryFlag} from "./gameState.js";
 import {printToTerminal} from "./main.js";
 import {RadioFrequencyName} from "./types.js";
-import {QGMessageKey} from "./qgMessages.js";
+import {QG_MESSAGES, QGMessageKey} from "./qgMessages.js";
 
 export interface RadioFrequency {
     frequency: string;
-    requiredFlag: StoryFlag[];
 }
 
 export const FREQUENCY_REGISTRY = {
     QG_FREQUENCY: {
         frequency: "112.400",
-        requiredFlag: ["READ_MANUAL"]
     },
     PROMETHEUS_BEACON: {
         frequency: "940.700",
-        requiredFlag: ["READ_KELLER_MESSAGE"]
     },
     RELAY_A01_SYNC: {
         frequency: "104.525",
-        requiredFlag: ["ALPHA_DOOR_UNLOCKED"]
     },
     CREW_BLACKBOX: {
         frequency: "148.500",
-        requiredFlag: ["RELAY_A01_ONLINE"]
     },
     MIL_OVERRIDE: {
         frequency: "225.075",
-        requiredFlag: ["RELAY_B02_ONLINE"]
     },
     KILL_SWITCH_PULSE: {
         frequency: "111.111",
-        requiredFlag: ["SEARCHED_KELLER_BODY", "READ_PROMETHEUSE_LOGS"]
-
     },
 
 } satisfies Record<RadioFrequencyName, RadioFrequency>;
 
-export function addDiscoveredFrequency(frequency: number): void {
-
+/*
+adding frequency and making sure it's not already there
+ */
+export function addDiscoveredFrequency(frequency: RadioFrequencyName): void {
+    if (!currentState.discoveredSignals.includes(FREQUENCY_REGISTRY[frequency].frequency)) {
+        currentState.discoveredSignals.push(FREQUENCY_REGISTRY[frequency].frequency);
+    }
 }
 
 //TODO make this using the currentState
 let currentBuffer: string = "";
 
 /*
-safely set the buffer ( only at the begining at the game or on page reload )
+safely set the buffer ( only at the beginning at the game or on page reload )
  */
 export function setBuffer(theBuffer: string): void {
-    if(!theBuffer || theBuffer === "---.---"){
+    if (!theBuffer || theBuffer === "---.---") {
         currentBuffer = "";
         return;
     }
@@ -62,7 +59,7 @@ export function getFormattedBuffer(): string {
     if (currentBuffer.length <= 3) {
         return currentBuffer;
     }
-    currentBuffer = currentBuffer.replace(".", "");
+    currentBuffer = currentBuffer.replace(/[^0-9]/g, "");
     return `${currentBuffer.slice(0, 3)}.${currentBuffer.slice(3)}`;
 }
 
@@ -93,7 +90,12 @@ add a message from qg to the queue and inform the player there is pending messag
 export async function queueQGMessage(message: QGMessageKey): Promise<void> {
     currentState.pendingQGMessages.push(message);
     saveTheDataToLocalStorage();
-    await printToTerminal(`incoming transmission from qg ( 112.400 MHz ). 
+    if (!hasDiscoveredSignal("112.400")) {
+        await printToTerminal(`Incoming transmission from QG, please read 
+        the manual to set the correct frequency`, "alert");
+        return;
+    }
+    await printToTerminal(`Incoming transmission from QG ( 112.400 MHz ). 
     ${currentState.pendingQGMessages.length} pending`, "alert");
 }
 
@@ -101,11 +103,6 @@ export async function queueQGMessage(message: QGMessageKey): Promise<void> {
 handle the reading of pending messages from the QG
  */
 export async function handleQGFrequency(): Promise<void> {
-    // -- debug --
-    console.log("flags:", currentState.storyFlags);
-    console.log("hasFlag READ_MANUAL:", hasFlag("READ_MANUAL"));
-    console.log("buffer brut:", JSON.stringify(currentBuffer));
-    console.log("buffer formaté:", getFormattedBuffer())
     // if no message from QG
     if (currentState.pendingQGMessages.length === 0) {
         await printToTerminal("Dispatch carrier active. Standing by for " +
@@ -120,29 +117,31 @@ export async function handleQGFrequency(): Promise<void> {
         await printToTerminal("Here are all the dispatches.", "QG");
     }
     // reading all messages
-    for (const msg of currentState.pendingQGMessages) {
-        await printToTerminal(`${msg}`, "QG");
+    for (const msgKey of currentState.pendingQGMessages) {
+        const text: string = QG_MESSAGES[msgKey];
+        await printToTerminal(text,"QG");
     }
     currentState.pendingQGMessages = [];
     saveTheDataToLocalStorage();
 }
 
-export function isFrequencyUnlocked(reqFlags: StoryFlag[]): boolean {
-    return reqFlags.every((flag: StoryFlag): boolean => hasFlag(flag));
+/*
+verifying that the player has discovered the frequency
+ */
+export function hasDiscoveredSignal(frequency: string): boolean {
+    return currentState.discoveredSignals.includes(frequency);
 }
 
-export async function handleFrequencyTune(): Promise<void> {
+export async function handleFrequency(): Promise<void> {
     const formattedFreq: string = getFormattedBuffer();
-    const entry = Object.values(FREQUENCY_REGISTRY).find(
-        (reg) => reg.frequency === formattedFreq
-    );
-
-    //if frequency no exist then nothing
-    if (!entry){
-        await printToTerminal("Heavy carrier distortion. Signal unreadable.", "alert"); //TODO remove?
+    if (currentBuffer.length === 0) {
+        await printToTerminal("this message is a test to say there is no set signal in the currentState. " +
+            "this message will be removed in future stage of the game", "alert");
         return;
     }
-    if (!isFrequencyUnlocked(entry.requiredFlag)){
+    //making sure he has it
+    // ( don't care if it doesn't exist cuz the switch case is going to take care of that )
+    if (!hasDiscoveredSignal(formattedFreq)) {
         await printToTerminal("Heavy carrier distortion. Signal unreadable.", "alert");
         return;
     }

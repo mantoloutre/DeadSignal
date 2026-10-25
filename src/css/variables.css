@@ -10,6 +10,9 @@
     /* yellow colors ( log? ) */
     --text-yellow-color: #f8db1b;
     --text-yellow-glow: #f8db1b66;
+    /* QG color */
+    --text-qg-color: #8be9fd;
+    --text-qg-glow: #8be9fd66;
     /* other */
     --button-hover-color: #14fff7;
     --separator-width: 5px;

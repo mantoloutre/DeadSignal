@@ -1,7 +1,7 @@
 import { exportSaveFile, currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage, saveTheDataToLocalStorage } from "./gameState.js";
 import { setFocus, ZONES } from "./world.js";
 import { ITEMS } from "./items.js";
-import { appendDigitToFrequency, getFormattedBuffer, handleFrequencyTune, handleQGFrequency, queueQGMessage, removeOneFromBuffer, setBuffer } from "./radioFrequency.js";
+import { appendDigitToFrequency, getFormattedBuffer, handleFrequency, queueQGMessage, removeOneFromBuffer, setBuffer } from "./radioFrequency.js";
 /*
 used to optimize a bit the performance
  */
@@ -113,12 +113,13 @@ keypadButtons.forEach(btn => {
 getEl("btn-delete-key").addEventListener("click", () => {
     currentFrequencyDisplay.textContent = removeOneFromBuffer().toString();
 });
-getEl("btn-tune").addEventListener("click", () => {
+getEl("btn-tune").addEventListener("click", async () => {
     const buffer = getFormattedBuffer();
-    if (buffer.length === 7) {
+    if (buffer.length === 7 && buffer !== "---.---") {
         currentState.currentFrequency = buffer;
         getEl("frequency").textContent = buffer;
-        handleFrequencyTune();
+        closeRadioInterface();
+        await handleFrequency();
     }
     else {
         flashButton(getEl("btn-tune"));
@@ -366,7 +367,8 @@ async function initGame() {
     if (hasSave) {
         await printToTerminal("Restoring previous session...", "system");
         setDisplayFrequency();
-        await handleQGFrequency();
+        //if (currentState.currentFrequency === "112.400") await handleFrequency();
+        await handleFrequency();
         await loadZone(ZONES[currentState.currentZone]);
     }
     else {

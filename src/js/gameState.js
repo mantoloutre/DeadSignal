@@ -1,4 +1,5 @@
 import { ZONES } from "./world.js";
+import { QG_MESSAGES } from "./qgMessages.js";
 export const GAME_INITIAL_STATE = {
     app: "DEAD_SIGNAL",
     version: 1,
@@ -37,6 +38,7 @@ detailed explanation:
 5. clean memory
  */
 export function exportSaveFile() {
+    saveTheDataToLocalStorage();
     //step 1
     //TODO update player inventory
     //step 2
@@ -47,7 +49,11 @@ export function exportSaveFile() {
     //step 4
     const a = document.createElement("a");
     a.href = url;
-    a.download = `save_dead_signal${Date.now()}.json`;
+    const stamp = new Date()
+        .toISOString()
+        .slice(0, 19)
+        .replace(/[:T]/g, "-");
+    a.download = `save_dead_signal_${stamp}.json`;
     document.body.append(a);
     a.click();
     //step 5
@@ -92,7 +98,7 @@ export function parseSaveData(json) {
         return typeof cmd === "string";
     };
     const maybeInvalidPendingQGMessages = (msg) => {
-        return typeof msg === "string";
+        return typeof msg === "string" && msg in QG_MESSAGES;
     };
     const validStoryFlags = Array.isArray(obj.storyFlags)
         ? (obj.storyFlags.filter((f) => typeof f === "string")) :

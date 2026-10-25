@@ -30,7 +30,14 @@
     content: "[ACTION] : ";
     font-weight: bold;
 }
-
+.QG {
+    color: var(--text-qg-color);
+    text-shadow: 0 0 3px var(--text-qg-glow);
+}
+.QG::before {
+    content: "[QG] : ";
+    font-weight: bold;
+}
 #terminal-output {
     width: 70%;
     background-color: var(--main-color-background);

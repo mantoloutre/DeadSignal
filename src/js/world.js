@@ -60,7 +60,7 @@ export const ZONES = {
         id: "OUTSIDE_TRUCK",
         name: "OUTSIDE THE TRUCK",
         description: "Sub-zero wind tears through the valley. The service rig rests dead" +
-            " in the middle of the road, engine fuming and a hole thought the hood",
+            " in the middle of the road, engine fuming and a hole through the hood",
         getActions: () => {
             //for the focus of the toolbox ( "puzzle" )
             if (getFocus() === FOCUS.TOOLBOX) {

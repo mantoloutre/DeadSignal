@@ -35,7 +35,7 @@ and decide to take the gloves
  */
 export async function addWinterGlovesToThePlayerInventory(): Promise<void> {
     addFlag("TOOK_WINTER_GLOVE");
-    await printToTerminal("you take the gloves in the glove box", "action")
+    await printToTerminal("you took the gloves in the glove box", "action")
     await addItemToInventory("winter_gloves");
 }
 
@@ -44,7 +44,7 @@ look inside the glove box to be able to take what's inside
  */
 export async function lookInGloveBoxInTruckCabin(): Promise<void> {
     await printToTerminal("You open the glove box you look inside. you find 2 flares, " +
-        "the truck's insurance paper and a pair of winter gloves.", "action");
+        "the truck's insurance paper, a pair of winter gloves and the emergency manual", "action");
     addFlag("OPENED_GLOVE_BOX");
 }
 
@@ -58,11 +58,11 @@ export async function addFlareTruckCabin(): Promise<void> {
 
 export async function readEmergencyManual(): Promise<void> {
     await printToTerminal("In case of real Emergency, please set the " +
-        "QG at the following frequency: 112.400", "system");
+        "QG at the following frequency: 112.400 MHz", "system");
     await printToTerminal("You are to not contact the QG as the QG will contact you first " +
         "when you set your radio at this frequency" ,"system");
     addFlag("READ_MANUAL");
-    //addDiscoveredFrequency()
+    addDiscoveredFrequency("QG_FREQUENCY");
 }
 
 /*

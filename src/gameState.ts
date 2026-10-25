@@ -3,7 +3,8 @@ import {
 } from "./world.js"
 import {InventorySlot} from "./inventory.js";
 import {StoryFlags} from "./storyFlags.js";
-import {ZoneId} from "./types";
+import {ZoneId} from "./types.js";
+import {QG_MESSAGES, QGMessageKey} from "./qgMessages.js";
 
 
 //base
@@ -12,7 +13,7 @@ export interface GameState {
     version: number;
     currentZone: ZoneId;
     powerLevel: number;
-    pendingQGMessages: string[];
+    pendingQGMessages: QGMessageKey[];
     currentFrequency: string;
     discoveredSignals: string[];
     storyFlags: StoryFlag[];
@@ -123,8 +124,8 @@ export function parseSaveData(json: string): GameState | null {
     const maybeInvalidInactiveCommand = (cmd: unknown): cmd is string => {
         return typeof cmd === "string";
     }
-    const maybeInvalidPendingQGMessages = (msg: unknown): msg is string => {
-        return typeof msg === "string";
+    const maybeInvalidPendingQGMessages = (msg: unknown): msg is QGMessageKey => {
+        return typeof msg === "string" && msg in QG_MESSAGES;
     }
     const validStoryFlags: StoryFlag[] = Array.isArray(obj.storyFlags)
         ? (obj.storyFlags.filter((f):
@@ -138,7 +139,7 @@ export function parseSaveData(json: string): GameState | null {
     const validInactiveCommands: string[] = Array.isArray(obj.inactiveCommands)
         ? obj.inactiveCommands.filter(maybeInvalidInactiveCommand)
         : [...GAME_INITIAL_STATE.inactiveCommands];
-    const validPendingQGMessages: string[] = Array.isArray(obj.pendingQGMessages)
+    const validPendingQGMessages: QGMessageKey[] = Array.isArray(obj.pendingQGMessages)
         ? obj.pendingQGMessages.filter(maybeInvalidPendingQGMessages)
         : [...GAME_INITIAL_STATE.pendingQGMessages];
     // step 8
