@@ -64,6 +64,7 @@ detailed explanation:
 5. clean memory
  */
 export function exportSaveFile(): void {
+    saveTheDataToLocalStorage();
     //step 1
     //TODO update player inventory
     //step 2
