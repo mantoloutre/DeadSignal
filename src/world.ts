@@ -126,6 +126,7 @@ export const ZONES = {
                     ? "look into the truck's trunk" : "open the truck's trunk",
                 description: "check the truck trunk's to see if there is anything useful in there",
                 execute: checkTruckTrunk,
+                oneTime: true,
             });
             if (hasFlag("OPENED_TRUCK_TRUNK_INIT")) {
                 actions.push({

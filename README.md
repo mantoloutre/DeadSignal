@@ -9,7 +9,11 @@ The goal of the game is simple:
 ## How to play
 
 Look, I’m going to be honest, there is not much to do right now... The project is still under<br>
-development and it's going to take a while for it to be done.
+development and it's going to take a while for it to be done. <br>
+Some zones are in an okay state ( I'm probably going to add more stuff later on ) <br>
+
+The radio interface also works, not much to do with it for now because
+I have not yet implemented a lot of frequency
 
 I have to say, it does work, but you can't do much for now but you can go see it there: [Dead Signal](https://mantoloutre.github.io/DeadSignal/)
 
@@ -23,6 +27,6 @@ I have to say, it does work, but you can't do much for now but you can go see it
 
 <details><summary>note for the reviewers</summary>
 i am working on implementing a preset so you can later test the farther zone without having to
-do the whole story every time. its not implemented for now and the reason is because the story is really short for now. so you can just quickly
-stuff for now because there aint a lot of puzzle or action that requires items ( only one is opening the toolbox which requires the crowbar )
+do the whole story every time. it's not implemented for now and the reason is because the story is really short for now. so you can just quickly
+stuff for now because there ain't a lot of puzzle or action that requires items ( only one is opening the toolbox which requires the crowbar )
 </details>

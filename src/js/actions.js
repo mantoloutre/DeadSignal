@@ -15,12 +15,11 @@ export async function checkTruckTrunk() {
     if (!hasFlag("OPENED_TRUCK_TRUNK_INIT")) {
         addFlag("OPENED_TRUCK_TRUNK_INIT");
         await printToTerminal("You force the frozen trunk open with your hands. Inside, you spot" +
-            " a heavy toolbox, a small black barrel full of wine and two spare tires.", "action");
-    }
-    else {
+            " a heavy toolbox, a small black barrel full of wine, a crowbar and two spare tires.", "action");
+    } /*else {
         await printToTerminal("Inside the truck, nothing changed, still a heavy toolbox, " +
             "the barrel of wine and the two spare tire.", "system");
-    }
+    }*/ //TODO maybe add this later on
 }
 export async function getOutOfTheDamnTruck() {
     await loadZone(ZONES.OUTSIDE_TRUCK);
@@ -79,7 +78,7 @@ export async function openTheHoodAndOrLookAtTheEngineInit() {
             : "You open the hood with your hands, its really cold out there without gloves...", "action");
     }
     else {
-        await printToTerminal("What you see is the engine that see to be missing a piston, " +
+        await printToTerminal("What you see is the engine that seem to be missing a piston, " +
             "which might explain the big explosion and the hole in the hood", "system");
     }
 }
@@ -111,15 +110,15 @@ export async function outOfToolBoxFocus() {
     setFocus(null);
 }
 export async function takeAdjustableWrenchFromToolBoxInit() {
-    await printToTerminal("you pickup the adjustable wrench from the toolbox", "action");
+    await printToTerminal("you pickup the adjustable wrench from the toolbox.", "action");
     await addItemToInventory("adjustable_wrench");
 }
 export async function takeDuctTapeFromToolBoxInit() {
-    await printToTerminal("you pickup the roll of duct tape from the toolbox", "action");
+    await printToTerminal("you pickup the roll of duct tape from the toolbox.", "action");
     await addItemToInventory("duct_tape");
 }
 export async function forceToolBoxOpenWithHand() {
-    await printToTerminal("You try to open the latch with your hands, it doesnt seem to budge", "action");
+    await printToTerminal("You try to open the latch with your hands, it doesnt seem to budge.", "action");
     //TODO something else?
 }
 export async function pryToolBoxWithCrowbar() {
