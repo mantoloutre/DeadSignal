@@ -74,7 +74,11 @@ export function exportSaveFile(): void {
     //step 4
     const a: HTMLAnchorElement = document.createElement("a");
     a.href = url;
-    a.download = `save_dead_signal${Date.now()}.json`;
+    const stamp: string = new Date()
+        .toISOString()
+        .slice(0, 19)
+        .replace(/[:T]/g, "-");
+    a.download = `save_dead_signal_${stamp}.json`;
     document.body.append(a);
     a.click();
     //step 5
