@@ -210,7 +210,7 @@ export const ZONES = {
             " is shattered outward into the snow.",
         getActions: () => {
             //focus
-            if (getFocus() === FOCUS.JUNCTION_BOX) {
+            if (getFocus() === FOCUS.JUNCTION_BOX) { //TODO set the focus at the right place
                 return getJunctionBoxActions();
             }
             //normal action
@@ -224,7 +224,7 @@ export const ZONES = {
             actions.push({
                 command: "enter guard shack",
                 description: "enter the guard shack",
-                execute: //TODO
+                execute: //TODO re-put that when the guard shack is done
             });
              */
             return actions;

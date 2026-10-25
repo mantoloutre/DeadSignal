@@ -169,6 +169,15 @@ export async function walkBackSnowyForestTowardTruck() {
 }
 export async function goInsideTheWatchPost() {
     await printToTerminal("You go inside the watch post", "action"); //TODO make the lore
+    if (!hasFlag("DISCOVERED_KELLER_BODY")) { //todo maybe change this
+        //TODO finish this
+        await printToTerminal("You find the light switch and re-open the light.", "action");
+        await printToTerminal("What sits slumped against the main console" +
+            " barely ressemble technician Vance Keller's body", "log");
+        await printToTerminal("His heavy cold-weather coat is shredded from inside out, soaked " +
+            "in frozen, blackened blood", "log"); //TODO change for blackened fluid? maybe more good idk?
+        await printToTerminal;
+    }
     await loadZone(ZONES.WATCH_POST);
 }
 /*
