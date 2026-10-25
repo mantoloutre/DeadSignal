@@ -1,7 +1,7 @@
 import { exportSaveFile, currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage, saveTheDataToLocalStorage } from "./gameState.js";
 import { setFocus, ZONES } from "./world.js";
 import { ITEMS } from "./items.js";
-import { appendDigitToFrequency, getFormattedBuffer, handleQGFrequency, removeOneFromBuffer, setBuffer } from "./radioFrequency.js";
+import { appendDigitToFrequency, getFormattedBuffer, handleFrequencyTune, handleQGFrequency, queueQGMessage, removeOneFromBuffer, setBuffer } from "./radioFrequency.js";
 /*
 used to optimize a bit the performance
  */
@@ -118,7 +118,7 @@ getEl("btn-tune").addEventListener("click", () => {
     if (buffer.length === 7) {
         currentState.currentFrequency = buffer;
         getEl("frequency").textContent = buffer;
-        //TODO handle the frequency
+        handleFrequencyTune();
     }
     else {
         flashButton(getEl("btn-tune"));
@@ -374,6 +374,7 @@ async function initGame() {
         await printToTerminal("CRITICAL ALERT: engine failure detected.", "alert");
         await loadZone(ZONES[GAME_INITIAL_STATE.currentZone]);
         getEl("frequency").textContent = currentState.currentFrequency;
+        queueQGMessage("TRUCK_STOPPED_START");
     }
 }
 /*

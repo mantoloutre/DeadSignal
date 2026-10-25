@@ -7,7 +7,7 @@ import {setFocus, Zone, ZoneAction, ZONES} from "./world.js";
 import {Item, ITEMS} from "./items.js";
 import {
     appendDigitToFrequency,
-    getFormattedBuffer, handleQGFrequency,
+    getFormattedBuffer, handleFrequencyTune, handleQGFrequency, queueQGMessage,
     removeOneFromBuffer,
     setBuffer
 } from "./radioFrequency.js";
@@ -182,7 +182,7 @@ getEl("btn-tune").addEventListener("click", (): void => {
     if (buffer.length === 7){
         currentState.currentFrequency = buffer;
         getEl("frequency").textContent = buffer;
-        //TODO handle the frequency
+        handleFrequencyTune();
     } else {
         flashButton(getEl("btn-tune"));
     }
@@ -457,7 +457,7 @@ async function initGame(): Promise<void> {
         await printToTerminal("CRITICAL ALERT: engine failure detected.", "alert");
         await loadZone(ZONES[GAME_INITIAL_STATE.currentZone]);
         getEl("frequency").textContent = currentState.currentFrequency;
-
+        queueQGMessage("TRUCK_STOPPED_START");
     }
 
 }

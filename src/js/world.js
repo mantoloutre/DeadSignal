@@ -1,4 +1,4 @@
-import { addCrowBarToThePlayerInventory, addFlareTruckCabin, addWinterGlovesToThePlayerInventory, checkTruckTrunk, forceToolBoxOpenWithHand, getOutOfTheDamnTruck, goBackInThePrettyTruck, goBackToTheTruck, goInsideTheWatchPost, inspectDirectionSign, lookInGloveBoxInTruckCabin, openTheHoodAndOrLookAtTheEngineInit, openToolBoxTruckTrunkInit, outOfToolBoxFocus, pryToolBoxWithCrowbar, takeAdjustableWrenchFromToolBoxInit, takeDuctTapeFromToolBoxInit, walkBackOutside, walkBackSnowyForestTowardTruck, walkTowardMainWatchPost, walkTowardSnowyForestFromOutsideTruck } from "./actions.js";
+import { addCrowBarToThePlayerInventory, addFlareTruckCabin, addWinterGlovesToThePlayerInventory, checkTruckTrunk, forceToolBoxOpenWithHand, getOutOfTheDamnTruck, goBackInThePrettyTruck, goBackToTheTruck, goInsideTheWatchPost, inspectDirectionSign, lookInGloveBoxInTruckCabin, openTheHoodAndOrLookAtTheEngineInit, openToolBoxTruckTrunkInit, outOfToolBoxFocus, pryToolBoxWithCrowbar, readEmergencyManual, takeAdjustableWrenchFromToolBoxInit, takeDuctTapeFromToolBoxInit, walkBackOutside, walkBackSnowyForestTowardTruck, walkTowardMainWatchPost, walkTowardSnowyForestFromOutsideTruck } from "./actions.js";
 import { hasFlag } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 /*
@@ -156,7 +156,8 @@ export const ZONES = {
                 actions.push({
                     command: "read emergency manual",
                     description: "read the emergency manual to know what to do in case of an emergency",
-                    execute: walkBackSnowyForestTowardTruck //TODO
+                    execute: readEmergencyManual,
+                    oneTime: true,
                 });
             }
             return actions;
@@ -218,11 +219,13 @@ export const ZONES = {
                 description: "walk back to the snowy forest",
                 execute: walkBackSnowyForestTowardTruck,
             });
+            /*
             actions.push({
                 command: "enter guard shack",
                 description: "enter the guard shack",
-                execute: walkBackSnowyForestTowardTruck //TODO
+                execute: //TODO
             });
+             */
             return actions;
         }
     }

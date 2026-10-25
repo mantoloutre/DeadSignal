@@ -10,6 +10,7 @@ export type ZoneId =
     | "OUTSIDE_TRUCK"
     | "SNOWY_FOREST"
     | "GATE_CHECKPOINT"
+
     | "WATCH_POST_OUTSIDE"
     | "WATCH_POST"
     /*

@@ -1,6 +1,7 @@
 import {currentState, hasFlag, saveTheDataToLocalStorage, StoryFlag} from "./gameState.js";
 import {printToTerminal} from "./main.js";
 import {RadioFrequencyName} from "./types.js";
+import {QGMessageKey} from "./qgMessages.js";
 
 export interface RadioFrequency {
     frequency: string;
@@ -34,7 +35,7 @@ export const FREQUENCY_REGISTRY = {
 
     },
 
-} satisfies Record<RadioFrequencyName, RadioFrequency>
+} satisfies Record<RadioFrequencyName, RadioFrequency>;
 
 export function addDiscoveredFrequency(frequency: number): void {
 
@@ -89,7 +90,7 @@ export function removeOneFromBuffer(): string {
 /*
 add a message from qg to the queue and inform the player there is pending message
  */
-export async function queueQGMessage(message: string): Promise<void> {
+export async function queueQGMessage(message: QGMessageKey): Promise<void> {
     currentState.pendingQGMessages.push(message);
     saveTheDataToLocalStorage();
     await printToTerminal(`incoming transmission from qg ( 112.400 MHz ). 
@@ -100,6 +101,11 @@ export async function queueQGMessage(message: string): Promise<void> {
 handle the reading of pending messages from the QG
  */
 export async function handleQGFrequency(): Promise<void> {
+    // -- debug --
+    console.log("flags:", currentState.storyFlags);
+    console.log("hasFlag READ_MANUAL:", hasFlag("READ_MANUAL"));
+    console.log("buffer brut:", JSON.stringify(currentBuffer));
+    console.log("buffer formaté:", getFormattedBuffer())
     // if no message from QG
     if (currentState.pendingQGMessages.length === 0) {
         await printToTerminal("Dispatch carrier active. Standing by for " +

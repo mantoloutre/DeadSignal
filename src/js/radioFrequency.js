@@ -82,6 +82,11 @@ export async function queueQGMessage(message) {
 handle the reading of pending messages from the QG
  */
 export async function handleQGFrequency() {
+    // -- debug --
+    console.log("flags:", currentState.storyFlags);
+    console.log("hasFlag READ_MANUAL:", hasFlag("READ_MANUAL"));
+    console.log("buffer brut:", JSON.stringify(currentBuffer));
+    console.log("buffer formaté:", getFormattedBuffer());
     // if no message from QG
     if (currentState.pendingQGMessages.length === 0) {
         await printToTerminal("Dispatch carrier active. Standing by for " +
