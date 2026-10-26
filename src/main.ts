@@ -132,7 +132,7 @@ export function renderThePlayerInventory(): void {
     inventoryItemList.innerHTML = "";
     inventoryItemDetails.textContent = "Select an item to inspect.";
     if (currentState.playerInventory.length === 0) {
-        const nothingToSeeThereMsg = document.createElement("p");
+        const nothingToSeeThereMsg: HTMLParagraphElement = document.createElement("p");
         nothingToSeeThereMsg.textContent = "Nothing to see there, its empty";
         nothingToSeeThereMsg.className = "nothing-here-msg";
         inventoryItemList.append(nothingToSeeThereMsg);

@@ -2,7 +2,7 @@ import { addFlag, hasFlag } from "./gameState.js";
 import { loadZone, printToTerminal } from "./main.js";
 import { addItemToInventory } from "./inventory.js";
 import { setFocus, ZONES } from "./world.js";
-import { addDiscoveredFrequency } from "./radioFrequency.js";
+import { addDiscoveredFrequency, queueQGMessage } from "./radioFrequency.js";
 /*
 ##################
 ZONE : TRUCK CABIN
@@ -146,6 +146,10 @@ export async function walkTowardMainWatchPost() {
     await printToTerminal("You walk toward the main watch tower and you arrive at destination", "action");
     await printToTerminal("You are now standing outside the watch tower", "system");
     await loadZone(ZONES.WATCH_POST_OUTSIDE);
+    if (!hasFlag("GOT_QG_MESSAGE_GOT_TO_TOWER")) {
+        addFlag("GOT_QG_MESSAGE_GOT_TO_TOWER");
+        queueQGMessage("QG_MESSAGE_GOT_TOWER_FIRST_TIME");
+    }
     //TODO add lore ?
 }
 export async function inspectDirectionSign() {
@@ -168,17 +172,21 @@ export async function walkBackSnowyForestTowardTruck() {
     await loadZone(ZONES.SNOWY_FOREST);
 }
 export async function goInsideTheWatchPost() {
-    await printToTerminal("You go inside the watch post", "action"); //TODO make the lore
-    if (!hasFlag("DISCOVERED_KELLER_BODY")) { //todo maybe change this
-        //TODO finish this
-        await printToTerminal("You find the light switch and re-open the light.", "action");
-        await printToTerminal("What sits slumped against the main console" +
-            " barely ressemble technician Vance Keller's body", "log");
-        await printToTerminal("His heavy cold-weather coat is shredded from inside out, soaked " +
-            "in frozen, blackened blood", "log"); //TODO change for blackened fluid? maybe more good idk?
-        await printToTerminal;
-    }
+    await printToTerminal("You go inside the watch post", "action");
     await loadZone(ZONES.WATCH_POST);
+    if (!hasFlag("DISCOVERED_KELLER_BODY")) {
+        addFlag("DISCOVERED_KELLER_BODY");
+        await printToTerminal("You find the light switch in the dark and turn the lights back on.", "action");
+        await printToTerminal("Technician Vance Keller lies slumped on his side against the lower chassis" +
+            ", his body frozen in a rigid and unnatural pose", "log");
+        await printToTerminal("His chest is crushed clean through his sternum, yet " +
+            "the exterior fabric shows no impact, claw marks or tool strikes.", "log");
+        await printToTerminal("Keller's body is coated in a fine, brittle crust of frost, far too solid " +
+            "for a man whose station went dark only an hour ago.", "log");
+        await printToTerminal("The crystalline residue isn't from the draft; it radiates " +
+            "directly outward from his blown ear canals and across the spiderweb " +
+            "fracture of his visor", "log");
+    }
 }
 /*
 #################

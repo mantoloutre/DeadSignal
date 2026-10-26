@@ -124,14 +124,23 @@ export async function handleFrequency() {
     }
     //making sure he has it
     // ( don't care if it doesn't exist cuz the switch case is going to take care of that )
-    if (!hasDiscoveredSignal(formattedFreq)) {
+    if (verifyUnlockedFrequency(formattedFreq)) { //TODO make it so if unknown well its a static noice?
         await printToTerminal("Heavy carrier distortion. Signal unreadable.", "alert");
         return;
     }
     // if everything is good
     switch (formattedFreq) {
         case "112.400":
+            /*
+            if (verifyUnlockedFrequency(formattedFreq) {
+            await handleQGFrequency();
+            }
+            break;
+             */
             await handleQGFrequency();
             break;
     }
+}
+function verifyUnlockedFrequency(formattedFrequency) {
+    return hasDiscoveredSignal(formattedFrequency);
 }
