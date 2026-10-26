@@ -1,9 +1,10 @@
 # Dead-Signal
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](./LICENSE)<br>
 
-Dead Signal is a simple story-driven text based game, but you can die, so be careful.
+Dead Signal is a simple story-driven text based game, but you can die( not yet ), so be careful.
 The goal of the game is simple:
 : <details> <summary>!!!Spoiler warning!!!</summary>
-*you ain't getting no spoiler!! go play the game if you wanna know*
+*you ain't getting no spoiler!!! go play the game if you wanna know!*
 </details>
 
 ## How to play
@@ -31,3 +32,6 @@ i am working on implementing a preset so you can later test the farther zone wit
 do the whole story every time. it's not implemented for now and the reason is because the story is really short for now. so you can just quickly
 stuff for now because there ain't a lot of puzzle or action that requires items ( only one is opening the toolbox which requires the crowbar )
 </details>
+
+
+© 2026 mantoloutre, licensed under BSD-3-Clause
