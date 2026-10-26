@@ -195,12 +195,17 @@ export async function goInsideTheWatchPost(): Promise<void> {
     await printToTerminal("You go inside the watch post", "action"); //TODO make the lore
     if (!hasFlag("DISCOVERED_KELLER_BODY")) { //todo maybe change this
         //TODO finish this
-        await printToTerminal("You find the light switch and re-open the light.", "action");
-        await printToTerminal("What sits slumped against the main console" +
-            " barely ressemble technician Vance Keller's body", "log");
-        await printToTerminal("His heavy cold-weather coat is shredded from inside out, soaked " +
-            "in frozen, blackened blood", "log");//TODO change for blackened fluid? maybe more good idk?
-        await printToTerminal
+        addFlag("DISCOVERED_KELLER_BODY");
+        await printToTerminal("You find the light switch and turn the lights back on.", "action");
+        await printToTerminal("Technician Vance Keller lies slumped on his side against the lower chassis" +
+            ", his body frozen in a rigid and unnatural pose", "log");
+        await printToTerminal("His chest is crushed clean through his sternum, yet " +
+            "the exterior fabric shows no impact, claw marks or tool strikes.", "log");
+        await printToTerminal("Keller's body is coated in a fine, brittle crust of frost, far too solid " +
+            "for a man whose station went dark only forty minutes ago.", "log");
+        await printToTerminal("The crystalline residue isn't from the draft; it radiates " +
+            "directly outward from his blown ear canals and across the spiderweb " +
+            "fracture of his visor", "log");
     }
     await loadZone(ZONES.WATCH_POST);
 }
