@@ -38,6 +38,13 @@
     content: "[QG] : ";
     font-weight: bold;
 }
+.YOU {
+    color: white;/* TODO */
+    text-shadow: 0 0 3px white;
+}
+.YOU::before {
+    content: "[YOU"
+}
 #terminal-output {
     width: 70%;
     background-color: var(--main-color-background);

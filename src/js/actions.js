@@ -9,7 +9,7 @@ ZONE : TRUCK CABIN
 ##################
  */
 /*
-function to check the truck's trunk at the begining of the game
+function to check the truck's trunk at the beginning of the game
  */
 export async function checkTruckTrunk() {
     if (!hasFlag("OPENED_TRUCK_TRUNK_INIT")) {
@@ -30,7 +30,7 @@ and decide to take the gloves
  */
 export async function addWinterGlovesToThePlayerInventory() {
     addFlag("TOOK_WINTER_GLOVE");
-    await printToTerminal("you took the gloves in the glove box", "action");
+    await printToTerminal("you took the gloves from the glove box", "action");
     await addItemToInventory("winter_gloves");
 }
 /*
@@ -55,6 +55,10 @@ export async function readEmergencyManual() {
         "when you set your radio at this frequency", "system");
     addFlag("READ_MANUAL");
     addDiscoveredFrequency("QG_FREQUENCY");
+}
+export async function addTruckInsurancePaper() {
+    await addItemToInventory("truck_insurance_papers");
+    await printToTerminal("you took the truck's insurance papers... (why)", "action");
 }
 /*
 #####################
@@ -183,10 +187,17 @@ export async function goInsideTheWatchPost() {
             "the exterior fabric shows no impact, claw marks or tool strikes.", "log");
         await printToTerminal("Keller's body is coated in a fine, brittle crust of frost, far too solid " +
             "for a man whose station went dark only an hour ago.", "log");
-        await printToTerminal("The crystalline residue isn't from the draft; it radiates " +
+        await printToTerminal("The crystalline residue isn't from the draft; It radiates " +
             "directly outward from his blown ear canals and across the spiderweb " +
             "fracture of his visor", "log");
+        //the player choices ( multiple choice
+        await printToTerminal("What do you do?", "system");
+        await printToTerminal("Dead body: Tell the QG you found Keller's dead body", "system");
+        await printToTerminal("Note left: Tell the QG about the note Keller wrote before dying", "system");
+        //TODO do the rest
+        setFocus("TELLING_QG");
     }
+    //TODO make player choose what he want to do next
 }
 /*
 #################
@@ -196,6 +207,28 @@ ZONE : WATCH_POST
 export async function walkBackOutside() {
     await printToTerminal("You walk back outside the watch tower", "action");
     await loadZone(ZONES.WATCH_POST_OUTSIDE);
+}
+//Tell QG for the dead body
+export async function tellQGAboutDeadBody() {
+    await printToTerminal("Found Keller. He's dead.", "YOU"); //TODO do the color for YOU ( the player )
+    //TODO add response from qg by adding to the queue
+    addFlag("TOLD_QG_ABOUT_BODY");
+}
+//Don't tell QG for the dead body
+export async function tellQGNoBodyFound() {
+    //TODO add response from qg by adding to the queue & finish this
+    await printToTerminal("I'm in the main relay watch tower, Keller is nowhere to be found.", "YOU");
+}
+//Tell QG for the note Keller left
+export async function tellQGAboutNoteLeft() {
+    //TODO add response from qg by adding to the queue & finish this
+    await printToTerminal("From what i can see, Kelley left a note, apparently, there is something " +
+        "dangerous that is drawn to the signal when it is running", "YOU");
+    addFlag("TOLD_QG_ABOUT_NOTE");
+}
+//Don't mention the note
+export async function DontTellQGNoNoteLeft() {
+    //nothing happens here it's just to satisfy the zone
 }
 /*
 ######

@@ -1,6 +1,6 @@
 export const StoryFlags = {
     //zone 1 ( truck cabin )
-    TRUCK_REPAIRED: "TRUCl_REPAIRED",
+    TRUCK_REPAIRED: "TRUCK_REPAIRED",
     OPENED_GLOVE_BOX: "OPENED_GLOVE_BOX",
     TOOK_FLARE_FROM_GLOVE_BOX: "TOOK_FLARE_FROM_GLOVE_BOX",
     TOOK_WINTER_GLOVE: "TOOK_WINTER_GLOVE",
@@ -37,5 +37,6 @@ export const StoryFlags = {
     GAME_OVER_SURVIVAL: "GAME_OVER_SURVIVAL",
     // game modifier
     TOLD_QG_ABOUT_BODY: "TOLD_QG_ABOUT_BODY",
+    TOLD_QG_ABOUT_NOTE: "TOLD_QG_ABOUT_NOTE"
 
 } as const;

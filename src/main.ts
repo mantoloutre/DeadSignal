@@ -60,7 +60,7 @@ interface UIElements {
 }
 
 /*
-used to optimize a bit the performance
+used to optimize the instanciation of elements
  */
 export const elementCache = new Map<string, HTMLElement>();
 
@@ -81,7 +81,7 @@ export function getEl<Key extends keyof UIElements>(id: Key): UIElements[Key] {
     return element as UIElements[Key];
 }
 
-export type fromType = "system" | "alert" | "QG" | "log" | "action";
+export type fromType = "system" | "alert" | "QG" | "log" | "action" | "YOU";
 
 /*
 load a zone
@@ -140,7 +140,7 @@ export function renderThePlayerInventory(): void {
         return;
     }
     const fragment: DocumentFragment = document.createDocumentFragment();
-    currentState.playerInventory.forEach((slot) => {
+    currentState.playerInventory.forEach((slot): void => {
         const item: Item = ITEMS[slot.itemId];
         if (!item) return;
         const buttonForDaItem: HTMLButtonElement = document.createElement("button");
@@ -152,7 +152,7 @@ export function renderThePlayerInventory(): void {
         } else {
             buttonForDaItem.textContent = `> ${item.name}`;
         }
-        buttonForDaItem.addEventListener("click", () => {
+        buttonForDaItem.addEventListener("click", (): void => {
             document.querySelectorAll(".inventory-item-btn").forEach(btn => {
                 btn.classList.remove("TheOneAndOnlySelectedInventoryItemButton");
             });
@@ -179,7 +179,7 @@ getEl("btn-delete-key").addEventListener("click", (): void => {
 });
 getEl("btn-tune").addEventListener("click", async (): Promise<void> => {
     const buffer: string = getFormattedBuffer();
-    if (buffer.length === 7 && buffer !== "---.---"){
+    if (buffer.length === 7 && buffer !== "---.---") {
         currentState.currentFrequency = buffer;
         getEl("frequency").textContent = buffer;
         closeRadioInterface();
@@ -432,15 +432,17 @@ function createButtonZoneActions(action: ZoneAction, zone: Zone) {
 function sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
 /*
 to set the display and current frequency to the right values
  */
-function setDisplayFrequency(): void{
+function setDisplayFrequency(): void {
     setBuffer(currentState.currentFrequency);
     const theFrequency: string = getFormattedBuffer();
     getEl("frequency").textContent = theFrequency
     getEl("radio-current-frequency").textContent = theFrequency;
 }
+
 /*
 function that is called to initialize game
  */

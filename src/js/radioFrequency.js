@@ -29,7 +29,6 @@ export function addDiscoveredFrequency(frequency) {
         currentState.discoveredSignals.push(FREQUENCY_REGISTRY[frequency].frequency);
     }
 }
-//TODO make this using the currentState
 let currentBuffer = "";
 /*
 safely set the buffer ( only at the beginning at the game or on page reload )

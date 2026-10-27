@@ -18,7 +18,8 @@ I have not yet implemented a lot of frequency
 
 I have to say, it does work, but you can't do much for now but you can go see it there: [Dead Signal](https://mantoloutre.github.io/DeadSignal/) <br>
 
-Btw the only name thats in the game i chose it randomly so i'm sorry if that's your name T-T
+Btw the only name thats in the game i chose it randomly so i'm sorry if that's your name T-T<br>
+### Game is made to be played on a screen wider than a phone ( laptop/desktop recomended)
 > ### Some information ( you can skip if you want )
 > when I code, most of the time, I will put what a function does ( exemple: in gameState.ts the function to export)
 > 

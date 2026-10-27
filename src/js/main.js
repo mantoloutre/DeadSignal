@@ -3,7 +3,7 @@ import { setFocus, ZONES } from "./world.js";
 import { ITEMS } from "./items.js";
 import { appendDigitToFrequency, getFormattedBuffer, handleFrequency, queueQGMessage, removeOneFromBuffer, setBuffer } from "./radioFrequency.js";
 /*
-used to optimize a bit the performance
+used to optimize the instanciation of elements
  */
 export const elementCache = new Map();
 /*

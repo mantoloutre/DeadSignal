@@ -38,7 +38,6 @@ export function addDiscoveredFrequency(frequency: RadioFrequencyName): void {
     }
 }
 
-//TODO make this using the currentState
 let currentBuffer: string = "";
 
 /*
