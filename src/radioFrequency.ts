@@ -140,8 +140,8 @@ export async function handleFrequency(): Promise<void> {
     }
     //making sure he has it
     // ( don't care if it doesn't exist cuz the switch case is going to take care of that )
-    if (verifyUnlockedFrequency(formattedFreq)) { //TODO make it so if unknown well its a static noice?
-        await printToTerminal("Heavy carrier distortion. Signal unreadable.", "alert");
+    if (!hasDiscoveredSignal(formattedFreq)) { //TODO make it so if unknown well its a static noice?
+        await printToTerminal("Heavy carrier distortion. Signal unreadable.", "alert");//TODO fix radio
         return;
     }
     // if everything is good
@@ -156,7 +156,4 @@ export async function handleFrequency(): Promise<void> {
             await handleQGFrequency();
             break;
     }
-}
-function verifyUnlockedFrequency(formattedFrequency: string): boolean{
-    return hasDiscoveredSignal(formattedFrequency);
 }
