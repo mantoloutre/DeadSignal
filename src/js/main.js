@@ -161,6 +161,22 @@ function bindingAction(button, action) {
         action();
     });
 }
+function skipToZoneOutsideWatchpost() {
+}
+//close or open the side menu
+function openOrCloseCheatMenu(oOrc) {
+    const sideMenu = getEl("side-menu");
+    const cheatMenu = getEl("cheat-menu");
+    if (oOrc === "Open") {
+    }
+    if (oOrc === "Close") {
+        getEl("cheat-menu").classList.add("hidden");
+        const sideMenu = getEl("side-menu");
+        if (!(sideMenu.classList.contains("hidden"))) {
+            sideMenu.classList.add("hidden");
+        }
+    }
+}
 /*
 toggle the hidden class to open or close the menu
  */
@@ -223,6 +239,7 @@ bindingAction(getEl("btn-open-inventory"), openInventory);
 bindingAction(getEl("btn-close-inventory"), closeInventory);
 bindingAction(getEl("btn-open-radio-interface"), openRadioInterface);
 bindingAction(getEl("btn-close-radio-interface"), closeRadioInterface);
+bindingAction(getEl("btn-close"));
 //general
 bindingAction(getEl("button-open-side-menu"), openOrCloseMenu);
 bindingAction(getEl("button-close-side-menu"), openOrCloseMenu);

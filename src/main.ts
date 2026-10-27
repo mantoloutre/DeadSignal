@@ -43,8 +43,11 @@ interface UIElements {
     "btn-k0": HTMLButtonElement;
     "btn-tune": HTMLButtonElement;
     "btn-delete-key": HTMLButtonElement;
+    "btn-skip-to-outside-watch-tower": HTMLButtonElement;
+    "btn-close-cheat-menu": HTMLButtonElement;
     // div elements
     "side-menu": HTMLDivElement;
+    "cheat-menu": HTMLDivElement;
     "menu-overlay": HTMLDivElement;
     "inventory": HTMLDivElement;
     "inventory-items-list": HTMLDivElement;
@@ -227,7 +230,24 @@ function bindingAction(button: HTMLButtonElement, action: () => void): void {
         action();
     });
 }
+function skipToZoneOutsideWatchpost(): void {
 
+}
+//close or open the side menu
+function openOrCloseCheatMenu(oOrc: string): void {
+    const sideMenu: HTMLDivElement = getEl("side-menu");
+    const cheatMenu: HTMLDivElement = getEl("cheat-menu");
+    if (oOrc === "Open"){
+
+    }
+    if (oOrc === "Close"){
+        getEl("cheat-menu").classList.add("hidden");
+        const sideMenu: HTMLDivElement = getEl("side-menu");
+        if (!(sideMenu.classList.contains("hidden"))){
+            sideMenu.classList.add("hidden");
+        }
+    }
+}
 /*
 toggle the hidden class to open or close the menu
  */
@@ -297,7 +317,8 @@ async function saveGame(): Promise<void> {
 bindingAction(getEl("btn-open-inventory"), openInventory);
 bindingAction(getEl("btn-close-inventory"), closeInventory);
 bindingAction(getEl("btn-open-radio-interface"), openRadioInterface);
-bindingAction(getEl("btn-close-radio-interface"), closeRadioInterface)
+bindingAction(getEl("btn-close-radio-interface"), closeRadioInterface);
+bindingAction(getEl("btn-close"))
 //general
 bindingAction(getEl("button-open-side-menu"), openOrCloseMenu);
 bindingAction(getEl("button-close-side-menu"), openOrCloseMenu);
