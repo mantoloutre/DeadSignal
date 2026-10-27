@@ -34,7 +34,7 @@ body {
     gap: 5px;
     column-gap: 10px;
 }
-.side-menu, .cheat-menu {
+#side-menu, #cheat-menu {
     position: fixed;
     left: 0;
     top: 0;
@@ -53,7 +53,7 @@ body {
         color: var(--text-color)
     }
 }
-.side-menu.hidden {
+#side-menu.hidden, #cheat-menu.hidden {
     transform: translateX(-100%);
 }
 .border-glow {

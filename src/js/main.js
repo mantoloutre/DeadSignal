@@ -164,23 +164,20 @@ function bindingAction(button, action) {
 function skipToZoneOutsideWatchpost() {
 }
 //close or open the side menu
-function openOrCloseCheatMenu(oOrc) {
-    const sideMenu = getEl("side-menu");
-    const cheatMenu = getEl("cheat-menu");
-    if (oOrc === "Open") {
-    }
-    if (oOrc === "Close") {
-        getEl("cheat-menu").classList.add("hidden");
-        const sideMenu = getEl("side-menu");
-        if (!(sideMenu.classList.contains("hidden"))) {
-            sideMenu.classList.add("hidden");
-        }
+function openOrCloseCheatMenu() {
+    getEl("cheat-menu").classList.toggle("hidden");
+    if (!(getEl("side-menu").classList.contains("hidden"))) {
+        openOrCloseMenu();
     }
 }
 /*
 toggle the hidden class to open or close the menu
  */
 function openOrCloseMenu() {
+    const cheatMenu = getEl("cheat-menu");
+    if (!cheatMenu.classList.contains("hidden")) {
+        cheatMenu.classList.add("hidden");
+    }
     getEl("side-menu").classList.toggle("hidden");
     if (!(getEl("inventory").classList.contains("inventory-active"))
         && !(getEl("radio-interface").classList.contains("radio-interface-active"))) {
@@ -239,7 +236,7 @@ bindingAction(getEl("btn-open-inventory"), openInventory);
 bindingAction(getEl("btn-close-inventory"), closeInventory);
 bindingAction(getEl("btn-open-radio-interface"), openRadioInterface);
 bindingAction(getEl("btn-close-radio-interface"), closeRadioInterface);
-bindingAction(getEl("btn-close"));
+bindingAction(getEl("btn-close-cheat-menu"), openOrCloseCheatMenu);
 //general
 bindingAction(getEl("button-open-side-menu"), openOrCloseMenu);
 bindingAction(getEl("button-close-side-menu"), openOrCloseMenu);
@@ -284,11 +281,11 @@ window.addEventListener("keydown", (keyEvent) => {
     if (isPrinting)
         return; //clause guard if it's writing in terminal
     const sideMenu = getEl("side-menu");
-    if (!getEl("side-menu").classList.contains("hidden") && keyEvent.key === "Escape") {
+    if (keyEvent.key === "Escape") {
         openOrCloseMenu();
     }
-    else if (getEl("side-menu").classList.contains("hidden") && keyEvent.key === "Escape") {
-        openOrCloseMenu();
+    if (keyEvent.key === "p" || keyEvent.key === "p") {
+        openOrCloseCheatMenu();
     }
 });
 export let isPrinting = false;
