@@ -165,10 +165,10 @@ function skipToZoneOutsideWatchpost() {
 }
 //close or open the side menu
 function openOrCloseCheatMenu() {
-    getEl("cheat-menu").classList.toggle("hidden");
     if (!(getEl("side-menu").classList.contains("hidden"))) {
         openOrCloseMenu();
     }
+    getEl("cheat-menu").classList.toggle("hidden");
 }
 /*
 toggle the hidden class to open or close the menu

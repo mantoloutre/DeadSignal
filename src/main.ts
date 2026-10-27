@@ -237,10 +237,10 @@ function skipToZoneOutsideWatchpost(): void {
 
 //close or open the side menu
 function openOrCloseCheatMenu(): void {
-    getEl("cheat-menu").classList.toggle("hidden");
     if (!(getEl("side-menu").classList.contains("hidden"))) {
         openOrCloseMenu();
     }
+    getEl("cheat-menu").classList.toggle("hidden");
 }
 
 /*
