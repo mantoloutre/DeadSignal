@@ -1,5 +1,5 @@
 import { addFlag, hasFlag } from "./gameState.js";
-import { loadZone, printToTerminal } from "./main.js";
+import { loadZone, printToTerminal, renderZoneActions } from "./main.js";
 import { addItemToInventory } from "./inventory.js";
 import { setFocus, ZONES } from "./world.js";
 import { addDiscoveredFrequency, queueQGMessage } from "./radioFrequency.js";
@@ -50,7 +50,7 @@ export async function addFlareTruckCabin() {
 }
 export async function readEmergencyManual() {
     await printToTerminal("In case of real Emergency, please set the " +
-        "QG at the following frequency: 112.400 MHz", "system");
+        "radio at the following frequency: 112.400 MHz", "system");
     await printToTerminal("You are to not contact the QG as the QG will contact you first " +
         "when you set your radio at this frequency", "system");
     addFlag("READ_MANUAL");
@@ -58,7 +58,7 @@ export async function readEmergencyManual() {
 }
 export async function addTruckInsurancePaper() {
     await addItemToInventory("truck_insurance_papers");
-    await printToTerminal("you took the truck's insurance papers... (why)", "action");
+    await printToTerminal("you took the truck's insurance papers... (why?)", "action");
 }
 /*
 #####################
@@ -152,7 +152,7 @@ export async function walkTowardMainWatchPost() {
     await loadZone(ZONES.WATCH_POST_OUTSIDE);
     if (!hasFlag("GOT_QG_MESSAGE_GOT_TO_TOWER")) {
         addFlag("GOT_QG_MESSAGE_GOT_TO_TOWER");
-        queueQGMessage("QG_MESSAGE_GOT_TOWER_FIRST_TIME");
+        await queueQGMessage("QG_MESSAGE_GOT_TOWER_FIRST_TIME");
     }
     //TODO add lore ?
 }
@@ -196,6 +196,7 @@ export async function goInsideTheWatchPost() {
         await printToTerminal("Note left: Tell the QG about the note Keller wrote before dying", "system");
         //TODO do the rest
         setFocus("TELLING_QG");
+        renderZoneActions(ZONES.WATCH_POST);
     }
     //TODO make player choose what he want to do next
 }
@@ -218,6 +219,7 @@ export async function tellQGAboutDeadBody() {
 export async function tellQGNoBodyFound() {
     //TODO add response from qg by adding to the queue & finish this
     await printToTerminal("I'm in the main relay watch tower, Keller is nowhere to be found.", "YOU");
+    await queueQGMessage("QG_MESSAGE_DIDNT_TOLD_DEAD_BODY");
 }
 //Tell QG for the note Keller left
 export async function tellQGAboutNoteLeft() {
@@ -227,8 +229,20 @@ export async function tellQGAboutNoteLeft() {
     addFlag("TOLD_QG_ABOUT_NOTE");
 }
 //Don't mention the note
-export async function DontTellQGNoNoteLeft() {
+export async function DontTellQGAboutNoteLeft() {
     //nothing happens here it's just to satisfy the zone
+}
+export async function confirmingDoneTalkingtoQG() {
+    setFocus(null);
+}
+/*
+######################
+ZONE : EXCAVATION_CAMP
+######################
+ */
+export async function goBackToForestTrail() {
+    await printToTerminal("You walk back toward the three way junction point", "action");
+    await loadZone(ZONES.GATE_CHECKPOINT);
 }
 /*
 ######

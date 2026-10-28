@@ -9,7 +9,9 @@
     font-weight: bold;
     text-shadow: 0 0 3px var(--text-red-glow);
 }
-
+.log, .alert, .system, .action, .YOU, .QG {
+    font-size: 16px;
+}
 .log {
     color: var(--text-yellow-color);
     text-shadow: 0 0 3px var(--text-yellow-glow);

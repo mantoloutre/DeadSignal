@@ -37,6 +37,8 @@ export const StoryFlags = {
     GAME_OVER_SURVIVAL: "GAME_OVER_SURVIVAL",
     // game modifier
     TOLD_QG_ABOUT_BODY: "TOLD_QG_ABOUT_BODY",
-    TOLD_QG_ABOUT_NOTE: "TOLD_QG_ABOUT_NOTE"
+    TOLD_QG_ABOUT_NOTE: "TOLD_QG_ABOUT_NOTE",
+    // verification
+    CONFIRMATION1: "CONFIRMATION1",
 
 } as const;

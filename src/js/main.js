@@ -390,7 +390,7 @@ async function initGame() {
         await printToTerminal("CRITICAL ALERT: engine failure detected.", "alert");
         await loadZone(ZONES[GAME_INITIAL_STATE.currentZone]);
         getEl("frequency").textContent = currentState.currentFrequency;
-        queueQGMessage("TRUCK_STOPPED_START");
+        await queueQGMessage("TRUCK_STOPPED_START");
     }
 }
 /*

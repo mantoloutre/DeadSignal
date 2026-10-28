@@ -26,7 +26,7 @@ export const ITEMS = {
     truck_insurance_papers: {
         id: "trucInsurancePapers",
         name: "The truck insurance Paper",
-        type: "tool",
+        type: "consumable",
         description: "i mean... its the truck's insurance papers.."
     },
     duct_tape: {

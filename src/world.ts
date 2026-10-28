@@ -1,7 +1,9 @@
 import * as actionsFunc from "./actions.js";
-import {currentState, hasFlag} from "./gameState.js";
+import {currentState, hasFlag, isCommandInactive} from "./gameState.js";
 import {doesThePlayerHasTheItem} from "./inventory.js";
 import {ZoneId} from "./types.js";
+import {} from "./main.js";
+import {confirmingDoneTalkingtoQG} from "./actions.js";
 /*
 this is for subzone ( mainly puzzle )
  */
@@ -119,7 +121,7 @@ export const ZONES = {
             });
             if (hasFlag("OPENED_TRUCK_TRUNK_INIT")) {
                 actions.push({
-                    command: "add crowbar",
+                    command: "take crowbar",
                     description: "take the crowbar from the trunk",
                     execute: actionsFunc.addCrowBarToThePlayerInventory,
                     oneTime: true
@@ -257,6 +259,7 @@ export const ZONES = {
                 description: "walk back to the snowy forest",
                 execute: actionsFunc.walkBackSnowyForestTowardTruck,
             });
+
             /*
             actions.push({
                 command: "enter guard shack",
@@ -275,8 +278,14 @@ function getJunctionBoxActions(): ZoneAction[] {
     return actions;
 }
 
-function getWhatToSayToQG(): ZoneAction[] {
+function getWhatToSayToQG(): ZoneAction[] { //TODO find out why this doesnt work
     const actions: ZoneAction[] = [];
+    actions.push({
+        command: "Press When done",
+        description: "press this when your are done saying stuff",
+        execute: confirmingDoneTalkingtoQG,
+        oneTime: true,
+    });
     { //section for the body
         if (!isCommandInactive("No Body")) {
             actions.push({
@@ -296,7 +305,6 @@ function getWhatToSayToQG(): ZoneAction[] {
         }
     }
     {// section for the note
-        //TODO
         if (!isCommandInactive("No Note Found")) {
             actions.push({
                 command: "Note Found",
@@ -309,7 +317,7 @@ function getWhatToSayToQG(): ZoneAction[] {
             actions.push({
                 command: "No Note Found",
                 description: "Don't tell QG about the note Keller left",
-                execute: actionsFunc.DontTellQGNoNoteLeft,
+                execute: actionsFunc.DontTellQGAboutNoteLeft,
                 oneTime: true,
             });
         }
@@ -317,16 +325,9 @@ function getWhatToSayToQG(): ZoneAction[] {
     {
         //TODO
     }
-
     return actions;
 }
 
-/*
-verify if the command is inactive or no
- */
-function isCommandInactive(command: string): boolean {
-    return currentState.inactiveCommands.includes(command);
-}
 
 /*
 function to get the actions related to opening the toolbox

@@ -94,8 +94,12 @@ export async function queueQGMessage(message: QGMessageKey): Promise<void> {
         the manual to set the correct frequency`, "alert");
         return;
     }
-    await printToTerminal(`Incoming transmission from QG ( 112.400 MHz ). 
+    if (currentState.currentFrequency === "112.400") {
+        await handleQGFrequency();
+    } else {
+        await printToTerminal(`Incoming transmission from QG ( 112.400 MHz ). 
     ${currentState.pendingQGMessages.length} pending`, "alert");
+    }
 }
 
 /*
@@ -118,7 +122,7 @@ export async function handleQGFrequency(): Promise<void> {
     // reading all messages
     for (const msgKey of currentState.pendingQGMessages) {
         const text: string = QG_MESSAGES[msgKey];
-        await printToTerminal(text,"QG");
+        await printToTerminal(text, "QG");
     }
     currentState.pendingQGMessages = [];
     saveTheDataToLocalStorage();

@@ -236,7 +236,7 @@ function skipToZoneOutsideWatchpost(): void {
 }
 
 //close or open the side menu
-function openOrCloseCheatMenu(): void {
+function openOrCloseCheatMenu(): void { //TODO maybe add a menu-overlay? maybe not cuz no?
     if (!(getEl("side-menu").classList.contains("hidden"))) {
         openOrCloseMenu();
     }
@@ -425,7 +425,6 @@ getEl("btn-restart").addEventListener("click", async () => {
     //reloading the game
     location.reload();
 });
-
 /*
 function to create the button for each action in a zone
  */
@@ -481,7 +480,7 @@ async function initGame(): Promise<void> {
         await printToTerminal("CRITICAL ALERT: engine failure detected.", "alert");
         await loadZone(ZONES[GAME_INITIAL_STATE.currentZone]);
         getEl("frequency").textContent = currentState.currentFrequency;
-        queueQGMessage("TRUCK_STOPPED_START");
+        await queueQGMessage("TRUCK_STOPPED_START");
     }
 
 }

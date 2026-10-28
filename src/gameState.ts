@@ -259,3 +259,9 @@ export function importSaveFile(
 export function resetGameState(): void {
     currentState = structuredClone(GAME_INITIAL_STATE);
 }
+/*
+verify if the command is inactive or no
+ */
+export function isCommandInactive(command: string): boolean {
+    return currentState.inactiveCommands.includes(command);
+}

@@ -80,8 +80,13 @@ export async function queueQGMessage(message) {
         the manual to set the correct frequency`, "alert");
         return;
     }
-    await printToTerminal(`Incoming transmission from QG ( 112.400 MHz ). 
+    if (currentState.currentFrequency === "112.400") {
+        await handleQGFrequency();
+    }
+    else {
+        await printToTerminal(`Incoming transmission from QG ( 112.400 MHz ). 
     ${currentState.pendingQGMessages.length} pending`, "alert");
+    }
 }
 /*
 handle the reading of pending messages from the QG
