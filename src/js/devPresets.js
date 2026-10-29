@@ -1,3 +1,6 @@
+/*
+this const is to skip part of the game for the reviewer
+ */
 export const presetBeforeDiscoveringBody = {
     app: "DEAD_SIGNAL",
     version: 1,

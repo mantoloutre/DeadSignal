@@ -1,5 +1,7 @@
 import {GameState} from "./gameState.js";
-
+/*
+this const is to skip part of the game for the reviewer
+ */
 export const presetBeforeDiscoveringBody: GameState = {
     app: "DEAD_SIGNAL",
     version: 1,
