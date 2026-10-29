@@ -225,7 +225,7 @@ export const ZONES = {
     WATCH_POST: {
         id: "WATCH_POST",
         name: "INSIDE WATCH POST",
-        description: "you are now standing inside the watch post", //TODO do the lore
+        description: "you are now standing inside the watch post, the air feels heavy...", //TODO do the lore
         getActions: (): ZoneAction[] => {
             //focus
             if (getFocus() === FOCUS.TELLING_QG) {
@@ -243,20 +243,20 @@ export const ZONES = {
                 actions.push({
                     command: "search body",
                     description: "search Keller's body",
-                    execute: ,//TODO link the action
+                    execute: actionsFunc.searchKellerBody,
                     oneTime: true
                 });
             } else {
                 actions.push({
                     command: "take Keller's credential",
                     description: "take the little usb key that serves as credential",
-                    execute: ,//TODO link the action
+                    execute: actionsFunc.takeKellerCredential,
                     oneTime: true
                 });
                 actions.push({
                     command: "take pen",
                     description: "take the pen from his pocket",
-                    execute: ,//TODO link the action
+                    execute: actionsFunc.takePenFromKeller,
                     oneTime: true
                 });
             }
@@ -280,6 +280,7 @@ export const ZONES = {
                 description: "walk back to the snowy forest",
                 execute: actionsFunc.walkBackSnowyForestTowardTruck,
             });
+
 
             /*
             actions.push({
@@ -373,7 +374,7 @@ function getToolBoxActions(): ZoneAction[] {
                 execute: actionsFunc.pryToolBoxWithCrowbar
             });
         }
-        if (doesThePlayerHasTheItem(ITEMS.flare.id)){//TODO make autocompletion for item type???
+        if (doesThePlayerHasTheItem(ITEMS.flare.id)) {//TODO make autocompletion for item type???Q
             actions.push({
                 command: "try with heat (-1 flare)",
                 description: "try to light up a flare to try and head up the lock",

@@ -113,7 +113,7 @@ export async function openToolBoxTruckTrunkInit() {
 simple function to get out of the toolbox focus
 */
 export async function outOfToolBoxFocus() {
-    await printToTerminal("you decide to do something else than trying to open the toolbox", "action");
+    await printToTerminal("you decide to do something else than trying to open the toolbox.", "action");
     setFocus(null);
 }
 /*
@@ -122,7 +122,12 @@ you know using a flare inside a truck ain't the best idea...
 export async function doArsonToHeatTheLatch() {
     await printToTerminal("You light up a flare and put it close to the latch.", "action");
     await printToTerminal("There is now a lot of thick red smoke  in the trunk and around the trunk.", "system");
+    await printToTerminal("You wait around 50 seconds for the flare to go out and you wait" +
+        " around 2 more minutes for the latches to cooldown.", "action");
+    await printToTerminal("You try and you manage to open the toolbox", "action");
     removeItemFromInventory(ITEMS.flare.id);
+    addFlag("OPENED_TOOLBOX_INIT");
+    setFocus(null);
 }
 export async function takeAdjustableWrenchFromToolBoxInit() {
     await printToTerminal("you pickup the adjustable wrench from the toolbox.", "action");
@@ -216,9 +221,27 @@ export async function goInsideTheWatchPost() {
 ZONE : WATCH_POST
 #################
  */
+// go back outside the watchpost
 export async function walkBackOutside() {
     await printToTerminal("You walk back outside the watch tower", "action");
     await loadZone(ZONES.WATCH_POST_OUTSIDE);
+}
+// search Keller's body
+export async function searchKellerBody() {
+    await printToTerminal("You search Keller's body...", "action");
+    await printToTerminal("You find: his credentials, snow and a pen in his pocket", "system");
+    addFlag("SEARCHED_KELLER_BODY");
+}
+export async function takeKellerCredential() {
+    await printToTerminal("You take the credential from Keller's body", "action");
+    await addItemToInventory("keller_credential");
+}
+export async function takeKellerKeyCard() {
+    await printToTerminal("You take the access keycard from Keller's body", "action");
+    await addItemToInventory("keller_keycard");
+}
+export async function takePenFromKeller() {
+    await printToTerminal("You take Keller's favorite pen :c", "action");
 }
 //Tell QG for the dead body
 export async function tellQGAboutDeadBody() {
