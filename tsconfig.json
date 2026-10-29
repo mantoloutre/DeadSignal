@@ -13,5 +13,6 @@
   "include": [
     "src/**/*.ts",
     "src/main.ts"
-  ]
+  ],
+  "exclude": ["node_modules", "src/js"]
 }
