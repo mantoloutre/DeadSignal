@@ -62,7 +62,7 @@
 #InOut {
     display: flex;
     gap: 10px;
-    height: 90dvh;
+    height: 86vh;
 }
 
 #terminal-input, #permanent-button{
