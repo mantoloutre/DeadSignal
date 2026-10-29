@@ -9,8 +9,8 @@
     "outDir": "./js",
     "strict": true,
     "skipLibCheck": true,
-    "noEmit": false,
+    "noEmit": false
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "js"],
+  "exclude": ["node_modules", "js"]
 }
