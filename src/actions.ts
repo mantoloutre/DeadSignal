@@ -1,8 +1,9 @@
 import {addFlag, hasFlag, isCommandInactive} from "./gameState.js";
 import {loadZone, printToTerminal, renderZoneActions} from "./main.js";
-import {addItemToInventory} from "./inventory.js";
+import {addItemToInventory, removeItemFromInventory} from "./inventory.js";
 import {setFocus, ZONES} from "./world.js";
 import {addDiscoveredFrequency, queueQGMessage} from "./radioFrequency.js";
+import {ITEMS} from "./items.js";
 
 
 /*
@@ -26,6 +27,7 @@ export async function checkTruckTrunk(): Promise<void> {
 }
 
 export async function getOutOfTheDamnTruck(): Promise<void> {
+    await printToTerminal("You go out of the truck", "action");
     await loadZone(ZONES.OUTSIDE_TRUCK);
 }
 
@@ -80,6 +82,7 @@ ZONE : OUTSIDE TRUCK
 function to load the zone truck cabin, in case the player want to go back inside the truck
  */
 export async function goBackInThePrettyTruck(): Promise<void> {
+    await printToTerminal("You hop back in the truck", "action");
     await loadZone(ZONES.TRUCK_CABIN);
 }
 
@@ -125,6 +128,14 @@ simple function to get out of the toolbox focus
 export async function outOfToolBoxFocus(): Promise<void> {
     await printToTerminal("you decide to do something else than trying to open the toolbox", "action");
     setFocus(null);
+}
+/*
+you know using a flare inside a truck ain't the best idea...
+ */
+export async function doArsonToHeatTheLatch(): Promise<void> {
+    await printToTerminal("You light up a flare and put it close to the latch.", "action");
+    await printToTerminal("There is now a lot of thick red smoke  in the trunk and around the trunk.", "system");
+    removeItemFromInventory(ITEMS.flare.id);
 }
 
 export async function takeAdjustableWrenchFromToolBoxInit(): Promise<void> {
@@ -216,8 +227,8 @@ export async function goInsideTheWatchPost(): Promise<void> {
             "for a man whose station went dark only an hour ago.", "log");
         await printToTerminal("The crystalline residue isn't from the draft; It radiates " +
             "directly outward from his blown ear canals and across the spiderweb " +
-            "fracture of his visor", "log");
         //the player choices ( multiple choice
+            "fracture of his visor", "log");
         await printToTerminal("What do you do?", "system");
         await printToTerminal("Dead body: Tell the QG you found Keller's dead body", "system");
         await printToTerminal("Note left: Tell the QG about the note Keller wrote before dying", "system");
@@ -243,6 +254,7 @@ export async function walkBackOutside(): Promise<void> {
 export async function tellQGAboutDeadBody(): Promise<void> {
     await printToTerminal("Found Keller. He's dead.", "YOU"); //TODO do the color for YOU ( the player )
     //TODO add response from qg by adding to the queue
+    await queueQGMessage("QG_MESSAGE_TOLD_DEAD_BODY");
     addFlag("TOLD_QG_ABOUT_BODY");
 }
 

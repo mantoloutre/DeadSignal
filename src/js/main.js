@@ -401,6 +401,9 @@ function startGame() {
         console.error("failed to initialize game: ", err);
     });
 }
+/*
+ready state the document
+ */
 if (document.readyState === "loading") {
     window.addEventListener("DOMContentLoaded", startGame);
 }
