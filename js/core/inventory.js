@@ -1,5 +1,5 @@
 import { ITEMS } from "../data/items.js";
-import { printToTerminal } from "../main.js";
+import { printToTerminal } from "../ui/dom.js";
 import { currentState } from "./gameState.js";
 export async function addItemToInventory(itemId, amount = 1) {
     if (!ITEMS[itemId]) {

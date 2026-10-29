@@ -1,6 +1,7 @@
-import { getEl, toggleOverlay, flashButton, bindingAction } from "../main.js";
-import { appendDigitToFrequency, removeOneFromBuffer, getFormattedBuffer, handleFrequency, } from "../core/radioFrequency.js";
 import { currentState } from "../core/gameState.js";
+import { appendDigitToFrequency, getFormattedBuffer, handleFrequency, removeOneFromBuffer, } from "../core/radioFrequency.js";
+import { bindingAction, toggleOverlay } from "../main.js";
+import { flashButton, getEl } from "./dom.js";
 // buttons ( radio interface )
 const keypadButtons = document.querySelectorAll(".radio-key");
 const currentFrequencyDisplay = getEl("radio-current-frequency");

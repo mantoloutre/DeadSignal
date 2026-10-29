@@ -9,7 +9,8 @@ export const presetBeforeDiscoveringBody = {
     pendingQGMessages: ["QG_MESSAGE_GOT_TOWER_FIRST_TIME"],
     currentFrequency: "112.400",
     discoveredSignals: ["112.400"],
-    storyFlags: ["READ_MANUAL",
+    storyFlags: [
+        "READ_MANUAL",
         "OPENED_GLOVE_BOX",
         "TOOK_WINTER_GLOVE",
         "OPENED_HOOD_TRUCK_INIT",
@@ -23,15 +24,15 @@ export const presetBeforeDiscoveringBody = {
         //consumable
         {
             itemId: "truck_insurance_papers",
-            count: 1
+            count: 1,
         },
         {
             itemId: "duct_tape",
-            count: 1
+            count: 1,
         },
         {
             itemId: "flare",
-            count: 2
+            count: 2,
         },
         //tool
         {
@@ -49,7 +50,7 @@ export const presetBeforeDiscoveringBody = {
         {
             itemId: "insulated_wirecutter",
             count: 1,
-        }
+        },
     ],
     inactiveCommands: [
         "take gloves",
@@ -60,6 +61,6 @@ export const presetBeforeDiscoveringBody = {
         "take crowbar",
         "look into the truck's trunk",
         "pickup ajustable wrench",
-        "pickup duct tape"
-    ]
+        "pickup duct tape",
+    ],
 };

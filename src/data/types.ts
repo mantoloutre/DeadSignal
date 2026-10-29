@@ -25,3 +25,5 @@ export type RadioFrequencyName =
   | "CREW_BLACKBOX"
   | "MIL_OVERRIDE"
   | "KILL_SWITCH_PULSE";
+
+export type fromType = "system" | "alert" | "QG" | "log" | "action" | "YOU";

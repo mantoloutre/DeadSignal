@@ -1,5 +1,5 @@
-import { ITEMS, Item, ItemId } from "../data/items.js";
-import { printToTerminal } from "../main.js";
+import { ITEMS, type Item, type ItemId } from "../data/items.js";
+import { printToTerminal } from "../ui/dom.js";
 import { currentState } from "./gameState.js";
 
 export interface InventorySlot {

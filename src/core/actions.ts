@@ -1,9 +1,10 @@
-import { addFlag, hasFlag, isCommandInactive } from "./gameState.js";
-import { loadZone, printToTerminal, renderZoneActions } from "../main.js";
-import { addItemToInventory, removeItemFromInventory } from "./inventory.js";
-import { setFocus, ZONES } from "./world.js";
-import { addDiscoveredFrequency, queueQGMessage } from "./radioFrequency.js";
 import { ITEMS } from "../data/items.js";
+import { loadZone, renderZoneActions } from "../main.js";
+import { printToTerminal } from "../ui/dom.js";
+import { addFlag, hasFlag } from "./gameState.js";
+import { addItemToInventory, removeItemFromInventory } from "./inventory.js";
+import { addDiscoveredFrequency, queueQGMessage } from "./radioFrequency.js";
+import { setFocus, ZONES } from "./world.js";
 
 /*
 ##################

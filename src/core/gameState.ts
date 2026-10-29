@@ -1,8 +1,8 @@
+import { QG_MESSAGES, type QGMessageKey } from "../data/qgMessages.js";
+import type { StoryFlags } from "../data/storyFlags.js";
+import type { ZoneId } from "../data/types.js";
+import type { InventorySlot } from "./inventory.js";
 import { ZONES } from "./world.js";
-import { InventorySlot } from "./inventory.js";
-import { StoryFlags } from "../data/storyFlags.js";
-import { ZoneId } from "../data/types.js";
-import { QG_MESSAGES, QGMessageKey } from "../data/qgMessages.js";
 
 //base
 export interface GameState {
@@ -265,6 +265,10 @@ export function importSaveFile(
 
 export function resetGameState(): void {
   currentState = structuredClone(GAME_INITIAL_STATE);
+}
+//function to set the game state
+export function setGameState(state: GameState): void {
+  currentState = structuredClone(state);
 }
 /*
 verify if the command is inactive or no

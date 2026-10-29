@@ -5,7 +5,8 @@ import {
   handleFrequency,
   removeOneFromBuffer,
 } from "../core/radioFrequency.js";
-import { bindingAction, flashButton, getEl, toggleOverlay } from "../main.js";
+import { bindingAction, toggleOverlay } from "../main.js";
+import { flashButton, getEl } from "./dom.js";
 
 // buttons ( radio interface )
 const keypadButtons: NodeListOf<HTMLButtonElement> =

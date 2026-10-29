@@ -1,5 +1,5 @@
-import { ZONES } from "./world.js";
 import { QG_MESSAGES } from "../data/qgMessages.js";
+import { ZONES } from "./world.js";
 export const GAME_INITIAL_STATE = {
     app: "DEAD_SIGNAL",
     version: 1,
@@ -227,6 +227,10 @@ export function importSaveFile(onSuccess, onError) {
 }
 export function resetGameState() {
     currentState = structuredClone(GAME_INITIAL_STATE);
+}
+//function to set the game state
+export function setGameState(state) {
+    currentState = structuredClone(state);
 }
 /*
 verify if the command is inactive or no

@@ -64,4 +64,4 @@ export const presetBeforeDiscoveringBody: GameState = {
     "pickup ajustable wrench",
     "pickup duct tape",
   ],
-};
+} satisfies GameState;

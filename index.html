@@ -1,92 +1,101 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dead Signal</title>
     <!-- share tech mono font -->
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="src/css/variables.css">
-    <link rel="stylesheet" href="src/css/buttons.css">
-    <link rel="stylesheet" href="src/css/style.css">
-    <link rel="stylesheet" href="src/css/top-bar.css">
-    <link rel="stylesheet" href="src/css/inventory.css">
-    <link rel="stylesheet" href="src/css/radio-interface.css">
-    <link rel="stylesheet" href="src/css/main-content.css">
-    <script type="module" src="src/js/main.js"></script>
-</head>
-<body>
-<header id="top-bar" class="border-glow"><!-- for stats -->
-    <div class="button-placement">
-        <button id="button-open-side-menu" class="icon_btn">Menu</button>
-        <button id="btn-journal">Journal [NYT]</button>
-        <button id="btn-map">Map [NYT]</button>
-        <button id="btn-open-inventory">Inventory</button>
-        <button id="btn-open-radio-interface">Radio</button>
-    </div>
-    <div>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/css/variables.css" />
+    <link rel="stylesheet" href="src/css/buttons.css" />
+    <link rel="stylesheet" href="src/css/style.css" />
+    <link rel="stylesheet" href="src/css/top-bar.css" />
+    <link rel="stylesheet" href="src/css/inventory.css" />
+    <link rel="stylesheet" href="src/css/radio-interface.css" />
+    <link rel="stylesheet" href="src/css/main-content.css" />
+    <script type="module" src="js/main.js"></script>
+  </head>
+  <body>
+    <header id="top-bar" class="border-glow">
+      <!-- for stats -->
+      <div class="button-placement">
+        <button type="button" id="button-open-side-menu" class="icon_btn">
+          Menu
+        </button>
+        <button type="button" id="btn-journal">Journal [NYT]</button>
+        <button type="button" id="btn-map">Map [NYT]</button>
+        <button type="button" id="btn-open-inventory">Inventory</button>
+        <button type="button" id="btn-open-radio-interface">Radio</button>
+      </div>
+      <div>
         <p id="frequency"></p>
         <p id="zone-tag"></p>
-    </div>
-
-</header>
-<div id="menu-overlay" class="overlay hidden"></div><!-- to blur background -->
-<aside id="side-menu" class="side-menu hidden"><!-- TODO remove side-menu class? -->
-    <header>
+      </div>
+    </header>
+    <div id="menu-overlay" class="overlay hidden"></div>
+    <!-- to blur background -->
+    <aside id="side-menu" class="side-menu hidden">
+      <!-- TODO remove side-menu class? -->
+      <header>
         <h2>Menu</h2>
-    </header>
-    <div class="button-placement">
-        <button id="button-close-side-menu" class="btn-close">back</button>
-        <button class="menu-link" id="btn-save">Save</button>
-        <button class="menu-link" id="btn-export">Export</button>
-        <button id="btn-import">Import</button>
-        <button id="btn-restart">Restart the whole game</button>
-        <button id="keyPoint1">In WatchTower [NYT]</button>
-    </div>
-</aside>
-<aside id="cheat-menu" class="cheat-menu hidden"><!-- TODO remove cheat-menu class? -->
-    <header>
+      </header>
+      <div class="button-placement">
+        <button type="button" id="button-close-side-menu" class="btn-close">
+          back
+        </button>
+        <button type="button" class="menu-link" id="btn-save">Save</button>
+        <button type="button" class="menu-link" id="btn-export">Export</button>
+        <button type="button" id="btn-import">Import</button>
+        <button type="button" id="btn-restart">Restart the whole game</button>
+        <button type="button" id="keyPoint1">In WatchTower [NYT]</button>
+      </div>
+    </aside>
+    <aside id="cheat-menu" class="cheat-menu hidden">
+      <!-- TODO remove cheat-menu class? -->
+      <header>
         <h2>Cheat Menu</h2>
-    </header>
-    <div class="button-placement">
-        <button id="btn-close-cheat-menu">Close</button>
-        <button id="btn-skip-to-outside-watch-tower">skip to outside of watch tower</button>
+      </header>
+      <div class="button-placement">
+        <button type="button" id="btn-close-cheat-menu">Close</button>
+        <button type="button" id="btn-skip-to-outside-watch-tower">
+          skip to outside of watch tower
+        </button>
+      </div>
+    </aside>
+    <div id="inventory" class="border-glow">
+      <div id="inventory-container">
+        <div id="inventory-items-list"></div>
+        <div id="inventory-item-details"></div>
+      </div>
+      <button type="button" id="btn-close-inventory">Back</button>
     </div>
-</aside>
-<div id="inventory" class="border-glow">
-    <div id="inventory-container">
-        <div id="inventory-items-list">
-        </div>
-        <div id="inventory-item-details">
+    <div id="radio-interface" class="border-glow">
+      <p id="radio-current-frequency"></p>
+      <div id="radio-keyboard">
+        <button type="button" id="btn-k1" class="radio-key" value="1">1</button>
+        <button type="button" id="btn-k2" class="radio-key" value="2">2</button>
+        <button type="button" id="btn-k3" class="radio-key" value="3">3</button>
+        <button type="button" id="btn-k4" class="radio-key" value="4">4</button>
+        <button type="button" id="btn-k5" class="radio-key" value="5">5</button>
+        <button type="button" id="btn-k6" class="radio-key" value="6">6</button>
+        <button type="button" id="btn-k7" class="radio-key" value="7">7</button>
+        <button type="button" id="btn-k8" class="radio-key" value="8">8</button>
+        <button type="button" id="btn-k9" class="radio-key" value="9">9</button>
+        <button type="button" id="btn-delete-key">delete</button>
+        <button type="button" id="btn-k0" class="radio-key" value="0">0</button>
+        <button type="button" id="btn-tune">tune</button>
+      </div>
 
-        </div>
+      <button type="button" id="btn-close-radio-interface">Close</button>
     </div>
-    <button id="btn-close-inventory">Back</button>
-</div>
-<div id="radio-interface" class="border-glow">
-    <p id="radio-current-frequency"></p>
-    <div id="radio-keyboard">
-        <button id="btn-k1" class="radio-key" value="1">1</button>
-        <button id="btn-k2" class="radio-key" value="2">2</button>
-        <button id="btn-k3" class="radio-key" value="3">3</button>
-        <button id="btn-k4" class="radio-key" value="4">4</button>
-        <button id="btn-k5" class="radio-key" value="5">5</button>
-        <button id="btn-k6" class="radio-key" value="6">6</button>
-        <button id="btn-k7" class="radio-key" value="7">7</button>
-        <button id="btn-k8" class="radio-key" value="8">8</button>
-        <button id="btn-k9" class="radio-key" value="9">9</button>
-        <button id="btn-delete-key">delete</button>
-        <button id="btn-k0" class="radio-key" value="0">0</button>
-        <button id="btn-tune">tune</button>
-    </div>
-
-    <button id="btn-close-radio-interface">Close</button>
-
-</div>
-<main><!-- main gameplay -->
-    <section id="InOut">
+    <main>
+      <!-- main gameplay -->
+      <section id="InOut">
         <div id="terminal-input" class="border-glow">
-            <!-- //removed this section cuz its a test section TODO remove the whole code?
+          <!-- //removed this section cuz its a test section TODO remove the whole code?
             <div id=permanent-button>
             <button id="btn-print-hello">Print hi :D ( normal )</button>
             <button id="btn-print-hello-log">Print hi :D ( log )</button>
@@ -95,13 +104,10 @@
                 <button id="btn-apply-zone-snowy-forest">zone 2(snowy_forest)</button>
             </div>
             -->
-            <div id="zone-action"></div>
+          <div id="zone-action"></div>
         </div>
-        <div id="terminal-output" class="border-glow">
-
-        </div>
-    </section>
-</main>
-
-</body>
+        <div id="terminal-output" class="border-glow"></div>
+      </section>
+    </main>
+  </body>
 </html>

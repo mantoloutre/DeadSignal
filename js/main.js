@@ -1,28 +1,10 @@
-import { exportSaveFile, currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage, saveTheDataToLocalStorage, } from "./core/gameState.js";
-import { setFocus, ZONES } from "./core/world.js";
-import { ITEMS } from "./data/items.js";
+import { clearTheLocalStorage, currentState, exportSaveFile, GAME_INITIAL_STATE, importSaveFile, loadFromTheLocalStorage, resetGameState, saveTheDataToLocalStorage, setGameState, } from "./core/gameState.js";
 import { getFormattedBuffer, handleFrequency, queueQGMessage, setBuffer, } from "./core/radioFrequency.js";
+import { setFocus, ZONES } from "./core/world.js";
+import { presetBeforeDiscoveringBody } from "./data/devPresets.js";
+import { ITEMS } from "./data/items.js";
+import { flashButton, getEl, isPrinting, printToTerminal } from "./ui/dom.js";
 import { closeRadioInterface } from "./ui/radioInterface.js";
-/*
-used to optimize the instanciation of elements
- */
-export const elementCache = new Map();
-/*
-get an element from the ui
-@param id the id of the element we want
- */
-export function getEl(id) {
-    const cached = elementCache.get(id);
-    if (cached) {
-        return cached;
-    }
-    const element = document.getElementById(id);
-    if (!element) {
-        throw new Error(`Element ${id} not found in DOM`);
-    }
-    elementCache.set(id, element);
-    return element;
-}
 /*
 load a zone
 @param zone the zone we want to load
@@ -77,7 +59,6 @@ export function renderThePlayerInventory() {
         //if the inventory is not there or no item
         return;
     }
-    const fragment = document.createDocumentFragment();
     currentState.playerInventory.forEach((slot) => {
         const item = ITEMS[slot.itemId];
         if (!item)
@@ -137,7 +118,10 @@ export function bindingAction(button, action) {
         action();
     });
 }
-function skipToZoneOutsideWatchpost() { }
+//bind the skip zone action to its function
+async function skipToZoneOutsideWatchpost() {
+    setGameState(presetBeforeDiscoveringBody);
+}
 //close or open the side menu
 function openOrCloseCheatMenu() {
     //TODO maybe add a menu-overlay? maybe not cuz no?
@@ -184,12 +168,6 @@ function for opening or closing the radio interface for tuning the radio
 /*
 open the interface for the radio tuning
  */
-async function applyZone1Test() {
-    await loadZone(ZONES.TRUCK_CABIN);
-}
-async function applyZone2Test() {
-    await loadZone(ZONES.SNOWY_FOREST);
-}
 async function saveGame() {
     saveTheDataToLocalStorage();
     await printToTerminal("Game Saved", "system");
@@ -197,6 +175,7 @@ async function saveGame() {
 // buttons
 bindingAction(getEl("btn-open-inventory"), openInventory);
 bindingAction(getEl("btn-close-inventory"), closeInventory);
+bindingAsyncAction(getEl("btn-skip-to-outside-watch-tower"), skipToZoneOutsideWatchpost);
 bindingAction(getEl("btn-close-radio-interface"), closeRadioInterface);
 bindingAction(getEl("btn-close-cheat-menu"), openOrCloseCheatMenu);
 //general
@@ -242,7 +221,6 @@ shortcut ( press escape to close/open side menu, instead of having to click a sm
 window.addEventListener("keydown", (keyEvent) => {
     if (isPrinting)
         return; //clause guard if it's writing in terminal
-    const sideMenu = getEl("side-menu");
     if (keyEvent.key === "Escape") {
         openOrCloseMenu();
     }
@@ -250,30 +228,6 @@ window.addEventListener("keydown", (keyEvent) => {
         openOrCloseCheatMenu();
     }
 });
-export let isPrinting = false;
-export function flashButton(btn) {
-    btn.classList.add("btn-error-flash");
-    setTimeout(() => btn.classList.remove("btn-error-flash"), 300);
-}
-/*
-function to print to the terminal :D
-@param from the place the text come from(log(yellow), alert(red), normal(green) )
- */
-export async function printToTerminal(text, from, speedMs = 15) {
-    const outputTerminal = getEl("terminal-output");
-    isPrinting = true;
-    const prettyLine = document.createElement("div");
-    prettyLine.className = `terminal-line ${from}`;
-    outputTerminal.append(prettyLine);
-    const textNode = document.createTextNode("");
-    prettyLine.append(textNode);
-    for (let i = 0; i < text.length; ++i) {
-        textNode.appendData(text[i]);
-        outputTerminal.scrollTop = outputTerminal.scrollHeight;
-        await sleep(speedMs);
-    }
-    isPrinting = false;
-}
 let confirmingReset = false;
 let resetTimeout = null;
 getEl("btn-restart").addEventListener("click", async () => {
@@ -323,7 +277,7 @@ function createButtonZoneActions(action, zone) {
     });
     actionZone.append(button);
 }
-function sleep(ms) {
+export function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 /*
