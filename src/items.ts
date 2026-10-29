@@ -59,5 +59,17 @@ export const ITEMS = {
         name: "insulated Wirecutter",
         type: "tool",
         description: "a pair of insulated wire cutter. protects from electricity when using with breaker box"
+    },
+    keller_keycard: {
+        id: "kellerKeycard",
+        name: "keller's keycard",
+        type: "tool",
+        description: "the the access keycard you took from keller's body. The QG never mentionned a keycard?"
+    },
+    keller_credential: {
+        id: "keller_credential",
+        name: "keller's credentials",
+        type: "tool",
+        description: "A little usb key that serves as login for the main console and the relay's console"
     }
-}as const;
+} as const;
