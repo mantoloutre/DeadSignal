@@ -11,8 +11,7 @@
     "noEmit": false
   },
   "include": [
-    "src/**/*.ts",
-    "src/main.ts"
+    "src/**/*.ts"
   ],
   "exclude": ["node_modules", "src/js"]
 }
