@@ -16,9 +16,10 @@ export async function addItemToInventory(
     //false if item came outta nowhere and is unknown
     return false;
   }
-  const existSlot = currentState.playerInventory.find(
-    (slot) => slot.itemId === itemId,
-  );
+  const existSlot: InventorySlot | undefined =
+    currentState.playerInventory.find(
+      (slot: InventorySlot): boolean => slot.itemId === itemId,
+    );
   if (existSlot) {
     //if tha item is a consumable we gonna add one to the amount
     //can stack consumable, cant stack the rest. no you are not gonna hold 48 crowbar in your inventory.

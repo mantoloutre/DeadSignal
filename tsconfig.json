@@ -3,15 +3,14 @@
     "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "moduleDetection": "force",
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "rootDir": "./src",
-    "outDir": "./src/js",
+    "outDir": "./js",
     "strict": true,
     "skipLibCheck": true,
-    "noEmit": false
+    "noEmit": false,
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": ["node_modules", "src/js"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "js"],
 }

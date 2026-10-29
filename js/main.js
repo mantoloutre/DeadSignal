@@ -1,7 +1,8 @@
 import { exportSaveFile, currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage, saveTheDataToLocalStorage, } from "./core/gameState.js";
 import { setFocus, ZONES } from "./core/world.js";
 import { ITEMS } from "./data/items.js";
-import { appendDigitToFrequency, getFormattedBuffer, handleFrequency, queueQGMessage, removeOneFromBuffer, setBuffer, } from "./core/radioFrequency.js";
+import { getFormattedBuffer, handleFrequency, queueQGMessage, setBuffer, } from "./core/radioFrequency.js";
+import { closeRadioInterface } from "./ui/radioInterface.js";
 /*
 used to optimize the instanciation of elements
  */
@@ -100,36 +101,10 @@ export function renderThePlayerInventory() {
         inventoryItemList.append(buttonForDaItem);
     });
 }
-// buttons ( radio interface )
-const keypadButtons = document.querySelectorAll(".radio-key");
-const currentFrequencyDisplay = getEl("radio-current-frequency");
-keypadButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-        const value = btn.value;
-        if (!btn.value || !currentFrequencyDisplay)
-            return;
-        currentFrequencyDisplay.textContent = appendDigitToFrequency(value);
-    });
-});
-getEl("btn-delete-key").addEventListener("click", () => {
-    currentFrequencyDisplay.textContent = removeOneFromBuffer().toString();
-});
-getEl("btn-tune").addEventListener("click", async () => {
-    const buffer = getFormattedBuffer();
-    if (buffer.length === 7 && buffer !== "---.---") {
-        currentState.currentFrequency = buffer;
-        getEl("frequency").textContent = buffer;
-        closeRadioInterface();
-        await handleFrequency();
-    }
-    else {
-        flashButton(getEl("btn-tune"));
-    }
-});
 /*
 simple function to toggle the overlay cuz I don't want to repeat myself
  */
-function toggleOverlay() {
+export function toggleOverlay() {
     getEl("menu-overlay").classList.toggle("hidden");
 }
 /*
@@ -153,7 +128,7 @@ binding a button and an action while making sure nothing is being printed to ter
  @param action the action we want to bind to the button
  @note only usable with function that return void
  */
-function bindingAction(button, action) {
+export function bindingAction(button, action) {
     button.addEventListener("click", () => {
         if (isPrinting) {
             flashButton(button);
@@ -206,22 +181,9 @@ function closeInventory() {
 /*
 function for opening or closing the radio interface for tuning the radio
  */
-function closeRadioInterface() {
-    getEl("radio-interface").classList.toggle("radio-interface-active");
-    toggleOverlay();
-    if (!getEl("side-menu").classList.contains("hidden")) {
-        toggleOverlay();
-    }
-}
 /*
 open the interface for the radio tuning
  */
-function openRadioInterface() {
-    getEl("radio-interface").classList.add("radio-interface-active");
-    if (getEl("side-menu").classList.contains("hidden")) {
-        toggleOverlay();
-    }
-}
 async function applyZone1Test() {
     await loadZone(ZONES.TRUCK_CABIN);
 }
@@ -235,7 +197,6 @@ async function saveGame() {
 // buttons
 bindingAction(getEl("btn-open-inventory"), openInventory);
 bindingAction(getEl("btn-close-inventory"), closeInventory);
-bindingAction(getEl("btn-open-radio-interface"), openRadioInterface);
 bindingAction(getEl("btn-close-radio-interface"), closeRadioInterface);
 bindingAction(getEl("btn-close-cheat-menu"), openOrCloseCheatMenu);
 //general
@@ -290,7 +251,7 @@ window.addEventListener("keydown", (keyEvent) => {
     }
 });
 export let isPrinting = false;
-function flashButton(btn) {
+export function flashButton(btn) {
     btn.classList.add("btn-error-flash");
     setTimeout(() => btn.classList.remove("btn-error-flash"), 300);
 }

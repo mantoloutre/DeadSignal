@@ -135,12 +135,6 @@ export async function handleFrequency() {
     // if everything is good
     switch (formattedFreq) {
         case "112.400":
-            /*
-                  if (verifyUnlockedFrequency(formattedFreq) {
-                  await handleQGFrequency();
-                  }
-                  break;
-                   */
             await handleQGFrequency();
             break;
         case "666.666":

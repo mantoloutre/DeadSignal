@@ -1,24 +1,22 @@
 import {
-  exportSaveFile,
-  currentState,
-  importSaveFile,
   clearTheLocalStorage,
+  currentState,
+  exportSaveFile,
   GAME_INITIAL_STATE,
-  resetGameState,
+  importSaveFile,
   loadFromTheLocalStorage,
+  resetGameState,
   saveTheDataToLocalStorage,
 } from "./core/gameState.js";
-import { setFocus, Zone, ZoneAction, ZONES } from "./core/world.js";
-import { Item, ITEMS } from "./data/items.js";
 import {
-  appendDigitToFrequency,
   getFormattedBuffer,
   handleFrequency,
-  handleQGFrequency,
   queueQGMessage,
-  removeOneFromBuffer,
   setBuffer,
 } from "./core/radioFrequency.js";
+import { setFocus, ZONES, type Zone, type ZoneAction } from "./core/world.js";
+import { ITEMS, type Item } from "./data/items.js";
+import { closeRadioInterface } from "./ui/radioInterface.js";
 
 interface UIElements {
   // buttons ( test )
@@ -155,7 +153,6 @@ export function renderThePlayerInventory(): void {
     //if the inventory is not there or no item
     return;
   }
-  const fragment: DocumentFragment = document.createDocumentFragment();
   currentState.playerInventory.forEach((slot): void => {
     const item: Item = ITEMS[slot.itemId];
     if (!item) return;
@@ -179,38 +176,10 @@ export function renderThePlayerInventory(): void {
   });
 }
 
-// buttons ( radio interface )
-const keypadButtons: NodeListOf<HTMLButtonElement> =
-  document.querySelectorAll<HTMLButtonElement>(".radio-key");
-const currentFrequencyDisplay: HTMLParagraphElement = getEl(
-  "radio-current-frequency",
-);
-keypadButtons.forEach((btn) => {
-  btn.addEventListener("click", (): void => {
-    const value: string = btn.value;
-    if (!btn.value || !currentFrequencyDisplay) return;
-    currentFrequencyDisplay.textContent = appendDigitToFrequency(value);
-  });
-});
-getEl("btn-delete-key").addEventListener("click", (): void => {
-  currentFrequencyDisplay.textContent = removeOneFromBuffer().toString();
-});
-getEl("btn-tune").addEventListener("click", async (): Promise<void> => {
-  const buffer: string = getFormattedBuffer();
-  if (buffer.length === 7 && buffer !== "---.---") {
-    currentState.currentFrequency = buffer;
-    getEl("frequency").textContent = buffer;
-    closeRadioInterface();
-    await handleFrequency();
-  } else {
-    flashButton(getEl("btn-tune"));
-  }
-});
-
 /*
 simple function to toggle the overlay cuz I don't want to repeat myself
  */
-function toggleOverlay(): void {
+export function toggleOverlay(): void {
   getEl("menu-overlay").classList.toggle("hidden");
 }
 
@@ -239,7 +208,10 @@ binding a button and an action while making sure nothing is being printed to ter
  @param action the action we want to bind to the button
  @note only usable with function that return void
  */
-function bindingAction(button: HTMLButtonElement, action: () => void): void {
+export function bindingAction(
+  button: HTMLButtonElement,
+  action: () => void,
+): void {
   button.addEventListener("click", (): void => {
     if (isPrinting) {
       flashButton(button);
@@ -300,31 +272,10 @@ function closeInventory(): void {
 /*
 function for opening or closing the radio interface for tuning the radio
  */
-function closeRadioInterface(): void {
-  getEl("radio-interface").classList.toggle("radio-interface-active");
-  toggleOverlay();
-  if (!getEl("side-menu").classList.contains("hidden")) {
-    toggleOverlay();
-  }
-}
 
 /*
 open the interface for the radio tuning
  */
-function openRadioInterface(): void {
-  getEl("radio-interface").classList.add("radio-interface-active");
-  if (getEl("side-menu").classList.contains("hidden")) {
-    toggleOverlay();
-  }
-}
-
-async function applyZone1Test(): Promise<void> {
-  await loadZone(ZONES.TRUCK_CABIN);
-}
-
-async function applyZone2Test(): Promise<void> {
-  await loadZone(ZONES.SNOWY_FOREST);
-}
 
 async function saveGame(): Promise<void> {
   saveTheDataToLocalStorage();
@@ -334,7 +285,7 @@ async function saveGame(): Promise<void> {
 // buttons
 bindingAction(getEl("btn-open-inventory"), openInventory);
 bindingAction(getEl("btn-close-inventory"), closeInventory);
-bindingAction(getEl("btn-open-radio-interface"), openRadioInterface);
+
 bindingAction(getEl("btn-close-radio-interface"), closeRadioInterface);
 bindingAction(getEl("btn-close-cheat-menu"), openOrCloseCheatMenu);
 //general
@@ -385,7 +336,6 @@ shortcut ( press escape to close/open side menu, instead of having to click a sm
  */
 window.addEventListener("keydown", (keyEvent: KeyboardEvent): void => {
   if (isPrinting) return; //clause guard if it's writing in terminal
-  const sideMenu: HTMLDivElement = getEl("side-menu");
   if (keyEvent.key === "Escape") {
     openOrCloseMenu();
   }
@@ -395,7 +345,7 @@ window.addEventListener("keydown", (keyEvent: KeyboardEvent): void => {
 });
 export let isPrinting: boolean = false;
 
-function flashButton(btn: HTMLButtonElement): void {
+export function flashButton(btn: HTMLButtonElement): void {
   btn.classList.add("btn-error-flash");
   setTimeout((): void => btn.classList.remove("btn-error-flash"), 300);
 }
@@ -426,15 +376,15 @@ export async function printToTerminal(
 
 let confirmingReset: boolean = false;
 let resetTimeout: number | null = null;
-getEl("btn-restart").addEventListener("click", async () => {
-  const buttonRestart = getEl("btn-restart");
+getEl("btn-restart").addEventListener("click", async (): Promise<void> => {
+  const buttonRestart: HTMLButtonElement = getEl("btn-restart");
   if (!confirmingReset) {
     // first click
     confirmingReset = true;
     buttonRestart.textContent = "Are you sure? (click again)";
     flashButton(buttonRestart);
     // 4 seconds timeout
-    resetTimeout = window.setTimeout(() => {
+    resetTimeout = window.setTimeout((): void => {
       confirmingReset = false;
       buttonRestart.textContent = "Restart the whole game";
     }, 4000);

@@ -1,19 +1,15 @@
-export interface StoryChoice {
-
-}
-
 /*
 the type for the zones ( it have to be done manually or else it causes a circular references )
  */
 export type ZoneId =
-    | "TRUCK_CABIN"
-    | "OUTSIDE_TRUCK"
-    | "SNOWY_FOREST"
-    | "GATE_CHECKPOINT"
-    | "WATCH_POST_OUTSIDE"
-    | "WATCH_POST"
-    //| "EXCAVATION_CAMP"
-    /*
+  | "TRUCK_CABIN"
+  | "OUTSIDE_TRUCK"
+  | "SNOWY_FOREST"
+  | "GATE_CHECKPOINT"
+  | "WATCH_POST_OUTSIDE"
+  | "WATCH_POST";
+//| "EXCAVATION_CAMP"
+/*
     | "RELAY_ALPHA_EXTERIOR"
     | "RELAY_ALPHA_BUNKER"
     | "SHATTERED_RIDGE"
@@ -23,9 +19,9 @@ export type ZoneId =
 
 */
 export type RadioFrequencyName =
-    | "QG_FREQUENCY"
-    | "PROMETHEUS_BEACON"
-    | "RELAY_A01_SYNC"
-    | "CREW_BLACKBOX"
-    | "MIL_OVERRIDE"
-    | "KILL_SWITCH_PULSE"
+  | "QG_FREQUENCY"
+  | "PROMETHEUS_BEACON"
+  | "RELAY_A01_SYNC"
+  | "CREW_BLACKBOX"
+  | "MIL_OVERRIDE"
+  | "KILL_SWITCH_PULSE";
