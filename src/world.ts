@@ -238,7 +238,27 @@ export const ZONES = {
                 description: "go back outside the watch post",
                 execute: actionsFunc.walkBackOutside,
             });
-            if (hasFlag("DISCOVERED_KELLER_BODY")) {
+            if (!hasFlag("SEARCHED_KELLER_BODY")
+                && hasFlag("DISCOVERED_KELLER_BODY")){
+                actions.push({
+                    command: "search body",
+                    description: "search Keller's body",
+                    execute: ,//TODO link the action
+                    oneTime: true
+                });
+            } else {
+                actions.push({
+                    command: "take Keller's credential",
+                    description: "take the little usb key that serves as credential",
+                    execute: ,//TODO link the action
+                    oneTime: true
+                });
+                actions.push({
+                    command: "take pen",
+                    description: "take the pen from his pocket",
+                    execute: ,//TODO link the action
+                    oneTime: true
+                });
             }
             return actions;
         }
