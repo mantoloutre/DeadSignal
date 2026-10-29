@@ -208,11 +208,7 @@ export const ZONES = {
 
             //normal actions
             const actions: ZoneAction[] = [];
-            actions.push({
-                command: "go back in forest toward truck",
-                description: "walk back in the forest toward the truck ( to the intersection )",
-                execute: actionsFunc.walkBackSnowyForestTowardTruck,
-            });
+
             actions.push({
                 command: "go inside the watch post",
                 description: "walk inside the watch post",
@@ -279,6 +275,11 @@ export const ZONES = {
                 command: "walk back to forest trail",
                 description: "walk back to the snowy forest",
                 execute: actionsFunc.walkBackSnowyForestTowardTruck,
+            });
+            actions.push({
+                command: "walk toward the watch post",
+                description: "walk to the watch post",
+                execute: actionsFunc.walkTowardMainWatchPost
             });
 
 
