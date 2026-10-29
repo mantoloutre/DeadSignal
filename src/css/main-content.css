@@ -45,7 +45,8 @@
     text-shadow: 0 0 3px white;
 }
 .YOU::before {
-    content: "[YOU"
+    content: "[YOU] : ";
+    font-weight: bold;
 }
 #terminal-output {
     width: 70%;

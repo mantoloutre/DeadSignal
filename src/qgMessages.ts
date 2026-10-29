@@ -3,7 +3,7 @@ export const QG_MESSAGES = {
     TRUCK_STOPPED_START: "Technician 4-Echo, your tactical truck has halted. " +
         "If you cannot restart it, proceed on foot and go reverse Keller's kill switch.",
     QG_MESSAGE_GOT_TOWER_FIRST_TIME: "Technician 4-Echo, have you arrived at the tower yet? It has been an hour " +
-        "since you have been sent. If not, get moving and send us a report",
+        "since you have been sent. If not, get moving and send us a report.",
     QG_MESSAGE_TOLD_DEAD_BODY: "That's odd, we haven't yet send a team to execute his breach of contract, " +
         "we were giving him a single chance of undoing what he had done... No time to deal with that now, " +
         "whoever took care of him saved us trouble. " +
