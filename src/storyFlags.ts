@@ -41,4 +41,8 @@ export const StoryFlags = {
     // verification
     CONFIRMATION1: "CONFIRMATION1",
 
+    // weird stuff I'm testing out
+    FIRST_SATAN: "FIRST_SATAN",
+    SECOND_SATAN: "SECOND_SATAN",
+    THIRD_SATAN: "THIRD_SATAN"
 } as const;

@@ -143,5 +143,10 @@ export async function handleFrequency() {
              */
             await handleQGFrequency();
             break;
+        case "666.666":
+            await printToTerminal("why are you trying to reach satan???", "alert");
+            await printToTerminal("Satan does not want to be disturbed," +
+                " leave him alone or consequence will apply", "alert");
+            break;
     }
 }
