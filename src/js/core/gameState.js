@@ -72,7 +72,8 @@ export function parseSaveData(json) {
         return null;
     }
     //step 5
-    if (textParsed === null || typeof textParsed !== "object" ||
+    if (textParsed === null ||
+        typeof textParsed !== "object" ||
         Array.isArray(textParsed)) {
         return null;
     }
@@ -91,8 +92,10 @@ export function parseSaveData(json) {
         if (!("itemId" in slot) || !("count" in slot))
             return false;
         const entry = slot;
-        return (typeof entry.itemId === "string" && typeof entry.count === "number"
-            && Number.isInteger(entry.count) && entry.count > 0);
+        return (typeof entry.itemId === "string" &&
+            typeof entry.count === "number" &&
+            Number.isInteger(entry.count) &&
+            entry.count > 0);
     };
     const maybeInvalidInactiveCommand = (cmd) => {
         return typeof cmd === "string";
@@ -101,10 +104,11 @@ export function parseSaveData(json) {
         return typeof msg === "string" && msg in QG_MESSAGES;
     };
     const validStoryFlags = Array.isArray(obj.storyFlags)
-        ? (obj.storyFlags.filter((f) => typeof f === "string")) :
-        [...GAME_INITIAL_STATE.storyFlags];
+        ? obj.storyFlags.filter((f) => typeof f === "string")
+        : [...GAME_INITIAL_STATE.storyFlags];
     const validCurrentZone = maybeInvalidZone(obj.currentZone)
-        ? obj.currentZone : GAME_INITIAL_STATE.currentZone;
+        ? obj.currentZone
+        : GAME_INITIAL_STATE.currentZone;
     const validPlayerInventory = Array.isArray(obj.playerInventory)
         ? obj.playerInventory.filter(maybeInvalidInventorySlot)
         : [...GAME_INITIAL_STATE.playerInventory];
@@ -119,18 +123,18 @@ export function parseSaveData(json) {
         ...GAME_INITIAL_STATE,
         currentZone: validCurrentZone,
         powerLevel: typeof obj.powerLevel === "number" && Number.isFinite(obj.powerLevel)
-            ? Math.max(0, obj.powerLevel) :
-            GAME_INITIAL_STATE.powerLevel,
+            ? Math.max(0, obj.powerLevel)
+            : GAME_INITIAL_STATE.powerLevel,
         pendingQGMessages: validPendingQGMessages,
         currentFrequency: typeof obj.currentFrequency === "string"
-            ? obj.currentFrequency :
-            GAME_INITIAL_STATE.currentFrequency,
+            ? obj.currentFrequency
+            : GAME_INITIAL_STATE.currentFrequency,
         discoveredSignals: Array.isArray(obj.discoveredSignals)
             ? obj.discoveredSignals.filter((s) => typeof s === "string")
             : [...GAME_INITIAL_STATE.discoveredSignals],
         storyFlags: validStoryFlags,
         playerInventory: validPlayerInventory,
-        inactiveCommands: validInactiveCommands
+        inactiveCommands: validInactiveCommands,
     };
 }
 const LOCAL_STORAGE_KEY = "DEAD_SIGNAL_AUTOSAVE";
