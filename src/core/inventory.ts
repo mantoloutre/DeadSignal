@@ -1,53 +1,68 @@
-import {ITEMS, Item, ItemId} from "../data/items.js";
-import {printToTerminal} from "../main.js";
-import {currentState} from "./gameState.js";
+import { ITEMS, Item, ItemId } from "../data/items.js";
+import { printToTerminal } from "../main.js";
+import { currentState } from "./gameState.js";
 
 export interface InventorySlot {
-    itemId: ItemId;
-    count: number;
+  itemId: ItemId;
+  count: number;
 }
 
-export async function addItemToInventory(itemId: ItemId, amount: number = 1): Promise<boolean> {
-    if (!ITEMS[itemId]) {
-        console.error(`why is that here: ${itemId} ???`);
-        //false if item came outta nowhere and is unknown
-        return false;
+export async function addItemToInventory(
+  itemId: ItemId,
+  amount: number = 1,
+): Promise<boolean> {
+  if (!ITEMS[itemId]) {
+    console.error(`why is that here: ${itemId} ???`);
+    //false if item came outta nowhere and is unknown
+    return false;
+  }
+  const existSlot = currentState.playerInventory.find(
+    (slot) => slot.itemId === itemId,
+  );
+  if (existSlot) {
+    //if tha item is a consumable we gonna add one to the amount
+    //can stack consumable, cant stack the rest. no you are not gonna hold 48 crowbar in your inventory.
+    if (ITEMS[itemId].type === "consumable") {
+      existSlot.count += amount;
+      //then we return true :3
+      return true;
     }
-    const existSlot = currentState.playerInventory.find(slot => slot.itemId === itemId);
-    if (existSlot) {
-        //if tha item is a consumable we gonna add one to the amount
-        //can stack consumable, cant stack the rest. no you are not gonna hold 48 crowbar in your inventory.
-        if (ITEMS[itemId].type === "consumable") {
-            existSlot.count += amount;
-            //then we return true :3
-            return true;
-        }
-        //if it's not a consumable (and its in inventory), we just return false ( and ask... why...)
-        await printToTerminal(`you already have the item :  ${ITEMS[itemId].name} in your inventory, you don't need 2 of it`, "system");
-        return false;
-    }
-    currentState.playerInventory.push({itemId, count: amount});
-    return true;
+    //if it's not a consumable (and its in inventory), we just return false ( and ask... why...)
+    await printToTerminal(
+      `you already have the item :  ${ITEMS[itemId].name} in your inventory, you don't need 2 of it`,
+      "system",
+    );
+    return false;
+  }
+  currentState.playerInventory.push({ itemId, count: amount });
+  return true;
 }
 
-export function removeItemFromInventory(itemId: string, amount: number = 1): boolean {
-    //if you don't have it in ur inventory
-    if (!doesThePlayerHasTheItem(itemId)) {
-        return false;
-    }
-    const slotIndex: number = currentState.playerInventory.findIndex(slot => slot.itemId === itemId);
-    currentState.playerInventory[slotIndex].count -= amount;
-    if (currentState.playerInventory[slotIndex].count <= 0) {
-        currentState.playerInventory.splice(slotIndex, 1);
-    }
-    //if you have it in your inventory
-    return true;
+export function removeItemFromInventory(
+  itemId: string,
+  amount: number = 1,
+): boolean {
+  //if you don't have it in ur inventory
+  if (!doesThePlayerHasTheItem(itemId)) {
+    return false;
+  }
+  const slotIndex: number = currentState.playerInventory.findIndex(
+    (slot) => slot.itemId === itemId,
+  );
+  currentState.playerInventory[slotIndex].count -= amount;
+  if (currentState.playerInventory[slotIndex].count <= 0) {
+    currentState.playerInventory.splice(slotIndex, 1);
+  }
+  //if you have it in your inventory
+  return true;
 }
 
 export function doesThePlayerHasTheItem(itemId: string): boolean {
-    return currentState.playerInventory.some(slot => slot.itemId === itemId && slot.count > 0);
+  return currentState.playerInventory.some(
+    (slot) => slot.itemId === itemId && slot.count > 0,
+  );
 }
 
 export function getThePlayerInventoryItem(): Item[] {
-    return currentState.playerInventory.map(slot => ITEMS[slot.itemId]);
+  return currentState.playerInventory.map((slot) => ITEMS[slot.itemId]);
 }

@@ -18,9 +18,9 @@ export async function checkTruckTrunk() {
         await printToTerminal("You force the frozen trunk open with your hands. Inside, you spot" +
             " a heavy toolbox, a small black barrel full of wine, a crowbar and two spare tires.", "action");
     } /*else {
-        await printToTerminal("Inside the truck, nothing changed, still a heavy toolbox, " +
-            "the barrel of wine and the two spare tire.", "system");
-    }*/ //TODO maybe add this later on
+          await printToTerminal("Inside the truck, nothing changed, still a heavy toolbox, " +
+              "the barrel of wine and the two spare tire.", "system");
+      }*/ //TODO maybe add this later on
 }
 export async function getOutOfTheDamnTruck() {
     await printToTerminal("You go out of the truck", "action");
@@ -284,4 +284,4 @@ export async function goBackToForestTrail() {
 ######
 OTHER
 ######
- */ 
+ */

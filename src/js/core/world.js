@@ -9,7 +9,7 @@ this is for subzone ( mainly puzzle )
 export const FOCUS = {
     TOOLBOX: "TOOLBOX",
     JUNCTION_BOX: "JUNCTION_BOX",
-    TELLING_QG: "TELLING_QG"
+    TELLING_QG: "TELLING_QG",
 };
 let currentFocus = null;
 /*
@@ -57,7 +57,7 @@ export const ZONES = {
                 });
             }
             return actions;
-        }
+        },
     },
     OUTSIDE_TRUCK: {
         id: "OUTSIDE_TRUCK",
@@ -74,7 +74,7 @@ export const ZONES = {
             actions.push({
                 command: "get back in the truck",
                 description: "go back inside the truck",
-                execute: actionsFunc.goBackInThePrettyTruck
+                execute: actionsFunc.goBackInThePrettyTruck,
             });
             actions.push({
                 command: "walk toward forest",
@@ -83,13 +83,15 @@ export const ZONES = {
             });
             actions.push({
                 command: hasFlag("OPENED_HOOD_TRUCK_INIT")
-                    ? "look at the engine" : "open the hood and look at the engine",
+                    ? "look at the engine"
+                    : "open the hood and look at the engine",
                 description: "look at the engine and open the hood if its in the way",
                 execute: actionsFunc.openTheHoodAndOrLookAtTheEngineInit,
             });
             actions.push({
                 command: hasFlag("OPENED_TRUCK_TRUNK_INIT")
-                    ? "look into the truck's trunk" : "open the truck's trunk",
+                    ? "look into the truck's trunk"
+                    : "open the truck's trunk",
                 description: "check the truck trunk's to see if there is anything useful in there",
                 execute: actionsFunc.checkTruckTrunk,
                 oneTime: true,
@@ -99,10 +101,12 @@ export const ZONES = {
                     command: "take crowbar",
                     description: "take the crowbar from the trunk",
                     execute: actionsFunc.addCrowBarToThePlayerInventory,
-                    oneTime: true
+                    oneTime: true,
                 });
                 actions.push({
-                    command: hasFlag("OPENED_TOOLBOX_INIT") ? "look into the toolbox" : "open the toolbox",
+                    command: hasFlag("OPENED_TOOLBOX_INIT")
+                        ? "look into the toolbox"
+                        : "open the toolbox",
                     description: "open the toolbox ",
                     execute: actionsFunc.openToolBoxTruckTrunkInit,
                 });
@@ -112,17 +116,17 @@ export const ZONES = {
                     command: "pickup duct tape",
                     description: "take the roll of duct tape from the toolbox",
                     execute: actionsFunc.takeDuctTapeFromToolBoxInit,
-                    oneTime: true
+                    oneTime: true,
                 });
                 actions.push({
                     command: "pickup ajustable wrench",
                     description: "take the ajustable wrench from the toolbox",
                     execute: actionsFunc.takeAdjustableWrenchFromToolBoxInit,
-                    oneTime: true
+                    oneTime: true,
                 });
             }
             return actions;
-        }
+        },
     },
     //###################################################################
     TRUCK_CABIN: {
@@ -141,7 +145,7 @@ export const ZONES = {
                 actions.push({
                     command: "open glove box",
                     description: "open the glove box to see what's inside",
-                    execute: actionsFunc.lookInGloveBoxInTruckCabin
+                    execute: actionsFunc.lookInGloveBoxInTruckCabin,
                 });
             }
             else {
@@ -171,7 +175,7 @@ export const ZONES = {
                 });
             }
             return actions;
-        }
+        },
     },
     //################################################
     WATCH_POST_OUTSIDE: {
@@ -188,7 +192,7 @@ export const ZONES = {
                 execute: actionsFunc.goInsideTheWatchPost,
             });
             return actions;
-        }
+        },
     },
     //############################################
     WATCH_POST: {
@@ -207,13 +211,13 @@ export const ZONES = {
                 description: "go back outside the watch post",
                 execute: actionsFunc.walkBackOutside,
             });
-            if (!hasFlag("SEARCHED_KELLER_BODY")
-                && hasFlag("DISCOVERED_KELLER_BODY")) {
+            if (!hasFlag("SEARCHED_KELLER_BODY") &&
+                hasFlag("DISCOVERED_KELLER_BODY")) {
                 actions.push({
                     command: "search body",
                     description: "search Keller's body",
                     execute: actionsFunc.searchKellerBody,
-                    oneTime: true
+                    oneTime: true,
                 });
             }
             else {
@@ -221,17 +225,17 @@ export const ZONES = {
                     command: "take Keller's credential",
                     description: "take the little usb key that serves as credential",
                     execute: actionsFunc.takeKellerCredential,
-                    oneTime: true
+                    oneTime: true,
                 });
                 actions.push({
                     command: "take pen",
                     description: "take the pen from his pocket",
                     execute: actionsFunc.takePenFromKeller,
-                    oneTime: true
+                    oneTime: true,
                 });
             }
             return actions;
-        }
+        },
     },
     GATE_CHECKPOINT: {
         id: "GATE_CHECKPOINT",
@@ -240,7 +244,8 @@ export const ZONES = {
             " is shattered outward into the snow.",
         getActions: () => {
             //focus
-            if (getFocus() === FOCUS.JUNCTION_BOX) { //TODO set the focus at the right place
+            if (getFocus() === FOCUS.JUNCTION_BOX) {
+                //TODO set the focus at the right place
                 return getJunctionBoxActions();
             }
             //normal action
@@ -253,18 +258,18 @@ export const ZONES = {
             actions.push({
                 command: "walk toward the watch post",
                 description: "walk to the watch post",
-                execute: actionsFunc.walkTowardMainWatchPost
+                execute: actionsFunc.walkTowardMainWatchPost,
             });
             /*
-            actions.push({
-                command: "enter guard shack",
-                description: "enter the guard shack",
-                execute: //TODO re-put that when the guard shack is done
-            });
-             */
+                  actions.push({
+                      command: "enter guard shack",
+                      description: "enter the guard shack",
+                      execute: //TODO re-put that when the guard shack is done
+                  });
+                   */
             return actions;
-        }
-    }
+        },
+    },
 };
 function getJunctionBoxActions() {
     const actions = [];
@@ -272,6 +277,7 @@ function getJunctionBoxActions() {
     return actions;
 }
 function getWhatToSayToQG() {
+    //TODO find out why this doesnt work
     const actions = [];
     actions.push({
         command: "Press When done",
@@ -279,7 +285,8 @@ function getWhatToSayToQG() {
         execute: confirmingDoneTalkingtoQG,
         oneTime: true,
     });
-    { //section for the body
+    {
+        //section for the body
         if (!isCommandInactive("No Body")) {
             actions.push({
                 command: "Dead Body",
@@ -297,7 +304,8 @@ function getWhatToSayToQG() {
             });
         }
     }
-    { // section for the note
+    {
+        // section for the note
         if (!isCommandInactive("No Note Found")) {
             actions.push({
                 command: "Note Found",
@@ -328,22 +336,23 @@ function getToolBoxActions() {
     actions.push({
         command: "do something else",
         description: "do something else than trying to open the toolbox",
-        execute: actionsFunc.outOfToolBoxFocus
+        execute: actionsFunc.outOfToolBoxFocus,
     });
     if (!hasFlag("OPENED_TOOLBOX_INIT")) {
         actions.push({
             command: "force latch barehanded / with gloves",
             description: "try to break / force open the latch on the toolbox with your hands",
-            execute: actionsFunc.forceToolBoxOpenWithHand
+            execute: actionsFunc.forceToolBoxOpenWithHand,
         });
         if (doesThePlayerHasTheItem("crowbar")) {
             actions.push({
                 command: "force latch with crowbar",
                 description: "try to pry open the toolbox with your crowbar",
-                execute: actionsFunc.pryToolBoxWithCrowbar
+                execute: actionsFunc.pryToolBoxWithCrowbar,
             });
         }
-        if (doesThePlayerHasTheItem(ITEMS.flare.id)) { //TODO make autocompletion for item type???Q
+        if (doesThePlayerHasTheItem(ITEMS.flare.id)) {
+            //TODO make autocompletion for item type???Q
             actions.push({
                 command: "try with heat (-1 flare)",
                 description: "try to light up a flare to try and head up the lock",

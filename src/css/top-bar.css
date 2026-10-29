@@ -1,26 +1,26 @@
 #frequency::before {
-    content: "frequency : ";
-    font-weight: bold;
+  content: "frequency : ";
+  font-weight: bold;
 }
 #frequency::after {
-    content: " MHz"
+  content: " MHz";
 }
 
 #zone-tag::before {
-    content: "Zone : ";
-    font-weight: bold;
+  content: "Zone : ";
+  font-weight: bold;
 }
 
 #top-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--main-color-background);
-    border-bottom: var(--separator-width) solid var(--separetor-color);
-    margin-bottom: 20px;
-    padding: 0.2%;
-    gap: 10px;
-    p {
-        color: var(--text-color);
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--main-color-background);
+  border-bottom: var(--separator-width) solid var(--separetor-color);
+  margin-bottom: 20px;
+  padding: 0.2%;
+  gap: 10px;
+  p {
+    color: var(--text-color);
+  }
 }

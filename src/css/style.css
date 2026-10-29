@@ -1,64 +1,66 @@
-
 body {
-    font-family: "Share Tech Mono", monospace;
-    font-size: 16px;
-    background-color: var(--main-color-background);
-    gap: 10px;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 16px;
+  background-color: var(--main-color-background);
+  gap: 10px;
 
-    main {
-    }
+  main {
+  }
 }
 
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100dvw;
-    height: 100dvh;
-    background-color: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(4px);
-    z-index: 900;
-    opacity: 1;
-    pointer-events: auto;
-    transition: opacity 0.25s ease-in-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 900;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.25s ease-in-out;
 }
 
 .overlay.hidden {
-    opacity: 0;
-    pointer-events: none;
+  opacity: 0;
+  pointer-events: none;
 }
 
-.button-placement{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    column-gap: 10px;
+.button-placement {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  column-gap: 10px;
 }
-#side-menu, #cheat-menu {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 260px;
-    height: 100dvh;
-    background-color: var(--main-color-background);
-    border-right: var(--separator-width) solid var(--separetor-color);
-    z-index: 1000;
-    padding: 20px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    transform: translateX(0);
-    transition: transform 0.25s ease-in-out;
-    header {
-        color: var(--text-color)
-    }
+#side-menu,
+#cheat-menu {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 260px;
+  height: 100dvh;
+  background-color: var(--main-color-background);
+  border-right: var(--separator-width) solid var(--separetor-color);
+  z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(0);
+  transition: transform 0.25s ease-in-out;
+  header {
+    color: var(--text-color);
+  }
 }
-#side-menu.hidden, #cheat-menu.hidden {
-    transform: translateX(-100%);
+#side-menu.hidden,
+#cheat-menu.hidden {
+  transform: translateX(-100%);
 }
 .border-glow {
-    border: 2px solid var(--separetor-color);
-    box-shadow: 0 0 2px var(--border-color),
+  border: 2px solid var(--separetor-color);
+  box-shadow:
+    0 0 2px var(--border-color),
     0 0 15px var(--border-color),
     0 0 15px var(--glow-border-color),
     inset 0 0 50px var(--glow-border-color);

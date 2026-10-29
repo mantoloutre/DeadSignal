@@ -1,7 +1,7 @@
-import { exportSaveFile, currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage, saveTheDataToLocalStorage } from "./core/gameState.js";
+import { exportSaveFile, currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage, saveTheDataToLocalStorage, } from "./core/gameState.js";
 import { setFocus, ZONES } from "./core/world.js";
 import { ITEMS } from "./data/items.js";
-import { appendDigitToFrequency, getFormattedBuffer, handleFrequency, queueQGMessage, removeOneFromBuffer, setBuffer } from "./core/radioFrequency.js";
+import { appendDigitToFrequency, getFormattedBuffer, handleFrequency, queueQGMessage, removeOneFromBuffer, setBuffer, } from "./core/radioFrequency.js";
 /*
 used to optimize the instanciation of elements
  */
@@ -53,7 +53,8 @@ export function renderZoneActions(zone) {
     const actions = zone.getActions();
     //step 3
     for (const action of actions) {
-        if (action.oneTime && currentState.inactiveCommands.includes(action.command)) {
+        if (action.oneTime &&
+            currentState.inactiveCommands.includes(action.command)) {
             continue;
         }
         createButtonZoneActions(action, zone);
@@ -90,7 +91,7 @@ export function renderThePlayerInventory() {
             buttonForDaItem.textContent = `> ${item.name}`;
         }
         buttonForDaItem.addEventListener("click", () => {
-            document.querySelectorAll(".inventory-item-btn").forEach(btn => {
+            document.querySelectorAll(".inventory-item-btn").forEach((btn) => {
                 btn.classList.remove("TheOneAndOnlySelectedInventoryItemButton");
             });
             buttonForDaItem.classList.add("TheOneAndOnlySelectedInventoryItemButton");
@@ -102,7 +103,7 @@ export function renderThePlayerInventory() {
 // buttons ( radio interface )
 const keypadButtons = document.querySelectorAll(".radio-key");
 const currentFrequencyDisplay = getEl("radio-current-frequency");
-keypadButtons.forEach(btn => {
+keypadButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
         const value = btn.value;
         if (!btn.value || !currentFrequencyDisplay)
@@ -161,11 +162,11 @@ function bindingAction(button, action) {
         action();
     });
 }
-function skipToZoneOutsideWatchpost() {
-}
+function skipToZoneOutsideWatchpost() { }
 //close or open the side menu
 function openOrCloseCheatMenu() {
-    if (!(getEl("side-menu").classList.contains("hidden"))) {
+    //TODO maybe add a menu-overlay? maybe not cuz no?
+    if (!getEl("side-menu").classList.contains("hidden")) {
         openOrCloseMenu();
     }
     getEl("cheat-menu").classList.toggle("hidden");
@@ -179,8 +180,8 @@ function openOrCloseMenu() {
         cheatMenu.classList.add("hidden");
     }
     getEl("side-menu").classList.toggle("hidden");
-    if (!(getEl("inventory").classList.contains("inventory-active"))
-        && !(getEl("radio-interface").classList.contains("radio-interface-active"))) {
+    if (!getEl("inventory").classList.contains("inventory-active") &&
+        !getEl("radio-interface").classList.contains("radio-interface-active")) {
         toggleOverlay();
     }
 }
@@ -198,7 +199,7 @@ function to close the inventory
 function closeInventory() {
     getEl("inventory").classList.toggle("inventory-active");
     renderThePlayerInventory();
-    if ((getEl("side-menu").classList.contains("hidden"))) {
+    if (getEl("side-menu").classList.contains("hidden")) {
         toggleOverlay();
     }
 }
@@ -208,7 +209,7 @@ function for opening or closing the radio interface for tuning the radio
 function closeRadioInterface() {
     getEl("radio-interface").classList.toggle("radio-interface-active");
     toggleOverlay();
-    if (!(getEl("side-menu").classList.contains("hidden"))) {
+    if (!getEl("side-menu").classList.contains("hidden")) {
         toggleOverlay();
     }
 }
@@ -217,7 +218,7 @@ open the interface for the radio tuning
  */
 function openRadioInterface() {
     getEl("radio-interface").classList.add("radio-interface-active");
-    if ((getEl("side-menu").classList.contains("hidden"))) {
+    if (getEl("side-menu").classList.contains("hidden")) {
         toggleOverlay();
     }
 }
@@ -362,7 +363,7 @@ function createButtonZoneActions(action, zone) {
     actionZone.append(button);
 }
 function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }
 /*
 to set the display and current frequency to the right values

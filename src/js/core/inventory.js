@@ -7,7 +7,7 @@ export async function addItemToInventory(itemId, amount = 1) {
         //false if item came outta nowhere and is unknown
         return false;
     }
-    const existSlot = currentState.playerInventory.find(slot => slot.itemId === itemId);
+    const existSlot = currentState.playerInventory.find((slot) => slot.itemId === itemId);
     if (existSlot) {
         //if tha item is a consumable we gonna add one to the amount
         //can stack consumable, cant stack the rest. no you are not gonna hold 48 crowbar in your inventory.
@@ -28,7 +28,7 @@ export function removeItemFromInventory(itemId, amount = 1) {
     if (!doesThePlayerHasTheItem(itemId)) {
         return false;
     }
-    const slotIndex = currentState.playerInventory.findIndex(slot => slot.itemId === itemId);
+    const slotIndex = currentState.playerInventory.findIndex((slot) => slot.itemId === itemId);
     currentState.playerInventory[slotIndex].count -= amount;
     if (currentState.playerInventory[slotIndex].count <= 0) {
         currentState.playerInventory.splice(slotIndex, 1);
@@ -37,8 +37,8 @@ export function removeItemFromInventory(itemId, amount = 1) {
     return true;
 }
 export function doesThePlayerHasTheItem(itemId) {
-    return currentState.playerInventory.some(slot => slot.itemId === itemId && slot.count > 0);
+    return currentState.playerInventory.some((slot) => slot.itemId === itemId && slot.count > 0);
 }
 export function getThePlayerInventoryItem() {
-    return currentState.playerInventory.map(slot => ITEMS[slot.itemId]);
+    return currentState.playerInventory.map((slot) => ITEMS[slot.itemId]);
 }

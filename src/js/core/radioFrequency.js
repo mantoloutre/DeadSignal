@@ -1,4 +1,4 @@
-import { currentState, saveTheDataToLocalStorage } from "./gameState.js";
+import { currentState, saveTheDataToLocalStorage, } from "./gameState.js";
 import { printToTerminal } from "../main.js";
 import { QG_MESSAGES } from "../data/qgMessages.js";
 export const FREQUENCY_REGISTRY = {
@@ -76,7 +76,7 @@ export async function queueQGMessage(message) {
     currentState.pendingQGMessages.push(message);
     saveTheDataToLocalStorage();
     if (!hasDiscoveredSignal("112.400")) {
-        await printToTerminal(`Incoming transmission from QG, please read 
+        await printToTerminal(`Incoming transmission from QG, please read
         the manual to set the correct frequency`, "alert");
         return;
     }
@@ -84,7 +84,7 @@ export async function queueQGMessage(message) {
         await handleQGFrequency();
     }
     else {
-        await printToTerminal(`Incoming transmission from QG ( 112.400 MHz ). 
+        await printToTerminal(`Incoming transmission from QG ( 112.400 MHz ).
     ${currentState.pendingQGMessages.length} pending`, "alert");
     }
 }
@@ -94,8 +94,7 @@ handle the reading of pending messages from the QG
 export async function handleQGFrequency() {
     // if no message from QG
     if (currentState.pendingQGMessages.length === 0) {
-        await printToTerminal("Dispatch carrier active. Standing by for " +
-            "telemetry verification", "log");
+        await printToTerminal("Dispatch carrier active. Standing by for " + "telemetry verification", "log");
         return;
     }
     // if there is more than 1 pending messages
@@ -128,7 +127,8 @@ export async function handleFrequency() {
     }
     //making sure he has it
     // ( don't care if it doesn't exist cuz the switch case is going to take care of that )
-    if (!hasDiscoveredSignal(formattedFreq)) { //TODO make it so if unknown well its a static noice?
+    if (!hasDiscoveredSignal(formattedFreq)) {
+        //TODO make it so if unknown well its a static noice?
         await printToTerminal("Heavy carrier distortion. Signal unreadable.", "alert"); //TODO fix radio
         return;
     }
@@ -136,11 +136,11 @@ export async function handleFrequency() {
     switch (formattedFreq) {
         case "112.400":
             /*
-            if (verifyUnlockedFrequency(formattedFreq) {
-            await handleQGFrequency();
-            }
-            break;
-             */
+                  if (verifyUnlockedFrequency(formattedFreq) {
+                  await handleQGFrequency();
+                  }
+                  break;
+                   */
             await handleQGFrequency();
             break;
         case "666.666":

@@ -1,42 +1,44 @@
 #radio-interface {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--main-color-background);
-    z-index: 901;
-    width: min(90vw, 500px);
-    padding: 10px;
-    pointer-events: none;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.15s ease-out, transform 0.15s ease-out;
-    color: var(--text-color);
-    gap: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--main-color-background);
+  z-index: 901;
+  width: min(90vw, 500px);
+  padding: 10px;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 0.15s ease-out,
+    transform 0.15s ease-out;
+  color: var(--text-color);
+  gap: 10px;
 }
 #radio-interface.radio-interface-active {
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
-    transform: translate(-50%, -50%) scale(1);
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
 }
 #radio-keyboard {
-    display: grid;
-    grid-template:
+  display: grid;
+  grid-template:
     "k1 k2 k3" 40px
     "k4 k5 k6" 40px
     "k7 k8 k9" 40px
     ". k0 ." 40px
-    "back delete tune"40px / 1fr 1fr 1fr;
-    gap: 2px;
+    "back delete tune" 40px / 1fr 1fr 1fr;
+  gap: 2px;
 }
 #radio-current-frequency {
-    justify-self: center;
+  justify-self: center;
 }
-#radio-current-frequency::before{
-    content: "frequency : ";
-    font-weight: bold;
+#radio-current-frequency::before {
+  content: "frequency : ";
+  font-weight: bold;
 }
-#radio-current-frequency::after{
-    content: " Mhz";
+#radio-current-frequency::after {
+  content: " Mhz";
 }
