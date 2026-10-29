@@ -2,6 +2,7 @@ import * as actionsFunc from "./actions.js";
 import { hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import { confirmingDoneTalkingtoQG } from "./actions.js";
+import { ITEMS } from "./items.js";
 /*
 this is for subzone ( mainly puzzle )
  */
@@ -319,6 +320,13 @@ function getToolBoxActions() {
                 command: "force latch with crowbar",
                 description: "try to pry open the toolbox with your crowbar",
                 execute: actionsFunc.pryToolBoxWithCrowbar
+            });
+        }
+        if (doesThePlayerHasTheItem(ITEMS.flare.id)) { //TODO make autocompletion for item type???
+            actions.push({
+                command: "try with heat (-1 flare)",
+                description: "try to light up a flare to try and head up the lock",
+                execute: actionsFunc.doArsonToHeatTheLatch,
             });
         }
     }

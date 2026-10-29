@@ -4,6 +4,7 @@ import {doesThePlayerHasTheItem} from "./inventory.js";
 import {ZoneId} from "./types.js";
 import {} from "./main.js";
 import {confirmingDoneTalkingtoQG} from "./actions.js";
+import {ITEMS} from "./items.js";
 /*
 this is for subzone ( mainly puzzle )
  */
@@ -351,6 +352,13 @@ function getToolBoxActions(): ZoneAction[] {
                 description: "try to pry open the toolbox with your crowbar",
                 execute: actionsFunc.pryToolBoxWithCrowbar
             });
+        }
+        if (doesThePlayerHasTheItem(ITEMS.flare.id)){//TODO make autocompletion for item type???
+            actions.push({
+                command: "try with heat (-1 flare)",
+                description: "try to light up a flare to try and head up the lock",
+                execute: actionsFunc.doArsonToHeatTheLatch,
+            })
         }
     }
     return actions;
