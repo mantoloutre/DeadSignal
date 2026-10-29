@@ -1,7 +1,7 @@
-import { exportSaveFile, currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage, saveTheDataToLocalStorage } from "./gameState.js";
-import { setFocus, ZONES } from "./world.js";
-import { ITEMS } from "./items.js";
-import { appendDigitToFrequency, getFormattedBuffer, handleFrequency, queueQGMessage, removeOneFromBuffer, setBuffer } from "./radioFrequency.js";
+import { exportSaveFile, currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage, saveTheDataToLocalStorage } from "./core/gameState.js";
+import { setFocus, ZONES } from "./core/world.js";
+import { ITEMS } from "./data/items.js";
+import { appendDigitToFrequency, getFormattedBuffer, handleFrequency, queueQGMessage, removeOneFromBuffer, setBuffer } from "./core/radioFrequency.js";
 /*
 used to optimize the instanciation of elements
  */

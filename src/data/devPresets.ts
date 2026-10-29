@@ -1,4 +1,4 @@
-import {GameState} from "./gameState.js";
+import {GameState} from "../core/gameState.js";
 /*
 this const is to skip part of the game for the reviewer
  */

@@ -2,15 +2,15 @@ import {
     exportSaveFile,
     currentState, importSaveFile, clearTheLocalStorage, GAME_INITIAL_STATE, resetGameState, loadFromTheLocalStorage,
     saveTheDataToLocalStorage
-} from "./gameState.js";
-import {setFocus, Zone, ZoneAction, ZONES} from "./world.js";
-import {Item, ITEMS} from "./items.js";
+} from "./core/gameState.js";
+import {setFocus, Zone, ZoneAction, ZONES} from "./core/world.js";
+import {Item, ITEMS} from "./data/items.js";
 import {
     appendDigitToFrequency,
     getFormattedBuffer, handleFrequency, handleQGFrequency, queueQGMessage,
     removeOneFromBuffer,
     setBuffer
-} from "./radioFrequency.js";
+} from "./core/radioFrequency.js";
 
 interface UIElements {
     // buttons ( test )

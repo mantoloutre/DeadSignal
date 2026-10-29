@@ -1,10 +1,8 @@
 import * as actionsFunc from "./actions.js";
-import {currentState, hasFlag, isCommandInactive} from "./gameState.js";
-import {doesThePlayerHasTheItem} from "./inventory.js";
-import {ZoneId} from "./types.js";
-import {} from "./main.js";
-import {confirmingDoneTalkingtoQG} from "./actions.js";
-import {ITEMS} from "./items.js";
+import { hasFlag, isCommandInactive } from "./gameState.js";
+import { doesThePlayerHasTheItem } from "./inventory.js";
+import { confirmingDoneTalkingtoQG } from "./actions.js";
+import { ITEMS } from "../data/items.js";
 /*
 this is for subzone ( mainly puzzle )
  */
@@ -12,42 +10,20 @@ export const FOCUS = {
     TOOLBOX: "TOOLBOX",
     JUNCTION_BOX: "JUNCTION_BOX",
     TELLING_QG: "TELLING_QG"
-} as const;
-
-export type ZoneFocus = typeof FOCUS[keyof typeof FOCUS];
-
-let currentFocus: ZoneFocus | null = null;
-
+};
+let currentFocus = null;
 /*
 basic function to get the currentFocus
  */
-export function getFocus(): ZoneFocus | null {
+export function getFocus() {
     return currentFocus;
 }
-
 /*
 basic function to set the current focus
  */
-export function setFocus(focus: ZoneFocus | null): void {
+export function setFocus(focus) {
     currentFocus = focus;
 }
-
-
-export interface ZoneAction {
-    command: string;
-    description: string;
-    execute: () => Promise<void>;
-    oneTime?: boolean;
-}
-
-
-export interface Zone {
-    id: ZoneId;
-    name: string;
-    description: string;
-    getActions: () => ZoneAction[];
-}
-
 /*
 the const containing all the zone that I'm using in the game
  */
@@ -59,17 +35,15 @@ export const ZONES = {
         description: "Towering ice-coated pine tree in a frozen service path. Heavy " +
             "perimeter fencing runs parallel to the trail, warping and sheared appart as if " +
             "hit by something big.",
-        getActions: (): ZoneAction[] => {
+        getActions: () => {
             //if focus its here
-
             //if there is no current focus then we do the normal thing
-            const actions: ZoneAction[] = [];
+            const actions = [];
             actions.push({
                 command: "go back to the truck",
                 description: "walk back to the truck",
                 execute: actionsFunc.goBackToTheTruck,
             });
-
             actions.push({
                 command: "inspect the direction sign",
                 description: "inspect it to know where to go",
@@ -90,13 +64,13 @@ export const ZONES = {
         name: "OUTSIDE THE TRUCK",
         description: "Sub-zero wind tears through the valley. The service rig rests dead" +
             " in the middle of the road, engine fuming and a hole through the hood",
-        getActions: (): ZoneAction[] => {
+        getActions: () => {
             //for the focus of the toolbox ( "puzzle" )
             if (getFocus() === FOCUS.TOOLBOX) {
                 return getToolBoxActions();
             }
             //if no focus then normal things
-            const actions: ZoneAction[] = [];
+            const actions = [];
             actions.push({
                 command: "get back in the truck",
                 description: "go back inside the truck",
@@ -106,7 +80,7 @@ export const ZONES = {
                 command: "walk toward forest",
                 description: "start walking toward the forest",
                 execute: actionsFunc.walkTowardSnowyForestFromOutsideTruck,
-            })
+            });
             actions.push({
                 command: hasFlag("OPENED_HOOD_TRUCK_INIT")
                     ? "look at the engine" : "open the hood and look at the engine",
@@ -156,8 +130,8 @@ export const ZONES = {
         name: "TRUCK CABIN",
         description: "The dashboard gauges flicker erratically under low battery voltage. Outside the cracked windshield, " +
             "steam slowly dissipate in the glacial crosswinds",
-        getActions: (): ZoneAction[] => {
-            const actions: ZoneAction[] = [];
+        getActions: () => {
+            const actions = [];
             actions.push({
                 command: "get out of the truck",
                 description: "simply get out of the truck",
@@ -169,7 +143,8 @@ export const ZONES = {
                     description: "open the glove box to see what's inside",
                     execute: actionsFunc.lookInGloveBoxInTruckCabin
                 });
-            } else {
+            }
+            else {
                 actions.push({
                     command: "take gloves",
                     description: "take the good looking winter gloves inside the glove box",
@@ -193,7 +168,7 @@ export const ZONES = {
                     description: "Take the truck's insurance paper",
                     execute: actionsFunc.addTruckInsurancePaper,
                     oneTime: true,
-                })
+                });
             }
             return actions;
         }
@@ -203,17 +178,15 @@ export const ZONES = {
         id: "WATCH_POST_OUTSIDE",
         name: "OUTSIDE WATCH POST",
         description: "you stand just outside the watch post, not finished",
-        getActions: (): ZoneAction[] => {
+        getActions: () => {
             //focus
-
             //normal actions
-            const actions: ZoneAction[] = [];
-
+            const actions = [];
             actions.push({
                 command: "go inside the watch post",
                 description: "walk inside the watch post",
                 execute: actionsFunc.goInsideTheWatchPost,
-            })
+            });
             return actions;
         }
     },
@@ -222,27 +195,28 @@ export const ZONES = {
         id: "WATCH_POST",
         name: "INSIDE WATCH POST",
         description: "you are now standing inside the watch post, the air feels heavy...", //TODO do the lore
-        getActions: (): ZoneAction[] => {
+        getActions: () => {
             //focus
             if (getFocus() === FOCUS.TELLING_QG) {
                 return getWhatToSayToQG();
             }
             //normal action
-            const actions: ZoneAction[] = [];
+            const actions = [];
             actions.push({
                 command: "go back outside",
                 description: "go back outside the watch post",
                 execute: actionsFunc.walkBackOutside,
             });
             if (!hasFlag("SEARCHED_KELLER_BODY")
-                && hasFlag("DISCOVERED_KELLER_BODY")){
+                && hasFlag("DISCOVERED_KELLER_BODY")) {
                 actions.push({
                     command: "search body",
                     description: "search Keller's body",
                     execute: actionsFunc.searchKellerBody,
                     oneTime: true
                 });
-            } else {
+            }
+            else {
                 actions.push({
                     command: "take Keller's credential",
                     description: "take the little usb key that serves as credential",
@@ -264,13 +238,13 @@ export const ZONES = {
         name: "SECURITY GATE AND BOOTH",
         description: "A metal gate squeal under a flickering floodlight. The guard shack's front window" +
             " is shattered outward into the snow.",
-        getActions: (): ZoneAction[] => {
+        getActions: () => {
             //focus
             if (getFocus() === FOCUS.JUNCTION_BOX) { //TODO set the focus at the right place
                 return getJunctionBoxActions();
             }
             //normal action
-            const actions: ZoneAction[] = [];
+            const actions = [];
             actions.push({
                 command: "walk back to forest trail",
                 description: "walk back to the snowy forest",
@@ -281,8 +255,6 @@ export const ZONES = {
                 description: "walk to the watch post",
                 execute: actionsFunc.walkTowardMainWatchPost
             });
-
-
             /*
             actions.push({
                 command: "enter guard shack",
@@ -293,16 +265,14 @@ export const ZONES = {
             return actions;
         }
     }
-} satisfies Record<ZoneId, Zone>;
-
-function getJunctionBoxActions(): ZoneAction[] {
-    const actions: ZoneAction[] = [];
+};
+function getJunctionBoxActions() {
+    const actions = [];
     //TODO
     return actions;
 }
-
-function getWhatToSayToQG(): ZoneAction[] { //TODO find out why this doesnt work
-    const actions: ZoneAction[] = [];
+function getWhatToSayToQG() {
+    const actions = [];
     actions.push({
         command: "Press When done",
         description: "press this when your are done saying stuff",
@@ -327,7 +297,7 @@ function getWhatToSayToQG(): ZoneAction[] { //TODO find out why this doesnt work
             });
         }
     }
-    {// section for the note
+    { // section for the note
         if (!isCommandInactive("No Note Found")) {
             actions.push({
                 command: "Note Found",
@@ -350,13 +320,11 @@ function getWhatToSayToQG(): ZoneAction[] { //TODO find out why this doesnt work
     }
     return actions;
 }
-
-
 /*
 function to get the actions related to opening the toolbox
  */
-function getToolBoxActions(): ZoneAction[] {
-    const actions: ZoneAction[] = [];
+function getToolBoxActions() {
+    const actions = [];
     actions.push({
         command: "do something else",
         description: "do something else than trying to open the toolbox",
@@ -375,12 +343,12 @@ function getToolBoxActions(): ZoneAction[] {
                 execute: actionsFunc.pryToolBoxWithCrowbar
             });
         }
-        if (doesThePlayerHasTheItem(ITEMS.flare.id)) {//TODO make autocompletion for item type???Q
+        if (doesThePlayerHasTheItem(ITEMS.flare.id)) { //TODO make autocompletion for item type???Q
             actions.push({
                 command: "try with heat (-1 flare)",
                 description: "try to light up a flare to try and head up the lock",
                 execute: actionsFunc.doArsonToHeatTheLatch,
-            })
+            });
         }
     }
     return actions;

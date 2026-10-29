@@ -1,6 +1,6 @@
 import { currentState, saveTheDataToLocalStorage } from "./gameState.js";
-import { printToTerminal } from "./main.js";
-import { QG_MESSAGES } from "./qgMessages.js";
+import { printToTerminal } from "../main.js";
+import { QG_MESSAGES } from "../data/qgMessages.js";
 export const FREQUENCY_REGISTRY = {
     QG_FREQUENCY: {
         frequency: "112.400",

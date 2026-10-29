@@ -1,7 +1,7 @@
 import {currentState, hasFlag, saveTheDataToLocalStorage, StoryFlag} from "./gameState.js";
-import {printToTerminal} from "./main.js";
-import {RadioFrequencyName} from "./types.js";
-import {QG_MESSAGES, QGMessageKey} from "./qgMessages.js";
+import {printToTerminal} from "../main.js";
+import {RadioFrequencyName} from "../data/types.js";
+import {QG_MESSAGES, QGMessageKey} from "../data/qgMessages.js";
 
 export interface RadioFrequency {
     frequency: string;

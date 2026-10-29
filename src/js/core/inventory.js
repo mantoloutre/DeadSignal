@@ -1,13 +1,7 @@
-import {ITEMS, Item, ItemId} from "./items.js";
-import {printToTerminal} from "./main.js";
-import {currentState} from "./gameState.js";
-
-export interface InventorySlot {
-    itemId: ItemId;
-    count: number;
-}
-
-export async function addItemToInventory(itemId: ItemId, amount: number = 1): Promise<boolean> {
+import { ITEMS } from "../data/items.js";
+import { printToTerminal } from "../main.js";
+import { currentState } from "./gameState.js";
+export async function addItemToInventory(itemId, amount = 1) {
     if (!ITEMS[itemId]) {
         console.error(`why is that here: ${itemId} ???`);
         //false if item came outta nowhere and is unknown
@@ -26,16 +20,15 @@ export async function addItemToInventory(itemId: ItemId, amount: number = 1): Pr
         await printToTerminal(`you already have the item :  ${ITEMS[itemId].name} in your inventory, you don't need 2 of it`, "system");
         return false;
     }
-    currentState.playerInventory.push({itemId, count: amount});
+    currentState.playerInventory.push({ itemId, count: amount });
     return true;
 }
-
-export function removeItemFromInventory(itemId: string, amount: number = 1): boolean {
+export function removeItemFromInventory(itemId, amount = 1) {
     //if you don't have it in ur inventory
     if (!doesThePlayerHasTheItem(itemId)) {
         return false;
     }
-    const slotIndex: number = currentState.playerInventory.findIndex(slot => slot.itemId === itemId);
+    const slotIndex = currentState.playerInventory.findIndex(slot => slot.itemId === itemId);
     currentState.playerInventory[slotIndex].count -= amount;
     if (currentState.playerInventory[slotIndex].count <= 0) {
         currentState.playerInventory.splice(slotIndex, 1);
@@ -43,11 +36,9 @@ export function removeItemFromInventory(itemId: string, amount: number = 1): boo
     //if you have it in your inventory
     return true;
 }
-
-export function doesThePlayerHasTheItem(itemId: string): boolean {
+export function doesThePlayerHasTheItem(itemId) {
     return currentState.playerInventory.some(slot => slot.itemId === itemId && slot.count > 0);
 }
-
-export function getThePlayerInventoryItem(): Item[] {
+export function getThePlayerInventoryItem() {
     return currentState.playerInventory.map(slot => ITEMS[slot.itemId]);
 }
