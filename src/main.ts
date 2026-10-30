@@ -1,33 +1,36 @@
 import {
-  clearTheLocalStorage,
   currentState,
   exportSaveFile,
   GAME_INITIAL_STATE,
   importSaveFile,
   loadFromTheLocalStorage,
-  resetGameState,
   saveTheDataToLocalStorage,
   setGameState,
 } from "./core/gameState.js";
+import { handleFrequency, queueQGMessage } from "./core/radioFrequency.js";
 import {
-  getFormattedBuffer,
-  handleFrequency,
-  queueQGMessage,
-  setBuffer,
-} from "./core/radioFrequency.js";
-import { setFocus, ZONES, type Zone, type ZoneAction } from "./core/world.js";
+  setFocus,
+  ZONES,
+  type Zone,
+  type ZoneAction,
+  type ZoneId,
+} from "./core/world.js";
 import { presetBeforeDiscoveringBody } from "./data/devPresets.js";
 import { ITEMS, type Item } from "./data/items.js";
 import { flashButton, getEl, isPrinting, printToTerminal } from "./ui/dom.js";
-import { closeRadioInterface } from "./ui/radioInterface.js";
+import {
+  closeRadioInterface,
+  setDisplayFrequency,
+} from "./ui/radioInterface.js";
 
 /*
 load a zone
 @param zone the zone we want to load
  */
-export async function loadZone(zone: Zone): Promise<void> {
+export async function loadZone(zoneId: ZoneId): Promise<void> {
+  const zone: Zone = ZONES[zoneId];
   setFocus(null);
-  currentState.currentZone = zone.id;
+  currentState.currentZone = zone;
   saveTheDataToLocalStorage();
   getEl("zone-tag").textContent = `${zone.name}`;
   await printToTerminal(`ZONE: ${zone.name}`, "system");
@@ -277,36 +280,10 @@ window.addEventListener("keydown", (keyEvent: KeyboardEvent): void => {
   }
 });
 
-let confirmingReset: boolean = false;
-let resetTimeout: number | null = null;
-getEl("btn-restart").addEventListener("click", async (): Promise<void> => {
-  const buttonRestart: HTMLButtonElement = getEl("btn-restart");
-  if (!confirmingReset) {
-    // first click
-    confirmingReset = true;
-    buttonRestart.textContent = "Are you sure? (click again)";
-    flashButton(buttonRestart);
-    // 4 seconds timeout
-    resetTimeout = window.setTimeout((): void => {
-      confirmingReset = false;
-      buttonRestart.textContent = "Restart the whole game";
-    }, 4000);
-    return;
-  }
-  if (resetTimeout !== null) {
-    window.clearTimeout(resetTimeout);
-  }
-  confirmingReset = false;
-  buttonRestart.textContent = "Restart the whole game";
-  clearTheLocalStorage();
-  resetGameState();
-  //reloading the game
-  location.reload();
-});
 /*
 function to create the button for each action in a zone
  */
-function createButtonZoneActions(action: ZoneAction, zone: Zone) {
+function createButtonZoneActions(action: ZoneAction, zoneId: ZoneId): void {
   const actionZone: HTMLDivElement = getEl("zone-action");
   const button: HTMLButtonElement = document.createElement("button");
   button.textContent = `${action.command}`;
@@ -319,9 +296,9 @@ function createButtonZoneActions(action: ZoneAction, zone: Zone) {
     }
     await action.execute();
     //we need to make sure we are still in the same zone
-    if (currentState.currentZone === zone.id) {
+    if (currentState.currentZone === zoneId) {
       // needed to reload missing actions that needed a flag to appear
-      renderZoneActions(zone);
+      renderZoneActions(ZONES[zoneId]);
     }
   });
   actionZone.append(button);
@@ -329,16 +306,6 @@ function createButtonZoneActions(action: ZoneAction, zone: Zone) {
 
 export function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-/*
-to set the display and current frequency to the right values
- */
-function setDisplayFrequency(): void {
-  setBuffer(currentState.currentFrequency);
-  const theFrequency: string = getFormattedBuffer();
-  getEl("frequency").textContent = theFrequency;
-  getEl("radio-current-frequency").textContent = theFrequency;
 }
 
 /*

@@ -1,10 +1,8 @@
+import {ITEMS} from "../data/items.js";
 import * as actionsFunc from "./actions.js";
-import { currentState, hasFlag, isCommandInactive } from "./gameState.js";
-import { doesThePlayerHasTheItem } from "./inventory.js";
-import { ZoneId } from "../data/types.js";
-import {} from "../main.js";
-import { confirmingDoneTalkingtoQG } from "./actions.js";
-import { ITEMS } from "../data/items.js";
+import {confirmingDoneTalkingtoQG} from "./actions.js";
+import {hasFlag, isCommandInactive} from "./gameState.js";
+import {doesThePlayerHasTheItem} from "./inventory.js";
 /*
 this is for subzone ( mainly puzzle )
  */
@@ -13,7 +11,7 @@ export const FOCUS = {
   JUNCTION_BOX: "JUNCTION_BOX",
   TELLING_QG: "TELLING_QG",
 } as const;
-
+export type ZoneId = keyof typeof ZONES;
 export type ZoneFocus = (typeof FOCUS)[keyof typeof FOCUS];
 
 let currentFocus: ZoneFocus | null = null;
@@ -40,10 +38,9 @@ export interface ZoneAction {
 }
 
 export interface Zone {
-  id: ZoneId;
-  name: string;
-  description: string;
-  getActions: () => ZoneAction[];
+  readonly name: string;
+  readonly description: string;
+  readonly getActions: () => ZoneAction[];
 }
 
 /*
@@ -52,7 +49,6 @@ the const containing all the zone that I'm using in the game
 export const ZONES = {
   //###################################################################
   SNOWY_FOREST: {
-    id: "SNOWY_FOREST",
     name: "PERIMETER FOREST TRAIL",
     description:
       "Towering ice-coated pine tree in a frozen service path. Heavy " +
@@ -86,7 +82,6 @@ export const ZONES = {
     },
   },
   OUTSIDE_TRUCK: {
-    id: "OUTSIDE_TRUCK",
     name: "OUTSIDE THE TRUCK",
     description:
       "Sub-zero wind tears through the valley. The service rig rests dead" +
@@ -158,7 +153,6 @@ export const ZONES = {
   },
   //###################################################################
   TRUCK_CABIN: {
-    id: "TRUCK_CABIN",
     name: "TRUCK CABIN",
     description:
       "The dashboard gauges flicker erratically under low battery voltage. Outside the cracked windshield, " +
@@ -209,7 +203,6 @@ export const ZONES = {
   },
   //################################################
   WATCH_POST_OUTSIDE: {
-    id: "WATCH_POST_OUTSIDE",
     name: "OUTSIDE WATCH POST",
     description: "you stand just outside the watch post, not finished",
     getActions: (): ZoneAction[] => {
@@ -228,7 +221,6 @@ export const ZONES = {
   },
   //############################################
   WATCH_POST: {
-    id: "WATCH_POST",
     name: "INSIDE WATCH POST",
     description:
       "you are now standing inside the watch post, the air feels heavy...", //TODO do the lore
@@ -271,8 +263,8 @@ export const ZONES = {
       return actions;
     },
   },
+  //##########################################
   GATE_CHECKPOINT: {
-    id: "GATE_CHECKPOINT",
     name: "SECURITY GATE AND BOOTH",
     description:
       "A metal gate squeal under a flickering floodlight. The guard shack's front window" +
@@ -306,7 +298,32 @@ export const ZONES = {
       return actions;
     },
   },
-} satisfies Record<ZoneId, Zone>;
+  GATE_CHECKPOINT_SHACK: {
+    name: "CHECKPOINT SHACK",
+    description: "", //TODO do the description
+    getActions: (): ZoneAction[] => {
+      const actions: ZoneAction[] = [];
+      //focus is applicable
+
+      //normal thing
+      actions.push({
+        command: "Go Back Outside",
+        description: "Go back outside of the shack",
+        execute: ,//TODO bind the action
+      });
+      actions.push({
+        command: "Search the room",
+        description: "search the messy room for anything that could be useful",
+        execute: ,//TODO bind the action
+        oneTime: true
+      });
+
+      return actions;
+    }
+  },
+} as const satisfies Record<string, Zone>;
+
+
 
 function getJunctionBoxActions(): ZoneAction[] {
   const actions: ZoneAction[] = [];
@@ -323,43 +340,39 @@ function getWhatToSayToQG(): ZoneAction[] {
     execute: confirmingDoneTalkingtoQG,
     oneTime: true,
   });
-  {
-    //section for the body
-    if (!isCommandInactive("No Body")) {
-      actions.push({
-        command: "Dead Body",
-        description: "Tell QG about the dead body",
-        execute: actionsFunc.tellQGAboutDeadBody,
-        oneTime: true,
-      });
-    }
-    if (!isCommandInactive("Dead Body")) {
-      actions.push({
-        command: "No Body",
-        description: "Don't tell QG about the dead body",
-        execute: actionsFunc.tellQGNoBodyFound,
-        oneTime: true,
-      });
-    }
+  //section for the body
+  if (!isCommandInactive("No Body")) {
+    actions.push({
+      command: "Dead Body",
+      description: "Tell QG about the dead body",
+      execute: actionsFunc.tellQGAboutDeadBody,
+      oneTime: true,
+    });
   }
-  {
-    // section for the note
-    if (!isCommandInactive("No Note Found")) {
-      actions.push({
-        command: "Note Found",
-        description: "Tell QG about the note Keller left",
-        execute: actionsFunc.tellQGAboutNoteLeft,
-        oneTime: true,
-      });
-    }
-    if (!isCommandInactive("Note Found")) {
-      actions.push({
-        command: "No Note Found",
-        description: "Don't tell QG about the note Keller left",
-        execute: actionsFunc.DontTellQGAboutNoteLeft,
-        oneTime: true,
-      });
-    }
+  if (!isCommandInactive("Dead Body")) {
+    actions.push({
+      command: "No Body",
+      description: "Don't tell QG about the dead body",
+      execute: actionsFunc.tellQGNoBodyFound,
+      oneTime: true,
+    });
+  }
+  // section for the note
+  if (!isCommandInactive("No Note Found")) {
+    actions.push({
+      command: "Note Found",
+      description: "Tell QG about the note Keller left",
+      execute: actionsFunc.tellQGAboutNoteLeft,
+      oneTime: true,
+    });
+  }
+  if (!isCommandInactive("Note Found")) {
+    actions.push({
+      command: "No Note Found",
+      description: "Don't tell QG about the note Keller left",
+      execute: actionsFunc.DontTellQGAboutNoteLeft,
+      oneTime: true,
+    });
   }
   {
     //TODO
@@ -392,7 +405,7 @@ function getToolBoxActions(): ZoneAction[] {
       });
     }
     if (doesThePlayerHasTheItem(ITEMS.flare.id)) {
-      //TODO make autocompletion for item type???Q
+      //TODO make autocompletion for item type???
       actions.push({
         command: "try with heat (-1 flare)",
         description: "try to light up a flare to try and head up the lock",

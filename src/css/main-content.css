@@ -45,7 +45,7 @@
   font-weight: bold;
 }
 .YOU {
-  color: white; /* TODO */
+  color: white; /* TODO make a variable?*/
   text-shadow: 0 0 3px white;
 }
 .YOU::before {
@@ -66,7 +66,7 @@
 #InOut {
   display: flex;
   gap: 10px;
-  height: 86vh;
+  height: 87vh;
 }
 
 #terminal-input,

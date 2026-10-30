@@ -1,4 +1,3 @@
-import { ITEMS } from "../data/items.js";
 import { loadZone, renderZoneActions } from "../main.js";
 import { printToTerminal } from "../ui/dom.js";
 import { addFlag, hasFlag } from "./gameState.js";
@@ -126,7 +125,7 @@ export async function doArsonToHeatTheLatch() {
     await printToTerminal("You wait around 50 seconds for the flare to go out and you wait" +
         " around 2 more minutes for the latches to cooldown.", "action");
     await printToTerminal("You try and you manage to open the toolbox", "action");
-    removeItemFromInventory(ITEMS.flare.id);
+    removeItemFromInventory("flare");
     addFlag("OPENED_TOOLBOX_INIT");
     setFocus(null);
 }

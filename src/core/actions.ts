@@ -175,7 +175,7 @@ export async function doArsonToHeatTheLatch(): Promise<void> {
     "action",
   );
   await printToTerminal("You try and you manage to open the toolbox", "action");
-  removeItemFromInventory(ITEMS.flare.id);
+  removeItemFromInventory("flare");
   addFlag("OPENED_TOOLBOX_INIT");
   setFocus(null);
 }

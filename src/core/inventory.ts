@@ -40,7 +40,7 @@ export async function addItemToInventory(
 }
 
 export function removeItemFromInventory(
-  itemId: string,
+  itemId: ItemId,
   amount: number = 1,
 ): boolean {
   //if you don't have it in ur inventory

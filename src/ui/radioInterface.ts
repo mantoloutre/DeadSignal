@@ -4,6 +4,7 @@ import {
   getFormattedBuffer,
   handleFrequency,
   removeOneFromBuffer,
+  setBuffer,
 } from "../core/radioFrequency.js";
 import { bindingAction, toggleOverlay } from "../main.js";
 import { flashButton, getEl } from "./dom.js";
@@ -35,7 +36,7 @@ getEl("btn-tune").addEventListener("click", async (): Promise<void> => {
     flashButton(getEl("btn-tune"));
   }
 });
-
+//close the radio interface
 export function closeRadioInterface(): void {
   getEl("radio-interface").classList.toggle("radio-interface-active");
   toggleOverlay();
@@ -43,6 +44,7 @@ export function closeRadioInterface(): void {
     toggleOverlay();
   }
 }
+//open the radio interface
 export function openRadioInterface(): void {
   getEl("radio-interface").classList.add("radio-interface-active");
   if (getEl("side-menu").classList.contains("hidden")) {
@@ -50,3 +52,13 @@ export function openRadioInterface(): void {
   }
 }
 bindingAction(getEl("btn-open-radio-interface"), openRadioInterface);
+
+/*
+to set the display and current frequency to the right values
+ */
+export function setDisplayFrequency(): void {
+  setBuffer(currentState.currentFrequency);
+  const theFrequency: string = getFormattedBuffer();
+  getEl("frequency").textContent = theFrequency;
+  getEl("radio-current-frequency").textContent = theFrequency;
+}

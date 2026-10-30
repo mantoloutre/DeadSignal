@@ -1,12 +1,11 @@
 import { QG_MESSAGES, type QGMessageKey } from "../data/qgMessages.js";
-import type { RadioFrequencyName } from "../data/types.js";
 import { printToTerminal } from "../ui/dom.js";
 import { currentState, saveTheDataToLocalStorage } from "./gameState.js";
 
 export interface RadioFrequency {
   frequency: string;
 }
-
+export type RadioFrequencyName = keyof typeof FREQUENCY_REGISTRY;
 export const FREQUENCY_REGISTRY = {
   QG_FREQUENCY: {
     frequency: "112.400",
@@ -26,7 +25,7 @@ export const FREQUENCY_REGISTRY = {
   KILL_SWITCH_PULSE: {
     frequency: "111.111",
   },
-} satisfies Record<RadioFrequencyName, RadioFrequency>;
+} as const satisfies Record<string, RadioFrequency>;
 
 /*
 adding frequency and making sure it's not already there
