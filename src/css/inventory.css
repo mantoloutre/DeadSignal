@@ -1,32 +1,15 @@
-#inventory {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--main-color-background);
-    z-index: 901;
-    width: min(90vw, 500px);
-    padding: 10px;
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
-    transition: opacity 0.15s ease-out, transform 0.15s ease-out;
-    color: var(--text-color);
-    gap: 10px
-}
-
 #inventory.inventory-active {
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
-    transform: translate(-50%, -50%) scale(1);
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .inventory-item {
-    padding: 10px;
+  padding: 10px;
 }
 
 #inventory-container {
-    gap: 10px;
-    display: grid;
+  gap: 10px;
+  display: grid;
 }

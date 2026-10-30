@@ -3,9 +3,6 @@ body {
   font-size: 16px;
   background-color: var(--main-color-background);
   gap: 10px;
-
-  main {
-  }
 }
 
 .overlay {
@@ -64,4 +61,23 @@ body {
     0 0 15px var(--border-color),
     0 0 15px var(--glow-border-color),
     inset 0 0 50px var(--glow-border-color);
+}
+#inventory,
+#radio-interface {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--main-color-background);
+  z-index: 901;
+  width: min(90vw, 500px);
+  padding: 10px;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition:
+    opacity 0.15s ease-out,
+    transform 0.15s ease-out;
+  color: var(--text-color);
+  gap: 10px;
 }

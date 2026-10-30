@@ -100,3 +100,6 @@
 .terminal-line {
   line-height: 1.5;
 }
+#zone-action {
+  background: transparent;
+}
