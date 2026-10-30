@@ -1,37 +1,10 @@
 import type { ZoneAction } from "../data/types";
-import {
-  confirmingDoneTalkingToQG,
-  goInTheShack_GateCheckpoint,
-} from "./actions.js";
 import { hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
-import { WATCH_POST_OUTSIDE } from "./worldActions";
-/*
-this is for subzone ( mainly puzzle )
- */
-export const FOCUS = {
-  TOOLBOX: "TOOLBOX",
-  JUNCTION_BOX: "JUNCTION_BOX",
-  TELLING_QG: "TELLING_QG",
-} as const;
+import { GATE_CHECKPOINT_ACTION, WATCH_POST_OUTSIDE } from "./worldActions";
+
 export type ZoneId = keyof typeof ZONES;
 export type ZoneFocus = (typeof FOCUS)[keyof typeof FOCUS];
-
-let currentFocus: ZoneFocus | null = null;
-
-/*
-basic function to get the currentFocus
- */
-export function getFocus(): ZoneFocus | null {
-  return currentFocus;
-}
-
-/*
-basic function to set the current focus
- */
-export function setFocus(focus: ZoneFocus | null): void {
-  currentFocus = focus;
-}
 
 /*
 the const containing all the zone that I'm using in the game
@@ -231,17 +204,9 @@ export const ZONES = {
       }
       //normal action
       const actions: ZoneAction[] = [];
-      actions.push(WATCH_POST_OUTSIDE.WALK_BACK_FOREST_TRAIL);
-      actions.push({
-        command: "walk toward the watch post",
-        description: "walk to the watch post",
-        execute: actionsFunc.walkTowardMainWatchPost,
-      });
-      actions.push({
-        command: "enter guard shack",
-        description: "enter the guard shack",
-        execute: goInTheShack_GateCheckpoint,
-      });
+      actions.push(GATE_CHECKPOINT_ACTION.WALK_BACK_FOREST_TRAIL);
+      actions.push(GATE_CHECKPOINT_ACTION); //walk toward post
+      actions.push(GATE_CHECKPOINT_ACTION); //go in shack
       return actions;
     },
   },
@@ -293,32 +258,15 @@ function to get the actions related to opening the toolbox
  */
 function getToolBoxActions(): ZoneAction[] {
   const actions: ZoneAction[] = [];
-  actions.push({
-    command: "do something else",
-    description: "do something else than trying to open the toolbox",
-    execute: actionsFunc.outOfToolBoxFocus,
-  });
+  actions.push(); //todo do something else
   if (!hasFlag("OPENED_TOOLBOX_INIT")) {
-    actions.push({
-      command: "force latch barehanded / with gloves",
-      description:
-        "try to break / force open the latch on the toolbox with your hands",
-      execute: actionsFunc.forceToolBoxOpenWithHand,
-    });
+    actions.push(); //todo latch barehand
     if (doesThePlayerHasTheItem("crowbar")) {
-      actions.push({
-        command: "force latch with crowbar",
-        description: "try to pry open the toolbox with your crowbar",
-        execute: actionsFunc.pryToolBoxWithCrowbar,
-      });
+      actions.push(); //todo crowbar
     }
     if (doesThePlayerHasTheItem("flare")) {
       //TODO make autocompletion for item type???
-      actions.push({
-        command: "try with heat (-1 flare)",
-        description: "try to light up a flare to try and head up the lock",
-        execute: actionsFunc.doArsonToHeatTheLatch,
-      });
+      actions.push(); //todo try heat
     }
   }
   return actions;

@@ -1,9 +1,8 @@
 import { loadZone, renderZoneActions } from "../main.js";
 import { printToTerminal } from "../ui/dom.js";
-import { addFlag, hasFlag } from "./gameState.js";
+import { addFlag, hasFlag, setFocus } from "./gameState.js";
 import { addItemToInventory, removeItemFromInventory } from "./inventory.js";
 import { addDiscoveredFrequency, queueQGMessage } from "./radioFrequency.js";
-import { setFocus } from "./world.js";
 
 /*
 ##################

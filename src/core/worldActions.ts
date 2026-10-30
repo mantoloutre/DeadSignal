@@ -51,10 +51,23 @@ export const SNOWY_FOREST_ACTIONS = {} as const satisfies Record<
 /*
 ###################################################
  */
-export const GATE_CHECKPOINT_ACTION = {} as const satisfies Record<
-  string,
-  ZoneAction
->;
+export const GATE_CHECKPOINT_ACTION = {
+  WALK_BACK_FOREST_TRAIL: {
+    command: "walk back to forest trail",
+    description: "walk back to the snowy forest",
+    execute: actionsFunc.walkBackSnowyForestTowardTruck,
+  },
+  WALK_TOWARD_POST: {
+    command: "walk toward the watch post",
+    description: "walk to the watch post",
+    execute: actionsFunc.walkTowardMainWatchPost,
+  },
+  ENTER_GUARD_SHACK: {
+    command: "enter guard shack",
+    description: "enter the guard shack",
+    execute: goInTheShack_GateCheckpoint,
+  },
+} as const satisfies Record<string, ZoneAction>;
 /*
 ###################################################
  */
@@ -78,11 +91,6 @@ export const WATCH_POST_OUTSIDE = {
     command: "go inside the watch post",
     description: "walk inside the watch post",
     execute: actionsFunc.goInsideTheWatchPost,
-  },
-  WALK_BACK_FOREST_TRAIL: {
-    command: "walk back to forest trail",
-    description: "walk back to the snowy forest",
-    execute: actionsFunc.walkBackSnowyForestTowardTruck,
   },
 } as const satisfies Record<string, ZoneAction>;
 /*
@@ -148,3 +156,29 @@ export const SAY_STUFF_TO_QG = {
     oneTime: true,
   },
 } as const satisfies Record<string, ZoneAction>;
+/*
+###################################################
+ */
+export const GET_TOOL_BOX_ACTION = {
+  DO_SOMETHING_ELSE: {
+    command: "do something else",
+    description: "do something else than trying to open the toolbox",
+    execute: actionsFunc.outOfToolBoxFocus,
+  },
+  FORCE_LATCH_BAREHAND: {
+    command: "force latch barehanded / with gloves",
+    description:
+      "try to break / force open the latch on the toolbox with your hands",
+    execute: actionsFunc.forceToolBoxOpenWithHand,
+  },
+  FORCE_LATCH_CROWBAR: {
+    command: "force latch with crowbar",
+    description: "try to pry open the toolbox with your crowbar",
+    execute: actionsFunc.pryToolBoxWithCrowbar,
+  },
+  FORCE_LATCH_HEAT: {
+    command: "try with heat (-1 flare)",
+    description: "try to light up a flare to try and head up the lock",
+    execute: actionsFunc.doArsonToHeatTheLatch,
+  },
+};
