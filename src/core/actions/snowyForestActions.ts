@@ -1,6 +1,6 @@
-import { loadZone } from "../../main";
-import { printToTerminal } from "../../ui/dom";
-import { addFlag } from "../gameState";
+import { loadZone } from "../../main.js";
+import { printToTerminal } from "../../ui/dom.js";
+import { addFlag } from "../gameState.js";
 
 /*
 ###################

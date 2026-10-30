@@ -1,5 +1,5 @@
 import * as actionsFunc from "./actions/index.js";
-import { hasFlag } from "./gameState";
+import { hasFlag } from "./gameState.js";
 // actions for the zone inside the truck
 export const TRUCK_CABIN_INIT_ACTIONS = {
     GET_OUT_OF_TRUCK_INIT: {
@@ -53,16 +53,20 @@ export const OUTSIDE_TRUCK_INIT_ACTIONS = {
         execute: actionsFunc.walkTowardSnowyForestFromOutsideTruck,
     },
     LOOK_AT_ENGINE_TRUCK_INIT: {
-        command: hasFlag("OPENED_HOOD_TRUCK_INIT")
-            ? "look at the engine"
-            : "open the hood and look at the engine",
+        get command() {
+            return hasFlag("OPENED_HOOD_TRUCK_INIT")
+                ? "look at the engine"
+                : "open the hood and look at the engine";
+        },
         description: "look at the engine and open the hood if its in the way",
         execute: actionsFunc.openTheHoodAndOrLookAtTheEngineInit,
     },
     OPEN_TRUCK_TRUNK_INIT: {
-        command: hasFlag("OPENED_TRUCK_TRUNK_INIT")
-            ? "look into the truck's trunk"
-            : "open the truck's trunk",
+        get command() {
+            return hasFlag("OPENED_TRUCK_TRUNK_INIT")
+                ? "look into the truck's trunk"
+                : "open the truck's trunk";
+        },
         description: "check the truck trunk's to see if there is anything useful in there",
         execute: actionsFunc.checkTruckTrunk,
         oneTime: true,
@@ -74,9 +78,11 @@ export const OUTSIDE_TRUCK_INIT_ACTIONS = {
         oneTime: true,
     },
     OPEN_TOOLBOX_TRUCK_TRUNK_INIT: {
-        command: hasFlag("OPENED_TOOLBOX_INIT")
-            ? "look into the toolbox"
-            : "open the toolbox",
+        get command() {
+            return hasFlag("OPENED_TOOLBOX_INIT")
+                ? "look into the toolbox"
+                : "open the toolbox";
+        },
         description: "open the toolbox ",
         execute: actionsFunc.openToolBoxTruckTrunkInit,
     },
