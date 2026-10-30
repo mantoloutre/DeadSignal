@@ -1,28 +1,6 @@
-import { goInTheShack_GateCheckpoint, } from "./actions.js";
-import { hasFlag, isCommandInactive } from "./gameState.js";
+import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
-import { WATCH_POST_OUTSIDE } from "./worldActions";
-/*
-this is for subzone ( mainly puzzle )
- */
-export const FOCUS = {
-    TOOLBOX: "TOOLBOX",
-    JUNCTION_BOX: "JUNCTION_BOX",
-    TELLING_QG: "TELLING_QG",
-};
-let currentFocus = null;
-/*
-basic function to get the currentFocus
- */
-export function getFocus() {
-    return currentFocus;
-}
-/*
-basic function to set the current focus
- */
-export function setFocus(focus) {
-    currentFocus = focus;
-}
+import { GATE_CHECKPOINT_ACTION, OUTSIDE_TRUCK_INIT_ACTIONS, SAY_STUFF_TO_QG, SNOWY_FOREST_ACTIONS, TRUCK_CABIN_INIT_ACTIONS, WATCH_POST, WATCH_POST_OUTSIDE, } from "./worldActions.js";
 /*
 the const containing all the zone that I'm using in the game
  */
@@ -37,18 +15,10 @@ export const ZONES = {
             //if focus its here
             //if there is no current focus then we do the normal thing
             const actions = [];
-            actions.push(); //TODO put the command to go back to the truck
-            actions.push({
-                command: "inspect the direction sign",
-                description: "inspect it to know where to go",
-                execute: actionsFunc.inspectDirectionSign,
-            });
+            actions.push(SNOWY_FOREST_ACTIONS.GO_BACK_TO_TRUCK);
+            actions.push(SNOWY_FOREST_ACTIONS.INSPECT_DIRECTION_SIGN);
             if (hasFlag("INSPECTED_DIRECTION_SIGN")) {
-                actions.push({
-                    command: "walk toward the watch tower",
-                    description: "walk toward the watch tower which also serve as the main relay tower",
-                    execute: actionsFunc.walkTowardMainWatchPost,
-                });
+                actions.push(SNOWY_FOREST_ACTIONS.WALK_TOWARD_WATCH_POST);
             }
             return actions;
         },
@@ -64,59 +34,17 @@ export const ZONES = {
             }
             //if no focus then normal things
             const actions = [];
-            actions.push({
-                command: "get back in the truck",
-                description: "go back inside the truck",
-                execute: actionsFunc.goBackInThePrettyTruck,
-            });
-            actions.push({
-                command: "walk toward forest",
-                description: "start walking toward the forest",
-                execute: actionsFunc.walkTowardSnowyForestFromOutsideTruck,
-            });
-            actions.push({
-                command: hasFlag("OPENED_HOOD_TRUCK_INIT")
-                    ? "look at the engine"
-                    : "open the hood and look at the engine",
-                description: "look at the engine and open the hood if its in the way",
-                execute: actionsFunc.openTheHoodAndOrLookAtTheEngineInit,
-            });
-            actions.push({
-                command: hasFlag("OPENED_TRUCK_TRUNK_INIT")
-                    ? "look into the truck's trunk"
-                    : "open the truck's trunk",
-                description: "check the truck trunk's to see if there is anything useful in there",
-                execute: actionsFunc.checkTruckTrunk,
-                oneTime: true,
-            });
+            actions.push(OUTSIDE_TRUCK_INIT_ACTIONS.GO_BACK_IN_TRUCK_INIT);
+            actions.push(OUTSIDE_TRUCK_INIT_ACTIONS.WALK_TOWARD_FOREST_FROM_TRUCK_INIT);
+            actions.push(OUTSIDE_TRUCK_INIT_ACTIONS.LOOK_AT_ENGINE_TRUCK_INIT);
+            actions.push(OUTSIDE_TRUCK_INIT_ACTIONS.OPEN_TRUCK_TRUNK_INIT);
             if (hasFlag("OPENED_TRUCK_TRUNK_INIT")) {
-                actions.push({
-                    command: "take crowbar",
-                    description: "take the crowbar from the trunk",
-                    execute: actionsFunc.addCrowBarToThePlayerInventory,
-                    oneTime: true,
-                });
-                actions.push({
-                    command: hasFlag("OPENED_TOOLBOX_INIT")
-                        ? "look into the toolbox"
-                        : "open the toolbox",
-                    description: "open the toolbox ",
-                    execute: actionsFunc.openToolBoxTruckTrunkInit,
-                });
+                actions.push(OUTSIDE_TRUCK_INIT_ACTIONS.TAKE_CROWBAR_FROM_TRUCK_TRUNK_INIT);
+                actions.push(OUTSIDE_TRUCK_INIT_ACTIONS.OPEN_TOOLBOX_TRUCK_TRUNK_INIT);
             }
             if (hasFlag("OPENED_TOOLBOX_INIT")) {
-                actions.push({
-                    command: "pickup duct tape",
-                    description: "take the roll of duct tape from the toolbox",
-                    execute: actionsFunc.takeDuctTapeFromToolBoxInit,
-                    oneTime: true,
-                });
-                actions.push({
-                    command: "pickup ajustable wrench",
-                    description: "take the ajustable wrench from the toolbox",
-                    execute: actionsFunc.takeAdjustableWrenchFromToolBoxInit,
-                    oneTime: true,
-                });
+                actions.push(OUTSIDE_TRUCK_INIT_ACTIONS.TAKE_DUCT_TAPE_FROM_TOOLBOX);
+                actions.push(OUTSIDE_TRUCK_INIT_ACTIONS.TAKE_ADJUSTABLE_WRENCH_FROM_TOOLBOX);
             }
             return actions;
         },
@@ -130,32 +58,13 @@ export const ZONES = {
             const actions = [];
             actions.push(); //TODO link the get out of truck
             if (!hasFlag("OPENED_GLOVE_BOX")) {
-                actions.push({
-                    command: "open glove box",
-                    description: "open the glove box to see what's inside",
-                    execute: actionsFunc.lookInGloveBoxInTruckCabin,
-                });
+                actions.push(TRUCK_CABIN_INIT_ACTIONS.OPEN_GLOVE_BOX_TRUCK_INIT);
             }
             else {
-                actions.push({
-                    command: "take gloves",
-                    description: "take the good looking winter gloves inside the glove box",
-                    execute: actionsFunc.addWinterGlovesToThePlayerInventory,
-                    oneTime: true,
-                });
-                actions.push({
-                    command: "take flares",
-                    description: "take the two flares from the glove box",
-                    execute: actionsFunc.addFlareTruckCabin,
-                    oneTime: true,
-                });
-                actions.push({
-                    command: "read emergency manual",
-                    description: "read the emergency manual to know what to do in case of an emergency",
-                    execute: actionsFunc.readEmergencyManual,
-                    oneTime: true,
-                });
-                actions.push(); //TODO link take truck insurance paper
+                actions.push(TRUCK_CABIN_INIT_ACTIONS.TAKE_GLOVE_FROM_GLOVE_BOX);
+                actions.push(TRUCK_CABIN_INIT_ACTIONS.TAKE_FLARE_FROM_GLOVE_BOX);
+                actions.push(TRUCK_CABIN_INIT_ACTIONS.READ_EMERGENCY_MANUAL_INIT);
+                actions.push(TRUCK_CABIN_INIT_ACTIONS.TAKE_TRUCK_INSURANCE_PAPER);
             }
             return actions;
         },
@@ -190,7 +99,7 @@ export const ZONES = {
             }
             else {
                 actions.push(WATCH_POST.TAKE_KELLER_CREDENTIAL);
-                actions.push(WATCH_POST.AKE_PEN_FROM_KELLER);
+                actions.push(WATCH_POST.TAKE_PEN_FROM_KELLER);
             }
             return actions;
         },
@@ -208,17 +117,9 @@ export const ZONES = {
             }
             //normal action
             const actions = [];
-            actions.push(WATCH_POST_OUTSIDE.WALK_BACK_FOREST_TRAIL);
-            actions.push({
-                command: "walk toward the watch post",
-                description: "walk to the watch post",
-                execute: actionsFunc.walkTowardMainWatchPost,
-            });
-            actions.push({
-                command: "enter guard shack",
-                description: "enter the guard shack",
-                execute: goInTheShack_GateCheckpoint,
-            });
+            actions.push(GATE_CHECKPOINT_ACTION.WALK_BACK_FOREST_TRAIL);
+            actions.push(GATE_CHECKPOINT_ACTION.WALK_TOWARD_POST); //walk toward post
+            actions.push(GATE_CHECKPOINT_ACTION.ENTER_GUARD_SHACK); //go in shack
             return actions;
         },
     },
@@ -244,20 +145,20 @@ function getWhatToSayToQG() {
     //TODO find out why this doesnt work
     const actions = [];
     if (isCommandInactive(""))
-        actions.push(); //TODO link the press when done
+        actions.push(SAY_STUFF_TO_QG.PRESS_WHEN_PLAYER_DONE);
     //section for the body
     if (!isCommandInactive("No Body")) {
-        actions.push(); //TODO link yes_body
+        actions.push(SAY_STUFF_TO_QG.YES_BODY);
     }
     if (!isCommandInactive("Dead Body")) {
-        actions.push(); //TODO link no_body
+        actions.push(SAY_STUFF_TO_QG.NO_BODY);
     }
     // section for the note
     if (!isCommandInactive("No Note Found")) {
-        actions.push(); //TODO link yes_note
+        actions.push(SAY_STUFF_TO_QG.YES_NOTE);
     }
     if (!isCommandInactive("Note Found")) {
-        actions.push(); //TODO link no_note
+        actions.push(SAY_STUFF_TO_QG.NO_NOTE);
     }
     return actions;
 }
@@ -266,31 +167,15 @@ function to get the actions related to opening the toolbox
  */
 function getToolBoxActions() {
     const actions = [];
-    actions.push({
-        command: "do something else",
-        description: "do something else than trying to open the toolbox",
-        execute: actionsFunc.outOfToolBoxFocus,
-    });
+    actions.push(); //todo do something else
     if (!hasFlag("OPENED_TOOLBOX_INIT")) {
-        actions.push({
-            command: "force latch barehanded / with gloves",
-            description: "try to break / force open the latch on the toolbox with your hands",
-            execute: actionsFunc.forceToolBoxOpenWithHand,
-        });
+        actions.push(); //todo latch barehand
         if (doesThePlayerHasTheItem("crowbar")) {
-            actions.push({
-                command: "force latch with crowbar",
-                description: "try to pry open the toolbox with your crowbar",
-                execute: actionsFunc.pryToolBoxWithCrowbar,
-            });
+            actions.push(); //todo crowbar
         }
         if (doesThePlayerHasTheItem("flare")) {
             //TODO make autocompletion for item type???
-            actions.push({
-                command: "try with heat (-1 flare)",
-                description: "try to light up a flare to try and head up the lock",
-                execute: actionsFunc.doArsonToHeatTheLatch,
-            });
+            actions.push(); //todo try heat
         }
     }
     return actions;

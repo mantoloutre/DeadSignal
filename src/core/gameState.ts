@@ -1,8 +1,7 @@
 import { QG_MESSAGES, type QGMessageKey } from "../data/qgMessages.js";
 import type { StoryFlags } from "../data/storyFlags.js";
-import type { ZoneId } from "../data/types.js";
 import type { InventorySlot } from "./inventory.js";
-import { ZONES } from "./world.js";
+import { ZONES, type ZoneId } from "./world.js";
 
 //base
 export interface GameState {
@@ -31,6 +30,7 @@ export const GAME_INITIAL_STATE: GameState = {
   playerInventory: [],
   inactiveCommands: [],
 };
+export type ZoneFocus = (typeof FOCUS)[keyof typeof FOCUS];
 /*
 this is for subzone ( mainly puzzle )
  */

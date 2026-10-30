@@ -1,23 +1,6 @@
 import type { ZoneAction } from "../data/types.js";
-import * as actionsFunc from "./actions.js";
-
-export const WORLD_ACTIONS = {
-  //###########
-  //truck cabin
-  //###########
-  //#############
-  //outside truck
-  //#############
-
-  //############
-  //snowy forest
-  //############
-  GO_BACK_TO_TRUCK: {
-    command: "go back to the truck",
-    description: "walk back to the truck",
-    execute: actionsFunc.goBackToTheTruck,
-  },
-} as const satisfies Record<string, ZoneAction>;
+import * as actionsFunc from "./actions/index.js";
+import { hasFlag } from "./gameState";
 // actions for the zone inside the truck
 export const TRUCK_CABIN_INIT_ACTIONS = {
   GET_OUT_OF_TRUCK_INIT: {
@@ -31,6 +14,30 @@ export const TRUCK_CABIN_INIT_ACTIONS = {
     execute: actionsFunc.addTruckInsurancePaper,
     oneTime: true,
   },
+  OPEN_GLOVE_BOX_TRUCK_INIT: {
+    command: "open glove box",
+    description: "open the glove box to see what's inside",
+    execute: actionsFunc.lookInGloveBoxInTruckCabin,
+  },
+  TAKE_GLOVE_FROM_GLOVE_BOX: {
+    command: "take gloves",
+    description: "take the good looking winter gloves inside the glove box",
+    execute: actionsFunc.addWinterGlovesToThePlayerInventory,
+    oneTime: true,
+  },
+  TAKE_FLARE_FROM_GLOVE_BOX: {
+    command: "take flares",
+    description: "take the two flares from the glove box",
+    execute: actionsFunc.addFlareTruckCabin,
+    oneTime: true,
+  },
+  READ_EMERGENCY_MANUAL_INIT: {
+    command: "read emergency manual",
+    description:
+      "read the emergency manual to know what to do in case of an emergency",
+    execute: actionsFunc.readEmergencyManual,
+    oneTime: true,
+  },
 } as const satisfies Record<string, ZoneAction>;
 /*
 ###################################################
@@ -38,16 +45,80 @@ export const TRUCK_CABIN_INIT_ACTIONS = {
 
 // actions for the zone outside the truck
 export const OUTSIDE_TRUCK_INIT_ACTIONS = {
-  GO_BACK_IN_TRUCK_INIT: {},
+  GO_BACK_IN_TRUCK_INIT: {
+    command: "get back in the truck",
+    description: "go back inside the truck",
+    execute: actionsFunc.goBackInThePrettyTruck,
+  },
+  WALK_TOWARD_FOREST_FROM_TRUCK_INIT: {
+    command: "walk toward forest",
+    description: "start walking toward the forest",
+    execute: actionsFunc.walkTowardSnowyForestFromOutsideTruck,
+  },
+  LOOK_AT_ENGINE_TRUCK_INIT: {
+    command: hasFlag("OPENED_HOOD_TRUCK_INIT")
+      ? "look at the engine"
+      : "open the hood and look at the engine",
+    description: "look at the engine and open the hood if its in the way",
+    execute: actionsFunc.openTheHoodAndOrLookAtTheEngineInit,
+  },
+  OPEN_TRUCK_TRUNK_INIT: {
+    command: hasFlag("OPENED_TRUCK_TRUNK_INIT")
+      ? "look into the truck's trunk"
+      : "open the truck's trunk",
+    description:
+      "check the truck trunk's to see if there is anything useful in there",
+    execute: actionsFunc.checkTruckTrunk,
+    oneTime: true,
+  },
+  TAKE_CROWBAR_FROM_TRUCK_TRUNK_INIT: {
+    command: "take crowbar",
+    description: "take the crowbar from the trunk",
+    execute: actionsFunc.addCrowBarToThePlayerInventory,
+    oneTime: true,
+  },
+  OPEN_TOOLBOX_TRUCK_TRUNK_INIT: {
+    command: hasFlag("OPENED_TOOLBOX_INIT")
+      ? "look into the toolbox"
+      : "open the toolbox",
+    description: "open the toolbox ",
+    execute: actionsFunc.openToolBoxTruckTrunkInit,
+  },
+  TAKE_DUCT_TAPE_FROM_TOOLBOX: {
+    command: "pickup duct tape",
+    description: "take the roll of duct tape from the toolbox",
+    execute: actionsFunc.takeDuctTapeFromToolBoxInit,
+    oneTime: true,
+  },
+  TAKE_ADJUSTABLE_WRENCH_FROM_TOOLBOX: {
+    command: "pickup ajustable wrench",
+    description: "take the ajustable wrench from the toolbox",
+    execute: actionsFunc.takeAdjustableWrenchFromToolBoxInit,
+    oneTime: true,
+  },
 };
 /*
 ###################################################
  */
 // actions for the snowy forest ( perimeter )
-export const SNOWY_FOREST_ACTIONS = {} as const satisfies Record<
-  string,
-  ZoneAction
->;
+export const SNOWY_FOREST_ACTIONS = {
+  INSPECT_DIRECTION_SIGN: {
+    command: "inspect the direction sign",
+    description: "inspect it to know where to go",
+    execute: actionsFunc.inspectDirectionSign,
+  },
+  GO_BACK_TO_TRUCK: {
+    command: "go back to the truck",
+    description: "walk back to the truck",
+    execute: actionsFunc.goBackToTheTruck,
+  },
+  WALK_TOWARD_WATCH_POST: {
+    command: "walk toward the watch tower",
+    description:
+      "walk toward the watch tower which also serve as the main relay tower",
+    execute: actionsFunc.walkTowardMainWatchPost,
+  },
+} as const satisfies Record<string, ZoneAction>;
 /*
 ###################################################
  */
@@ -65,7 +136,7 @@ export const GATE_CHECKPOINT_ACTION = {
   ENTER_GUARD_SHACK: {
     command: "enter guard shack",
     description: "enter the guard shack",
-    execute: goInTheShack_GateCheckpoint,
+    execute: actionsFunc.goInTheShack_GateCheckpoint,
   },
 } as const satisfies Record<string, ZoneAction>;
 /*
@@ -128,7 +199,7 @@ export const SAY_STUFF_TO_QG = {
   PRESS_WHEN_PLAYER_DONE: {
     command: "Press When done",
     description: "press this when your are done saying stuff",
-    execute: confirmingDoneTalkingToQG,
+    execute: actionsFunc.confirmingDoneTalkingToQG,
     oneTime: true,
   },
   YES_BODY: {

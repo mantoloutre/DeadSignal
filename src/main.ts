@@ -5,18 +5,14 @@ import {
   importSaveFile,
   loadFromTheLocalStorage,
   saveTheDataToLocalStorage,
+  setFocus,
   setGameState,
 } from "./core/gameState.js";
 import { handleFrequency, queueQGMessage } from "./core/radioFrequency.js";
-import {
-  setFocus,
-  ZONES,
-  type Zone,
-  type ZoneAction,
-  type ZoneId,
-} from "./core/world.js";
+import { ZONES, type ZoneId } from "./core/world.js";
 import { presetBeforeDiscoveringBody } from "./data/devPresets.js";
 import { ITEMS, type Item } from "./data/items.js";
+import type { Zone, ZoneAction } from "./data/types.js";
 import { flashButton, getEl, isPrinting, printToTerminal } from "./ui/dom.js";
 import {
   closeRadioInterface,
@@ -30,7 +26,7 @@ load a zone
 export async function loadZone(zoneId: ZoneId): Promise<void> {
   const zone: Zone = ZONES[zoneId];
   setFocus(null);
-  currentState.currentZone = zone;
+  currentState.currentZone = zoneId;
   saveTheDataToLocalStorage();
   getEl("zone-tag").textContent = `${zone.name}`;
   await printToTerminal(`ZONE: ${zone.name}`, "system");

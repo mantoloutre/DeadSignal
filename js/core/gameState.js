@@ -12,6 +12,27 @@ export const GAME_INITIAL_STATE = {
     playerInventory: [],
     inactiveCommands: [],
 };
+/*
+this is for subzone ( mainly puzzle )
+ */
+export const FOCUS = {
+    TOOLBOX: "TOOLBOX",
+    JUNCTION_BOX: "JUNCTION_BOX",
+    TELLING_QG: "TELLING_QG",
+};
+let currentFocus = null;
+/*
+basic function to get the currentFocus
+ */
+export function getFocus() {
+    return currentFocus;
+}
+/*
+basic function to set the current focus
+ */
+export function setFocus(focus) {
+    currentFocus = focus;
+}
 export let currentState = structuredClone(GAME_INITIAL_STATE);
 export function addFlag(flag) {
     if (!currentState.storyFlags.includes(flag)) {

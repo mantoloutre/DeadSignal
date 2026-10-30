@@ -1,6 +1,6 @@
-import { currentState, exportSaveFile, GAME_INITIAL_STATE, importSaveFile, loadFromTheLocalStorage, saveTheDataToLocalStorage, setGameState, } from "./core/gameState.js";
+import { currentState, exportSaveFile, GAME_INITIAL_STATE, importSaveFile, loadFromTheLocalStorage, saveTheDataToLocalStorage, setFocus, setGameState, } from "./core/gameState.js";
 import { handleFrequency, queueQGMessage } from "./core/radioFrequency.js";
-import { setFocus, ZONES, } from "./core/world.js";
+import { ZONES } from "./core/world.js";
 import { presetBeforeDiscoveringBody } from "./data/devPresets.js";
 import { ITEMS } from "./data/items.js";
 import { flashButton, getEl, isPrinting, printToTerminal } from "./ui/dom.js";
@@ -12,7 +12,7 @@ load a zone
 export async function loadZone(zoneId) {
     const zone = ZONES[zoneId];
     setFocus(null);
-    currentState.currentZone = zone;
+    currentState.currentZone = zoneId;
     saveTheDataToLocalStorage();
     getEl("zone-tag").textContent = `${zone.name}`;
     await printToTerminal(`ZONE: ${zone.name}`, "system");
