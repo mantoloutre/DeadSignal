@@ -1,4 +1,4 @@
-import { clearTheLocalStorage, resetGameState } from "../core/gameState";
+import { clearTheLocalStorage, resetGameState } from "../core/gameState.js";
 import { flashButton, getEl } from "./dom.js";
 let confirmingReset = false;
 let resetTimeout = null;

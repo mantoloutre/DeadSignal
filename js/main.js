@@ -1,4 +1,5 @@
 import { currentState, exportSaveFile, GAME_INITIAL_STATE, importSaveFile, loadFromTheLocalStorage, saveTheDataToLocalStorage, setFocus, setGameState, } from "./core/gameState.js";
+import "./ui/sideMenu.js";
 import { handleFrequency, queueQGMessage } from "./core/radioFrequency.js";
 import { ZONES } from "./core/world.js";
 import { presetBeforeDiscoveringBody } from "./data/devPresets.js";
