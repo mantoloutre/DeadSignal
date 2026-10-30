@@ -24,7 +24,7 @@ export async function checkTruckTrunk() {
 }
 export async function getOutOfTheDamnTruck() {
     await printToTerminal("You go out of the truck", "action");
-    await loadZone(ZONES.OUTSIDE_TRUCK);
+    await loadZone("TRUCK_CABIN");
 }
 /*
 function to add winter gloves to the player inventory when the player look inside the glove box
@@ -72,7 +72,7 @@ function to load the zone truck cabin, in case the player want to go back inside
  */
 export async function goBackInThePrettyTruck() {
     await printToTerminal("You hop back in the truck", "action");
-    await loadZone(ZONES.TRUCK_CABIN);
+    await loadZone("TRUCK_CABIN");
 }
 /*
 function that depending on if the hood is already open, will display different chat
@@ -150,7 +150,7 @@ export async function pryToolBoxWithCrowbar() {
 export async function walkTowardSnowyForestFromOutsideTruck() {
     await printToTerminal("You walk toward the forest away from the truck", "action");
     //TODO load zone
-    await loadZone(ZONES.SNOWY_FOREST);
+    await loadZone("SNOWY_FOREST");
 }
 /*
 ###################
@@ -160,12 +160,12 @@ ZONE : SNOWY FOREST
 export async function goBackToTheTruck() {
     await printToTerminal("You walk back to the truck", "action");
     //TODO maybe do another thing here idk?
-    await loadZone(ZONES.OUTSIDE_TRUCK);
+    await loadZone("OUTSIDE_TRUCK");
 }
 export async function walkTowardMainWatchPost() {
     await printToTerminal("You walk toward the main watch tower and you arrive at destination", "action");
     await printToTerminal("You are now standing outside the watch tower", "system");
-    await loadZone(ZONES.WATCH_POST_OUTSIDE);
+    await loadZone("WATCH_POST_OUTSIDE");
     if (!hasFlag("GOT_QG_MESSAGE_GOT_TO_TOWER")) {
         addFlag("GOT_QG_MESSAGE_GOT_TO_TOWER");
         await queueQGMessage("QG_MESSAGE_GOT_TOWER_FIRST_TIME");
@@ -189,11 +189,11 @@ walk toward the intersection of : outside watchpost, broken down truck, frozen l
 export async function walkBackSnowyForestTowardTruck() {
     await printToTerminal("You go back in the forest toward the intersection" +
         " of the frozen lake and the truck", "action");
-    await loadZone(ZONES.SNOWY_FOREST);
+    await loadZone("SNOWY_FOREST");
 }
 export async function goInsideTheWatchPost() {
     await printToTerminal("You go inside the watch post", "action");
-    await loadZone(ZONES.WATCH_POST);
+    await loadZone("WATCH_POST");
     if (!hasFlag("DISCOVERED_KELLER_BODY")) {
         addFlag("DISCOVERED_KELLER_BODY");
         await printToTerminal("You find the light switch in the dark and turn the lights back on.", "action");
@@ -224,7 +224,7 @@ ZONE : WATCH_POST
 // go back outside the watchpost
 export async function walkBackOutside() {
     await printToTerminal("You walk back outside the watch tower", "action");
-    await loadZone(ZONES.WATCH_POST_OUTSIDE);
+    await loadZone("WATCH_POST_OUTSIDE");
 }
 // search Keller's body
 export async function searchKellerBody() {
@@ -276,9 +276,34 @@ export async function confirmingDoneTalkingtoQG() {
 ZONE : EXCAVATION_CAMP
 ######################
  */
+//go back to the forest trail ( to the intersection )
 export async function goBackToForestTrail() {
     await printToTerminal("You walk back toward the three way junction point", "action");
-    await loadZone(ZONES.GATE_CHECKPOINT);
+    await loadZone("GATE_CHECKPOINT");
+}
+/*
+######################
+ZONE : GATE_CHECKPOINT
+######################
+ */
+// go in the shack (checkpoint)
+export async function goInTheShack_GateCheckpoint() {
+    await printToTerminal("You walk inside the destroyed shack", "action");
+    await loadZone("GATE_CHECKPOINT_SHACK");
+}
+/*
+#############################
+ZONE : GATE_CHECKPOINT_SHACK
+############################
+ */
+export async function goOutsideTheShack_GateCheckpoint() {
+    await printToTerminal("You go back outside of the shack", "action");
+    await loadZone("GATE_CHECKPOINT");
+}
+export async function searchTheGuardShack() {
+    await printToTerminal("You search the shack, you ", //TODO finish this
+    "action");
+    addFlag("SEARCHED_GUARD_SHACK");
 }
 /*
 ######

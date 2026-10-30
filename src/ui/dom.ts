@@ -65,7 +65,7 @@ export function getEl<Key extends keyof UIElements>(id: Key): UIElements[Key] {
   if (cached) {
     return cached as UIElements[Key];
   }
-  const element = document.getElementById(id);
+  const element: HTMLElement | null = document.getElementById(id);
   if (!element) {
     throw new Error(`Element ${id} not found in DOM`);
   }

@@ -17,7 +17,7 @@ export async function loadZone(zoneId) {
     getEl("zone-tag").textContent = `${zone.name}`;
     await printToTerminal(`ZONE: ${zone.name}`, "system");
     await printToTerminal(zone.description, "system");
-    renderZoneActions(zone);
+    renderZoneActions(zoneId);
 }
 /*
 //TODO correct the documentation <br>
@@ -34,7 +34,7 @@ export function renderZoneActions(zone) {
     //step 1
     getEl("zone-action").innerHTML = "";
     //step 2
-    const actions = zone.getActions();
+    const actions = ZONES[zone].getActions();
     //step 3
     for (const action of actions) {
         if (action.oneTime &&
@@ -187,7 +187,7 @@ getEl("btn-import").addEventListener("click", async () => {
     getEl("terminal-output").innerHTML = "";
     importSaveFile(async () => {
         setDisplayFrequency();
-        await loadZone(ZONES[currentState.currentZone]);
+        await loadZone(currentState.currentZone);
         await printToTerminal("Save file loaded with success", "system");
     }, async (errorMsg) => {
         await printToTerminal(`Import error: ${errorMsg}`, "alert");
@@ -247,7 +247,7 @@ function createButtonZoneActions(action, zoneId) {
         //we need to make sure we are still in the same zone
         if (currentState.currentZone === zoneId) {
             // needed to reload missing actions that needed a flag to appear
-            renderZoneActions(ZONES[zoneId]);
+            renderZoneActions(zoneId);
         }
     });
     actionZone.append(button);
@@ -265,12 +265,12 @@ async function initGame() {
         setDisplayFrequency();
         //if (currentState.currentFrequency === "112.400") await handleFrequency();
         await handleFrequency();
-        await loadZone(ZONES[currentState.currentZone]);
+        await loadZone(currentState.currentZone);
     }
     else {
         await printToTerminal("the game story is really far from being finished, sorry :c", "alert");
         await printToTerminal("CRITICAL ALERT: engine failure detected.", "alert");
-        await loadZone(ZONES[GAME_INITIAL_STATE.currentZone]);
+        await loadZone(GAME_INITIAL_STATE.currentZone);
         getEl("frequency").textContent = currentState.currentFrequency;
         await queueQGMessage("TRUCK_STOPPED_START");
     }

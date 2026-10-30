@@ -1,4 +1,3 @@
-import { ITEMS } from "../data/items.js";
 import { loadZone, renderZoneActions } from "../main.js";
 import { printToTerminal } from "../ui/dom.js";
 import { addFlag, hasFlag } from "./gameState.js";
@@ -31,7 +30,7 @@ export async function checkTruckTrunk(): Promise<void> {
 
 export async function getOutOfTheDamnTruck(): Promise<void> {
   await printToTerminal("You go out of the truck", "action");
-  await loadZone(ZONES.OUTSIDE_TRUCK);
+  await loadZone("TRUCK_CABIN");
 }
 
 /*
@@ -98,7 +97,7 @@ function to load the zone truck cabin, in case the player want to go back inside
  */
 export async function goBackInThePrettyTruck(): Promise<void> {
   await printToTerminal("You hop back in the truck", "action");
-  await loadZone(ZONES.TRUCK_CABIN);
+  await loadZone("TRUCK_CABIN");
 }
 
 /*
@@ -220,7 +219,7 @@ export async function walkTowardSnowyForestFromOutsideTruck(): Promise<void> {
     "action",
   );
   //TODO load zone
-  await loadZone(ZONES.SNOWY_FOREST);
+  await loadZone("SNOWY_FOREST");
 }
 
 /*
@@ -232,7 +231,7 @@ ZONE : SNOWY FOREST
 export async function goBackToTheTruck(): Promise<void> {
   await printToTerminal("You walk back to the truck", "action");
   //TODO maybe do another thing here idk?
-  await loadZone(ZONES.OUTSIDE_TRUCK);
+  await loadZone("OUTSIDE_TRUCK");
 }
 
 export async function walkTowardMainWatchPost(): Promise<void> {
@@ -244,7 +243,7 @@ export async function walkTowardMainWatchPost(): Promise<void> {
     "You are now standing outside the watch tower",
     "system",
   );
-  await loadZone(ZONES.WATCH_POST_OUTSIDE);
+  await loadZone("WATCH_POST_OUTSIDE");
   if (!hasFlag("GOT_QG_MESSAGE_GOT_TO_TOWER")) {
     addFlag("GOT_QG_MESSAGE_GOT_TO_TOWER");
     await queueQGMessage("QG_MESSAGE_GOT_TOWER_FIRST_TIME");
@@ -277,12 +276,12 @@ export async function walkBackSnowyForestTowardTruck(): Promise<void> {
       " of the frozen lake and the truck",
     "action",
   );
-  await loadZone(ZONES.SNOWY_FOREST);
+  await loadZone("SNOWY_FOREST");
 }
 
 export async function goInsideTheWatchPost(): Promise<void> {
   await printToTerminal("You go inside the watch post", "action");
-  await loadZone(ZONES.WATCH_POST);
+  await loadZone("WATCH_POST");
   if (!hasFlag("DISCOVERED_KELLER_BODY")) {
     addFlag("DISCOVERED_KELLER_BODY");
     await printToTerminal(
@@ -336,7 +335,7 @@ ZONE : WATCH_POST
 // go back outside the watchpost
 export async function walkBackOutside(): Promise<void> {
   await printToTerminal("You walk back outside the watch tower", "action");
-  await loadZone(ZONES.WATCH_POST_OUTSIDE);
+  await loadZone("WATCH_POST_OUTSIDE");
 }
 // search Keller's body
 export async function searchKellerBody(): Promise<void> {
@@ -405,14 +404,41 @@ export async function confirmingDoneTalkingtoQG(): Promise<void> {
 ZONE : EXCAVATION_CAMP
 ######################
  */
+//go back to the forest trail ( to the intersection )
 export async function goBackToForestTrail(): Promise<void> {
   await printToTerminal(
     "You walk back toward the three way junction point",
     "action",
   );
-  await loadZone(ZONES.GATE_CHECKPOINT);
+  await loadZone("GATE_CHECKPOINT");
+}
+/*
+######################
+ZONE : GATE_CHECKPOINT
+######################
+ */
+// go in the shack (checkpoint)
+export async function goInTheShack_GateCheckpoint(): Promise<void> {
+  await printToTerminal("You walk inside the destroyed shack", "action");
+  await loadZone("GATE_CHECKPOINT_SHACK");
 }
 
+/*
+#############################
+ZONE : GATE_CHECKPOINT_SHACK
+############################
+ */
+export async function goOutsideTheShack_GateCheckpoint(): Promise<void> {
+  await printToTerminal("You go back outside of the shack", "action");
+  await loadZone("GATE_CHECKPOINT");
+}
+export async function searchTheGuardShack(): Promise<void> {
+  await printToTerminal(
+    "You search the shack, you ", //TODO finish this
+    "action",
+  );
+  addFlag("SEARCHED_GUARD_SHACK");
+}
 /*
 ######
 OTHER

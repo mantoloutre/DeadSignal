@@ -58,12 +58,14 @@ export function removeItemFromInventory(
   return true;
 }
 
-export function doesThePlayerHasTheItem(itemId: string): boolean {
+export function doesThePlayerHasTheItem(itemId: ItemId): boolean {
   return currentState.playerInventory.some(
-    (slot) => slot.itemId === itemId && slot.count > 0,
+    (slot: InventorySlot): boolean => slot.itemId === itemId && slot.count > 0,
   );
 }
 
 export function getThePlayerInventoryItem(): Item[] {
-  return currentState.playerInventory.map((slot) => ITEMS[slot.itemId]);
+  return currentState.playerInventory.map(
+    (slot: InventorySlot) => ITEMS[slot.itemId],
+  );
 }

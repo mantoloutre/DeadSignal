@@ -1,6 +1,5 @@
-import { ITEMS } from "../data/items.js";
 import * as actionsFunc from "./actions.js";
-import { confirmingDoneTalkingtoQG } from "./actions.js";
+import { confirmingDoneTalkingtoQG, goInTheShack_GateCheckpoint, goOutsideTheShack_GateCheckpoint, searchTheGuardShack, } from "./actions.js";
 import { hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 /*
@@ -255,13 +254,11 @@ export const ZONES = {
                 description: "walk to the watch post",
                 execute: actionsFunc.walkTowardMainWatchPost,
             });
-            /*
-                  actions.push({
-                      command: "enter guard shack",
-                      description: "enter the guard shack",
-                      execute: //TODO re-put that when the guard shack is done
-                  });
-                   */
+            actions.push({
+                command: "enter guard shack",
+                description: "enter the guard shack",
+                execute: goInTheShack_GateCheckpoint,
+            });
             return actions;
         },
     },
@@ -275,16 +272,15 @@ export const ZONES = {
             actions.push({
                 command: "Go Back Outside",
                 description: "Go back outside of the shack",
-                execute: , //TODO bind the action
+                execute: goOutsideTheShack_GateCheckpoint, //TODO bind the action
             });
             actions.push({
                 command: "Search the room",
                 description: "search the messy room for anything that could be useful",
-                execute: , //TODO bind the action
-                oneTime: true
+                execute: searchTheGuardShack, //TODO bind the action
             });
             return actions;
-        }
+        },
     },
 };
 function getJunctionBoxActions() {
@@ -363,7 +359,7 @@ function getToolBoxActions() {
                 execute: actionsFunc.pryToolBoxWithCrowbar,
             });
         }
-        if (doesThePlayerHasTheItem(ITEMS.flare.id)) {
+        if (doesThePlayerHasTheItem("flare")) {
             //TODO make autocompletion for item type???
             actions.push({
                 command: "try with heat (-1 flare)",
