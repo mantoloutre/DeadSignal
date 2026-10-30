@@ -3,7 +3,7 @@ import { printToTerminal } from "../ui/dom.js";
 import { addFlag, hasFlag } from "./gameState.js";
 import { addItemToInventory, removeItemFromInventory } from "./inventory.js";
 import { addDiscoveredFrequency, queueQGMessage } from "./radioFrequency.js";
-import { setFocus, ZONES } from "./world.js";
+import { setFocus } from "./world.js";
 
 /*
 ##################
@@ -322,7 +322,7 @@ export async function goInsideTheWatchPost(): Promise<void> {
     );
     //TODO do the rest
     setFocus("TELLING_QG");
-    renderZoneActions(ZONES.WATCH_POST);
+    renderZoneActions("WATCH_POST");
   }
   //TODO make player choose what he want to do next
 }
@@ -395,7 +395,7 @@ export async function DontTellQGAboutNoteLeft(): Promise<void> {
   //nothing happens here it's just to satisfy the zone
 }
 
-export async function confirmingDoneTalkingtoQG(): Promise<void> {
+export async function confirmingDoneTalkingToQG(): Promise<void> {
   setFocus(null);
 }
 

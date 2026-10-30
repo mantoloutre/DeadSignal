@@ -3,7 +3,7 @@ import { printToTerminal } from "../ui/dom.js";
 import { addFlag, hasFlag } from "./gameState.js";
 import { addItemToInventory, removeItemFromInventory } from "./inventory.js";
 import { addDiscoveredFrequency, queueQGMessage } from "./radioFrequency.js";
-import { setFocus, ZONES } from "./world.js";
+import { setFocus } from "./world.js";
 /*
 ##################
 ZONE : TRUCK CABIN
@@ -212,7 +212,7 @@ export async function goInsideTheWatchPost() {
         await printToTerminal("Note left: Tell the QG about the note Keller wrote before dying", "system");
         //TODO do the rest
         setFocus("TELLING_QG");
-        renderZoneActions(ZONES.WATCH_POST);
+        renderZoneActions("WATCH_POST");
     }
     //TODO make player choose what he want to do next
 }
@@ -268,7 +268,7 @@ export async function tellQGAboutNoteLeft() {
 export async function DontTellQGAboutNoteLeft() {
     //nothing happens here it's just to satisfy the zone
 }
-export async function confirmingDoneTalkingtoQG() {
+export async function confirmingDoneTalkingToQG() {
     setFocus(null);
 }
 /*

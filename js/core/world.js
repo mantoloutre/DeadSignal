@@ -1,7 +1,7 @@
-import * as actionsFunc from "./actions.js";
-import { confirmingDoneTalkingtoQG, goInTheShack_GateCheckpoint, goOutsideTheShack_GateCheckpoint, searchTheGuardShack, } from "./actions.js";
+import { goInTheShack_GateCheckpoint, } from "./actions.js";
 import { hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
+import { WATCH_POST_OUTSIDE } from "./worldActions";
 /*
 this is for subzone ( mainly puzzle )
  */
@@ -37,11 +37,7 @@ export const ZONES = {
             //if focus its here
             //if there is no current focus then we do the normal thing
             const actions = [];
-            actions.push({
-                command: "go back to the truck",
-                description: "walk back to the truck",
-                execute: actionsFunc.goBackToTheTruck,
-            });
+            actions.push(); //TODO put the command to go back to the truck
             actions.push({
                 command: "inspect the direction sign",
                 description: "inspect it to know where to go",
@@ -132,11 +128,7 @@ export const ZONES = {
             "steam slowly dissipate in the glacial crosswinds",
         getActions: () => {
             const actions = [];
-            actions.push({
-                command: "get out of the truck",
-                description: "simply get out of the truck",
-                execute: actionsFunc.getOutOfTheDamnTruck,
-            });
+            actions.push(); //TODO link the get out of truck
             if (!hasFlag("OPENED_GLOVE_BOX")) {
                 actions.push({
                     command: "open glove box",
@@ -163,12 +155,7 @@ export const ZONES = {
                     execute: actionsFunc.readEmergencyManual,
                     oneTime: true,
                 });
-                actions.push({
-                    command: "take truck insurance papers",
-                    description: "Take the truck's insurance paper",
-                    execute: actionsFunc.addTruckInsurancePaper,
-                    oneTime: true,
-                });
+                actions.push(); //TODO link take truck insurance paper
             }
             return actions;
         },
@@ -181,11 +168,7 @@ export const ZONES = {
             //focus
             //normal actions
             const actions = [];
-            actions.push({
-                command: "go inside the watch post",
-                description: "walk inside the watch post",
-                execute: actionsFunc.goInsideTheWatchPost,
-            });
+            actions.push(WATCH_POST_OUTSIDE.GO_INSIDE_WATCH_POST);
             return actions;
         },
     },
@@ -200,33 +183,14 @@ export const ZONES = {
             }
             //normal action
             const actions = [];
-            actions.push({
-                command: "go back outside",
-                description: "go back outside the watch post",
-                execute: actionsFunc.walkBackOutside,
-            });
+            actions.push(WATCH_POST.GO_BACK_OUTSIDE_WATCH_POST);
             if (!hasFlag("SEARCHED_KELLER_BODY") &&
                 hasFlag("DISCOVERED_KELLER_BODY")) {
-                actions.push({
-                    command: "search body",
-                    description: "search Keller's body",
-                    execute: actionsFunc.searchKellerBody,
-                    oneTime: true,
-                });
+                actions.push(WATCH_POST.SEARCH_KELLER_BODY);
             }
             else {
-                actions.push({
-                    command: "take Keller's credential",
-                    description: "take the little usb key that serves as credential",
-                    execute: actionsFunc.takeKellerCredential,
-                    oneTime: true,
-                });
-                actions.push({
-                    command: "take pen",
-                    description: "take the pen from his pocket",
-                    execute: actionsFunc.takePenFromKeller,
-                    oneTime: true,
-                });
+                actions.push(WATCH_POST.TAKE_KELLER_CREDENTIAL);
+                actions.push(WATCH_POST.AKE_PEN_FROM_KELLER);
             }
             return actions;
         },
@@ -244,11 +208,7 @@ export const ZONES = {
             }
             //normal action
             const actions = [];
-            actions.push({
-                command: "walk back to forest trail",
-                description: "walk back to the snowy forest",
-                execute: actionsFunc.walkBackSnowyForestTowardTruck,
-            });
+            actions.push(WATCH_POST_OUTSIDE.WALK_BACK_FOREST_TRAIL);
             actions.push({
                 command: "walk toward the watch post",
                 description: "walk to the watch post",
@@ -269,16 +229,8 @@ export const ZONES = {
             const actions = [];
             //focus is applicable
             //normal thing
-            actions.push({
-                command: "Go Back Outside",
-                description: "Go back outside of the shack",
-                execute: goOutsideTheShack_GateCheckpoint, //TODO bind the action
-            });
-            actions.push({
-                command: "Search the room",
-                description: "search the messy room for anything that could be useful",
-                execute: searchTheGuardShack, //TODO bind the action
-            });
+            actions.push(); //TODO link action goBackOutside
+            actions.push(); //TODO link the search room
             return actions;
         },
     },
@@ -291,48 +243,21 @@ function getJunctionBoxActions() {
 function getWhatToSayToQG() {
     //TODO find out why this doesnt work
     const actions = [];
-    actions.push({
-        command: "Press When done",
-        description: "press this when your are done saying stuff",
-        execute: confirmingDoneTalkingtoQG,
-        oneTime: true,
-    });
+    if (isCommandInactive(""))
+        actions.push(); //TODO link the press when done
     //section for the body
     if (!isCommandInactive("No Body")) {
-        actions.push({
-            command: "Dead Body",
-            description: "Tell QG about the dead body",
-            execute: actionsFunc.tellQGAboutDeadBody,
-            oneTime: true,
-        });
+        actions.push(); //TODO link yes_body
     }
     if (!isCommandInactive("Dead Body")) {
-        actions.push({
-            command: "No Body",
-            description: "Don't tell QG about the dead body",
-            execute: actionsFunc.tellQGNoBodyFound,
-            oneTime: true,
-        });
+        actions.push(); //TODO link no_body
     }
     // section for the note
     if (!isCommandInactive("No Note Found")) {
-        actions.push({
-            command: "Note Found",
-            description: "Tell QG about the note Keller left",
-            execute: actionsFunc.tellQGAboutNoteLeft,
-            oneTime: true,
-        });
+        actions.push(); //TODO link yes_note
     }
     if (!isCommandInactive("Note Found")) {
-        actions.push({
-            command: "No Note Found",
-            description: "Don't tell QG about the note Keller left",
-            execute: actionsFunc.DontTellQGAboutNoteLeft,
-            oneTime: true,
-        });
-    }
-    {
-        //TODO
+        actions.push(); //TODO link no_note
     }
     return actions;
 }

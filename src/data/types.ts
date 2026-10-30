@@ -22,5 +22,16 @@ export type ZoneId =
     | "CORE_CONTROL_ROOM"
 
 */
+export interface ZoneAction {
+  command: string;
+  description: string;
+  execute: () => Promise<void>;
+  oneTime?: boolean;
+}
 
+export interface Zone {
+  readonly name: string;
+  readonly description: string;
+  readonly getActions: () => ZoneAction[];
+}
 export type fromType = "system" | "alert" | "QG" | "log" | "action" | "YOU";
