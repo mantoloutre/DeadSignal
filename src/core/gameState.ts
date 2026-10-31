@@ -292,6 +292,8 @@ export function resetGameState(): void {
 //function to set the game state
 export function setGameState(state: GameState): void {
   currentState = structuredClone(state);
+  saveTheDataToLocalStorage();
+  location.reload();
 }
 /*
 verify if the command is inactive or no

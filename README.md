@@ -29,9 +29,9 @@ Btw the only name thats in the game i chose it randomly so i'm sorry if that's y
 > 3. It also gives the option to use one part of a function faster, i read the explanation, see "step 3 does that" and I find the step 3 faster.
 
 <details><summary>note for the reviewers</summary>
-i am working on implementing a preset so you can later test the farther zone without having to
-do the whole story every time. it's not implemented for now and the reason is because the story is really short for now. so you can just quickly
-stuff for now because there ain't a lot of puzzle or action that requires items ( only one is opening the toolbox which requires the crowbar )
+if you press the p key, it open a cheat menu, for now, you can skip to the outside the watchpost zone.
+i do not recommend using it to review, because i added stuff before your supposed to reach the main watchpost.
+However it can be useful if you are testing much much and doesnt want to always restart at the begining.
 </details>
 
 
