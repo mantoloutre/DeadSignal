@@ -29,6 +29,11 @@ export const GATE_CHECKPOINT_SHACK_ACTIONS = {
     description: "search the messy room for anything that could be useful",
     execute: actionsFunc.searchTheGuardShack, //TODO bind the action
   },
+  PICKUP_MEMORY_MODULE: {
+    command: "Salvage memory module",
+    description: "take the memory module from the destroyed robot head",
+    execute: actionsFunc.salvageMemoryModule,
+  },
 } as const satisfies Record<string, ZoneAction>;
 /*
 ###################################################

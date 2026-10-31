@@ -94,7 +94,8 @@ export const ZONES = {
   //################################################
   WATCH_POST_OUTSIDE: {
     name: "OUTSIDE WATCH POST",
-    description: "you stand just outside the watch post, not finished",
+    description:
+      "you stand just outside the watch post, description not finished",
     getActions: (): ZoneAction[] => {
       //focus
 
@@ -135,7 +136,7 @@ export const ZONES = {
     name: "SECURITY GATE AND BOOTH",
     description:
       "A metal gate squeal under a flickering floodlight. The guard shack's front window" +
-      " is shattered outward into the snow.",
+      " is shattered inward inside the shack.",
     getActions: (): ZoneAction[] => {
       //focus
       if (getFocus() === FOCUS.JUNCTION_BOX) {
@@ -145,21 +146,35 @@ export const ZONES = {
       //normal action
       const actions: ZoneAction[] = [];
       actions.push(GATE_CHECKPOINT_ACTION.WALK_BACK_FOREST_TRAIL);
-      actions.push(GATE_CHECKPOINT_ACTION.WALK_TOWARD_POST); //walk toward post
-      actions.push(GATE_CHECKPOINT_ACTION.ENTER_GUARD_SHACK); //go in shack
+      actions.push(GATE_CHECKPOINT_ACTION.WALK_TOWARD_POST);
+      actions.push(GATE_CHECKPOINT_ACTION.ENTER_GUARD_SHACK);
       return actions;
     },
   },
   GATE_CHECKPOINT_SHACK: {
     name: "CHECKPOINT SHACK",
-    description: "there is no description yet", //TODO do the description
+    description:
+      "Inside the shack, its a mess. The guard robot is absolutely wrecked " +
+      "on the ground, pieces everywhere along with shattered glass.",
     getActions: (): ZoneAction[] => {
       const actions: ZoneAction[] = [];
       //focus is applicable
 
       //normal thing
       actions.push(GATE_CHECKPOINT_SHACK_ACTIONS.GO_BACK_OUTSIDE_THE_SHACK);
-      actions.push(GATE_CHECKPOINT_SHACK_ACTIONS.SEARCH_THE_SHACK);
+      if (!hasFlag("SEARCHED_GUARD_SHACK")) {
+        actions.push(GATE_CHECKPOINT_SHACK_ACTIONS.SEARCH_THE_SHACK);
+      } else {
+        if (
+          !doesThePlayerHasTheItem("robot_memory_module") &&
+          !hasFlag("LISTENED_MEMORY_MODULE")
+        ) {
+          actions.push(GATE_CHECKPOINT_SHACK_ACTIONS.PICKUP_MEMORY_MODULE);
+        }
+
+        //maybe make it so player need to deactivate live wire?
+        //maybe make it so if he doesn't an alarm could start and attract "it"?
+      }
 
       return actions;
     },
@@ -173,10 +188,8 @@ function getJunctionBoxActions(): ZoneAction[] {
 }
 
 function getWhatToSayToQG(): ZoneAction[] {
-  //TODO find out why this doesnt work
   const actions: ZoneAction[] = [];
-  if (isCommandInactive(""))
-    actions.push(SAY_STUFF_TO_QG.PRESS_WHEN_PLAYER_DONE);
+  actions.push(SAY_STUFF_TO_QG.PRESS_WHEN_PLAYER_DONE);
   //section for the body
   if (!isCommandInactive("No Body")) {
     actions.push(SAY_STUFF_TO_QG.YES_BODY);

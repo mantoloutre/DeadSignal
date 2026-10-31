@@ -55,6 +55,16 @@ export const WATCH_POST = {
         execute: actionsFunc.takePenFromKeller,
         oneTime: true,
     },
+    INSERT_MEMORY_MODULE: {
+        command: "insert memory module in console",
+        description: "insert the memory module in the console to read the logs",
+        execute: actionsFunc.listenRobotMemoryModule,
+    },
+    TAKE_MEMORY_MODULE: {
+        command: "take module",
+        description: "take the memory module from the console",
+        execute: actionsFunc.takeMemoryModule,
+    },
 };
 export const WATCH_POST_OUTSIDE = {
     GO_INSIDE_WATCH_POST: {

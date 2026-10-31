@@ -1,7 +1,7 @@
 import { printToTerminal } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
 import { addFlag, hasFlag, setFocus } from "../gameState.js";
-import { addItemToInventory } from "../inventory.js";
+import { addItemToInventory, removeItemFromInventory } from "../inventory.js";
 import { queueQGMessage } from "../radioFrequency.js";
 /*
 ########################
@@ -43,8 +43,13 @@ export async function goInsideTheWatchPost() {
 ZONE : WATCH_POST
 #################
  */
+export async function takeMemoryModule() {
+    await printToTerminal("you take back the memory module from the console", "action");
+    await addItemToInventory("robot_memory_module");
+}
 export async function listenRobotMemoryModule() {
     await printToTerminal("You insert the memory module in the console.", "action");
+    removeItemFromInventory("robot_memory_module");
     await printToTerminal("You see some log showing up on the console screen", "system");
     await printToTerminal("12:44 - Operator Keller initiated manual lockout. Corporate dispatch order overridden", "log");
     await printToTerminal("12:51 - Carrier wave detected on 094.700 MHz. Audio mic logged acoustic vibration on the shack's window", "log");

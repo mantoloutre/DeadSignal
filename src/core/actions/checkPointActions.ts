@@ -7,6 +7,7 @@ ZONE : GATE_CHECKPOINT
 import { printToTerminal } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
 import { addFlag, hasFlag } from "../gameState.js";
+import { addItemToInventory } from "../inventory.js";
 import { queueQGMessage } from "../radioFrequency.js";
 
 // go in the shack (checkpoint)
@@ -56,4 +57,12 @@ export async function walkTowardMainWatchPost(): Promise<void> {
     await queueQGMessage("QG_MESSAGE_GOT_TOWER_FIRST_TIME");
   }
   //TODO add lore ?
+}
+export async function salvageMemoryModule(): Promise<void> {
+  await printToTerminal(
+    "You take the memory modules from the the " +
+      "robot's head and then put the head back down",
+    "action",
+  );
+  await addItemToInventory("robot_memory_module");
 }

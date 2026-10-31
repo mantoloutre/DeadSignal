@@ -133,10 +133,10 @@ export async function openToolBoxTruckTrunkInit(): Promise<void> {
   if (!hasFlag("OPENED_TOOLBOX_INIT")) {
     setFocus("TOOLBOX");
     await printToTerminal(
-      "you try to open the toolbox, but the latch appear to be frozen, " +
-        "how do you want to try to open it?",
-      "system",
+      "you try to open the toolbox, but the latch appear to be frozen",
+      "action",
     );
+    await printToTerminal("how do you want to try to open it?", "system");
   } else {
     await printToTerminal("you look back in the toolbox", "system");
   }
