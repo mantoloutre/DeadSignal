@@ -29,7 +29,7 @@ export async function checkTruckTrunk(): Promise<void> {
 
 export async function getOutOfTheDamnTruck(): Promise<void> {
   await printToTerminal("You go out of the truck", "action");
-  await loadZone("TRUCK_CABIN");
+  await loadZone("OUTSIDE_TRUCK");
 }
 
 /*
