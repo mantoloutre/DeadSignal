@@ -10,12 +10,9 @@ export const SNOWY_FOREST_ACTIONS = {
         description: "walk back to the truck",
         execute: actionsFunc.goBackToTheTruck,
     },
-    /*
-    WALK_TOWARD_WATCH_POST: {
-      command: "walk toward the watch tower",
-      description:
-        "walk toward the watch tower which also serve as the main relay tower",
-      execute: actionsFunc.,
+    WALK_TOWARD_GATE_CHECKPOINT: {
+        command: "walk toward checkpoint",
+        description: "walk toward the gate checkpoint",
+        execute: actionsFunc.walkTowardCheckpoint,
     },
-    */
 };

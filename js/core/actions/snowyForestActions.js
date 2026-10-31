@@ -17,3 +17,7 @@ export async function inspectDirectionSign() {
     addFlag("INSPECTED_DIRECTION_SIGN");
     //TODO continue?
 }
+export async function walkTowardCheckpoint() {
+    await printToTerminal("You walk toward the gate checkpoint.", "action");
+    await gameBridge.loadZone("GATE_CHECKPOINT");
+}
