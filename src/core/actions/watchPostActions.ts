@@ -62,13 +62,41 @@ export async function goInsideTheWatchPost(): Promise<void> {
   }
   //TODO make player choose what he want to do next
 }
-
 /*
 #################
 ZONE : WATCH_POST
 #################
  */
-
+export async function listenRobotMemoryModule(): Promise<void> {
+  await printToTerminal(
+    "You insert the memory module in the console.",
+    "action",
+  );
+  await printToTerminal(
+    "You see some log showing up on the console screen",
+    "system",
+  );
+  await printToTerminal(
+    "12:44 - Operator Keller initiated manual lockout. Ignored order of not doing it",
+    "log",
+  );
+  await printToTerminal(
+    "12:51 - Carrier wave detected on 094.700 MHz. Audio mic logged acoustic vibration on the shack' window",
+    "log",
+  );
+  await printToTerminal(
+    "12:58 - perimeter fence B-02 torn outward. welds broken under unknown source of tension",
+    "log",
+  );
+  await printToTerminal(
+    "13:00 - Camera feed lost to extreme EM interferance. Interior temp dropped 14°C very fast",
+    "log",
+  );
+  await printToTerminal(
+    "13:01 - High pitch sound spike, seem's like glass shatering. unknown direction, no optical feed",
+    "log",
+  );
+}
 // search Keller's body
 export async function searchKellerBody(): Promise<void> {
   await printToTerminal("You search Keller's body...", "action");
