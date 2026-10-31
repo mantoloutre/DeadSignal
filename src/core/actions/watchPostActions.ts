@@ -77,11 +77,11 @@ export async function listenRobotMemoryModule(): Promise<void> {
     "system",
   );
   await printToTerminal(
-    "12:44 - Operator Keller initiated manual lockout. Ignored order of not doing it",
+    "12:44 - Operator Keller initiated manual lockout. Corporate dispatch order overridden",
     "log",
   );
   await printToTerminal(
-    "12:51 - Carrier wave detected on 094.700 MHz. Audio mic logged acoustic vibration on the shack' window",
+    "12:51 - Carrier wave detected on 094.700 MHz. Audio mic logged acoustic vibration on the shack's window",
     "log",
   );
   await printToTerminal(
@@ -89,13 +89,31 @@ export async function listenRobotMemoryModule(): Promise<void> {
     "log",
   );
   await printToTerminal(
-    "13:00 - Camera feed lost to extreme EM interferance. Interior temp dropped 14°C very fast",
+    "13:00 - Camera feed lost to extreme EM interference. Interior temp dropped 14°C very fast",
     "log",
   );
   await printToTerminal(
-    "13:01 - High pitch sound spike, seem's like glass shatering. unknown direction, no optical feed",
+    "13:01 - High pitch sound spike, seems like glass shattering. Unknown direction, no optical feed",
     "log",
   );
+  await printToTerminal(
+    "13:02 - CRITICAL - drive motors unresponsive. Unit unable to return to designated post",
+    "log",
+  );
+  await printToTerminal(
+    "13:03 - CRITICAL - Main module losing too much power. Attempting automated distress ping to 112.400 MHz...",
+    "log",
+  );
+  await printToTerminal(
+    "13:03 - ping failed, transmission jammed by carrier harmonic on 094.700 MHz.",
+    "log",
+  );
+  await printToTerminal(
+    "13:04 - Relay A-01 grid feed severed by manual unauthorized killswitch. Attempting reboot...",
+    "log",
+  );
+  await printToTerminal("13:04 - Attempt failed, access denied", "log");
+  await printToTerminal("13:04 - Power failure. Unit going offline", "log");
 }
 // search Keller's body
 export async function searchKellerBody(): Promise<void> {
