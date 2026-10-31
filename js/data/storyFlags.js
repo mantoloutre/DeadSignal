@@ -12,14 +12,18 @@ export const StoryFlags = {
     OPENED_HOOD_TRUCK_INIT: "OPENED_HOOD_TRUCK_INIT",
     //zone 3 ( snowy forest )
     INSPECTED_DIRECTION_SIGN: "INSPECTED_DIRECTION_SIGN",
-    // easter egg? ( this would be like there is another condition and then
-    // u go back there to re-inspect the sign i guess...
     INSPECTED_DIRECTION_SIGN_AGAIN: "INSPECTED_DIRECTION_SIGN_AGAIN",
-    SEARCHED_GUARD_SHACK: "SEARCHED_GUARD_SHACK",
+    //zone 4 (checkpoint)
     CUT_GATE_POWER: "CUT_GATE_POWER",
-    EXAMINED_TOWER_STRUTS: "EXAMINED_TOWER_STRUTS",
+    //zone 5 (checkpoint shack)
+    SEARCHED_GUARD_SHACK: "SEARCHED_GUARD_SHACK",
+    //zone 6 (outside watchpost)
+    //zone 7 (watch post)
     DISCOVERED_KELLER_BODY: "DISCOVERED_KELLER_BODY",
     SEARCHED_KELLER_BODY: "SEARCHED_KELLER_BODY",
+    // easter egg? ( this would be like there is another condition and then
+    // u go back there to re-inspect the sign i guess...
+    EXAMINED_TOWER_STRUTS: "EXAMINED_TOWER_STRUTS",
     GOT_QG_MESSAGE_GOT_TO_TOWER: "GOT_QG_MESSAGE_GOT_TO_TOWER",
     READ_KELLER_MESSAGE: "READ_KELLER_MESSAGE",
     SALVAGED_DSP_BOARD: "SALVAGED_DSP_BOARD",

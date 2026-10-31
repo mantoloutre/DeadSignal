@@ -1,4 +1,4 @@
-import * as actionsFunc from "../actions/index.js";
+import * as actionsFunc from "../actions/checkPointActions.js";
 export const GATE_CHECKPOINT_ACTION = {
     WALK_BACK_FOREST_TRAIL: {
         command: "walk back to forest trail",
@@ -31,10 +31,3 @@ export const GATE_CHECKPOINT_SHACK_ACTIONS = {
 /*
 ###################################################
  */
-export const WATCH_POST_OUTSIDE = {
-    GO_INSIDE_WATCH_POST: {
-        command: "go inside the watch post",
-        description: "walk inside the watch post",
-        execute: actionsFunc.goInsideTheWatchPost,
-    },
-};

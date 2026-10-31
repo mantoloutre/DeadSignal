@@ -1,5 +1,5 @@
-import { loadZone } from "../../main.js";
 import { printToTerminal } from "../../ui/dom.js";
+import { gameBridge } from "../gameBridge.js";
 import { addFlag } from "../gameState.js";
 
 /*
@@ -11,7 +11,7 @@ ZONE : SNOWY FOREST
 export async function goBackToTheTruck(): Promise<void> {
   await printToTerminal("You walk back to the truck", "action");
   //TODO maybe do another thing here idk?
-  await loadZone("OUTSIDE_TRUCK");
+  await gameBridge.loadZone("OUTSIDE_TRUCK");
 }
 
 export async function inspectDirectionSign(): Promise<void> {

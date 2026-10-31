@@ -1,5 +1,5 @@
-import { loadZone, renderZoneActions } from "../../main.js";
 import { printToTerminal } from "../../ui/dom.js";
+import { gameBridge } from "../gameBridge.js";
 import { addFlag, hasFlag, setFocus } from "../gameState.js";
 import { addItemToInventory } from "../inventory.js";
 import { queueQGMessage } from "../radioFrequency.js";
@@ -8,22 +8,14 @@ import { queueQGMessage } from "../radioFrequency.js";
 ZONE : OUTSIDE WATCHPOST
 ########################
  */
-/*
-walk toward the intersection of : outside watchpost, broken down truck, frozen lake
- */
-export async function walkBackSnowyForestTowardTruck() {
-    await printToTerminal("You go back in the forest toward the intersection" +
-        " of the frozen lake and the truck", "action");
-    await loadZone("SNOWY_FOREST");
-}
 // go back outside the watchpost
 export async function walkBackOutside() {
     await printToTerminal("You walk back outside the watch tower", "action");
-    await loadZone("WATCH_POST_OUTSIDE");
+    await gameBridge.loadZone("WATCH_POST_OUTSIDE");
 }
 export async function goInsideTheWatchPost() {
     await printToTerminal("You go inside the watch post", "action");
-    await loadZone("WATCH_POST");
+    await gameBridge.loadZone("WATCH_POST");
     if (!hasFlag("DISCOVERED_KELLER_BODY")) {
         addFlag("DISCOVERED_KELLER_BODY");
         await printToTerminal("You find the light switch in the dark and turn the lights back on.", "action");
@@ -42,7 +34,7 @@ export async function goInsideTheWatchPost() {
         await printToTerminal("Note left: Tell the QG about the note Keller wrote before dying", "system");
         //TODO do the rest
         setFocus("TELLING_QG");
-        renderZoneActions("WATCH_POST");
+        gameBridge.renderZoneActions("WATCH_POST");
     }
     //TODO make player choose what he want to do next
 }

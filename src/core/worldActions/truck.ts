@@ -1,6 +1,6 @@
 import type { ZoneAction } from "../../data/types.js";
-import * as actionsFunc from "../actions/index.js";
-import { hasFlag } from "../gameState";
+import * as actionsFunc from "../actions/truckActions.js";
+import { hasFlag } from "../gameState.js";
 export const TRUCK_CABIN_INIT_ACTIONS = {
   GET_OUT_OF_TRUCK_INIT: {
     command: "get out of the truck",

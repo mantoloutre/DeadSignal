@@ -1,25 +1,14 @@
 import { currentState, exportSaveFile, GAME_INITIAL_STATE, importSaveFile, loadFromTheLocalStorage, saveTheDataToLocalStorage, setFocus, setGameState, } from "./core/gameState.js";
 import "./ui/sideMenu.js";
+import { gameBridge } from "./core/gameBridge.js";
 import { handleFrequency, queueQGMessage } from "./core/radioFrequency.js";
 import { ZONES } from "./core/world.js";
 import { presetBeforeDiscoveringBody } from "./data/devPresets.js";
 import { ITEMS } from "./data/items.js";
 import { flashButton, getEl, isPrinting, printToTerminal } from "./ui/dom.js";
 import { closeRadioInterface, setDisplayFrequency, } from "./ui/radioInterface.js";
-/*
-load a zone
-@param zone the zone we want to load
- */
-export async function loadZone(zoneId) {
-    const zone = ZONES[zoneId];
-    setFocus(null);
-    currentState.currentZone = zoneId;
-    saveTheDataToLocalStorage();
-    getEl("zone-tag").textContent = `${zone.name}`;
-    await printToTerminal(`ZONE: ${zone.name}`, "system");
-    await printToTerminal(zone.description, "system");
-    renderZoneActions(zoneId);
-}
+gameBridge.loadZone = loadZone;
+gameBridge.renderZoneActions = renderZoneActions;
 /*
 //TODO correct the documentation <br>
 function to render in a dynamic way the actions for a zone<br>
@@ -44,6 +33,20 @@ export function renderZoneActions(zone) {
         }
         createButtonZoneActions(action, zone);
     }
+}
+/*
+load a zone
+@param zone the zone we want to load
+ */
+export async function loadZone(zoneId) {
+    const zone = ZONES[zoneId];
+    setFocus(null);
+    currentState.currentZone = zoneId;
+    saveTheDataToLocalStorage();
+    getEl("zone-tag").textContent = `${zone.name}`;
+    await printToTerminal(`ZONE: ${zone.name}`, "system");
+    await printToTerminal(zone.description, "system");
+    renderZoneActions(zoneId);
 }
 /*
 function to render the player inventory

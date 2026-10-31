@@ -1,5 +1,5 @@
 import type { ZoneAction } from "../../data/types.js";
-import * as actionsFunc from "../actions/index.js";
+import * as actionsFunc from "../actions/watchPostActions.js";
 export const SAY_STUFF_TO_QG = {
   PRESS_WHEN_PLAYER_DONE: {
     command: "Press When done",
@@ -55,5 +55,12 @@ export const WATCH_POST = {
     description: "take the pen from his pocket",
     execute: actionsFunc.takePenFromKeller,
     oneTime: true,
+  },
+} as const satisfies Record<string, ZoneAction>;
+export const WATCH_POST_OUTSIDE = {
+  GO_INSIDE_WATCH_POST: {
+    command: "go inside the watch post",
+    description: "walk inside the watch post",
+    execute: actionsFunc.goInsideTheWatchPost,
   },
 } as const satisfies Record<string, ZoneAction>;

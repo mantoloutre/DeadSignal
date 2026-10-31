@@ -18,7 +18,7 @@ export const ZONES = {
             actions.push(SNOWY_FOREST_ACTIONS.GO_BACK_TO_TRUCK);
             actions.push(SNOWY_FOREST_ACTIONS.INSPECT_DIRECTION_SIGN);
             if (hasFlag("INSPECTED_DIRECTION_SIGN")) {
-                actions.push(SNOWY_FOREST_ACTIONS.WALK_TOWARD_WATCH_POST);
+                //actions.push(SNOWY_FOREST_ACTIONS.WALK_TOWARD_WATCH_POST);
             }
             return actions;
         },

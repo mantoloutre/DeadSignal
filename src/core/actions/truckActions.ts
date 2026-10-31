@@ -1,5 +1,5 @@
-import { loadZone } from "../../main.js";
 import { printToTerminal } from "../../ui/dom.js";
+import { gameBridge } from "../gameBridge.js";
 import { addFlag, hasFlag, setFocus } from "../gameState.js";
 import { addItemToInventory, removeItemFromInventory } from "../inventory.js";
 import { addDiscoveredFrequency } from "../radioFrequency.js";
@@ -29,7 +29,7 @@ export async function checkTruckTrunk(): Promise<void> {
 
 export async function getOutOfTheDamnTruck(): Promise<void> {
   await printToTerminal("You go out of the truck", "action");
-  await loadZone("OUTSIDE_TRUCK");
+  await gameBridge.loadZone("OUTSIDE_TRUCK");
 }
 
 /*
@@ -94,7 +94,7 @@ function to load the zone truck cabin, in case the player want to go back inside
  */
 export async function goBackInThePrettyTruck(): Promise<void> {
   await printToTerminal("You hop back in the truck", "action");
-  await loadZone("TRUCK_CABIN");
+  await gameBridge.loadZone("TRUCK_CABIN");
 }
 
 /*
@@ -216,5 +216,5 @@ export async function walkTowardSnowyForestFromOutsideTruck(): Promise<void> {
     "action",
   );
   //TODO load zone
-  await loadZone("SNOWY_FOREST");
+  await gameBridge.loadZone("SNOWY_FOREST");
 }

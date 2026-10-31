@@ -4,17 +4,27 @@ ZONE : GATE_CHECKPOINT
 ######################
  */
 
-import { loadZone } from "../../main.js"; //TODO possible circular reference
 import { printToTerminal } from "../../ui/dom.js";
+import { gameBridge } from "../gameBridge.js";
 import { addFlag, hasFlag } from "../gameState.js";
 import { queueQGMessage } from "../radioFrequency.js";
 
 // go in the shack (checkpoint)
 export async function goInTheShack_GateCheckpoint(): Promise<void> {
   await printToTerminal("You walk inside the destroyed shack", "action");
-  await loadZone("GATE_CHECKPOINT_SHACK");
+  await gameBridge.loadZone("GATE_CHECKPOINT_SHACK");
 }
-
+/*
+walk toward the intersection of : outside watchpost, broken down truck, frozen lake
+ */
+export async function walkBackSnowyForestTowardTruck(): Promise<void> {
+  await printToTerminal(
+    "You go back in the forest toward the intersection" +
+      " of the frozen lake and the truck",
+    "action",
+  );
+  await gameBridge.loadZone("SNOWY_FOREST");
+}
 /*
 #############################
 ZONE : GATE_CHECKPOINT_SHACK
@@ -22,7 +32,7 @@ ZONE : GATE_CHECKPOINT_SHACK
  */
 export async function goOutsideTheShack_GateCheckpoint(): Promise<void> {
   await printToTerminal("You go back outside of the shack", "action");
-  await loadZone("GATE_CHECKPOINT");
+  await gameBridge.loadZone("GATE_CHECKPOINT");
 }
 export async function searchTheGuardShack(): Promise<void> {
   await printToTerminal(
@@ -40,7 +50,7 @@ export async function walkTowardMainWatchPost(): Promise<void> {
     "You are now standing outside the watch tower",
     "system",
   );
-  await loadZone("WATCH_POST_OUTSIDE");
+  await gameBridge.loadZone("WATCH_POST_OUTSIDE");
   if (!hasFlag("GOT_QG_MESSAGE_GOT_TO_TOWER")) {
     addFlag("GOT_QG_MESSAGE_GOT_TO_TOWER");
     await queueQGMessage("QG_MESSAGE_GOT_TOWER_FIRST_TIME");

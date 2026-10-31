@@ -1,5 +1,5 @@
-import { loadZone } from "../../main.js";
 import { printToTerminal } from "../../ui/dom.js";
+import { gameBridge } from "../gameBridge.js";
 import { addFlag, hasFlag, setFocus } from "../gameState.js";
 import { addItemToInventory, removeItemFromInventory } from "../inventory.js";
 import { addDiscoveredFrequency } from "../radioFrequency.js";
@@ -23,7 +23,7 @@ export async function checkTruckTrunk() {
 }
 export async function getOutOfTheDamnTruck() {
     await printToTerminal("You go out of the truck", "action");
-    await loadZone("OUTSIDE_TRUCK");
+    await gameBridge.loadZone("OUTSIDE_TRUCK");
 }
 /*
 function to add winter gloves to the player inventory when the player look inside the glove box
@@ -71,7 +71,7 @@ function to load the zone truck cabin, in case the player want to go back inside
  */
 export async function goBackInThePrettyTruck() {
     await printToTerminal("You hop back in the truck", "action");
-    await loadZone("TRUCK_CABIN");
+    await gameBridge.loadZone("TRUCK_CABIN");
 }
 /*
 function that depending on if the hood is already open, will display different chat
@@ -149,5 +149,5 @@ export async function pryToolBoxWithCrowbar() {
 export async function walkTowardSnowyForestFromOutsideTruck() {
     await printToTerminal("You walk toward the forest away from the truck", "action");
     //TODO load zone
-    await loadZone("SNOWY_FOREST");
+    await gameBridge.loadZone("SNOWY_FOREST");
 }
