@@ -61,6 +61,12 @@ export const ITEMS = {
     description:
       "A little usb key that serves as login for the main console and the relay's console",
   },
+  robot_memory_module: {
+    name: "Robot's memory module",
+    type: "tool",
+    description:
+      "its the memory module, you can check the log at a functioning console.",
+  },
 } as const satisfies Record<string, Item>;
 // exporting the type
 export type ItemId = keyof typeof ITEMS;

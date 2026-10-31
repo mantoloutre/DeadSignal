@@ -23,7 +23,7 @@ export async function checkTruckTrunk() {
 }
 export async function getOutOfTheDamnTruck() {
     await printToTerminal("You go out of the truck", "action");
-    await loadZone("TRUCK_CABIN");
+    await loadZone("OUTSIDE_TRUCK");
 }
 /*
 function to add winter gloves to the player inventory when the player look inside the glove box
@@ -101,7 +101,7 @@ open the truck's trunk when the player decides to do so
 export async function openToolBoxTruckTrunkInit() {
     if (!hasFlag("OPENED_TOOLBOX_INIT")) {
         setFocus("TOOLBOX");
-        await printToTerminal("you try to open the toolbox, but the lock appear to be frozen, " +
+        await printToTerminal("you try to open the toolbox, but the latch appear to be frozen, " +
             "how do you want to try to open it?", "system");
     }
     else {
@@ -122,7 +122,7 @@ export async function doArsonToHeatTheLatch() {
     await printToTerminal("You light up a flare and put it close to the latch.", "action");
     await printToTerminal("There is now a lot of thick red smoke  in the trunk and around the trunk.", "system");
     await printToTerminal("You wait around 50 seconds for the flare to go out and you wait" +
-        " around 2 more minutes for the latches to cooldown.", "action");
+        " around 1 more minutes for the latches to cooldown.", "action");
     await printToTerminal("You try and you manage to open the toolbox", "action");
     removeItemFromInventory("flare");
     addFlag("OPENED_TOOLBOX_INIT");

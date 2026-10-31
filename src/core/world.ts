@@ -3,16 +3,16 @@ import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import {
   GATE_CHECKPOINT_ACTION,
+  GATE_CHECKPOINT_SHACK_ACTIONS,
+  GET_TOOL_BOX_ACTION,
   OUTSIDE_TRUCK_INIT_ACTIONS,
   SAY_STUFF_TO_QG,
   SNOWY_FOREST_ACTIONS,
   TRUCK_CABIN_INIT_ACTIONS,
   WATCH_POST,
   WATCH_POST_OUTSIDE,
-} from "./worldActions.js";
-
+} from "./worldActions";
 export type ZoneId = keyof typeof ZONES;
-
 /*
 the const containing all the zone that I'm using in the game
  */
@@ -35,6 +35,7 @@ export const ZONES = {
       if (hasFlag("INSPECTED_DIRECTION_SIGN")) {
         actions.push(SNOWY_FOREST_ACTIONS.WALK_TOWARD_WATCH_POST);
       }
+
       return actions;
     },
   },
@@ -79,7 +80,7 @@ export const ZONES = {
       "steam slowly dissipate in the glacial crosswinds",
     getActions: (): ZoneAction[] => {
       const actions: ZoneAction[] = [];
-      actions.push(); //TODO link the get out of truck
+      actions.push(TRUCK_CABIN_INIT_ACTIONS.GET_OUT_OF_TRUCK_INIT);
       if (!hasFlag("OPENED_GLOVE_BOX")) {
         actions.push(TRUCK_CABIN_INIT_ACTIONS.OPEN_GLOVE_BOX_TRUCK_INIT);
       } else {
@@ -152,14 +153,14 @@ export const ZONES = {
   },
   GATE_CHECKPOINT_SHACK: {
     name: "CHECKPOINT SHACK",
-    description: "", //TODO do the description
+    description: "there is no description yet", //TODO do the description
     getActions: (): ZoneAction[] => {
       const actions: ZoneAction[] = [];
       //focus is applicable
 
       //normal thing
-      actions.push(); //TODO link action goBackOutside
-      actions.push(); //TODO link the search room
+      actions.push(GATE_CHECKPOINT_SHACK_ACTIONS.GO_BACK_OUTSIDE_THE_SHACK);
+      actions.push(GATE_CHECKPOINT_SHACK_ACTIONS.SEARCH_THE_SHACK);
 
       return actions;
     },
@@ -193,21 +194,19 @@ function getWhatToSayToQG(): ZoneAction[] {
   }
   return actions;
 }
-
 /*
 function to get the actions related to opening the toolbox
  */
 function getToolBoxActions(): ZoneAction[] {
   const actions: ZoneAction[] = [];
-  actions.push(); //todo do something else
+  actions.push(GET_TOOL_BOX_ACTION.DO_SOMETHING_ELSE);
   if (!hasFlag("OPENED_TOOLBOX_INIT")) {
-    actions.push(); //todo latch barehand
+    actions.push(GET_TOOL_BOX_ACTION.FORCE_LATCH_BAREHAND);
     if (doesThePlayerHasTheItem("crowbar")) {
-      actions.push(); //todo crowbar
+      actions.push(GET_TOOL_BOX_ACTION.FORCE_LATCH_CROWBAR);
     }
     if (doesThePlayerHasTheItem("flare")) {
-      //TODO make autocompletion for item type???
-      actions.push(); //todo try heat
+      actions.push(GET_TOOL_BOX_ACTION.FORCE_LATCH_HEAT);
     }
   }
   return actions;

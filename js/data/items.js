@@ -49,4 +49,9 @@ export const ITEMS = {
         type: "tool",
         description: "A little usb key that serves as login for the main console and the relay's console",
     },
+    robot_memory_module: {
+        name: "Robot's memory module",
+        type: "tool",
+        description: "its the memory module, you can check the log at a functioning console.",
+    },
 };

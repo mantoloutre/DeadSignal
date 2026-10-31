@@ -133,7 +133,7 @@ export async function openToolBoxTruckTrunkInit(): Promise<void> {
   if (!hasFlag("OPENED_TOOLBOX_INIT")) {
     setFocus("TOOLBOX");
     await printToTerminal(
-      "you try to open the toolbox, but the lock appear to be frozen, " +
+      "you try to open the toolbox, but the latch appear to be frozen, " +
         "how do you want to try to open it?",
       "system",
     );
@@ -167,7 +167,7 @@ export async function doArsonToHeatTheLatch(): Promise<void> {
   );
   await printToTerminal(
     "You wait around 50 seconds for the flare to go out and you wait" +
-      " around 2 more minutes for the latches to cooldown.",
+      " around 1 more minutes for the latches to cooldown.",
     "action",
   );
   await printToTerminal("You try and you manage to open the toolbox", "action");
