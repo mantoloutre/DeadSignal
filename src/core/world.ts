@@ -100,9 +100,9 @@ export const ZONES = {
   //################################################
   WATCH_POST_OUTSIDE: {
     name: "OUTSIDE WATCH POST",
-    get description(): string {
-      return getLoreOutsideWatchpost();
-    },
+    description:
+      "The watch post's steel door has been ripped off its hinges and thrown into the snow. " +
+      "Broken glass surrounds the dark entrance",
     getActions: (): ZoneAction[] => {
       //focus
 
