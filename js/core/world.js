@@ -1,4 +1,4 @@
-import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
+import { addFlag, FOCUS, getFocus, hasFlag, isCommandInactive, } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import { GATE_CHECKPOINT_ACTION, GATE_CHECKPOINT_SHACK_ACTIONS, GET_TOOL_BOX_ACTION, OUTSIDE_TRUCK_INIT_ACTIONS, SAY_STUFF_TO_QG, SNOWY_FOREST_ACTIONS, TRUCK_CABIN_INIT_ACTIONS, WATCH_POST, WATCH_POST_OUTSIDE, } from "./worldActions";
 /*
@@ -73,10 +73,7 @@ export const ZONES = {
     WATCH_POST_OUTSIDE: {
         name: "OUTSIDE WATCH POST",
         get description() {
-            return hasFlag("FIRST_TIME_OUTSIDE_WATCHPOST")
-                ? "You stand outside the watch post. The heavy reinforced door has been violently blown outward, its thick steel " +
-                    "warped and convave as if hit by a massive"
-                : "You stand outside the watch post, nothing has changed since last time you were here";
+            return getLoreOutsideWatchpost();
         },
         getActions: () => {
             //focus
@@ -156,6 +153,15 @@ function getJunctionBoxActions() {
     const actions = [];
     //TODO
     return actions;
+}
+function getLoreOutsideWatchpost() {
+    if (!hasFlag("FIRST_TIME_OUTSIDE_WATCHPOST")) {
+        addFlag("FIRST_TIME_OUTSIDE_WATCHPOST");
+    }
+    return !hasFlag("FIRST_TIME_OUTSIDE_WATCHPOST")
+        ? "You stand in the freezing snow outside the watch post. The watch post's reinforced door was violently " +
+            "blown outward into the snow, its thick steel warped and buckled"
+        : "You stand outside the watch post, nothing has changed since last time you were here";
 }
 function getWhatToSayToQG() {
     const actions = [];

@@ -1,5 +1,11 @@
 import type { Zone, ZoneAction } from "../data/types.js";
-import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
+import {
+  addFlag,
+  FOCUS,
+  getFocus,
+  hasFlag,
+  isCommandInactive,
+} from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import {
   GATE_CHECKPOINT_ACTION,
@@ -95,10 +101,7 @@ export const ZONES = {
   WATCH_POST_OUTSIDE: {
     name: "OUTSIDE WATCH POST",
     get description(): string {
-      return hasFlag("FIRST_TIME_OUTSIDE_WATCHPOST")
-        ? "You stand outside the watch post. The heavy reinforced door has been violently blown outward, its thick steel " +
-            "warped and convave as if hit by a massive"
-        : "You stand outside the watch post, nothing has changed since last time you were here";
+      return getLoreOutsideWatchpost();
     },
     getActions: (): ZoneAction[] => {
       //focus
@@ -190,7 +193,15 @@ function getJunctionBoxActions(): ZoneAction[] {
   //TODO
   return actions;
 }
-
+function getLoreOutsideWatchpost(): string {
+  if (!hasFlag("FIRST_TIME_OUTSIDE_WATCHPOST")) {
+    addFlag("FIRST_TIME_OUTSIDE_WATCHPOST");
+  }
+  return !hasFlag("FIRST_TIME_OUTSIDE_WATCHPOST")
+    ? "You stand in the freezing snow outside the watch post. The watch post's reinforced door was violently " +
+        "blown outward into the snow, its thick steel warped and buckled"
+    : "You stand outside the watch post, nothing has changed since last time you were here";
+}
 function getWhatToSayToQG(): ZoneAction[] {
   const actions: ZoneAction[] = [];
   actions.push(SAY_STUFF_TO_QG.PRESS_WHEN_PLAYER_DONE);

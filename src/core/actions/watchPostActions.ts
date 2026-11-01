@@ -15,47 +15,53 @@ export async function walkBackOutside(): Promise<void> {
   await gameBridge.loadZone("WATCH_POST_OUTSIDE");
 }
 
-export async function goInsideTheWatchPost(): Promise<void> {
+xport async function goInsideTheWatchPost(): Promise<void> {
   await printToTerminal("You go inside the watch post", "action");
   await gameBridge.loadZone("WATCH_POST");
   if (!hasFlag("DISCOVERED_KELLER_BODY")) {
     addFlag("DISCOVERED_KELLER_BODY");
     await printToTerminal(
-      "You find the light switch in the dark and turn the lights back on.",
-      "action",
+        "You find the light switch in the dark and turn the lights back on.",
+        "action",
     );
     await printToTerminal(
-      "Technician Vance Keller lies slumped on his side against the lower chassis" +
+        "Technician Vance Keller lies slumped on his side against the lower chassis" +
         ", his body frozen in a rigid and unnatural pose",
-      "log",
+        "log",
     );
 
     await printToTerminal(
-      "His chest is crushed clean through his sternum, yet " +
+        "His chest is crushed clean through his sternum, yet " +
         "the exterior fabric shows no impact, claw marks or tool strikes.",
-      "log",
+        "log",
     );
     await printToTerminal(
-      "Keller's body is coated in a fine, brittle crust of frost, far too solid " +
+        "Keller's body is coated in a fine, brittle crust of frost, far too solid " +
         "for a man whose station went dark only an hour ago.",
-      "log",
+        "log",
     );
     await printToTerminal(
-      "The crystalline residue isn't from the draft; It radiates " +
+        "The crystalline residue isn't from the draft; It radiates " +
         "directly outward from his blown ear canals and across the spiderweb " +
         //the player choices ( multiple choice
         "fracture of his visor",
-      "log",
+        "log",
     );
     await printToTerminal("What do you do?", "system");
     await printToTerminal(
-      "Dead body: Tell the QG you found Keller's dead body",
-      "system",
+        "Dead body: Tell the QG you found Keller's dead body",
+        "system",
     );
     await printToTerminal(
-      "Note left: Tell the QG about the note Keller wrote before dying",
-      "system",
+        "Note left: Tell the QG about the note Keller wrote before dying",
+        "system",
     );
+    //TODO do the rest
+    setFocus("TELLING_QG");
+    gameBridge.renderZoneActions("WATCH_POST");
+  }
+  //TODO make player choose what he want to do next
+}
     //TODO do the rest
     setFocus("TELLING_QG");
     gameBridge.renderZoneActions("WATCH_POST");
