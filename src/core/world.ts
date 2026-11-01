@@ -94,10 +94,12 @@ export const ZONES = {
   //################################################
   WATCH_POST_OUTSIDE: {
     name: "OUTSIDE WATCH POST",
-    description:
-      "you stand outside the watch post. The heavy reinforced metal" +
-      " door has been violently torn off its hinges, bent inward as if struck" +
-      "by something massive.",
+    get description(): string {
+      return hasFlag("FIRST_TIME_OUTSIDE_WATCHPOST")
+        ? "You stand outside the watch post. The heavy reinforced door has been violently blown outward, its thick steel " +
+            "warped and convave as if hit by a massive"
+        : "You stand outside the watch post, nothing has changed since last time you were here";
+    },
     getActions: (): ZoneAction[] => {
       //focus
 
