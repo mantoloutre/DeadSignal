@@ -13,8 +13,7 @@ export async function walkBackOutside() {
     await printToTerminal("You walk back outside the watch tower", "action");
     await gameBridge.loadZone("WATCH_POST_OUTSIDE");
 }
-xport;
-async function goInsideTheWatchPost() {
+export async function goInsideTheWatchPost() {
     await printToTerminal("You go inside the watch post", "action");
     await gameBridge.loadZone("WATCH_POST");
     if (!hasFlag("DISCOVERED_KELLER_BODY")) {
@@ -39,9 +38,6 @@ async function goInsideTheWatchPost() {
     }
     //TODO make player choose what he want to do next
 }
-//TODO do the rest
-setFocus("TELLING_QG");
-gameBridge.renderZoneActions("WATCH_POST");
 /*
 #################
 ZONE : WATCH_POST

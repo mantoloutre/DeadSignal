@@ -72,9 +72,8 @@ export const ZONES = {
     //################################################
     WATCH_POST_OUTSIDE: {
         name: "OUTSIDE WATCH POST",
-        get description() {
-            return getLoreOutsideWatchpost();
-        },
+        description: "The watch post's steel door has been ripped off its hinges and thrown into the snow. " +
+            "Broken glass surrounds the dark entrance",
         getActions: () => {
             //focus
             //normal actions
@@ -155,6 +154,7 @@ function getJunctionBoxActions() {
     return actions;
 }
 function getLoreOutsideWatchpost() {
+    //TODO remove?
     if (!hasFlag("FIRST_TIME_OUTSIDE_WATCHPOST")) {
         addFlag("FIRST_TIME_OUTSIDE_WATCHPOST");
     }
