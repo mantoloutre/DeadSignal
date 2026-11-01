@@ -95,7 +95,9 @@ export const ZONES = {
   WATCH_POST_OUTSIDE: {
     name: "OUTSIDE WATCH POST",
     description:
-      "you stand just outside the watch post, description not finished",
+      "you stand outside the watch post. The heavy reinforced metal" +
+      " door has been violently torn off its hinges, bent inward as if struck" +
+      "by something massive.",
     getActions: (): ZoneAction[] => {
       //focus
 
