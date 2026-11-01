@@ -19,6 +19,7 @@ export const FOCUS = {
     TOOLBOX: "TOOLBOX",
     JUNCTION_BOX: "JUNCTION_BOX",
     TELLING_QG: "TELLING_QG",
+    FIRST_ENCOUNTER: "FIRST_ENCOUNTER",
 };
 let currentFocus = null;
 /*

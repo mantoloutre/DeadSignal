@@ -1,6 +1,6 @@
 import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
-import { GATE_CHECKPOINT_ACTION, GATE_CHECKPOINT_SHACK_ACTIONS, GET_TOOL_BOX_ACTION, OUTSIDE_TRUCK_INIT_ACTIONS, SAY_STUFF_TO_QG, SNOWY_FOREST_ACTIONS, TRUCK_CABIN_INIT_ACTIONS, WATCH_POST, WATCH_POST_OUTSIDE, } from "./worldActions/index.js";
+import { GATE_CHECKPOINT_ACTION, GATE_CHECKPOINT_SHACK_ACTIONS, GET_TOOL_BOX_ACTION, OUTSIDE_TRUCK_INIT_ACTIONS, RESONATOR_ENCOUNTER, SAY_STUFF_TO_QG, SNOWY_FOREST_ACTIONS, TRUCK_CABIN_INIT_ACTIONS, WATCH_POST, WATCH_POST_OUTSIDE, } from "./worldActions/index.js";
 /*
 the const containing all the zone that I'm using in the game
  */
@@ -93,6 +93,9 @@ export const ZONES = {
             if (getFocus() === FOCUS.TELLING_QG) {
                 return getWhatToSayToQG();
             }
+            if (getFocus() === FOCUS.FIRST_ENCOUNTER) {
+                //TODO do the list of actions
+            }
             //normal action
             const actions = [];
             actions.push(WATCH_POST.GO_BACK_OUTSIDE_WATCH_POST);
@@ -179,6 +182,11 @@ function getWhatToSayToQG() {
     if (!isCommandInactive(SAY_STUFF_TO_QG.YES_NOTE.command)) {
         actions.push(SAY_STUFF_TO_QG.NO_NOTE);
     }
+    return actions;
+}
+function getFirstEncounterActions() {
+    const actions = [];
+    //do the actions
     return actions;
 }
 /*

@@ -190,3 +190,9 @@ export async function confirmingDoneTalkingToQG(): Promise<void> {
   //TODO add a message like saying all good or sum?
   setFocus(null);
 }
+export async function coverYourEars(): Promise<void> {
+  //TODO add the text & action ?
+}
+export async function playerDoneWithFirstEncounter(): Promise<void> {
+  //TODO
+}

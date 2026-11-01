@@ -1,5 +1,5 @@
-import { loadZone } from "../main";
-import { printToTerminal } from "../ui/dom";
+import { loadZone } from "../main.js";
+import { printToTerminal } from "../ui/dom.js";
 /*
 ######################
 ZONE : EXCAVATION_CAMP
