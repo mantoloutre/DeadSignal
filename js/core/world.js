@@ -53,7 +53,7 @@ export const ZONES = {
     TRUCK_CABIN: {
         name: "TRUCK CABIN",
         description: "The dashboard gauges flicker erratically under low battery voltage. Outside the cracked windshield, " +
-            "steam slowly dissipate in the glacial crosswinds",
+            "steam coming from the engine slowly dissipate in the glacial crosswinds",
         getActions: () => {
             const actions = [];
             actions.push(TRUCK_CABIN_INIT_ACTIONS.GET_OUT_OF_TRUCK_INIT);
@@ -72,7 +72,12 @@ export const ZONES = {
     //################################################
     WATCH_POST_OUTSIDE: {
         name: "OUTSIDE WATCH POST",
-        description: "you stand just outside the watch post, description not finished",
+        get description() {
+            return hasFlag("FIRST_TIME_OUTSIDE_WATCHPOST")
+                ? "You stand outside the watch post. The heavy reinforced door has been violently blown outward, its thick steel " +
+                    "warped and convave as if hit by a massive"
+                : "You stand outside the watch post, nothing has changed since last time you were here";
+        },
         getActions: () => {
             //focus
             //normal actions
@@ -156,17 +161,17 @@ function getWhatToSayToQG() {
     const actions = [];
     actions.push(SAY_STUFF_TO_QG.PRESS_WHEN_PLAYER_DONE);
     //section for the body
-    if (!isCommandInactive("No Body")) {
+    if (!isCommandInactive(SAY_STUFF_TO_QG.NO_BODY.command)) {
         actions.push(SAY_STUFF_TO_QG.YES_BODY);
     }
-    if (!isCommandInactive("Dead Body")) {
+    if (!isCommandInactive(SAY_STUFF_TO_QG.YES_BODY.command)) {
         actions.push(SAY_STUFF_TO_QG.NO_BODY);
     }
     // section for the note
-    if (!isCommandInactive("No Note Found")) {
+    if (!isCommandInactive(SAY_STUFF_TO_QG.NO_NOTE.command)) {
         actions.push(SAY_STUFF_TO_QG.YES_NOTE);
     }
-    if (!isCommandInactive("Note Found")) {
+    if (!isCommandInactive(SAY_STUFF_TO_QG.YES_NOTE.command)) {
         actions.push(SAY_STUFF_TO_QG.NO_NOTE);
     }
     return actions;

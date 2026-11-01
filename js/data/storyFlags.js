@@ -18,6 +18,7 @@ export const StoryFlags = {
     //zone 5 (checkpoint shack)
     SEARCHED_GUARD_SHACK: "SEARCHED_GUARD_SHACK",
     //zone 6 (outside watchpost)
+    FIRST_TIME_OUTSIDE_WATCHPOST: "FIRST_TIME_OUTSIDE_WATCHPOST",
     //zone 7 (watch post)
     DISCOVERED_KELLER_BODY: "DISCOVERED_KELLER_BODY",
     SEARCHED_KELLER_BODY: "SEARCHED_KELLER_BODY",

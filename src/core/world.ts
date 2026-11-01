@@ -76,7 +76,7 @@ export const ZONES = {
     name: "TRUCK CABIN",
     description:
       "The dashboard gauges flicker erratically under low battery voltage. Outside the cracked windshield, " +
-      "steam slowly dissipate in the glacial crosswinds",
+      "steam coming from the engine slowly dissipate in the glacial crosswinds",
     getActions: (): ZoneAction[] => {
       const actions: ZoneAction[] = [];
       actions.push(TRUCK_CABIN_INIT_ACTIONS.GET_OUT_OF_TRUCK_INIT);
@@ -195,17 +195,17 @@ function getWhatToSayToQG(): ZoneAction[] {
   const actions: ZoneAction[] = [];
   actions.push(SAY_STUFF_TO_QG.PRESS_WHEN_PLAYER_DONE);
   //section for the body
-  if (!isCommandInactive("No Body")) {
+  if (!isCommandInactive(SAY_STUFF_TO_QG.NO_BODY.command)) {
     actions.push(SAY_STUFF_TO_QG.YES_BODY);
   }
-  if (!isCommandInactive("Dead Body")) {
+  if (!isCommandInactive(SAY_STUFF_TO_QG.YES_BODY.command)) {
     actions.push(SAY_STUFF_TO_QG.NO_BODY);
   }
   // section for the note
-  if (!isCommandInactive("No Note Found")) {
+  if (!isCommandInactive(SAY_STUFF_TO_QG.NO_NOTE.command)) {
     actions.push(SAY_STUFF_TO_QG.YES_NOTE);
   }
-  if (!isCommandInactive("Note Found")) {
+  if (!isCommandInactive(SAY_STUFF_TO_QG.YES_NOTE.command)) {
     actions.push(SAY_STUFF_TO_QG.NO_NOTE);
   }
   return actions;
