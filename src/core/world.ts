@@ -194,6 +194,7 @@ function getJunctionBoxActions(): ZoneAction[] {
   return actions;
 }
 function getLoreOutsideWatchpost(): string {
+  //TODO remove?
   if (!hasFlag("FIRST_TIME_OUTSIDE_WATCHPOST")) {
     addFlag("FIRST_TIME_OUTSIDE_WATCHPOST");
   }
