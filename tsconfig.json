@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "moduleDetection": "force",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "rewriteRelativeImportExtensions": true,
+    "verbatimModuleSyntax": true,
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "rootDir": "./src",
     "outDir": "./js",
