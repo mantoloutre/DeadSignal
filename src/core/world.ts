@@ -135,6 +135,11 @@ export const ZONES = {
         actions.push(WATCH_POST.TAKE_KELLER_CREDENTIAL);
         actions.push(WATCH_POST.TAKE_PEN_FROM_KELLER);
       }
+      if (doesThePlayerHasTheItem("robot_memory_module")) {
+        actions.push(WATCH_POST.INSERT_MEMORY_MODULE);
+      } else {
+        actions.push(WATCH_POST.TAKE_MEMORY_MODULE);
+      }
       return actions;
     },
   },
@@ -192,16 +197,6 @@ function getJunctionBoxActions(): ZoneAction[] {
   const actions: ZoneAction[] = [];
   //TODO
   return actions;
-}
-function getLoreOutsideWatchpost(): string {
-  //TODO remove?
-  if (!hasFlag("FIRST_TIME_OUTSIDE_WATCHPOST")) {
-    addFlag("FIRST_TIME_OUTSIDE_WATCHPOST");
-  }
-  return !hasFlag("FIRST_TIME_OUTSIDE_WATCHPOST")
-    ? "You stand in the freezing snow outside the watch post. The watch post's reinforced door was violently " +
-        "blown outward into the snow, its thick steel warped and buckled"
-    : "You stand outside the watch post, nothing has changed since last time you were here";
 }
 function getWhatToSayToQG(): ZoneAction[] {
   const actions: ZoneAction[] = [];

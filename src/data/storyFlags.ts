@@ -22,6 +22,7 @@ export const StoryFlags = {
   //zone 7 (watch post)
   DISCOVERED_KELLER_BODY: "DISCOVERED_KELLER_BODY",
   SEARCHED_KELLER_BODY: "SEARCHED_KELLER_BODY",
+  INSERTED_MEMORY_MODULE: "INSERTED_MEMORY_MODULE",
   // easter egg? ( this would be like there is another condition and then
   // u go back there to re-inspect the sign i guess...
 

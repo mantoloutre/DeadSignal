@@ -9,7 +9,7 @@ export const QG_MESSAGES = {
         " Take his keycard and credentials for the mission then bring them back to us and" +
         " go turn on the auxiliary relay too because he also deactivated those.", //TODO add keycard
     QG_MESSAGE_DIDNT_TOLD_DEAD_BODY: "Abandonment of post... Don't search for him, turn on the station and go " +
-        "turn back on the relay if he also did shut them down. Get moving.",
+        "turn back on the auxiliary relay, he also did shut them down. Get moving.",
     QG_MESSAGE_TOLD_ABOUT_NOTE: "Nonsense! We don't leave in a fantasy here, there's nothing that's draw to the " +
         "signal in this dead valley and monster don't exist", //TODO finish this
     //TODO add maybe a hint for what the player would have to do next

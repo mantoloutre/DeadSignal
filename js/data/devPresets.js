@@ -51,6 +51,10 @@ export const presetBeforeDiscoveringBody = {
             itemId: "insulated_wirecutter",
             count: 1,
         },
+        {
+            itemId: "robot_memory_module",
+            count: 1,
+        },
     ],
     inactiveCommands: [
         "take gloves",

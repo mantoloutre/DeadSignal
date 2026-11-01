@@ -31,6 +31,7 @@ export const GATE_CHECKPOINT_SHACK_ACTIONS = {
         command: "Salvage memory module",
         description: "take the memory module from the destroyed robot head",
         execute: actionsFunc.salvageMemoryModule,
+        oneTime: true,
     },
 };
 /*
