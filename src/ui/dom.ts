@@ -34,10 +34,13 @@ export interface UIElements {
   "btn-delete-key": HTMLButtonElement;
   "btn-skip-to-outside-watch-tower": HTMLButtonElement;
   "btn-close-cheat-menu": HTMLButtonElement;
+  "btn-die": HTMLButtonElement;
+  "btn-reset-game": HTMLButtonElement;
   // div elements
   "side-menu": HTMLDivElement;
   "cheat-menu": HTMLDivElement;
   "menu-overlay": HTMLDivElement;
+  "die-overlay": HTMLDivElement;
   inventory: HTMLDivElement;
   "inventory-items-list": HTMLDivElement;
   "terminal-output": HTMLDivElement;

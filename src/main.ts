@@ -9,6 +9,7 @@ import {
   setGameState,
 } from "./core/gameState.js";
 import "./ui/sideMenu.js";
+import "./ui/cheatMenu.ts";
 import { gameBridge } from "./core/gameBridge.js";
 import { handleFrequency, queueQGMessage } from "./core/radioFrequency.js";
 import { ZONES, type ZoneId } from "./core/world.js";
@@ -121,7 +122,7 @@ binding a button and an async action
 @param action the action we want to bind to the button
  @note only usable with async function that gives a void promise, with only void it doesn't work
  */
-function bindingAsyncAction(
+export function bindingAsyncAction(
   button: HTMLButtonElement,
   action: () => Promise<void>,
 ): void {

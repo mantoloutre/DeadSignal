@@ -1,5 +1,6 @@
 import { currentState, exportSaveFile, GAME_INITIAL_STATE, importSaveFile, loadFromTheLocalStorage, saveTheDataToLocalStorage, setFocus, setGameState, } from "./core/gameState.js";
 import "./ui/sideMenu.js";
+import "./ui/cheatMenu.js";
 import { gameBridge } from "./core/gameBridge.js";
 import { handleFrequency, queueQGMessage } from "./core/radioFrequency.js";
 import { ZONES } from "./core/world.js";
@@ -99,7 +100,7 @@ binding a button and an async action
 @param action the action we want to bind to the button
  @note only usable with async function that gives a void promise, with only void it doesn't work
  */
-function bindingAsyncAction(button, action) {
+export function bindingAsyncAction(button, action) {
     button.addEventListener("click", async () => {
         if (isPrinting) {
             flashButton(button);
