@@ -117,7 +117,8 @@ export const ZONES = {
   WATCH_POST: {
     name: "INSIDE WATCH POST",
     description:
-      "you are now standing inside the watch post, the air feels heavy...", //TODO do the lore
+      "A small freezing room filled with dead monitor and the main console. " +
+      "Technician Keller's body lies slumped in the corner",
     getActions: (): ZoneAction[] => {
       //focus
       if (getFocus() === FOCUS.TELLING_QG) {
