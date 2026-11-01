@@ -1,6 +1,11 @@
 import { QG_MESSAGES, type QGMessageKey } from "../data/qgMessages.js";
 import { printToTerminal } from "../ui/dom.js";
-import { currentState, saveTheDataToLocalStorage } from "./gameState.js";
+import {
+  addFlag,
+  currentState,
+  hasFlag,
+  saveTheDataToLocalStorage,
+} from "./gameState.js";
 
 export interface RadioFrequency {
   frequency: string;
@@ -10,7 +15,7 @@ export const FREQUENCY_REGISTRY = {
   QG_FREQUENCY: {
     frequency: "112.400",
   },
-  PROMETHEUS_BEACON: {
+  THE_RESONATOR: {
     frequency: "940.700",
   },
   RELAY_A01_SYNC: {
@@ -24,6 +29,9 @@ export const FREQUENCY_REGISTRY = {
   },
   KILL_SWITCH_PULSE: {
     frequency: "111.111",
+  },
+  RADIO_OFF: {
+    frequency: "000.000",
   },
 } as const satisfies Record<string, RadioFrequency>;
 
@@ -172,7 +180,7 @@ export async function handleFrequency(): Promise<void> {
   }
   // if everything is good
   switch (formattedFreq) {
-    case "112.400":
+    case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
       await handleQGFrequency();
       break;
     case "666.666":
@@ -183,5 +191,25 @@ export async function handleFrequency(): Promise<void> {
         "alert",
       );
       break;
+    case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
+      //await handleResonatorEncounter(); TODO reactivate this when ready
+      break;
+    case FREQUENCY_REGISTRY.RADIO_OFF.frequency:
+      await printToTerminal(
+        "Your radio is off, Don't forget to turn it back on",
+        "alert",
+      );
+      break;
+  }
+}
+export async function handleResonatorEncounter(): Promise<void> {
+  if (
+    currentState.currentZone === "WATCH_POST" &&
+    !hasFlag("HAD_FIRST_ENCOUNTER")
+  ) {
+    addFlag("HAD_FIRST_ENCOUNTER");
+    //TODO do the thing if you do it in the watchpost
+  } else {
+    //TODO do if you dont do it in the watchpost
   }
 }

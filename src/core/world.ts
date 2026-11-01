@@ -1,11 +1,5 @@
 import type { Zone, ZoneAction } from "../data/types.js";
-import {
-  addFlag,
-  FOCUS,
-  getFocus,
-  hasFlag,
-  isCommandInactive,
-} from "./gameState.js";
+import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import {
   GATE_CHECKPOINT_ACTION,
@@ -17,7 +11,7 @@ import {
   TRUCK_CABIN_INIT_ACTIONS,
   WATCH_POST,
   WATCH_POST_OUTSIDE,
-} from "./worldActions";
+} from "./worldActions/index.js";
 export type ZoneId = keyof typeof ZONES;
 /*
 the const containing all the zone that I'm using in the game
@@ -108,7 +102,7 @@ export const ZONES = {
 
       //normal actions
       const actions: ZoneAction[] = [];
-
+      actions.push(WATCH_POST_OUTSIDE.GO_BACK_TO_CHECKPOINT);
       actions.push(WATCH_POST_OUTSIDE.GO_INSIDE_WATCH_POST);
       return actions;
     },
@@ -117,8 +111,8 @@ export const ZONES = {
   WATCH_POST: {
     name: "INSIDE WATCH POST",
     description:
-      "A small freezing room filled with dead monitor and the main console. " +
-      "Technician Keller's body lies slumped in the corner",
+      "A small freezing room filled with dead monitor. " +
+      "Keller's body lies motionless against the main terminal's chassis",
     getActions: (): ZoneAction[] => {
       //focus
       if (getFocus() === FOCUS.TELLING_QG) {
@@ -134,6 +128,7 @@ export const ZONES = {
         actions.push(WATCH_POST.SEARCH_KELLER_BODY);
       } else {
         actions.push(WATCH_POST.TAKE_KELLER_CREDENTIAL);
+        actions.push(WATCH_POST.TAKE_KELLER_KEYCARD);
         actions.push(WATCH_POST.TAKE_PEN_FROM_KELLER);
       }
       if (doesThePlayerHasTheItem("robot_memory_module")) {

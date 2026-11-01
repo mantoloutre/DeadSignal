@@ -23,6 +23,7 @@ export const StoryFlags = {
   DISCOVERED_KELLER_BODY: "DISCOVERED_KELLER_BODY",
   SEARCHED_KELLER_BODY: "SEARCHED_KELLER_BODY",
   INSERTED_MEMORY_MODULE: "INSERTED_MEMORY_MODULE",
+  HAD_FIRST_ENCOUNTER: "HAD_FIRST_ENCOUNTER",
   // easter egg? ( this would be like there is another condition and then
   // u go back there to re-inspect the sign i guess...
 

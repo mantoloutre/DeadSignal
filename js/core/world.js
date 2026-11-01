@@ -1,6 +1,6 @@
-import { FOCUS, getFocus, hasFlag, isCommandInactive, } from "./gameState.js";
+import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
-import { GATE_CHECKPOINT_ACTION, GATE_CHECKPOINT_SHACK_ACTIONS, GET_TOOL_BOX_ACTION, OUTSIDE_TRUCK_INIT_ACTIONS, SAY_STUFF_TO_QG, SNOWY_FOREST_ACTIONS, TRUCK_CABIN_INIT_ACTIONS, WATCH_POST, WATCH_POST_OUTSIDE, } from "./worldActions";
+import { GATE_CHECKPOINT_ACTION, GATE_CHECKPOINT_SHACK_ACTIONS, GET_TOOL_BOX_ACTION, OUTSIDE_TRUCK_INIT_ACTIONS, SAY_STUFF_TO_QG, SNOWY_FOREST_ACTIONS, TRUCK_CABIN_INIT_ACTIONS, WATCH_POST, WATCH_POST_OUTSIDE, } from "./worldActions/index.js";
 /*
 the const containing all the zone that I'm using in the game
  */
@@ -78,6 +78,7 @@ export const ZONES = {
             //focus
             //normal actions
             const actions = [];
+            actions.push(WATCH_POST_OUTSIDE.GO_BACK_TO_CHECKPOINT);
             actions.push(WATCH_POST_OUTSIDE.GO_INSIDE_WATCH_POST);
             return actions;
         },
@@ -85,7 +86,8 @@ export const ZONES = {
     //############################################
     WATCH_POST: {
         name: "INSIDE WATCH POST",
-        description: "you are now standing inside the watch post, the air feels heavy...", //TODO do the lore
+        description: "A small freezing room filled with dead monitor. " +
+            "Keller's body lies motionless against the main terminal's chassis",
         getActions: () => {
             //focus
             if (getFocus() === FOCUS.TELLING_QG) {
@@ -100,6 +102,7 @@ export const ZONES = {
             }
             else {
                 actions.push(WATCH_POST.TAKE_KELLER_CREDENTIAL);
+                actions.push(WATCH_POST.TAKE_KELLER_KEYCARD);
                 actions.push(WATCH_POST.TAKE_PEN_FROM_KELLER);
             }
             if (doesThePlayerHasTheItem("robot_memory_module")) {

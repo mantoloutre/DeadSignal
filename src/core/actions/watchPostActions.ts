@@ -14,10 +14,12 @@ export async function walkBackOutside(): Promise<void> {
   await printToTerminal("You walk back outside the watch tower", "action");
   await gameBridge.loadZone("WATCH_POST_OUTSIDE");
 }
-
+export async function goBackToCheckpoint(): Promise<void> {
+  await printToTerminal("You walk back toward the checkpoint.", "action");
+  await gameBridge.loadZone("GATE_CHECKPOINT");
+}
 export async function goInsideTheWatchPost(): Promise<void> {
   await printToTerminal("You go inside the watch post", "action");
-  await gameBridge.loadZone("WATCH_POST");
   if (!hasFlag("DISCOVERED_KELLER_BODY")) {
     addFlag("DISCOVERED_KELLER_BODY");
     await printToTerminal(
@@ -25,7 +27,7 @@ export async function goInsideTheWatchPost(): Promise<void> {
       "action",
     );
     await printToTerminal(
-      "Technician Vance Keller lies slumped on his side against the lower chassis" +
+      "Technician Vance Keller lies slumped on his side against the terminal's lower chassis" +
         ", his body frozen in a rigid and unnatural pose",
       "log",
     );
@@ -47,6 +49,9 @@ export async function goInsideTheWatchPost(): Promise<void> {
         "fracture of his visor",
       "log",
     );
+
+    //TODO do the rest
+    await gameBridge.loadZone("WATCH_POST");
     await printToTerminal("What do you do?", "system");
     await printToTerminal(
       "Dead body: Tell the QG you found Keller's dead body",
@@ -56,7 +61,6 @@ export async function goInsideTheWatchPost(): Promise<void> {
       "Note left: Tell the QG about the note Keller wrote before dying",
       "system",
     );
-    //TODO do the rest
     setFocus("TELLING_QG");
     gameBridge.renderZoneActions("WATCH_POST");
   }
@@ -90,7 +94,7 @@ export async function listenRobotMemoryModule(): Promise<void> {
     "log",
   );
   await printToTerminal(
-    "12:51 - Carrier wave detected on 094.700 MHz. Audio mic logged acoustic vibration on the shack's window",
+    "12:51 - Carrier wave detected on 940.700 MHz. Audio mic logged acoustic vibration on the shack's window",
     "log",
   );
   await printToTerminal(
@@ -114,7 +118,7 @@ export async function listenRobotMemoryModule(): Promise<void> {
     "log",
   );
   await printToTerminal(
-    "13:03 - ping failed, transmission jammed by carrier harmonic on 094.700 MHz.",
+    "13:03 - ping failed, transmission jammed by carrier harmonic on 940.700 MHz.",
     "log",
   );
   await printToTerminal(
@@ -174,7 +178,7 @@ export async function tellQGAboutNoteLeft(): Promise<void> {
     "YOU",
   );
   addFlag("TOLD_QG_ABOUT_NOTE");
-  //TODO add the queued message from the qg
+  await queueQGMessage("QG_MESSAGE_TOLD_ABOUT_NOTE");
 }
 
 //Don't mention the note
@@ -183,5 +187,6 @@ export async function DontTellQGAboutNoteLeft(): Promise<void> {
 }
 
 export async function confirmingDoneTalkingToQG(): Promise<void> {
+  //TODO add a message like saying all good or sum?
   setFocus(null);
 }

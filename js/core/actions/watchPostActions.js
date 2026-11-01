@@ -13,13 +13,16 @@ export async function walkBackOutside() {
     await printToTerminal("You walk back outside the watch tower", "action");
     await gameBridge.loadZone("WATCH_POST_OUTSIDE");
 }
+export async function goBackToCheckpoint() {
+    await printToTerminal("You walk back toward the checkpoint.", "action");
+    await gameBridge.loadZone("GATE_CHECKPOINT");
+}
 export async function goInsideTheWatchPost() {
     await printToTerminal("You go inside the watch post", "action");
-    await gameBridge.loadZone("WATCH_POST");
     if (!hasFlag("DISCOVERED_KELLER_BODY")) {
         addFlag("DISCOVERED_KELLER_BODY");
         await printToTerminal("You find the light switch in the dark and turn the lights back on.", "action");
-        await printToTerminal("Technician Vance Keller lies slumped on his side against the lower chassis" +
+        await printToTerminal("Technician Vance Keller lies slumped on his side against the terminal's lower chassis" +
             ", his body frozen in a rigid and unnatural pose", "log");
         await printToTerminal("His chest is crushed clean through his sternum, yet " +
             "the exterior fabric shows no impact, claw marks or tool strikes.", "log");
@@ -29,10 +32,11 @@ export async function goInsideTheWatchPost() {
             "directly outward from his blown ear canals and across the spiderweb " +
             //the player choices ( multiple choice
             "fracture of his visor", "log");
+        //TODO do the rest
+        await gameBridge.loadZone("WATCH_POST");
         await printToTerminal("What do you do?", "system");
         await printToTerminal("Dead body: Tell the QG you found Keller's dead body", "system");
         await printToTerminal("Note left: Tell the QG about the note Keller wrote before dying", "system");
-        //TODO do the rest
         setFocus("TELLING_QG");
         gameBridge.renderZoneActions("WATCH_POST");
     }
@@ -52,13 +56,13 @@ export async function listenRobotMemoryModule() {
     removeItemFromInventory("robot_memory_module");
     await printToTerminal("You see some log showing up on the console screen", "system");
     await printToTerminal("12:44 - Operator Keller initiated manual lockout. Corporate dispatch order overridden", "log");
-    await printToTerminal("12:51 - Carrier wave detected on 094.700 MHz. Audio mic logged acoustic vibration on the shack's window", "log");
+    await printToTerminal("12:51 - Carrier wave detected on 940.700 MHz. Audio mic logged acoustic vibration on the shack's window", "log");
     await printToTerminal("12:58 - perimeter fence B-02 torn outward. welds broken under unknown source of tension", "log");
     await printToTerminal("13:00 - Camera feed lost to extreme EM interference. Interior temp dropped 14°C very fast", "log");
     await printToTerminal("13:01 - High pitch sound spike, seems like glass shattering. Unknown direction, no optical feed", "log");
     await printToTerminal("13:02 - CRITICAL - drive motors unresponsive. Unit unable to return to designated post", "log");
     await printToTerminal("13:03 - CRITICAL - Main module losing too much power. Attempting automated distress ping to 112.400 MHz...", "log");
-    await printToTerminal("13:03 - ping failed, transmission jammed by carrier harmonic on 094.700 MHz.", "log");
+    await printToTerminal("13:03 - ping failed, transmission jammed by carrier harmonic on 940.700 MHz.", "log");
     await printToTerminal("13:04 - Relay A-01 grid feed severed by manual unauthorized killswitch. Attempting reboot...", "log");
     await printToTerminal("13:04 - Attempt failed, access denied", "log");
     await printToTerminal("13:04 - Power failure. Unit going offline", "log");
@@ -99,12 +103,13 @@ export async function tellQGAboutNoteLeft() {
     await printToTerminal("From what i can see, Kelley left a note, apparently, there is something " +
         "dangerous that is drawn to the signal when it is running", "YOU");
     addFlag("TOLD_QG_ABOUT_NOTE");
-    //TODO add the queued message from the qg
+    await queueQGMessage("QG_MESSAGE_TOLD_ABOUT_NOTE");
 }
 //Don't mention the note
 export async function DontTellQGAboutNoteLeft() {
     //nothing happens here it's just to satisfy the zone
 }
 export async function confirmingDoneTalkingToQG() {
+    //TODO add a message like saying all good or sum?
     setFocus(null);
 }

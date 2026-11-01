@@ -1,4 +1,4 @@
-import type { ZoneAction } from "../../data/types";
+import type { ZoneAction } from "../../data/types.js";
 import * as actionsFunc from "../actions/snowyForestActions.js";
 
 export const SNOWY_FOREST_ACTIONS = {

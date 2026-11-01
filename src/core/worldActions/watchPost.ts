@@ -50,6 +50,12 @@ export const WATCH_POST = {
     execute: actionsFunc.takeKellerCredential,
     oneTime: true,
   },
+  TAKE_KELLER_KEYCARD: {
+    command: "take Keller's keycard",
+    description: "take the keycard from Keller",
+    execute: actionsFunc.takeKellerKeyCard,
+    oneTime: true,
+  },
   TAKE_PEN_FROM_KELLER: {
     command: "take pen",
     description: "take the pen from his pocket",
@@ -73,4 +79,24 @@ export const WATCH_POST_OUTSIDE = {
     description: "walk inside the watch post",
     execute: actionsFunc.goInsideTheWatchPost,
   },
+  GO_BACK_TO_CHECKPOINT: {
+    command: "walk back checkpoint",
+    description: "walk back to the checkpoint",
+    execute: actionsFunc.goBackToCheckpoint,
+  },
+} as const satisfies Record<string, ZoneAction>;
+export const RESONATOR_ENCOUNTER = {
+  /*
+  COVER_EARS: {
+    command: "cover your ears",
+    description: "go in a corner and cover your ears",
+    execute: //TODO do and bind the action
+  },
+  DONE_CHOOSING: {
+    command: "press when done",
+    description: "press this button when your choice is made, you can do an action, tune radio, whatever " +
+        "is accessible"
+    execute: //TODO do and bind the action
+  },
+  */
 } as const satisfies Record<string, ZoneAction>;
