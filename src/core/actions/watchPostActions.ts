@@ -192,6 +192,10 @@ export async function confirmingDoneTalkingToQG(): Promise<void> {
 }
 export async function coverYourEars(): Promise<void> {
   //TODO add the text & action ?
+  await printToTerminal(
+    "You decide to quickly go sit down in the corner and cover your ears.",
+    "action",
+  );
 }
 export async function playerDoneWithFirstEncounter(): Promise<void> {
   //TODO

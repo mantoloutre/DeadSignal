@@ -257,9 +257,6 @@ function createButtonZoneActions(action, zoneId) {
     });
     actionZone.append(button);
 }
-export function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
 /*
 function that is called to initialize game
  */

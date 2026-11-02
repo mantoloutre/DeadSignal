@@ -1,4 +1,3 @@
-import { sleep } from "../main.js";
 /*
 used to optimize the instanciation of elements
  */
@@ -43,4 +42,7 @@ export async function printToTerminal(text, from, speedMs = 15) {
         await sleep(speedMs);
     }
     isPrinting = false;
+}
+export function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }

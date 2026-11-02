@@ -115,6 +115,7 @@ export async function confirmingDoneTalkingToQG() {
 }
 export async function coverYourEars() {
     //TODO add the text & action ?
+    await printToTerminal("You decide to quickly go sit down in the corner and cover your ears.", "action");
 }
 export async function playerDoneWithFirstEncounter() {
     //TODO

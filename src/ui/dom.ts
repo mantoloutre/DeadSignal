@@ -1,5 +1,4 @@
 import type { fromType } from "../data/types.js";
-import { sleep } from "../main.js";
 
 export interface UIElements {
   // buttons ( test )
@@ -102,4 +101,7 @@ export async function printToTerminal(
     await sleep(speedMs);
   }
   isPrinting = false;
+}
+export function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }

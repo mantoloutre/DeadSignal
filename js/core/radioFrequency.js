@@ -1,5 +1,6 @@
 import { QG_MESSAGES } from "../data/qgMessages.js";
 import { printToTerminal } from "../ui/dom.js";
+import { handleResonatorActions } from "./actions/resonatorActions.js";
 import { addFlag, currentState, hasFlag, saveTheDataToLocalStorage, } from "./gameState.js";
 export const FREQUENCY_REGISTRY = {
     QG_FREQUENCY: {
@@ -146,7 +147,17 @@ export async function handleFrequency() {
                 " leave him alone or consequence will apply", "alert");
             break;
         case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
-            //await handleResonatorEncounter(); TODO reactivate this when ready
+            if (currentState.currentZone === "WATCH_POST" &&
+                !hasFlag("HAD_FIRST_ENCOUNTER")) {
+                await handleResonatorEncounter();
+            }
+            else if (currentState.currentZone === "WATCH_POST" &&
+                hasFlag("HAD_FIRST_ENCOUNTER")) {
+                //TODO he dies, cmon man dont activate it a second time if first time you almost died
+            }
+            else {
+                //TODO if the player activate the frequency but isnt in the watchpost?
+            }
             break;
         case FREQUENCY_REGISTRY.RADIO_OFF.frequency:
             await printToTerminal("Your radio is off, Don't forget to turn it back on", "alert");
@@ -157,6 +168,7 @@ export async function handleResonatorEncounter() {
     if (currentState.currentZone === "WATCH_POST" &&
         !hasFlag("HAD_FIRST_ENCOUNTER")) {
         addFlag("HAD_FIRST_ENCOUNTER");
+        await handleResonatorActions("WATCH_POST");
         //TODO do the thing if you do it in the watchpost
     }
     else {
