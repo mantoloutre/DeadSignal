@@ -118,7 +118,7 @@ export async function listenRobotMemoryModule(): Promise<void> {
     "log",
   );
   await printToTerminal(
-    "13:03 - ping failed, transmission jammed by carrier harmonic on 940.700 MHz.",
+    "13:03 - ping failed, transmission jammed by broadband EMI on 940.700 MHz.",
     "log",
   );
   await printToTerminal(
