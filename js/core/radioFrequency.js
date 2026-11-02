@@ -1,7 +1,8 @@
 import { QG_MESSAGES } from "../data/qgMessages.js";
 import { printToTerminal } from "../ui/dom.js";
 import { handleResonatorActions } from "./actions/resonatorActions.js";
-import { addFlag, currentState, hasFlag, saveTheDataToLocalStorage, } from "./gameState.js";
+import { addFlag, currentState, hasFlag, saveTheDataToLocalStorage, setFocus, } from "./gameState.js";
+import { gameBridge } from "./gameBridge.js";
 export const FREQUENCY_REGISTRY = {
     QG_FREQUENCY: {
         frequency: "112.400",
@@ -168,6 +169,8 @@ export async function handleFrequency() {
 export async function handleResonatorEncounter() {
     if (currentState.currentZone === "WATCH_POST" &&
         !hasFlag("HAD_FIRST_ENCOUNTER")) {
+        setFocus("FIRST_ENCOUNTER");
+        gameBridge.renderZoneActions("WATCH_POST");
         await handleResonatorActions("WATCH_POST");
         //TODO do the thing if you do it in the watchpost
     }

@@ -11,11 +11,6 @@ export async function handleResonatorActions(zone) {
         tuning.addEventListener("click", tuningEvent);
     }
 }
-export async function playerChooseWhatToDo(choice) {
-    if (choice === "COVER_EARS") {
-        await coverYourEars();
-    }
-}
 async function tuningInEncounter() {
     const buffer = getFormattedBuffer();
     if (buffer.length === 7 && buffer !== "---.---") {
@@ -49,7 +44,12 @@ async function tuningInEncounter() {
         flashButton(getEl("btn-tune"));
     }
 }
-async function coverYourEars() {
+export async function coverYourEars() {
     //TODO add the text & action ?
     await printToTerminal("You decide to quickly go sit down in the corner and cover your ears.", "action");
+}
+export async function goOutside() {
+    await printToTerminal("You run outside the watchpost", "action");
+    //TODO do the text
+    //my guy wanted to run outside
 }

@@ -6,7 +6,9 @@ import {
   currentState,
   hasFlag,
   saveTheDataToLocalStorage,
+  setFocus,
 } from "./gameState.js";
+import { gameBridge } from "./gameBridge.ts";
 
 export interface RadioFrequency {
   frequency: string;
@@ -221,6 +223,8 @@ export async function handleResonatorEncounter(): Promise<void> {
     currentState.currentZone === "WATCH_POST" &&
     !hasFlag("HAD_FIRST_ENCOUNTER")
   ) {
+    setFocus("FIRST_ENCOUNTER");
+    gameBridge.renderZoneActions("WATCH_POST");
     await handleResonatorActions("WATCH_POST");
     //TODO do the thing if you do it in the watchpost
   } else {

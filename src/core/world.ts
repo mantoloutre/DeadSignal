@@ -120,7 +120,7 @@ export const ZONES = {
         return getWhatToSayToQG();
       }
       if (getFocus() === FOCUS.FIRST_ENCOUNTER) {
-        //TODO do the list of actions
+        return getFirstEncounterActions();
       }
       //normal action
       const actions: ZoneAction[] = [];
@@ -220,7 +220,8 @@ function getWhatToSayToQG(): ZoneAction[] {
 function getFirstEncounterActions(): ZoneAction[] {
   const actions: ZoneAction[] = [];
   //do the actions
-
+  actions.push(RESONATOR_ENCOUNTER.COVER_EARS);
+  actions.push(RESONATOR_ENCOUNTER.GO_OUTSIDE);
   return actions;
 }
 /*

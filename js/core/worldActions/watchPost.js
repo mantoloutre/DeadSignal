@@ -1,4 +1,6 @@
 import * as actionsFunc from "../actions/watchPostActions.js";
+import { handleResonatorEncounter } from "../radioFrequency.js";
+import { goOutside } from "../actions/resonatorActions.js";
 export const SAY_STUFF_TO_QG = {
     PRESS_WHEN_PLAYER_DONE: {
         command: "Press When done",
@@ -85,17 +87,14 @@ export const WATCH_POST_OUTSIDE = {
     },
 };
 export const RESONATOR_ENCOUNTER = {
-/*
-COVER_EARS: {
-  command: "cover your ears",
-  description: "go in a corner and cover your ears",
-  execute: //TODO do and bind the action
-},
-DONE_CHOOSING: {
-  command: "press when done",
-  description: "press this button when your choice is made, you can do an action, tune radio, whatever " +
-      "is accessible"
-  execute: //TODO do and bind the action
-},
-*/
+    COVER_EARS: {
+        command: "cover your ears",
+        description: "go in a corner and cover your ears",
+        execute: handleResonatorEncounter,
+    },
+    GO_OUTSIDE: {
+        command: "go outside",
+        description: "go outside of the watch tower",
+        execute: goOutside,
+    },
 };

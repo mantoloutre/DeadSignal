@@ -1,5 +1,7 @@
 import type { ZoneAction } from "../../data/types.js";
 import * as actionsFunc from "../actions/watchPostActions.js";
+import { handleResonatorEncounter } from "../radioFrequency.ts";
+import { goOutside } from "../actions/resonatorActions.ts";
 export const SAY_STUFF_TO_QG = {
   PRESS_WHEN_PLAYER_DONE: {
     command: "Press When done",
@@ -86,17 +88,14 @@ export const WATCH_POST_OUTSIDE = {
   },
 } as const satisfies Record<string, ZoneAction>;
 export const RESONATOR_ENCOUNTER = {
-  /*
   COVER_EARS: {
     command: "cover your ears",
     description: "go in a corner and cover your ears",
-    execute: //TODO do and bind the action
+    execute: handleResonatorEncounter,
   },
-  DONE_CHOOSING: {
-    command: "press when done",
-    description: "press this button when your choice is made, you can do an action, tune radio, whatever " +
-        "is accessible"
-    execute: //TODO do and bind the action
+  GO_OUTSIDE: {
+    command: "go outside",
+    description: "go outside of the watch tower",
+    execute: goOutside,
   },
-  */
 } as const satisfies Record<string, ZoneAction>;
