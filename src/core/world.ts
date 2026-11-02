@@ -220,6 +220,7 @@ function getWhatToSayToQG(): ZoneAction[] {
 function getFirstEncounterActions(): ZoneAction[] {
   const actions: ZoneAction[] = [];
   //do the actions
+
   return actions;
 }
 /*

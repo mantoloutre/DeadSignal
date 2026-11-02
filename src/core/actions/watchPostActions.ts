@@ -2,7 +2,7 @@ import { printToTerminal } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
 import { addFlag, hasFlag, setFocus } from "../gameState.js";
 import { addItemToInventory, removeItemFromInventory } from "../inventory.js";
-import { queueQGMessage } from "../radioFrequency.js";
+import { addDiscoveredFrequency, queueQGMessage } from "../radioFrequency.js";
 /*
 ########################
 ZONE : OUTSIDE WATCHPOST
@@ -121,6 +121,7 @@ export async function listenRobotMemoryModule(): Promise<void> {
     "13:03 - ping failed, transmission jammed by broadband EMI on 940.700 MHz.",
     "log",
   );
+  addDiscoveredFrequency("THE_RESONATOR");
   await printToTerminal(
     "13:04 - Relay A-01 grid feed severed by manual unauthorized killswitch. Attempting reboot...",
     "log",
@@ -189,14 +190,4 @@ export async function DontTellQGAboutNoteLeft(): Promise<void> {
 export async function confirmingDoneTalkingToQG(): Promise<void> {
   //TODO add a message like saying all good or sum?
   setFocus(null);
-}
-export async function coverYourEars(): Promise<void> {
-  //TODO add the text & action ?
-  await printToTerminal(
-    "You decide to quickly go sit down in the corner and cover your ears.",
-    "action",
-  );
-}
-export async function playerDoneWithFirstEncounter(): Promise<void> {
-  //TODO
 }

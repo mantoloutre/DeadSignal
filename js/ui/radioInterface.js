@@ -16,7 +16,8 @@ keypadButtons.forEach((btn) => {
 getEl("btn-delete-key").addEventListener("click", () => {
     currentFrequencyDisplay.textContent = removeOneFromBuffer().toString();
 });
-getEl("btn-tune").addEventListener("click", async () => {
+getEl("btn-tune").addEventListener("click", tuningEvent);
+export async function tuningEvent() {
     const buffer = getFormattedBuffer();
     if (buffer.length === 7 && buffer !== "---.---") {
         currentState.currentFrequency = buffer;
@@ -27,7 +28,7 @@ getEl("btn-tune").addEventListener("click", async () => {
     else {
         flashButton(getEl("btn-tune"));
     }
-});
+}
 //close the radio interface
 export function closeRadioInterface() {
     getEl("radio-interface").classList.toggle("radio-interface-active");

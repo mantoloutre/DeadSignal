@@ -31,7 +31,7 @@ export const FREQUENCY_REGISTRY = {
   KILL_SWITCH_PULSE: {
     frequency: "111.111",
   },
-  RADIO_OFF: {
+  RADIO_RECEIVE_ONLY: {
     frequency: "000.000",
   },
 } as const satisfies Record<string, RadioFrequency>;
@@ -207,10 +207,11 @@ export async function handleFrequency(): Promise<void> {
         //TODO if the player activate the frequency but isnt in the watchpost?
       }
       break;
-    case FREQUENCY_REGISTRY.RADIO_OFF.frequency:
+    case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
       await printToTerminal(
-        "Your radio is off, Don't forget to turn it back on",
-        "alert",
+        "Your radio does not emit any frequency anymore," +
+          " you can still receive incoming transmission",
+        "system",
       );
       break;
   }
@@ -220,7 +221,6 @@ export async function handleResonatorEncounter(): Promise<void> {
     currentState.currentZone === "WATCH_POST" &&
     !hasFlag("HAD_FIRST_ENCOUNTER")
   ) {
-    addFlag("HAD_FIRST_ENCOUNTER");
     await handleResonatorActions("WATCH_POST");
     //TODO do the thing if you do it in the watchpost
   } else {

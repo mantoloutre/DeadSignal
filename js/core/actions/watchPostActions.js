@@ -2,7 +2,7 @@ import { printToTerminal } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
 import { addFlag, hasFlag, setFocus } from "../gameState.js";
 import { addItemToInventory, removeItemFromInventory } from "../inventory.js";
-import { queueQGMessage } from "../radioFrequency.js";
+import { addDiscoveredFrequency, queueQGMessage } from "../radioFrequency.js";
 /*
 ########################
 ZONE : OUTSIDE WATCHPOST
@@ -62,7 +62,8 @@ export async function listenRobotMemoryModule() {
     await printToTerminal("13:01 - High pitch sound spike, seems like glass shattering. Unknown direction, no optical feed", "log");
     await printToTerminal("13:02 - CRITICAL - drive motors unresponsive. Unit unable to return to designated post", "log");
     await printToTerminal("13:03 - CRITICAL - Main module losing too much power. Attempting automated distress ping to 112.400 MHz...", "log");
-    await printToTerminal("13:03 - ping failed, transmission jammed by carrier harmonic on 940.700 MHz.", "log");
+    await printToTerminal("13:03 - ping failed, transmission jammed by broadband EMI on 940.700 MHz.", "log");
+    addDiscoveredFrequency("THE_RESONATOR");
     await printToTerminal("13:04 - Relay A-01 grid feed severed by manual unauthorized killswitch. Attempting reboot...", "log");
     await printToTerminal("13:04 - Attempt failed, access denied", "log");
     await printToTerminal("13:04 - Power failure. Unit going offline", "log");
@@ -112,11 +113,4 @@ export async function DontTellQGAboutNoteLeft() {
 export async function confirmingDoneTalkingToQG() {
     //TODO add a message like saying all good or sum?
     setFocus(null);
-}
-export async function coverYourEars() {
-    //TODO add the text & action ?
-    await printToTerminal("You decide to quickly go sit down in the corner and cover your ears.", "action");
-}
-export async function playerDoneWithFirstEncounter() {
-    //TODO
 }
