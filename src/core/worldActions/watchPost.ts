@@ -1,7 +1,7 @@
 import type { ZoneAction } from "../../data/types.js";
+import { goOutside } from "../actions/resonatorActions.ts";
 import * as actionsFunc from "../actions/watchPostActions.js";
 import { handleResonatorEncounter } from "../radioFrequency.ts";
-import { goOutside } from "../actions/resonatorActions.ts";
 export const SAY_STUFF_TO_QG = {
   PRESS_WHEN_PLAYER_DONE: {
     command: "Press When done",

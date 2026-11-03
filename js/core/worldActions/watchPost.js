@@ -1,6 +1,6 @@
+import { goOutside } from "../actions/resonatorActions.js";
 import * as actionsFunc from "../actions/watchPostActions.js";
 import { handleResonatorEncounter } from "../radioFrequency.js";
-import { goOutside } from "../actions/resonatorActions.js";
 export const SAY_STUFF_TO_QG = {
     PRESS_WHEN_PLAYER_DONE: {
         command: "Press When done",

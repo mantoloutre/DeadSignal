@@ -167,7 +167,6 @@ function getJunctionBoxActions() {
 }
 function getWhatToSayToQG() {
     const actions = [];
-    actions.push(SAY_STUFF_TO_QG.PRESS_WHEN_PLAYER_DONE);
     //section for the body
     if (!isCommandInactive(SAY_STUFF_TO_QG.NO_BODY.command)) {
         actions.push(SAY_STUFF_TO_QG.YES_BODY);
@@ -181,6 +180,15 @@ function getWhatToSayToQG() {
     }
     if (!isCommandInactive(SAY_STUFF_TO_QG.YES_NOTE.command)) {
         actions.push(SAY_STUFF_TO_QG.NO_NOTE);
+    }
+    // section to see if at least one of both action were done
+    if ((isCommandInactive(SAY_STUFF_TO_QG.NO_NOTE.command) ||
+        isCommandInactive(SAY_STUFF_TO_QG.YES_NOTE.command)) &&
+        (isCommandInactive(SAY_STUFF_TO_QG.YES_BODY.command) ||
+            isCommandInactive(SAY_STUFF_TO_QG.NO_BODY.command))) {
+        SAY_STUFF_TO_QG.PRESS_WHEN_PLAYER_DONE.execute().catch(() => {
+            console.error("i guess bro wanted to throw an error");
+        });
     }
     return actions;
 }
