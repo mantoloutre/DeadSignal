@@ -46,3 +46,18 @@ export async function printToTerminal(text, from, speedMs = 15) {
 export function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
+// function used to display death message
+export async function printDeathMessage(text, speedMs = 15) {
+    const outPutDeathMessage = getEl("dead-message");
+    isPrinting = true;
+    const deathLine = document.createElement("div");
+    deathLine.className = `terminal-line death`;
+    outPutDeathMessage.append(deathLine);
+    const textNode = document.createTextNode("");
+    deathLine.append(textNode);
+    for (let i = 0; i < text.length; ++i) {
+        textNode.appendData(text[i]);
+        await sleep(speedMs);
+    }
+    isPrinting = false;
+}

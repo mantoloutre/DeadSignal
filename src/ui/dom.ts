@@ -47,11 +47,11 @@ export interface UIElements {
   "zone-action": HTMLDivElement;
   "zone-tag": HTMLParagraphElement;
   "radio-interface": HTMLDivElement;
+  "dead-message": HTMLDivElement;
   // paragraph elements
   "inventory-item-details": HTMLParagraphElement;
   "radio-current-frequency": HTMLParagraphElement;
   frequency: HTMLParagraphElement;
-  "dead-message": HTMLParagraphElement;
 }
 /*
 used to optimize the instanciation of elements
@@ -105,4 +105,22 @@ export async function printToTerminal(
 }
 export function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+// function used to display death message
+export async function printDeathMessage(
+  text: string,
+  speedMs: number = 15,
+): Promise<void> {
+  const outPutDeathMessage: HTMLDivElement = getEl("dead-message");
+  isPrinting = true;
+  const deathLine: HTMLDivElement = document.createElement("div");
+  deathLine.className = `terminal-line death`;
+  outPutDeathMessage.append(deathLine);
+  const textNode = document.createTextNode("");
+  deathLine.append(textNode);
+  for (let i = 0; i < text.length; ++i) {
+    textNode.appendData(text[i]);
+    await sleep(speedMs);
+  }
+  isPrinting = false;
 }
