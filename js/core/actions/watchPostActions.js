@@ -60,6 +60,7 @@ export async function listenRobotMemoryModule() {
     await printToTerminal("12:58 - perimeter fence B-02 torn outward. welds broken under unknown source of tension", "log");
     await printToTerminal("13:00 - Camera feed lost to extreme EM interference. Interior temp dropped 14°C very fast", "log");
     await printToTerminal("13:01 - High pitch sound spike, seems like glass shattering. Unknown direction, no optical feed", "log");
+    await printToTerminal("13:01 - Hit by unknown source, drive motor damaged, trying to return to designated post", "log");
     await printToTerminal("13:02 - CRITICAL - drive motors unresponsive. Unit unable to return to designated post", "log");
     await printToTerminal("13:03 - CRITICAL - Main module losing too much power. Attempting automated distress ping to 112.400 MHz...", "log");
     await printToTerminal("13:03 - ping failed, transmission jammed by broadband EMI on 940.700 MHz.", "log");

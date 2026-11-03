@@ -110,6 +110,10 @@ export async function listenRobotMemoryModule(): Promise<void> {
     "log",
   );
   await printToTerminal(
+    "13:01 - Hit by unknown source, drive motor damaged, trying to return to designated post",
+    "log",
+  );
+  await printToTerminal(
     "13:02 - CRITICAL - drive motors unresponsive. Unit unable to return to designated post",
     "log",
   );
