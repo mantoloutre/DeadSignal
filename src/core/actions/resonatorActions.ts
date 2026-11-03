@@ -27,7 +27,7 @@ async function tuningInEncounter(): Promise<void> {
           "action",
         );
         await printToTerminal(
-          "a deafning screech tears throught the speaker of your radio instanly shattering the small screen.",
+          "a deafening screech tears through the speaker of your radio instantly shattering the small screen.",
           "alert",
         );
         await printToTerminal(
