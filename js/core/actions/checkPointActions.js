@@ -31,8 +31,7 @@ export async function goOutsideTheShack_GateCheckpoint() {
     await gameBridge.loadZone("GATE_CHECKPOINT");
 }
 export async function searchTheGuardShack() {
-    await printToTerminal("You search the shack, you ", //TODO finish this
-    "action");
+    await printToTerminal("You search the shack, you find the robot's head, it seems to still have its memory module intact.", "action");
     addFlag("SEARCHED_GUARD_SHACK");
 }
 export async function walkTowardMainWatchPost() {
@@ -43,7 +42,6 @@ export async function walkTowardMainWatchPost() {
         addFlag("GOT_QG_MESSAGE_GOT_TO_TOWER");
         await queueQGMessage("QG_MESSAGE_GOT_TOWER_FIRST_TIME");
     }
-    //TODO add lore ?
 }
 export async function salvageMemoryModule() {
     await printToTerminal("You take the memory modules from the the " +

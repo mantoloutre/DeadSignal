@@ -35,7 +35,7 @@ async function tuningInEncounter(): Promise<void> {
           "log",
         );
         await printToTerminal(
-          "Frost bleeds outward accross your visor as the inside of the watchpost fades to black",
+          "Frost bleeds outward across your visor as the inside of the watchpost fades to black",
           "log",
         );
         break;

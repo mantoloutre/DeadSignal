@@ -5,7 +5,8 @@ body {
   gap: 10px;
 }
 
-.overlay {
+.overlay,
+#die-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -16,6 +17,8 @@ body {
   z-index: 900;
   opacity: 1;
   pointer-events: auto;
+}
+.overlay {
   transition: opacity 0.25s ease-in-out;
 }
 #die-overlay.die-hidden {
@@ -23,17 +26,6 @@ body {
   pointer-events: none;
 }
 #die-overlay {
-  /* TODO maybe merge with overlay? */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100dvw;
-  height: 100dvh;
-  background-color: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(4px);
-  z-index: 900;
-  opacity: 1;
-  pointer-events: auto;
   transition: opacity 1s ease-in-out;
   p {
     color: var(--text-red-color);

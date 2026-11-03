@@ -20,7 +20,10 @@ async function tuningInEncounter() {
         switch (currentState.currentFrequency) {
             case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
                 await printToTerminal("The Frequency was already tuned into this frequency, and you decide to " +
-                    "press the tune button again", "action"); //TODO resonator is angry?
+                    "press the tune button again", "action");
+                await printToTerminal("a deafening screech tears through the speaker of your radio instantly shattering the small screen.", "alert");
+                await printToTerminal("Pressure builds intensely behind your eyes and in your ears. Your sternum cracks inward, matching the rigid corpse beside you", "log");
+                await printToTerminal("Frost bleeds outward across your visor as the inside of the watchpost fades to black", "log");
                 break;
             case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
                 await printToTerminal("you try to contact the QG...", "action");

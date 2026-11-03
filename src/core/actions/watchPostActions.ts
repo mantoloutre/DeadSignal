@@ -49,7 +49,15 @@ export async function goInsideTheWatchPost(): Promise<void> {
         "fracture of his visor",
       "log",
     );
-
+    await printToTerminal(
+      "You also see one other thing, a note he left, however, he didn't seem to have the time " +
+        "to finish writing it",
+      "system",
+    );
+    await printToTerminal(
+      "everything is jammed, something is close... i feel it.. QG is not wh-",
+      "log",
+    );
     //TODO do the rest
     await gameBridge.loadZone("WATCH_POST");
     await printToTerminal("What do you do?", "system");
@@ -190,8 +198,7 @@ export async function tellQGAboutNoteLeft(): Promise<void> {
 export async function DontTellQGAboutNoteLeft(): Promise<void> {
   //nothing happens here it's just to satisfy the zone
 }
-
+//this function is now simply to link stuff
 export async function confirmingDoneTalkingToQG(): Promise<void> {
-  //TODO add a message like saying all good or sum?
   setFocus(null);
 }

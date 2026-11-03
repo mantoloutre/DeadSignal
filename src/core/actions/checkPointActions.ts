@@ -37,7 +37,7 @@ export async function goOutsideTheShack_GateCheckpoint(): Promise<void> {
 }
 export async function searchTheGuardShack(): Promise<void> {
   await printToTerminal(
-    "You search the shack, you ", //TODO finish this
+    "You search the shack, you find the robot's head, it seems to still have its memory module intact.",
     "action",
   );
   addFlag("SEARCHED_GUARD_SHACK");
@@ -56,7 +56,6 @@ export async function walkTowardMainWatchPost(): Promise<void> {
     addFlag("GOT_QG_MESSAGE_GOT_TO_TOWER");
     await queueQGMessage("QG_MESSAGE_GOT_TOWER_FIRST_TIME");
   }
-  //TODO add lore ?
 }
 export async function salvageMemoryModule(): Promise<void> {
   await printToTerminal(

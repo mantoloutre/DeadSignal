@@ -45,7 +45,7 @@
   font-weight: bold;
 }
 .YOU {
-  color: white; /* TODO make a variable?*/
+  color: white;
   text-shadow: 0 0 3px white;
 }
 .YOU::before {
