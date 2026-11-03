@@ -31,12 +31,17 @@ async function tuningInEncounter(): Promise<void> {
           "alert",
         );
         await printToTerminal(
-          "Pressure builds intensely behind your eyes and in your ears. Your sternum cracks inward, matching the rigid corpse beside you",
-          "log",
+          "Your ears pop violently. Warm blood fills both canals before you can even pull your hands up.",
+          "alert",
+        );
+        await printToTerminal(
+          "Then, the shockwave hammers your chest like a dropped weight. " +
+            "Your sternum caves inward with a dull, wet snap. Just like Keller's",
+          "alert",
         );
         await printToTerminal(
           "Frost bleeds outward across your visor as the inside of the watchpost fades to black",
-          "log",
+          "alert",
         );
         break;
       case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:

@@ -22,8 +22,10 @@ async function tuningInEncounter() {
                 await printToTerminal("The Frequency was already tuned into this frequency, and you decide to " +
                     "press the tune button again", "action");
                 await printToTerminal("a deafening screech tears through the speaker of your radio instantly shattering the small screen.", "alert");
-                await printToTerminal("Pressure builds intensely behind your eyes and in your ears. Your sternum cracks inward, matching the rigid corpse beside you", "log");
-                await printToTerminal("Frost bleeds outward across your visor as the inside of the watchpost fades to black", "log");
+                await printToTerminal("Your ears pop violently. Warm blood fills both canals before you can even pull your hands up.", "alert");
+                await printToTerminal("Then, the shockwave hammers your chest like a dropped weight. " +
+                    "Your sternum caves inward with a dull, wet snap. Just like Keller's", "alert");
+                await printToTerminal("Frost bleeds outward across your visor as the inside of the watchpost fades to black", "alert");
                 break;
             case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
                 await printToTerminal("you try to contact the QG...", "action");
