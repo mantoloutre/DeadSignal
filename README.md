@@ -1,25 +1,32 @@
 # Dead-Signal
+
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](./LICENSE)<br>
 
-Dead Signal is a simple story-driven text based game, but you can die( not yet ), so be careful.
+Dead Signal is a simple story-driven text based game, but you can die( early stage / not greatly implemented ), so be careful.
 The goal of the game is simple:
 : <details> <summary>!!!Spoiler warning!!!</summary>
-*you ain't getting no spoiler!!! go play the game if you wanna know!*
+_you ain't getting no spoiler!!! go play the game if you wanna know!_
 </details>
 
 ## How to play
 
-Look, I’m going to be honest, there is not much to do right now... The project is still under<br>
+you go on the website, you have many interface (feel free to explore) to use<br>
+Btw, this game isn't the type of game everyone likes, its slow paced, lots of reading
+and also a lot of imagination comes into play. If you are into fps or maybe open world, this
+isn't the game for you.
+----
+
+The game is in a pretty good state, however many part of the story has not been
+made yet. <br>
+The project is still under
 development and it's going to take a while for it to be done. <br>
-Some zones are in an okay state ( I'm probably going to add more stuff later on ) <br>
+Some zones are in an okay / good state ( I'm probably going to add more stuff later on ) <br>
 
-The radio interface also works, not much to do with it for now because
-I have not yet implemented a lot of frequency
-
-I have to say, it does work, but you can't do much for now but you can go see it there: [Dead Signal](https://mantoloutre.github.io/DeadSignal/) <br>
+Here is the link to my game if you are still interested in trying it out :D [Dead Signal](https://mantoloutre.github.io/DeadSignal/) <br>
 
 Btw the only name that's in the game i chose it randomly so i'm sorry if that's your name T-T<br>
 ### Game is made to be played on a screen wider than a phone ( laptop/desktop recomended)
+
 > ### Some information ( you can skip if you want )
 > when I code, most of the time, I will put what a function does ( exemple: in gameState.ts the function to export)
 > 
