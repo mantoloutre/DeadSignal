@@ -1,12 +1,11 @@
-import { currentState, exportSaveFile, GAME_INITIAL_STATE, importSaveFile, loadFromTheLocalStorage, saveTheDataToLocalStorage, setFocus, setGameState, } from "./core/gameState.js";
+import { clearTheLocalStorage, currentState, exportSaveFile, GAME_INITIAL_STATE, importSaveFile, loadFromTheLocalStorage, resetGameState, saveTheDataToLocalStorage, setFocus, setGameState, } from "./core/gameState.js";
 import "./ui/sideMenu.js";
-import "./ui/cheatMenu.js";
 import { gameBridge } from "./core/gameBridge.js";
 import { handleFrequency, queueQGMessage } from "./core/radioFrequency.js";
 import { ZONES } from "./core/world.js";
 import { presetBeforeDiscoveringBody } from "./data/devPresets.js";
 import { ITEMS } from "./data/items.js";
-import { flashButton, getEl, isPrinting, printToTerminal } from "./ui/dom.js";
+import { die, flashButton, getEl, isPrinting, printToTerminal, } from "./ui/dom.js";
 import { closeRadioInterface, setDisplayFrequency, } from "./ui/radioInterface.js";
 gameBridge.loadZone = loadZone;
 gameBridge.renderZoneActions = renderZoneActions;
@@ -41,7 +40,7 @@ load a zone
  */
 export async function loadZone(zoneId) {
     const zone = ZONES[zoneId];
-    setFocus(null);
+    //setFocus(null);
     currentState.currentZone = zoneId;
     saveTheDataToLocalStorage();
     getEl("zone-tag").textContent = `${zone.name}`;
@@ -293,4 +292,15 @@ if (document.readyState === "loading") {
 }
 else {
     startGame();
+}
+//###################
+//cheat-menu function
+//###################
+bindingAsyncAction(getEl("btn-die"), die);
+bindingAction(getEl("btn-reset-game"), resetGame);
+// this is a button to test my death mechanic
+function resetGame() {
+    clearTheLocalStorage();
+    resetGameState();
+    location.reload();
 }

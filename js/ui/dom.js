@@ -48,7 +48,7 @@ export function sleep(ms) {
 }
 // function used to display death message
 export async function printDeathMessage(text, speedMs = 15) {
-    const outPutDeathMessage = getEl("dead-message");
+    const outPutDeathMessage = getEl("death-message");
     isPrinting = true;
     const deathLine = document.createElement("div");
     deathLine.className = `terminal-line death`;
@@ -60,4 +60,8 @@ export async function printDeathMessage(text, speedMs = 15) {
         await sleep(speedMs);
     }
     isPrinting = false;
+}
+export async function die() {
+    getEl("cheat-menu").classList.add("hidden");
+    getEl("die-overlay").classList.remove("die-hidden");
 }

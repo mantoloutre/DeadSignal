@@ -36,12 +36,11 @@ export async function goInsideTheWatchPost() {
             "to finish writing it", "system");
         await printToTerminal("everything is jammed, something is close... i feel it.. QG is not wh-", "log");
         //TODO do the rest
+        setFocus("TELLING_QG");
         await gameBridge.loadZone("WATCH_POST");
         await printToTerminal("What do you do?", "system");
         await printToTerminal("Dead body: Tell the QG you found Keller's dead body", "system");
         await printToTerminal("Note left: Tell the QG about the note Keller wrote before dying", "system");
-        setFocus("TELLING_QG");
-        gameBridge.renderZoneActions("WATCH_POST");
     }
     //TODO make player choose what he want to do next
 }
@@ -117,4 +116,5 @@ export async function DontTellQGAboutNoteLeft() {
 //this function is now simply to link stuff
 export async function confirmingDoneTalkingToQG() {
     setFocus(null);
+    gameBridge.renderZoneActions("WATCH_POST");
 }

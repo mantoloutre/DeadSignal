@@ -1,4 +1,4 @@
-import { flashButton, getEl, printToTerminal } from "../../ui/dom.js";
+import { die, flashButton, getEl, printDeathMessage, printToTerminal, } from "../../ui/dom.js";
 import { closeRadioInterface, tuningEvent } from "../../ui/radioInterface.js"; //TODO watch out for possible circular reference
 import { addFlag, currentState, hasFlag } from "../gameState.js";
 import { FREQUENCY_REGISTRY, getFormattedBuffer } from "../radioFrequency.js";
@@ -21,11 +21,12 @@ async function tuningInEncounter() {
             case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
                 await printToTerminal("The Frequency was already tuned into this frequency, and you decide to " +
                     "press the tune button again", "action");
-                await printToTerminal("a deafening screech tears through the speaker of your radio instantly shattering the small screen.", "alert");
-                await printToTerminal("Your ears pop violently. Warm blood fills both canals before you can even pull your hands up.", "alert");
-                await printToTerminal("Then, the shockwave hammers your chest like a dropped weight. " +
-                    "Your sternum caves inward with a dull, wet snap. Just like Keller's", "alert");
-                await printToTerminal("Frost bleeds outward across your visor as the inside of the watchpost fades to black", "alert");
+                await die();
+                await printDeathMessage("a deafening screech tears through the speaker of your radio instantly shattering the small screen.");
+                await printDeathMessage("Your ears pop violently. Warm blood fills both canals before you can even pull your hands up.");
+                await printDeathMessage("Then, the shockwave hammers your chest like a dropped weight. " +
+                    "Your sternum caves inward with a dull, wet snap. Just like Keller's");
+                await printDeathMessage("Frost bleeds outward across your visor as the inside of the watchpost fades to black");
                 break;
             case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
                 await printToTerminal("you try to contact the QG...", "action");

@@ -47,7 +47,7 @@ export interface UIElements {
   "zone-action": HTMLDivElement;
   "zone-tag": HTMLParagraphElement;
   "radio-interface": HTMLDivElement;
-  "dead-message": HTMLDivElement;
+  "death-message": HTMLDivElement;
   // paragraph elements
   "inventory-item-details": HTMLParagraphElement;
   "radio-current-frequency": HTMLParagraphElement;
@@ -111,7 +111,7 @@ export async function printDeathMessage(
   text: string,
   speedMs: number = 15,
 ): Promise<void> {
-  const outPutDeathMessage: HTMLDivElement = getEl("dead-message");
+  const outPutDeathMessage: HTMLDivElement = getEl("death-message");
   isPrinting = true;
   const deathLine: HTMLDivElement = document.createElement("div");
   deathLine.className = `terminal-line death`;
@@ -123,4 +123,8 @@ export async function printDeathMessage(
     await sleep(speedMs);
   }
   isPrinting = false;
+}
+export async function die(): Promise<void> {
+  getEl("cheat-menu").classList.add("hidden");
+  getEl("die-overlay").classList.remove("die-hidden");
 }

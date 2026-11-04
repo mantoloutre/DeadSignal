@@ -1,4 +1,10 @@
-import { flashButton, getEl, printToTerminal } from "../../ui/dom.ts";
+import {
+  die,
+  flashButton,
+  getEl,
+  printDeathMessage,
+  printToTerminal,
+} from "../../ui/dom.ts";
 import { closeRadioInterface, tuningEvent } from "../../ui/radioInterface.ts"; //TODO watch out for possible circular reference
 import { addFlag, currentState, hasFlag } from "../gameState.ts";
 import { FREQUENCY_REGISTRY, getFormattedBuffer } from "../radioFrequency.ts";
@@ -26,22 +32,19 @@ async function tuningInEncounter(): Promise<void> {
             "press the tune button again",
           "action",
         );
-        await printToTerminal(
+        await die();
+        await printDeathMessage(
           "a deafening screech tears through the speaker of your radio instantly shattering the small screen.",
-          "alert",
         );
-        await printToTerminal(
+        await printDeathMessage(
           "Your ears pop violently. Warm blood fills both canals before you can even pull your hands up.",
-          "alert",
         );
-        await printToTerminal(
+        await printDeathMessage(
           "Then, the shockwave hammers your chest like a dropped weight. " +
             "Your sternum caves inward with a dull, wet snap. Just like Keller's",
-          "alert",
         );
-        await printToTerminal(
+        await printDeathMessage(
           "Frost bleeds outward across your visor as the inside of the watchpost fades to black",
-          "alert",
         );
         break;
       case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:

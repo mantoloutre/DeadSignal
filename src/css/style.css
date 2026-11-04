@@ -101,3 +101,9 @@ body {
   color: var(--text-color);
   gap: 10px;
 }
+.death {
+  font-size: 24px;
+  color: var(--text-red-color);
+  text-shadow: 0 0 3px var(--text-red-glow);
+  justify-self: center;
+}
