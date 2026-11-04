@@ -25,7 +25,7 @@ export const GAME_INITIAL_STATE: GameState = {
   powerLevel: 100,
   pendingQGMessages: [],
   currentFrequency: "---.---",
-  discoveredSignals: [],
+  discoveredSignals: ["000.000"],
   storyFlags: [],
   playerInventory: [],
   inactiveCommands: [],

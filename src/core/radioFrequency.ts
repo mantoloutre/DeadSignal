@@ -1,14 +1,13 @@
 import { QG_MESSAGES, type QGMessageKey } from "../data/qgMessages.js";
-import { printToTerminal } from "../ui/dom.js";
+import { getEl, printToTerminal } from "../ui/dom.js";
 import { handleResonatorActions } from "./actions/resonatorActions.ts";
+import { gameBridge } from "./gameBridge.ts";
 import {
-  addFlag,
   currentState,
   hasFlag,
   saveTheDataToLocalStorage,
   setFocus,
 } from "./gameState.js";
-import { gameBridge } from "./gameBridge.ts";
 
 export interface RadioFrequency {
   frequency: string;
@@ -50,9 +49,15 @@ export function addDiscoveredFrequency(frequency: RadioFrequencyName): void {
     currentState.discoveredSignals.push(
       FREQUENCY_REGISTRY[frequency].frequency,
     );
+    addFrequencyToHelperInterface(frequency);
   }
 }
-
+function addFrequencyToHelperInterface(frequency: RadioFrequencyName): void {
+  const hInterface: HTMLDivElement = getEl("radio-interface-help");
+  const line: HTMLLIElement = document.createElement("li");
+  line.textContent = `${getFormattedBuffer()} : ${frequency}`;
+  hInterface.append(line);
+}
 let currentBuffer: string = "";
 
 /*

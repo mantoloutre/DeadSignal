@@ -9,7 +9,7 @@ export const presetBeforeDiscoveringBody: GameState = {
   powerLevel: 100,
   pendingQGMessages: ["QG_MESSAGE_GOT_TOWER_FIRST_TIME"],
   currentFrequency: "112.400",
-  discoveredSignals: ["112.400"],
+  discoveredSignals: ["112.400", "000.000"],
   storyFlags: [
     "READ_MANUAL",
     "OPENED_GLOVE_BOX",

@@ -1,8 +1,8 @@
 import { QG_MESSAGES } from "../data/qgMessages.js";
-import { printToTerminal } from "../ui/dom.js";
+import { getEl, printToTerminal } from "../ui/dom.js";
 import { handleResonatorActions } from "./actions/resonatorActions.js";
-import { addFlag, currentState, hasFlag, saveTheDataToLocalStorage, setFocus, } from "./gameState.js";
 import { gameBridge } from "./gameBridge.js";
+import { currentState, hasFlag, saveTheDataToLocalStorage, setFocus, } from "./gameState.js";
 export const FREQUENCY_REGISTRY = {
     QG_FREQUENCY: {
         frequency: "112.400",
@@ -32,7 +32,14 @@ adding frequency and making sure it's not already there
 export function addDiscoveredFrequency(frequency) {
     if (!currentState.discoveredSignals.includes(FREQUENCY_REGISTRY[frequency].frequency)) {
         currentState.discoveredSignals.push(FREQUENCY_REGISTRY[frequency].frequency);
+        addFrequencyToHelperInterface(frequency);
     }
+}
+function addFrequencyToHelperInterface(frequency) {
+    const hInterface = getEl("radio-interface-help");
+    const line = document.createElement("li");
+    line.textContent = `${getFormattedBuffer()} : ${frequency}`;
+    hInterface.append(line);
 }
 let currentBuffer = "";
 /*
