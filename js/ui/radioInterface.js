@@ -32,6 +32,7 @@ export async function tuningEvent() {
 //close the radio interface
 export function closeRadioInterface() {
     getEl("radio-interface").classList.toggle("radio-interface-active");
+    getEl("radio-interface-help").classList.toggle("radio-interface-active");
     toggleOverlay();
     if (!getEl("side-menu").classList.contains("hidden")) {
         toggleOverlay();
@@ -40,6 +41,7 @@ export function closeRadioInterface() {
 //open the radio interface
 export function openRadioInterface() {
     getEl("radio-interface").classList.add("radio-interface-active");
+    getEl("radio-interface-help").classList.add("radio-interface-active");
     if (getEl("side-menu").classList.contains("hidden")) {
         toggleOverlay();
     }

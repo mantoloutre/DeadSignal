@@ -40,6 +40,7 @@ export async function tuningEvent(): Promise<void> {
 //close the radio interface
 export function closeRadioInterface(): void {
   getEl("radio-interface").classList.toggle("radio-interface-active");
+  getEl("radio-interface-help").classList.toggle("radio-interface-active");
   toggleOverlay();
   if (!getEl("side-menu").classList.contains("hidden")) {
     toggleOverlay();
@@ -48,6 +49,7 @@ export function closeRadioInterface(): void {
 //open the radio interface
 export function openRadioInterface(): void {
   getEl("radio-interface").classList.add("radio-interface-active");
+  getEl("radio-interface-help").classList.add("radio-interface-active");
   if (getEl("side-menu").classList.contains("hidden")) {
     toggleOverlay();
   }

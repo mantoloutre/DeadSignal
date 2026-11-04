@@ -47,6 +47,7 @@ export interface UIElements {
   "zone-action": HTMLDivElement;
   "zone-tag": HTMLParagraphElement;
   "radio-interface": HTMLDivElement;
+  "radio-interface-help": HTMLDivElement;
   "death-message": HTMLDivElement;
   // paragraph elements
   "inventory-item-details": HTMLParagraphElement;
