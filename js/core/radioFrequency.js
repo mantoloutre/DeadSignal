@@ -35,11 +35,11 @@ export function addDiscoveredFrequency(frequency) {
         addFrequencyToHelperInterface(frequency);
     }
 }
-function addFrequencyToHelperInterface(frequency) {
-    const hInterface = getEl("radio-interface-help");
+function addFrequencyToHelperInterface(frequencyName) {
+    const helperList = getEl("radio-interface-help-list");
     const line = document.createElement("li");
-    line.textContent = `${getFormattedBuffer()} : ${frequency}`;
-    hInterface.append(line);
+    line.textContent = `${FREQUENCY_REGISTRY[frequencyName].frequency} : ${frequencyName}`;
+    helperList.append(line);
 }
 let currentBuffer = "";
 /*

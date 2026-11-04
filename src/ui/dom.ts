@@ -53,6 +53,8 @@ export interface UIElements {
   "inventory-item-details": HTMLParagraphElement;
   "radio-current-frequency": HTMLParagraphElement;
   frequency: HTMLParagraphElement;
+  // list element
+  "radio-interface-help-list": HTMLUListElement;
 }
 /*
 used to optimize the instanciation of elements

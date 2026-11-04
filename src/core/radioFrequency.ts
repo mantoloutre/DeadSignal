@@ -52,11 +52,11 @@ export function addDiscoveredFrequency(frequency: RadioFrequencyName): void {
     addFrequencyToHelperInterface(frequency);
   }
 }
-function addFrequencyToHelperInterface(frequency: RadioFrequencyName): void {
-  const hInterface: HTMLDivElement = getEl("radio-interface-help");
+function addFrequencyToHelperInterface(frequencyName: RadioFrequencyName): void {
+  const helperList: HTMLUListElement = getEl("radio-interface-help-list");
   const line: HTMLLIElement = document.createElement("li");
-  line.textContent = `${getFormattedBuffer()} : ${frequency}`;
-  hInterface.append(line);
+  line.textContent = `${FREQUENCY_REGISTRY[frequencyName].frequency} : ${frequencyName}`;
+  helperList.append(line);
 }
 let currentBuffer: string = "";
 
