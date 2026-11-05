@@ -20,39 +20,6 @@ export async function handleResonatorActions(zone: ZoneId): Promise<void> {
   }
 }
 
-async function choseToContactTheQg(): Promise<void> {
-  await printToTerminal(
-    "You type the dial as fast as you can to try and contact the QG even " +
-      "if you are not supposed to. You press transmit.",
-    "action",
-  );
-  await die();
-  await printDeathMessage(
-    "You hear static, even with heavy distortion, you hear a firm voice." +
-      "'Stay on this channel, we are on our way', it says",
-  );
-  await printDeathMessage(
-    "Then, the voice repeats it, same pause, same breath...",
-  );
-  await printDeathMessage(
-    "The voice says: 'You did well, going this far'." +
-      "Its really warm, friendly.. and its making your skin crawl.",
-  );
-  await printDeathMessage(
-    "After a long pause it end up saying: 'Just relax, it will all be over soon.'.",
-  );
-  await printDeathMessage(
-    "Your ears pop violently. Warm bloods fill both canals, " +
-      "and the voice never stop comforting you, " +
-      "not even as it takes you.",
-  );
-  await printDeathMessage(
-    "Frost bleeds outward accross your visor as the inside of the watchpost " +
-      "fades to black.",
-  );
-  //TODO (wip) failed to ping and u gone now.
-}
-
 /**
  * function that handle then the player tune the radio during the first encounter
  */
@@ -85,7 +52,7 @@ async function tuningInEncounter(): Promise<void> {
           "action",
         );
         await printToTerminal(
-          "whatever is happening" + "doesn't seem to be stopping",
+          "whatever is happening" + "doesn't seem to be stopping...",
           "system",
         );
       //TODO sadness
@@ -95,6 +62,45 @@ async function tuningInEncounter(): Promise<void> {
   }
 }
 
+/**
+ * function to deal with contacting the QG in the first encounter with
+ * the resonator
+ */
+async function choseToContactTheQg(): Promise<void> {
+  await printToTerminal(
+    "You type the dial as fast as you can to try and contact the QG even " +
+      "if you are not supposed to. You press transmit.",
+    "action",
+  );
+  await die();
+  await printDeathMessage(
+    "You hear static, even with heavy distortion, you hear a firm voice." +
+      "'Stay on this channel, we are on our way', it says.",
+  );
+  await printDeathMessage(
+    "Then, the voice repeats it, same pause, same breath...",
+  );
+  await printDeathMessage(
+    "The voice says: 'You did well, going this far'." +
+      "Its really warm, friendly.. and its making your skin crawl.",
+  );
+  await printDeathMessage(
+    "After a long pause it end up saying: 'Just relax, it will all be over soon.'.",
+  );
+  await printDeathMessage(
+    "Your ears pop violently. Warm bloods fill both canals, " +
+      "and the voice never stop comforting you, " +
+      "not even as it takes you.",
+  );
+  await printDeathMessage(
+    "Frost bleeds outward across your visor as the inside of the watchpost " +
+      "fades to black.",
+  );
+}
+
+/**
+ * function to handle if the player decide to re-enter 940.700MHz in the radio
+ */
 async function choseToAngerResonatorIGuess(): Promise<void> {
   await printToTerminal(
     "The Frequency was already tuned into this frequency, and you decide to " +
@@ -123,6 +129,10 @@ export async function coverYourEars(): Promise<void> {
     "action",
   );
 }
+
+/**
+ * function to handle if the player want to go outside during the encounter
+ */
 export async function goOutside(): Promise<void> {
   //await printToTerminal("You run outside into the snow, ");
   await printToTerminal(
@@ -132,16 +142,17 @@ export async function goOutside(): Promise<void> {
   );
   await printDeathMessage(
     "Something big was waiting right outside. You never saw its face, " +
-      "only the shadow it casts on the ground",
+      "only the shadow it cast on the ground",
   );
   await printDeathMessage(
-    "You don't even get past three step outside. Something grabs your head, making you unable to see anything.",
+    "You don't even get three steps outside. Something grabs your head, making you unable to see anything.",
   );
   await printDeathMessage(
-    "It screech extremely loudly that not even one second passed and your eardrum popped.",
+    "Still holding your head with inhuman strength, it screeches extremely loudly so close to you" +
+      " that your eardrums pop in less than a second.",
   );
   await printDeathMessage(
-    "You feel your inside freezing as you loose any sense of feeling.",
+    "You feel your insides freezing as you loose any sense of feeling.",
   );
   //TODO do the text
   //my guy wanted to run outside
