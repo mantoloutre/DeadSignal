@@ -7,7 +7,6 @@ import {
   loadFromTheLocalStorage,
   resetGameState,
   saveTheDataToLocalStorage,
-  setFocus,
   setGameState,
 } from "./core/gameState.js";
 import "./ui/sideMenu.js";
@@ -31,7 +30,7 @@ import {
 
 gameBridge.loadZone = loadZone;
 gameBridge.renderZoneActions = renderZoneActions;
-/*
+/**
 //TODO correct the documentation <br>
 function to render in a dynamic way the actions for a zone<br>
 detailed explanation:
@@ -58,9 +57,9 @@ export function renderZoneActions(zone: ZoneId): void {
     createButtonZoneActions(action, zone);
   }
 }
-/*
+/**
 load a zone
-@param zone the zone we want to load
+@param zoneId the zone we want to load
  */
 
 export async function loadZone(zoneId: ZoneId): Promise<void> {
@@ -74,7 +73,7 @@ export async function loadZone(zoneId: ZoneId): Promise<void> {
   renderZoneActions(zoneId);
 }
 
-/*
+/**
 function to render the player inventory
  */
 export function renderThePlayerInventory(): void {
@@ -116,14 +115,14 @@ export function renderThePlayerInventory(): void {
   });
 }
 
-/*
+/**
 simple function to toggle the overlay cuz I don't want to repeat myself
  */
 export function toggleOverlay(): void {
   getEl("menu-overlay").classList.toggle("hidden");
 }
 
-/*
+/**
 binding a button and an async action
 @param button the button we want to bind the action to
 @param action the action we want to bind to the button
@@ -142,7 +141,7 @@ export function bindingAsyncAction(
   });
 }
 
-/*
+/**
 binding a button and an action while making sure nothing is being printed to terminalOutput
  @param button the HTMLButtonElement we want to bind the action to
  @param action the action we want to bind to the button
@@ -173,7 +172,7 @@ function openOrCloseCheatMenu(): void {
   getEl("cheat-menu").classList.toggle("hidden");
 }
 
-/*
+/**
 toggle the hidden class to open or close the menu
  */
 function openOrCloseMenu(): void {
@@ -199,7 +198,7 @@ function openInventory(): void {
   getEl("menu-overlay").classList.remove("hidden");
 }
 
-/*
+/**
 function to close the inventory
  */
 function closeInventory(): void {
@@ -332,6 +331,7 @@ async function initGame(): Promise<void> {
     await loadZone(GAME_INITIAL_STATE.currentZone);
     getEl("frequency").textContent = currentState.currentFrequency;
     await queueQGMessage("TRUCK_STOPPED_START");
+    //TODO add a thingy for the help interface of the radio interface?
   }
 }
 
@@ -358,6 +358,9 @@ bindingAsyncAction(getEl("btn-die"), die);
 bindingAction(getEl("btn-reset-game"), resetGame);
 // this is a button to test my death mechanic
 
+/**
+ * function to reset the whole game
+ */
 function resetGame(): void {
   clearTheLocalStorage();
   resetGameState();

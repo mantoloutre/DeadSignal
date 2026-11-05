@@ -1,4 +1,4 @@
-import { clearTheLocalStorage, currentState, exportSaveFile, GAME_INITIAL_STATE, importSaveFile, loadFromTheLocalStorage, resetGameState, saveTheDataToLocalStorage, setFocus, setGameState, } from "./core/gameState.js";
+import { clearTheLocalStorage, currentState, exportSaveFile, GAME_INITIAL_STATE, importSaveFile, loadFromTheLocalStorage, resetGameState, saveTheDataToLocalStorage, setGameState, } from "./core/gameState.js";
 import "./ui/sideMenu.js";
 import { gameBridge } from "./core/gameBridge.js";
 import { handleFrequency, queueQGMessage } from "./core/radioFrequency.js";
@@ -9,7 +9,7 @@ import { die, flashButton, getEl, isPrinting, printToTerminal, } from "./ui/dom.
 import { closeRadioInterface, setDisplayFrequency, } from "./ui/radioInterface.js";
 gameBridge.loadZone = loadZone;
 gameBridge.renderZoneActions = renderZoneActions;
-/*
+/**
 //TODO correct the documentation <br>
 function to render in a dynamic way the actions for a zone<br>
 detailed explanation:
@@ -34,9 +34,9 @@ export function renderZoneActions(zone) {
         createButtonZoneActions(action, zone);
     }
 }
-/*
+/**
 load a zone
-@param zone the zone we want to load
+@param zoneId the zone we want to load
  */
 export async function loadZone(zoneId) {
     const zone = ZONES[zoneId];
@@ -48,7 +48,7 @@ export async function loadZone(zoneId) {
     await printToTerminal(zone.description, "system");
     renderZoneActions(zoneId);
 }
-/*
+/**
 function to render the player inventory
  */
 export function renderThePlayerInventory() {
@@ -87,13 +87,13 @@ export function renderThePlayerInventory() {
         inventoryItemList.append(buttonForDaItem);
     });
 }
-/*
+/**
 simple function to toggle the overlay cuz I don't want to repeat myself
  */
 export function toggleOverlay() {
     getEl("menu-overlay").classList.toggle("hidden");
 }
-/*
+/**
 binding a button and an async action
 @param button the button we want to bind the action to
 @param action the action we want to bind to the button
@@ -108,7 +108,7 @@ export function bindingAsyncAction(button, action) {
         await action();
     });
 }
-/*
+/**
 binding a button and an action while making sure nothing is being printed to terminalOutput
  @param button the HTMLButtonElement we want to bind the action to
  @param action the action we want to bind to the button
@@ -135,7 +135,7 @@ function openOrCloseCheatMenu() {
     }
     getEl("cheat-menu").classList.toggle("hidden");
 }
-/*
+/**
 toggle the hidden class to open or close the menu
  */
 function openOrCloseMenu() {
@@ -157,7 +157,7 @@ function openInventory() {
     renderThePlayerInventory();
     getEl("menu-overlay").classList.remove("hidden");
 }
-/*
+/**
 function to close the inventory
  */
 function closeInventory() {
@@ -274,6 +274,7 @@ async function initGame() {
         await loadZone(GAME_INITIAL_STATE.currentZone);
         getEl("frequency").textContent = currentState.currentFrequency;
         await queueQGMessage("TRUCK_STOPPED_START");
+        //TODO add a thingy for the help interface of the radio interface?
     }
 }
 /*
@@ -299,6 +300,9 @@ else {
 bindingAsyncAction(getEl("btn-die"), die);
 bindingAction(getEl("btn-reset-game"), resetGame);
 // this is a button to test my death mechanic
+/**
+ * function to reset the whole game
+ */
 function resetGame() {
     clearTheLocalStorage();
     resetGameState();

@@ -12,6 +12,7 @@ import {
 export interface RadioFrequency {
   frequency: string;
 }
+
 export type RadioFrequencyName = keyof typeof FREQUENCY_REGISTRY;
 export const FREQUENCY_REGISTRY = {
   QG_FREQUENCY: {
@@ -36,9 +37,11 @@ export const FREQUENCY_REGISTRY = {
     frequency: "000.000",
   },
 } as const satisfies Record<string, RadioFrequency>;
+let currentBuffer: string = "";
 
-/*
-adding frequency and making sure it's not already there
+/**
+ * adding a frequency and making sure its not already in the list of known signal
+ * @param frequency the name of the frequency we want to add
  */
 export function addDiscoveredFrequency(frequency: RadioFrequencyName): void {
   if (
@@ -52,13 +55,35 @@ export function addDiscoveredFrequency(frequency: RadioFrequencyName): void {
     addFrequencyToHelperInterface(frequency);
   }
 }
-function addFrequencyToHelperInterface(frequencyName: RadioFrequencyName): void {
+//TODO fix this i dont wanna use numbers
+/**
+ * add a frequency to the helper interface
+ * @param frequencyName the name of the frequency to add
+ * @param frequency the frequency ( the number )
+ */
+function addFrequencyToHelperInterface(
+  frequencyName?: RadioFrequencyName,
+  frequency?: string,
+): void {
   const helperList: HTMLUListElement = getEl("radio-interface-help-list");
   const line: HTMLLIElement = document.createElement("li");
-  line.textContent = `${FREQUENCY_REGISTRY[frequencyName].frequency} : ${frequencyName}`;
-  helperList.append(line);
+  if (frequencyName) {
+    if (!hasDiscoveredSignal(FREQUENCY_REGISTRY[frequencyName].frequency)) {
+      line.textContent = `${FREQUENCY_REGISTRY[frequencyName].frequency} : ${frequencyName}`;
+      helperList.append(line);
+    }
+  } else if (frequency) {
+    if (!hasDiscoveredSignal(frequency)) {
+      line.textContent = `${frequency}`;
+    }
+  }
 }
-let currentBuffer: string = "";
+
+export function loadAllFrequency() {
+  currentState.discoveredSignals.forEach((freq) => {
+    addFrequencyToHelperInterface();
+  });
+}
 
 /*
 safely set the buffer ( only at the beginning at the game or on page reload )
@@ -93,8 +118,8 @@ export function appendDigitToFrequency(char: string): string {
   return getFormattedBuffer();
 }
 
-/*
-remove one from the buffer
+/**
+ remove one from the buffer
  */
 export function removeOneFromBuffer(): string {
   if (currentBuffer.length > 0) {
@@ -103,8 +128,8 @@ export function removeOneFromBuffer(): string {
   return getFormattedBuffer();
 }
 
-/*
-add a message from qg to the queue and inform the player there is pending message
+/**
+ add a message from qg to the queue and inform the player there is pending message
  */
 export async function queueQGMessage(message: QGMessageKey): Promise<void> {
   currentState.pendingQGMessages.push(message);
@@ -128,8 +153,8 @@ export async function queueQGMessage(message: QGMessageKey): Promise<void> {
   }
 }
 
-/*
-handle the reading of pending messages from the QG
+/**
+ handle the reading of pending messages from the QG
  */
 export async function handleQGFrequency(): Promise<void> {
   // if no message from QG
@@ -159,8 +184,9 @@ export async function handleQGFrequency(): Promise<void> {
   saveTheDataToLocalStorage();
 }
 
-/*
-verifying that the player has discovered the frequency
+/**
+ * verifying if the player has the frequency
+ * @param frequency the frequency we want to know if the player have it
  */
 export function hasDiscoveredSignal(frequency: string): boolean {
   return currentState.discoveredSignals.includes(frequency);
@@ -200,19 +226,7 @@ export async function handleFrequency(): Promise<void> {
       );
       break;
     case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
-      if (
-        currentState.currentZone === "WATCH_POST" &&
-        !hasFlag("HAD_FIRST_ENCOUNTER")
-      ) {
-        await handleResonatorEncounter();
-      } else if (
-        currentState.currentZone === "WATCH_POST" &&
-        hasFlag("HAD_FIRST_ENCOUNTER")
-      ) {
-        //TODO he dies, cmon man dont activate it a second time if first time you almost died
-      } else {
-        //TODO if the player activate the frequency but isnt in the watchpost?
-      }
+      await handleResonatorFrequency();
       break;
     case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
       await printToTerminal(
@@ -223,6 +237,29 @@ export async function handleFrequency(): Promise<void> {
       break;
   }
 }
+
+/**
+ * function that handles the Resonator's frequency
+ */
+async function handleResonatorFrequency() {
+  if (
+    currentState.currentZone === "WATCH_POST" &&
+    !hasFlag("HAD_FIRST_ENCOUNTER")
+  ) {
+    await handleResonatorEncounter();
+  } else if (
+    currentState.currentZone === "WATCH_POST" &&
+    hasFlag("HAD_FIRST_ENCOUNTER")
+  ) {
+    //TODO he dies, cmon man dont activate it a second time if first time you almost died
+  } else {
+    //TODO if the player activate the frequency but isnt in the watchpost?
+  }
+}
+
+/**
+ * function that handle the encounter with the Resonator
+ */
 export async function handleResonatorEncounter(): Promise<void> {
   if (
     currentState.currentZone === "WATCH_POST" &&
