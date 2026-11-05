@@ -11,7 +11,11 @@ import {
 } from "./core/gameState.js";
 import "./ui/sideMenu.js";
 import { gameBridge } from "./core/gameBridge.js";
-import { handleFrequency, queueQGMessage } from "./core/radioFrequency.js";
+import {
+  handleFrequency,
+  loadAllFrequency,
+  queueQGMessage,
+} from "./core/radioFrequency.js";
 import { ZONES, type ZoneId } from "./core/world.js";
 import { presetBeforeDiscoveringBody } from "./data/devPresets.js";
 import { ITEMS, type Item } from "./data/items.js";
@@ -333,6 +337,7 @@ async function initGame(): Promise<void> {
     await queueQGMessage("TRUCK_STOPPED_START");
     //TODO add a thingy for the help interface of the radio interface?
   }
+  await loadAllFrequency();
 }
 
 /*

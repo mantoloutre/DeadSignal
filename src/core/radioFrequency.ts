@@ -82,7 +82,6 @@ export function addDiscoveredFrequency(frequency: RadioFrequencyName): void {
   }
 }
 
-//TODO fix this i dont wanna use numbers
 /**
  * add a frequency to the helper interface
  * @param frequencyName the name of the frequency to add
@@ -92,18 +91,18 @@ function addFrequencyToHelperInterface(
 ): void {
   const helperList: HTMLUListElement = getEl("radio-interface-help-list");
   const line: HTMLLIElement = document.createElement("li");
-  if (!hasDiscoveredSignal(FREQUENCY_REGISTRY[frequencyName].frequency)) {
+  if (hasDiscoveredSignal(FREQUENCY_REGISTRY[frequencyName].frequency)) {
     line.textContent = `${FREQUENCY_REGISTRY[frequencyName].frequency} : ${frequencyName}`;
     helperList.append(line);
   }
 }
 
 /**
- * function to load all the frequencies.
+ * function to load all the frequencies into the helper interface.
  */
-export function loadAllFrequency(): void {
-  let freqName = null; //i think thats the first time that i use an any type.. i hate this
-  currentState.discoveredSignals.forEach((freq: string) => {
+export async function loadAllFrequency(): Promise<void> {
+  let freqName = null; //I think that's the first time that I use an any type... I hate this
+  currentState.discoveredSignals.forEach((freq: string): void => {
     freqName = resolveTheNameOfTheFrequency(freq);
     if (freqName !== null) {
       addFrequencyToHelperInterface(freqName);
@@ -122,6 +121,10 @@ export function setBuffer(theBuffer: string): void {
   currentBuffer = theBuffer.replace(/[^0-9]/g, "").slice(0, 6);
 }
 
+/**
+ * function to get the formatted buffer
+ * @returns returns the formatted buffer
+ */
 export function getFormattedBuffer(): string {
   if (currentBuffer.length === 0) {
     return "---.---";

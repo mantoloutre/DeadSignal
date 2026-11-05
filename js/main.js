@@ -1,7 +1,7 @@
 import { clearTheLocalStorage, currentState, exportSaveFile, GAME_INITIAL_STATE, importSaveFile, loadFromTheLocalStorage, resetGameState, saveTheDataToLocalStorage, setGameState, } from "./core/gameState.js";
 import "./ui/sideMenu.js";
 import { gameBridge } from "./core/gameBridge.js";
-import { handleFrequency, queueQGMessage } from "./core/radioFrequency.js";
+import { handleFrequency, loadAllFrequency, queueQGMessage, } from "./core/radioFrequency.js";
 import { ZONES } from "./core/world.js";
 import { presetBeforeDiscoveringBody } from "./data/devPresets.js";
 import { ITEMS } from "./data/items.js";
@@ -276,6 +276,7 @@ async function initGame() {
         await queueQGMessage("TRUCK_STOPPED_START");
         //TODO add a thingy for the help interface of the radio interface?
     }
+    await loadAllFrequency();
 }
 /*
 function in case there is an error while trying to initialize game
