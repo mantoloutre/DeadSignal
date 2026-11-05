@@ -21,10 +21,10 @@ export async function handleResonatorActions(zone: ZoneId): Promise<void> {
 }
 
 async function choseToContactTheQg(): Promise<void> {
-  await printToTerminal("you try to contact the QG...", "action");
   await printToTerminal(
-    "Nothing gets trough, its jammed by broadband EMI on 940.700 MHz",
-    "alert",
+    "You type the dial as fast as you can to try and contact the QG even " +
+      "if you are not supposed to. You press transmit.",
+    "action",
   );
   await die();
   await printDeathMessage(
