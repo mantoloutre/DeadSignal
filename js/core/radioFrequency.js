@@ -3,6 +3,9 @@ import { getEl, printToTerminal } from "../ui/dom.js";
 import { handleResonatorActions } from "./actions/resonatorActions.js";
 import { gameBridge } from "./gameBridge.js";
 import { currentState, hasFlag, saveTheDataToLocalStorage, setFocus, } from "./gameState.js";
+/**
+ * the registry containing all the frequencies
+ */
 export const FREQUENCY_REGISTRY = {
     QG_FREQUENCY: {
         frequency: "112.400",
@@ -26,6 +29,23 @@ export const FREQUENCY_REGISTRY = {
         frequency: "000.000",
     },
 };
+/**
+ * the registry containing all the name of the frequency
+ *
+ */
+const FREQUENCY_TO_NAME = new Map(Object.entries(FREQUENCY_REGISTRY).map(([radioName, radioNumber]) => [
+    radioNumber.frequency,
+    radioName,
+]));
+/**
+ * function to transforme the frequency in a number and
+ * get the name linked to it if applicable
+ * @param frequency the frequency (number format)
+ * that you want to get the name of
+ */
+function resolveTheNameOfTheFrequency(frequency) {
+    return FREQUENCY_TO_NAME.get(frequency) ?? null;
+}
 let currentBuffer = "";
 /**
  * adding a frequency and making sure its not already in the list of known signal
@@ -41,26 +61,25 @@ export function addDiscoveredFrequency(frequency) {
 /**
  * add a frequency to the helper interface
  * @param frequencyName the name of the frequency to add
- * @param frequency the frequency ( the number )
  */
-function addFrequencyToHelperInterface(frequencyName, frequency) {
+function addFrequencyToHelperInterface(frequencyName) {
     const helperList = getEl("radio-interface-help-list");
     const line = document.createElement("li");
-    if (frequencyName) {
-        if (!hasDiscoveredSignal(FREQUENCY_REGISTRY[frequencyName].frequency)) {
-            line.textContent = `${FREQUENCY_REGISTRY[frequencyName].frequency} : ${frequencyName}`;
-            helperList.append(line);
-        }
-    }
-    else if (frequency) {
-        if (!hasDiscoveredSignal(frequency)) {
-            line.textContent = `${frequency}`;
-        }
+    if (!hasDiscoveredSignal(FREQUENCY_REGISTRY[frequencyName].frequency)) {
+        line.textContent = `${FREQUENCY_REGISTRY[frequencyName].frequency} : ${frequencyName}`;
+        helperList.append(line);
     }
 }
+/**
+ * function to load all the frequencies.
+ */
 export function loadAllFrequency() {
+    let freqName = null; //i think thats the first time that i use an any type.. i hate this
     currentState.discoveredSignals.forEach((freq) => {
-        addFrequencyToHelperInterface(freq);
+        freqName = resolveTheNameOfTheFrequency(freq);
+        if (freqName !== null) {
+            addFrequencyToHelperInterface(freqName);
+        }
     });
 }
 /*
