@@ -301,7 +301,20 @@ export async function handleResonatorEncounter(): Promise<void> {
     gameBridge.renderZoneActions("WATCH_POST");
     await handleResonatorActions("WATCH_POST");
     //TODO do the thing if you do it in the watchpost
-  } else {
+  } else if (
+    currentState.currentZone !== "WATCH_POST" &&
+    !hasFlag("HAD_FIRST_ENCOUNTER")
+  ) {
     //TODO do if you dont do it in the watchpost
+  } else if (
+    currentState.currentZone === "WATCH_POST" &&
+    hasFlag("HAD_FIRST_ENCOUNTER")
+  ) {
+    await printToTerminal("Sorry, not implemented yet", "alert");
+  } else if (
+    currentState.currentZone !== "WATCH_POST" &&
+    hasFlag("HAD_FIRST_ENCOUNTER")
+  ) {
+    await printToTerminal("Sorry, not implemented yet", "alert");
   }
 }

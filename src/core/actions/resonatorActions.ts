@@ -68,7 +68,7 @@ async function tuningInEncounter(): Promise<void> {
  */
 async function choseToContactTheQg(): Promise<void> {
   await printToTerminal(
-    "You type the dial as fast as you can to try and contact the QG even " +
+    "You type the frequency as fast as you can to try and contact the QG even " +
       "if you are not supposed to. You press transmit.",
     "action",
   );

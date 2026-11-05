@@ -49,7 +49,7 @@ async function tuningInEncounter() {
  * the resonator
  */
 async function choseToContactTheQg() {
-    await printToTerminal("You type the dial as fast as you can to try and contact the QG even " +
+    await printToTerminal("You type the frequency as fast as you can to try and contact the QG even " +
         "if you are not supposed to. You press transmit.", "action");
     await die();
     await printDeathMessage("You hear static, even with heavy distortion, you hear a firm voice." +
