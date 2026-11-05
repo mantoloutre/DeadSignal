@@ -8,6 +8,7 @@ import {
   saveTheDataToLocalStorage,
   setFocus,
 } from "./gameState.js";
+import { ZONES, type ZoneId } from "./world.ts";
 
 export interface RadioFrequency {
   frequency: string;
@@ -293,28 +294,38 @@ async function handleResonatorFrequency() {
  * function that handle the encounter with the Resonator
  */
 export async function handleResonatorEncounter(): Promise<void> {
-  if (
-    currentState.currentZone === "WATCH_POST" &&
-    !hasFlag("HAD_FIRST_ENCOUNTER")
-  ) {
-    setFocus("FIRST_ENCOUNTER");
-    gameBridge.renderZoneActions("WATCH_POST");
-    await handleResonatorActions("WATCH_POST");
-    //TODO do the thing if you do it in the watchpost
-  } else if (
-    currentState.currentZone !== "WATCH_POST" &&
-    !hasFlag("HAD_FIRST_ENCOUNTER")
-  ) {
-    //TODO do if you dont do it in the watchpost
-  } else if (
-    currentState.currentZone === "WATCH_POST" &&
-    hasFlag("HAD_FIRST_ENCOUNTER")
-  ) {
-    await printToTerminal("Sorry, not implemented yet", "alert");
-  } else if (
-    currentState.currentZone !== "WATCH_POST" &&
-    hasFlag("HAD_FIRST_ENCOUNTER")
-  ) {
-    await printToTerminal("Sorry, not implemented yet", "alert");
+  const theZone: ZoneId = currentState.currentZone;
+  switch (theZone) {
+    case "WATCH_POST":
+      if (!hasFlag("HAD_FIRST_ENCOUNTER")) {
+        setFocus("FIRST_ENCOUNTER");
+        gameBridge.renderZoneActions("WATCH_POST");
+        await handleResonatorActions("WATCH_POST");
+      } else {
+        //TODO do if its not the first encounter
+        await printToTerminal("Sorry, not implemented yet", "alert"); //TODO remove when done
+      }
+      break;
+    case "WATCH_POST_OUTSIDE":
+      /* TODO do the actions if player is outside
+      if (!hasFlag("HAD_FIRST_ENCOUNTER")){
+        setFocus("FIRST_ENCOUNTER");
+        gameBridge.renderZoneActions("WATCH_POST_OUTSIDE");
+        await handleResonatorActions("WATCH_POST_OUTSIDE");
+      } else {
+      //TODO
+      }
+      */
+      await printToTerminal("Sorry, not implemented yet", "alert"); //TODO remove when done
+      break;
+    default:
+      await printToTerminal(
+        "not implemented yet (error btw its default case of the switch)",
+        "alert",
+      ); //TODO remove when done
+      /*
+        choose if you want to implement a first death for every zone or not? TODO decide this
+         */
+      break;
   }
 }
