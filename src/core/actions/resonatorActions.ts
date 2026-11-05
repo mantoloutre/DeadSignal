@@ -19,6 +19,19 @@ export async function handleResonatorActions(zone: ZoneId): Promise<void> {
     tuning.addEventListener("click", tuningEvent);
   }
 }
+
+async function choseToContactTheQg(): Promise<void> {
+  await printToTerminal("you try to contact the QG...", "action");
+  await printToTerminal(
+    "Nothing gets trough, its jammed by broadband EMI on 940.700 MHz",
+    "alert",
+  );
+  //TODO (wip) failed to ping and u gone now.
+}
+
+/**
+ * function that handle then the player tune the radio during the first encounter
+ */
 async function tuningInEncounter(): Promise<void> {
   const buffer: string = getFormattedBuffer();
   if (buffer.length === 7 && buffer !== "---.---") {
@@ -27,33 +40,10 @@ async function tuningInEncounter(): Promise<void> {
     closeRadioInterface();
     switch (currentState.currentFrequency) {
       case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
-        await printToTerminal(
-          "The Frequency was already tuned into this frequency, and you decide to " +
-            "press the tune button again",
-          "action",
-        );
-        await die();
-        await printDeathMessage(
-          "a deafening screech tears through the speaker of your radio instantly shattering the small screen.",
-        );
-        await printDeathMessage(
-          "Your ears pop violently. Warm blood fills both canals before you can even pull your hands up.",
-        );
-        await printDeathMessage(
-          "Then, the shockwave hammers your chest like a dropped weight. " +
-            "Your sternum caves inward with a dull, wet snap. Just like Keller's",
-        );
-        await printDeathMessage(
-          "Frost bleeds outward across your visor as the inside of the watchpost fades to black",
-        );
+        await choseToAngerResonatorIGuess();
         break;
       case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
-        await printToTerminal("you try to contact the QG...", "action");
-        await printToTerminal(
-          "Nothing gets trough, its jammed by broadband EMI on 940.700 MHz",
-          "alert",
-        );
-        //TODO failed to ping and u gone now.
+        await choseToContactTheQg();
         break;
       case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
         await printToTerminal(
@@ -79,6 +69,28 @@ async function tuningInEncounter(): Promise<void> {
   } else {
     flashButton(getEl("btn-tune"));
   }
+}
+
+async function choseToAngerResonatorIGuess(): Promise<void> {
+  await printToTerminal(
+    "The Frequency was already tuned into this frequency, and you decide to " +
+      "press the tune button again",
+    "action",
+  );
+  await die();
+  await printDeathMessage(
+    "a deafening screech tears through the speaker of your radio instantly shattering the small screen.",
+  );
+  await printDeathMessage(
+    "Your ears pop violently. Warm blood fills both canals before you can even pull your hands up.",
+  );
+  await printDeathMessage(
+    "Then, the shockwave hammers your chest like a dropped weight. " +
+      "Your sternum caves inward with a dull, wet snap. Just like Keller's",
+  );
+  await printDeathMessage(
+    "Frost bleeds outward across your visor as the inside of the watchpost fades to black",
+  );
 }
 export async function coverYourEars(): Promise<void> {
   //TODO add the text & action ?
