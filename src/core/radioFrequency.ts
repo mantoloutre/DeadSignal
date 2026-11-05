@@ -96,11 +96,14 @@ function addFrequencyToHelperInterface(
     helperList.append(line);
   }
 }
-
 /**
- * function to load all the frequencies into the helper interface.
+ * function to load all the frequencies into the helper interface. <br>
+ *
+ * first, it removes every frequency in the list, then add them
  */
 export async function loadAllFrequency(): Promise<void> {
+  const helperList: HTMLUListElement = getEl("radio-interface-help-list");
+  helperList.innerHTML = "";
   let freqName = null; //I think that's the first time that I use an any type... I hate this
   currentState.discoveredSignals.forEach((freq: string): void => {
     freqName = resolveTheNameOfTheFrequency(freq);
