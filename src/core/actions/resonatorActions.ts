@@ -26,6 +26,30 @@ async function choseToContactTheQg(): Promise<void> {
     "Nothing gets trough, its jammed by broadband EMI on 940.700 MHz",
     "alert",
   );
+  await die();
+  await printDeathMessage(
+    "You hear static, even with heavy distortion, you hear a firm voice." +
+      "'Stay on this channel, we are on our way', it says",
+  );
+  await printDeathMessage(
+    "Then, the voice repeats it, same pause, same breath...",
+  );
+  await printDeathMessage(
+    "The voice says: 'You did well, going this far'." +
+      "Its really warm, friendly.. and its making your skin crawl.",
+  );
+  await printDeathMessage(
+    "After a long pause it end up saying: 'Just relax, it will all be over soon.'.",
+  );
+  await printDeathMessage(
+    "Your ears pop violently. Warm bloods fill both canals, " +
+      "and the voice never stop comforting you, " +
+      "not even as it takes you.",
+  );
+  await printDeathMessage(
+    "Frost bleeds outward accross your visor as the inside of the watchpost " +
+      "fades to black.",
+  );
   //TODO (wip) failed to ping and u gone now.
 }
 
