@@ -124,7 +124,25 @@ export async function coverYourEars(): Promise<void> {
   );
 }
 export async function goOutside(): Promise<void> {
-  await printToTerminal("You run outside the watchpost", "action");
+  //await printToTerminal("You run outside into the snow, ");
+  await printToTerminal(
+    "You run outside into the snow, hoping that being away from the watchpost " +
+      "will calm whatever is happening right now.",
+    "action",
+  );
+  await printDeathMessage(
+    "Something big was waiting right outside. You never saw its face, " +
+      "only the shadow it casts on the ground",
+  );
+  await printDeathMessage(
+    "You don't even get past three step outside. Something grabs your head, making you unable to see anything.",
+  );
+  await printDeathMessage(
+    "It screech extremely loudly that not even one second passed and your eardrum popped.",
+  );
+  await printDeathMessage(
+    "You feel your inside freezing as you loose any sense of feeling.",
+  );
   //TODO do the text
   //my guy wanted to run outside
 }
