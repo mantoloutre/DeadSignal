@@ -21,8 +21,8 @@ export async function addItemToInventory(
       (slot: InventorySlot): boolean => slot.itemId === itemId,
     );
   if (existSlot) {
-    //if tha item is a consumable we gonna add one to the amount
-    //can stack consumable, cant stack the rest. no you are not gonna hold 48 crowbar in your inventory.
+    //if tha item is a consumable we're going to add one to the amount
+    //can stack consumable, cant stack the rest. no you are not going to hold 48 crowbar in your inventory.
     if (ITEMS[itemId].type === "consumable") {
       existSlot.count += amount;
       //then we return true :3

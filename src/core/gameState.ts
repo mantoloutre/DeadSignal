@@ -290,14 +290,20 @@ export function importSaveFile(
 export function resetGameState(): void {
   currentState = structuredClone(GAME_INITIAL_STATE);
 }
-//function to set the game state
+
+/**
+ * function to set the game state
+ * @param state the state we want to set the game in
+ */
 export function setGameState(state: GameState): void {
   currentState = structuredClone(state);
   saveTheDataToLocalStorage();
   location.reload();
 }
-/*
-verify if the command is inactive or no
+
+/**
+ * verify if the command is inactive or no
+ * @param command the command we wanna check if its inactive
  */
 export function isCommandInactive(command: string): boolean {
   return currentState.inactiveCommands.includes(command);

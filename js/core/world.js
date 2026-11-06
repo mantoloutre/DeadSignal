@@ -1,4 +1,3 @@
-import { printToTerminal } from "../ui/dom.js";
 import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import { GATE_CHECKPOINT_ACTION, GATE_CHECKPOINT_SHACK_ACTIONS, GET_TOOL_BOX_ACTION, OUTSIDE_TRUCK_INIT_ACTIONS, RESONATOR_ENCOUNTER, SAY_STUFF_TO_QG, SNOWY_FOREST_ACTIONS, TRUCK_CABIN_INIT_ACTIONS, WATCH_POST, WATCH_POST_OUTSIDE, } from "./worldActions/index.js";
@@ -157,6 +156,15 @@ export const ZONES = {
                 //maybe make it so player need to deactivate live wire?
                 //maybe make it so if he doesn't an alarm could start and attract "it"?
             }
+            return actions;
+        },
+    },
+    RELAY_A01: {
+        name: "SUB-RELAY-A01",
+        description: "not yet done", //TODO do the description
+        getActions: () => {
+            const actions = [];
+            //TODO do the actions
             return actions;
         },
     },

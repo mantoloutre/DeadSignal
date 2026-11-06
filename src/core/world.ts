@@ -1,5 +1,4 @@
 import type { Zone, ZoneAction } from "../data/types.js";
-import { printToTerminal } from "../ui/dom.ts";
 import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import {
@@ -189,6 +188,15 @@ export const ZONES = {
         //maybe make it so if he doesn't an alarm could start and attract "it"?
       }
 
+      return actions;
+    },
+  },
+  RELAY_A01: {
+    name: "SUB-RELAY-A01",
+    description: "not yet done", //TODO do the description
+    getActions: (): ZoneAction[] => {
+      const actions: ZoneAction[] = [];
+      //TODO do the actions
       return actions;
     },
   },
