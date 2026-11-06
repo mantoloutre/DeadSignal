@@ -39,7 +39,7 @@ const FREQUENCY_TO_NAME = new Map(Object.entries(FREQUENCY_REGISTRY).map(([radio
     radioName,
 ]));
 /**
- * function to transforme the frequency in a number and
+ * function to transform the frequency in a number and
  * get the name linked to it if applicable
  * @param frequency the frequency (number format)
  * that you want to get the name of
@@ -49,13 +49,14 @@ function resolveTheNameOfTheFrequency(frequency) {
 }
 let currentBuffer = "";
 /**
- * adding a frequency and making sure its not already in the list of known signal
+ * adding a frequency and making sure it's not already in the list of known signal
  * @param frequency the name of the frequency we want to add
  */
-export function addDiscoveredFrequency(frequency) {
+export async function addDiscoveredFrequency(frequency) {
     if (!currentState.discoveredSignals.includes(FREQUENCY_REGISTRY[frequency].frequency)) {
         currentState.discoveredSignals.push(FREQUENCY_REGISTRY[frequency].frequency);
         addFrequencyToHelperInterface(frequency);
+        await printToTerminal("new frequency discovered!", "system");
     }
 }
 /**
@@ -190,7 +191,7 @@ export async function handleFrequency() {
     // ( don't care if it doesn't exist cuz the switch case is going to take care of that )
     if (!hasDiscoveredSignal(formattedFreq)) {
         //TODO make it so if unknown well its a static noice?
-        await printToTerminal("Heavy carrier distortion. Signal unreadable.", "alert"); //TODO fix radio
+        await printToTerminal("Heavy carrier distortion. Signal unreadable.", "alert");
         return;
     }
     // if everything is good
@@ -239,6 +240,7 @@ export async function handleResonatorEncounter() {
                 setFocus("FIRST_ENCOUNTER");
                 gameBridge.renderZoneActions("WATCH_POST");
                 await handleResonatorActions("WATCH_POST");
+                await getDialogWatchPostInsideFirstEncounter();
             }
             else {
                 //TODO do if its not the first encounter
@@ -264,4 +266,18 @@ export async function handleResonatorEncounter() {
                */
             break;
     }
+}
+async function getDialogWatchPostInsideFirstEncounter() {
+    await printToTerminal("You tune your radio to 940.700 MHz. For a moment, pure silence. " +
+        "Better than static, you think. Because at least it mean your picking up the frequency", "action");
+    await printToTerminal("Then, the silence start breathing. Slow, steady and you can somehow " +
+        "feel it on your body.", "system");
+    await printToTerminal("The temperature drops a bit, not enough to worry but enough to notice.", "system");
+    await printToTerminal("Whatever is broadcasting this frequency... It can't be a station. " +
+        "Somewhere, outside, something started walking toward the watchpost and " +
+        "is getting close fast.", "alert");
+    await printToTerminal("As more time passes, the more sound the frequency emits... " +
+        "Your radio is starting to get really loud.", "system");
+    await printToTerminal("You should do something...", "system");
+    await printToTerminal("(Pick an action from the left panel or use the radio.)", "system");
 }

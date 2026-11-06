@@ -2,7 +2,7 @@ export type ItemType = "tool" | "consumable" | "key";
 
 export interface Item {
   readonly name: string;
-  readonly type: ItemType; //TODO make autocompletion
+  readonly type: ItemType;
   readonly description: string;
 }
 

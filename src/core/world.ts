@@ -1,4 +1,5 @@
 import type { Zone, ZoneAction } from "../data/types.js";
+import { printToTerminal } from "../ui/dom.ts";
 import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import {
@@ -120,7 +121,7 @@ export const ZONES = {
         return getWhatToSayToQG();
       }
       if (getFocus() === FOCUS.FIRST_ENCOUNTER) {
-        return getFirstEncounterActions();
+        return getFirstEncounterActions("WATCH_POST");
       }
       //normal action
       const actions: ZoneAction[] = [];
@@ -227,12 +228,28 @@ function getWhatToSayToQG(): ZoneAction[] {
   }
   return actions;
 }
-function getFirstEncounterActions(): ZoneAction[] {
+
+function getFirstEncounterActions(zoneId: ZoneId): ZoneAction[] {
   const actions: ZoneAction[] = [];
   //do the actions
-  actions.push(RESONATOR_ENCOUNTER.COVER_EARS);
-  actions.push(RESONATOR_ENCOUNTER.GO_OUTSIDE);
+  switch (zoneId) {
+    case "WATCH_POST":
+      actions.push(RESONATOR_ENCOUNTER.COVER_EARS);
+      actions.push(RESONATOR_ENCOUNTER.GO_OUTSIDE);
+      break;
+    default:
+      actions.push({
+        command: "return (not implemented yet)",
+        description:
+          "get out of the focus, because this is not implemented yet",
+        execute: nothingToBeDone,
+      });
+  }
+
   return actions;
+}
+async function nothingToBeDone(): Promise<void> {
+  //yeah, nothing to see here
 }
 /*
 function to get the actions related to opening the toolbox

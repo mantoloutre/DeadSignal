@@ -53,6 +53,9 @@ export async function takeMemoryModule() {
     await printToTerminal("you take back the memory module from the console", "action");
     await addItemToInventory("robot_memory_module");
 }
+export async function turnOnTheMainConsole() {
+    //TODO maybe do like it can directly broadcast 940.700 mhz ?
+}
 export async function listenRobotMemoryModule() {
     await printToTerminal("You insert the memory module in the console.", "action");
     removeItemFromInventory("robot_memory_module");
@@ -66,7 +69,7 @@ export async function listenRobotMemoryModule() {
     await printToTerminal("13:02 - CRITICAL - drive motors unresponsive. Unit unable to return to designated post", "log");
     await printToTerminal("13:03 - CRITICAL - Main module losing too much power. Attempting automated distress ping to 112.400 MHz...", "log");
     await printToTerminal("13:03 - ping failed, transmission jammed by broadband EMI on 940.700 MHz.", "log");
-    addDiscoveredFrequency("THE_RESONATOR");
+    await addDiscoveredFrequency("THE_RESONATOR");
     await printToTerminal("13:04 - Relay A-01 grid feed severed by manual unauthorized killswitch. Attempting reboot...", "log");
     await printToTerminal("13:04 - Attempt failed, access denied", "log");
     await printToTerminal("13:04 - Power failure. Unit going offline", "log");

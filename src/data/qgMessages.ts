@@ -11,7 +11,7 @@ export const QG_MESSAGES = {
     "we were giving him a single chance of undoing what he had done... No time to deal with that now, " +
     "whoever or whatever took care of him saved us trouble. " +
     " Take his keycard and credentials for the mission then bring them back to us and" +
-    " go turn on the auxiliary relay too because he also deactivated those.", //TODO add keycard
+    " go turn on the auxiliary relay too because he also deactivated those.",
   QG_MESSAGE_DIDNT_TOLD_DEAD_BODY:
     "Abandonment of post... Don't search for him, turn on the station and go " +
     "turn back on the auxiliary relay, he also did shut them down. Get moving.",

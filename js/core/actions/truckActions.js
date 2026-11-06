@@ -55,7 +55,7 @@ export async function readEmergencyManual() {
     await printToTerminal("You are to not contact the QG as the QG will contact you first " +
         "when you set your radio at this frequency", "system");
     addFlag("READ_MANUAL");
-    addDiscoveredFrequency("QG_FREQUENCY");
+    await addDiscoveredFrequency("QG_FREQUENCY");
 }
 export async function addTruckInsurancePaper() {
     await addItemToInventory("truck_insurance_papers");

@@ -74,7 +74,7 @@ export async function readEmergencyManual(): Promise<void> {
     "system",
   );
   addFlag("READ_MANUAL");
-  addDiscoveredFrequency("QG_FREQUENCY");
+  await addDiscoveredFrequency("QG_FREQUENCY");
 }
 
 export async function addTruckInsurancePaper(): Promise<void> {

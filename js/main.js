@@ -10,15 +10,15 @@ import { closeRadioInterface, setDisplayFrequency, } from "./ui/radioInterface.j
 gameBridge.loadZone = loadZone;
 gameBridge.renderZoneActions = renderZoneActions;
 /**
-//TODO correct the documentation <br>
-function to render in a dynamic way the actions for a zone<br>
-detailed explanation:
--
-1. remove every button from the terminal input area
-2. get the choice from the zone
-3. make button for each action
-4. bind it to its action
-@param zone the zone we want to render the actions
+ //TODO correct the documentation <br>
+ function to render in a dynamic way the actions for a zone<br>
+ detailed explanation:
+ -
+ 1. remove every button from the terminal input area
+ 2. get the choice from the zone
+ 3. make button for each action
+ 4. bind it to its action
+ @param zone the zone we want to render the actions
  */
 export function renderZoneActions(zone) {
     //step 1
@@ -35,8 +35,8 @@ export function renderZoneActions(zone) {
     }
 }
 /**
-load a zone
-@param zoneId the zone we want to load
+ load a zone
+ @param zoneId the zone we want to load
  */
 export async function loadZone(zoneId) {
     const zone = ZONES[zoneId];
@@ -49,7 +49,7 @@ export async function loadZone(zoneId) {
     renderZoneActions(zoneId);
 }
 /**
-function to render the player inventory
+ function to render the player inventory
  */
 export function renderThePlayerInventory() {
     const inventoryItemList = getEl("inventory-items-list");
@@ -88,15 +88,15 @@ export function renderThePlayerInventory() {
     });
 }
 /**
-simple function to toggle the overlay cuz I don't want to repeat myself
+ simple function to toggle the overlay cuz I don't want to repeat myself
  */
 export function toggleOverlay() {
     getEl("menu-overlay").classList.toggle("hidden");
 }
 /**
-binding a button and an async action
-@param button the button we want to bind the action to
-@param action the action we want to bind to the button
+ binding a button and an async action
+ @param button the button we want to bind the action to
+ @param action the action we want to bind to the button
  @note only usable with async function that gives a void promise, with only void it doesn't work
  */
 export function bindingAsyncAction(button, action) {
@@ -109,7 +109,7 @@ export function bindingAsyncAction(button, action) {
     });
 }
 /**
-binding a button and an action while making sure nothing is being printed to terminalOutput
+ binding a button and an action while making sure nothing is being printed to terminalOutput
  @param button the HTMLButtonElement we want to bind the action to
  @param action the action we want to bind to the button
  @note only usable with function that return void
@@ -136,7 +136,7 @@ function openOrCloseCheatMenu() {
     getEl("cheat-menu").classList.toggle("hidden");
 }
 /**
-toggle the hidden class to open or close the menu
+ toggle the hidden class to open or close the menu
  */
 function openOrCloseMenu() {
     const cheatMenu = getEl("cheat-menu");
@@ -158,7 +158,7 @@ function openInventory() {
     getEl("menu-overlay").classList.remove("hidden");
 }
 /**
-function to close the inventory
+ function to close the inventory
  */
 function closeInventory() {
     getEl("inventory").classList.toggle("inventory-active");
@@ -197,16 +197,11 @@ getEl("btn-import").addEventListener("click", async () => {
         await printToTerminal(`Import error: ${errorMsg}`, "alert");
     });
 });
-//test
-// zone 1
-//bindingAsyncAction(getEl("btn-apply-zone-truck-cabin"), applyZone1Test);
-//zone 2
-//bindingAsyncAction(getEl("btn-apply-zone-snowy-forest"), applyZone2Test);
 // others
 bindingAsyncAction(getEl("btn-save"), saveGame);
-/*
-function to close the correct interface ( i don't wanna redo a overlay for everything so
-im just going to reuse the sideMenuOverlay
+/**
+ *function to close the correct interface ( i don't wanna redo a overlay for everything so
+ *im just going to reuse the sideMenuOverlay
  */
 function closeInterface() {
     if (!getEl("side-menu").classList.contains("hidden")) {
@@ -233,8 +228,10 @@ window.addEventListener("keydown", (keyEvent) => {
         openOrCloseCheatMenu();
     }
 });
-/*
-function to create the button for each action in a zone
+/**
+ * function to create the button for each action in a zone
+ * @param action the action we want to create the button for
+ * @param zoneId the zone to verify stuff related to the zone
  */
 function createButtonZoneActions(action, zoneId) {
     const actionZone = getEl("zone-action");
@@ -309,3 +306,4 @@ function resetGame() {
     resetGameState();
     location.reload();
 }
+//TODO implements checkpoints?

@@ -77,6 +77,9 @@ async function choseToAngerResonatorIGuess() {
         "Your sternum caves inward with a dull, wet snap. Just like Keller's");
     await printDeathMessage("Frost bleeds outward across your visor as the inside of the watchpost fades to black");
 }
+/**
+ *function to deal with the cover your ears option
+ */
 export async function coverYourEars() {
     //TODO add the text & action ?
     await printToTerminal("You decide to quickly go sit down in the corner and cover your ears.", "action");
@@ -88,12 +91,11 @@ export async function goOutside() {
     //await printToTerminal("You run outside into the snow, ");
     await printToTerminal("You run outside into the snow, hoping that being away from the watchpost " +
         "will calm whatever is happening right now.", "action");
+    await die();
     await printDeathMessage("Something big was waiting right outside. You never saw its face, " +
         "only the shadow it cast on the ground");
-    await printDeathMessage("You don't even get three steps outside. Something grabs your head, making you unable to see anything.");
+    await printDeathMessage("You don't even get three steps outside before something grabs your head, making you unable to see anything.");
     await printDeathMessage("Still holding your head with inhuman strength, it screeches extremely loudly so close to you" +
         " that your eardrums pop in less than a second.");
     await printDeathMessage("You feel your insides freezing as you loose any sense of feeling.");
-    //TODO do the text
-    //my guy wanted to run outside
 }

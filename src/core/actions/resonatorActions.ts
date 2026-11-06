@@ -122,6 +122,10 @@ async function choseToAngerResonatorIGuess(): Promise<void> {
     "Frost bleeds outward across your visor as the inside of the watchpost fades to black",
   );
 }
+
+/**
+ *function to deal with the cover your ears option
+ */
 export async function coverYourEars(): Promise<void> {
   //TODO add the text & action ?
   await printToTerminal(
@@ -140,12 +144,13 @@ export async function goOutside(): Promise<void> {
       "will calm whatever is happening right now.",
     "action",
   );
+  await die();
   await printDeathMessage(
     "Something big was waiting right outside. You never saw its face, " +
       "only the shadow it cast on the ground",
   );
   await printDeathMessage(
-    "You don't even get three steps outside. Something grabs your head, making you unable to see anything.",
+    "You don't even get three steps outside before something grabs your head, making you unable to see anything.",
   );
   await printDeathMessage(
     "Still holding your head with inhuman strength, it screeches extremely loudly so close to you" +
@@ -154,6 +159,4 @@ export async function goOutside(): Promise<void> {
   await printDeathMessage(
     "You feel your insides freezing as you loose any sense of feeling.",
   );
-  //TODO do the text
-  //my guy wanted to run outside
 }

@@ -34,16 +34,17 @@ import {
 
 gameBridge.loadZone = loadZone;
 gameBridge.renderZoneActions = renderZoneActions;
+
 /**
-//TODO correct the documentation <br>
-function to render in a dynamic way the actions for a zone<br>
-detailed explanation:
--
-1. remove every button from the terminal input area
-2. get the choice from the zone
-3. make button for each action
-4. bind it to its action
-@param zone the zone we want to render the actions
+ //TODO correct the documentation <br>
+ function to render in a dynamic way the actions for a zone<br>
+ detailed explanation:
+ -
+ 1. remove every button from the terminal input area
+ 2. get the choice from the zone
+ 3. make button for each action
+ 4. bind it to its action
+ @param zone the zone we want to render the actions
  */
 export function renderZoneActions(zone: ZoneId): void {
   //step 1
@@ -61,11 +62,11 @@ export function renderZoneActions(zone: ZoneId): void {
     createButtonZoneActions(action, zone);
   }
 }
-/**
-load a zone
-@param zoneId the zone we want to load
- */
 
+/**
+ load a zone
+ @param zoneId the zone we want to load
+ */
 export async function loadZone(zoneId: ZoneId): Promise<void> {
   const zone: Zone = ZONES[zoneId];
   //setFocus(null);
@@ -78,7 +79,7 @@ export async function loadZone(zoneId: ZoneId): Promise<void> {
 }
 
 /**
-function to render the player inventory
+ function to render the player inventory
  */
 export function renderThePlayerInventory(): void {
   const inventoryItemList: HTMLDivElement = getEl("inventory-items-list");
@@ -120,16 +121,16 @@ export function renderThePlayerInventory(): void {
 }
 
 /**
-simple function to toggle the overlay cuz I don't want to repeat myself
+ simple function to toggle the overlay cuz I don't want to repeat myself
  */
 export function toggleOverlay(): void {
   getEl("menu-overlay").classList.toggle("hidden");
 }
 
 /**
-binding a button and an async action
-@param button the button we want to bind the action to
-@param action the action we want to bind to the button
+ binding a button and an async action
+ @param button the button we want to bind the action to
+ @param action the action we want to bind to the button
  @note only usable with async function that gives a void promise, with only void it doesn't work
  */
 export function bindingAsyncAction(
@@ -146,7 +147,7 @@ export function bindingAsyncAction(
 }
 
 /**
-binding a button and an action while making sure nothing is being printed to terminalOutput
+ binding a button and an action while making sure nothing is being printed to terminalOutput
  @param button the HTMLButtonElement we want to bind the action to
  @param action the action we want to bind to the button
  @note only usable with function that return void
@@ -163,10 +164,12 @@ export function bindingAction(
     action();
   });
 }
+
 //bind the skip zone action to its function
 async function skipToZoneOutsideWatchpost(): Promise<void> {
   setGameState(presetBeforeDiscoveringBody);
 }
+
 //close or open the side menu
 function openOrCloseCheatMenu(): void {
   //TODO maybe add a menu-overlay? maybe not cuz no?
@@ -177,7 +180,7 @@ function openOrCloseCheatMenu(): void {
 }
 
 /**
-toggle the hidden class to open or close the menu
+ toggle the hidden class to open or close the menu
  */
 function openOrCloseMenu(): void {
   const cheatMenu: HTMLDivElement = getEl("cheat-menu");
@@ -203,7 +206,7 @@ function openInventory(): void {
 }
 
 /**
-function to close the inventory
+ function to close the inventory
  */
 function closeInventory(): void {
   getEl("inventory").classList.toggle("inventory-active");
@@ -252,17 +255,12 @@ getEl("btn-import").addEventListener("click", async (): Promise<void> => {
     },
   );
 });
-//test
-// zone 1
-//bindingAsyncAction(getEl("btn-apply-zone-truck-cabin"), applyZone1Test);
-//zone 2
-//bindingAsyncAction(getEl("btn-apply-zone-snowy-forest"), applyZone2Test);
 // others
 bindingAsyncAction(getEl("btn-save"), saveGame);
 
-/*
-function to close the correct interface ( i don't wanna redo a overlay for everything so
-im just going to reuse the sideMenuOverlay
+/**
+ *function to close the correct interface ( i don't wanna redo a overlay for everything so
+ *im just going to reuse the sideMenuOverlay
  */
 function closeInterface(): void {
   if (!getEl("side-menu").classList.contains("hidden")) {
@@ -291,8 +289,10 @@ window.addEventListener("keydown", (keyEvent: KeyboardEvent): void => {
   }
 });
 
-/*
-function to create the button for each action in a zone
+/**
+ * function to create the button for each action in a zone
+ * @param action the action we want to create the button for
+ * @param zoneId the zone to verify stuff related to the zone
  */
 function createButtonZoneActions(action: ZoneAction, zoneId: ZoneId): void {
   const actionZone: HTMLDivElement = getEl("zone-action");
@@ -348,6 +348,7 @@ function startGame(): void {
     console.error("failed to initialize game: ", err);
   });
 }
+
 /*
 ready state the document
  */
@@ -361,6 +362,7 @@ if (document.readyState === "loading") {
 //###################
 bindingAsyncAction(getEl("btn-die"), die);
 bindingAction(getEl("btn-reset-game"), resetGame);
+
 // this is a button to test my death mechanic
 
 /**
@@ -371,3 +373,4 @@ function resetGame(): void {
   resetGameState();
   location.reload();
 }
+//TODO implements checkpoints?

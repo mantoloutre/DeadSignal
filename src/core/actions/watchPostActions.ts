@@ -86,6 +86,9 @@ export async function takeMemoryModule(): Promise<void> {
   );
   await addItemToInventory("robot_memory_module");
 }
+export async function turnOnTheMainConsole(): Promise<void> {
+  //TODO maybe do like it can directly broadcast 940.700 mhz ?
+}
 export async function listenRobotMemoryModule(): Promise<void> {
   await printToTerminal(
     "You insert the memory module in the console.",
@@ -132,7 +135,7 @@ export async function listenRobotMemoryModule(): Promise<void> {
     "13:03 - ping failed, transmission jammed by broadband EMI on 940.700 MHz.",
     "log",
   );
-  addDiscoveredFrequency("THE_RESONATOR");
+  await addDiscoveredFrequency("THE_RESONATOR");
   await printToTerminal(
     "13:04 - Relay A-01 grid feed severed by manual unauthorized killswitch. Attempting reboot...",
     "log",

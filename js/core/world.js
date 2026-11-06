@@ -1,3 +1,4 @@
+import { printToTerminal } from "../ui/dom.js";
 import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import { GATE_CHECKPOINT_ACTION, GATE_CHECKPOINT_SHACK_ACTIONS, GET_TOOL_BOX_ACTION, OUTSIDE_TRUCK_INIT_ACTIONS, RESONATOR_ENCOUNTER, SAY_STUFF_TO_QG, SNOWY_FOREST_ACTIONS, TRUCK_CABIN_INIT_ACTIONS, WATCH_POST, WATCH_POST_OUTSIDE, } from "./worldActions/index.js";
@@ -94,7 +95,7 @@ export const ZONES = {
                 return getWhatToSayToQG();
             }
             if (getFocus() === FOCUS.FIRST_ENCOUNTER) {
-                return getFirstEncounterActions();
+                return getFirstEncounterActions("WATCH_POST");
             }
             //normal action
             const actions = [];
@@ -192,12 +193,25 @@ function getWhatToSayToQG() {
     }
     return actions;
 }
-function getFirstEncounterActions() {
+function getFirstEncounterActions(zoneId) {
     const actions = [];
     //do the actions
-    actions.push(RESONATOR_ENCOUNTER.COVER_EARS);
-    actions.push(RESONATOR_ENCOUNTER.GO_OUTSIDE);
+    switch (zoneId) {
+        case "WATCH_POST":
+            actions.push(RESONATOR_ENCOUNTER.COVER_EARS);
+            actions.push(RESONATOR_ENCOUNTER.GO_OUTSIDE);
+            break;
+        default:
+            actions.push({
+                command: "return (not implemented yet)",
+                description: "get out of the focus, because this is not implemented yet",
+                execute: nothingToBeDone,
+            });
+    }
     return actions;
+}
+async function nothingToBeDone() {
+    //yeah, nothing to see here
 }
 /*
 function to get the actions related to opening the toolbox
