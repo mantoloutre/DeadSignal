@@ -33,17 +33,20 @@ Btw the only name that's in the game i chose it randomly so i'm sorry if that's 
 ### Game is made to be played on a screen wider than a phone ( laptop/desktop recomended)
 
 > ### Some information ( you can skip if you want )
-> when I code, most of the time, I will put what a function does ( exemple: in gameState.ts the function to export)
-> 
-> There is two reason for this;
+>
+> when I code, sometimes (when I feel like it and if I have time for it), I will put what a function does ( exemple: in gameState.ts the function to export)
+> . If I don't do step by step I will generally just put basic documentation explaining what the function for and if 
+> i don't do that it mean the name of the function is self-explanatory
+>
+> There is two (yes two, trust) reason for this;
 > 1. the first is I encourage other to use it and instead of copying and pasting something they don't understand, they can see what is it and what it does.
 > 2. Sometimes it's also for myself, as a human, i don't know everything and commenting my code is a good way to remember stuff more easily
 > 3. It also gives the option to use one part of a function faster, i read the explanation, see "step 3 does that" and I find the step 3 faster.
 
 <details><summary>note for the reviewers</summary>
-if you press the p key, it open a cheat menu, you can skip to certain zone or like test features.
-i do not recommend using it to review, because i added stuff before your supposed to reach the main watchpost.
-However it can be useful if you are testing much much and doesnt want to always restart at the begining.
+if you press the p key, it opens a cheat menu, you can skip to certain zone or like test features.
+i do not recommend using it to review, because I added stuff before your supposed to reach the main watchpost.
+However it can be useful if you are testing much and doesn't want to always restart at the begining.
 </details>
 
 © 2026 mantoloutre, licensed under BSD-3-Clause
