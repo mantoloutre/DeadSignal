@@ -108,9 +108,9 @@ body {
   justify-self: center;
 }
 
-#drawing-panel.hidden {
-  opacity: 0;
-  pointer-events: none;
+#drawing-panel.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 #drawing-panel {
   position: absolute;
@@ -118,4 +118,6 @@ body {
   z-index: 902;
   background: var(--main-color-background);
   display: flex;
+  opacity: 0;
+  pointer-events: none;
 }
