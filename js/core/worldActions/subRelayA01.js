@@ -3,31 +3,32 @@ export const RELAY_A01_OUTSIDE_ACTIONS = {
     ENTER_BUNKER: {
         command: "enter bunker",
         description: "enter the bunker ( a.k.a the relays station a-01 )",
-        execute: actionsFunc.enterBunkerStationA01, //todo do the action
+        execute: actionsFunc.enterBunkerStationA01,
     },
     INSPECT_FOUNDATION: {
         command: "inspect foundation",
         description: "inspect the foundation of the bunker's door",
-        execute: async () => { }, //todo do the action
+        execute: actionsFunc.inspectBunkerFoundation,
+        oneTime: true,
     },
 };
 export const RELAY_A01_ACTIONS = {
     GO_OUTSIDE_BUNKER: {
         command: "go back outside",
         description: "go back outside of the bunker",
-        execute: async () => { }, //todo do the action
+        execute: actionsFunc.goOutsideBunkerStationA01,
     },
     // make it only available if breaker panel is closed
     OPEN_BREAKER_PANEL: {
         command: "open breaker panel",
         description: "open the breaker panel to access it",
-        execute: async () => { }, //TODO do the action
+        execute: actionsFunc.openBreakerPanel,
     },
     // make it only available if breaker panel is open
     CLOSE_BREAKER_PANEL: {
         command: "close breaker panel",
         description: "close the door of the breaker panel",
-        execute: async () => { }, //TODO do the action
+        execute: actionsFunc.closeBreakerPanel,
     },
     INT_1: {
         command: "INT 1",
