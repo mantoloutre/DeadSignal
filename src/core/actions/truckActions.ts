@@ -21,10 +21,19 @@ export async function checkTruckTrunk(): Promise<void> {
         " a heavy toolbox, a small black barrel full of wine, a crowbar and two spare tires.",
       "action",
     );
-  } /*else {
-        await printToTerminal("Inside the truck, nothing changed, still a heavy toolbox, " +
-            "the barrel of wine and the two spare tire.", "system");
-    }*/ //TODO maybe add this later on
+  } else if (doesThePlayerHasTheItem("crowbar")) {
+    await printToTerminal(
+      "Inside the trunk, there is the toolbox, the small black barrel" +
+        " full of wine and two spare tires",
+      "system",
+    );
+  } else {
+    await printToTerminal(
+      "Inside the trunk, there is the toolbox, the small black barrel, the crowbar and the two " +
+        "spare tires",
+      "system",
+    );
+  }
 }
 
 export async function getOutOfTheDamnTruck(): Promise<void> {
