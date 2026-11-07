@@ -43,12 +43,15 @@ export interface UIElements {
   "radio-interface": HTMLDivElement;
   "radio-interface-help": HTMLDivElement;
   "death-message": HTMLDivElement;
+  "drawing-panel": HTMLDivElement;
   // paragraph elements
   "inventory-item-details": HTMLParagraphElement;
   "radio-current-frequency": HTMLParagraphElement;
   frequency: HTMLParagraphElement;
   // list element
   "radio-interface-help-list": HTMLUListElement;
+  // preformated text elements
+  "drawing-canva": HTMLPreElement;
 }
 /*
 used to optimize the instanciation of elements
@@ -84,11 +87,9 @@ export function flashButton(btn: HTMLButtonElement): void {
 }
 export async function printDrawing(drawingLines: string[]): Promise<void> {
   let drawing: string = "";
-  let oldDrawing: string = "";
   const canva: HTMLPreElement = getEl("drawing-canva");
   for (const line of drawingLines) {
-    oldDrawing = drawing;
-    drawing = `${oldDrawing}\n${line}`;
+    drawing += `${drawing}${line}`;
     canva.textContent = drawing;
   }
 }

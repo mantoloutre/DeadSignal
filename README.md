@@ -10,6 +10,8 @@ _you ain't getting no spoiler!!! go play the game if you wanna know!_
 
 ## How to play
 
+---
+
 you go on the website, you have many interface (feel free to explore) to use<br>
 Btw, this game isn't the type of game everyone likes, its slow paced, lots of reading
 and also a lot of imagination comes into play. If you are into fps or maybe open world, this
@@ -39,7 +41,7 @@ Btw the only name that's in the game i chose it randomly so i'm sorry if that's 
 > 3. It also gives the option to use one part of a function faster, i read the explanation, see "step 3 does that" and I find the step 3 faster.
 
 <details><summary>note for the reviewers</summary>
-if you press the p key, it open a cheat menu, for now, you can skip to the outside the watchpost zone.
+if you press the p key, it open a cheat menu, you can skip to certain zone or like test features.
 i do not recommend using it to review, because i added stuff before your supposed to reach the main watchpost.
 However it can be useful if you are testing much much and doesnt want to always restart at the begining.
 </details>
