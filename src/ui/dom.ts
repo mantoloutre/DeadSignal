@@ -1,12 +1,6 @@
 import type { fromType } from "../data/types.js";
 
 export interface UIElements {
-  // buttons ( test )
-  "btn-print-hi-system": HTMLButtonElement;
-  "btn-print-hi-log": HTMLButtonElement;
-  "btn-print-hi-alert": HTMLButtonElement;
-  "btn-apply-zone-truck-cabin": HTMLButtonElement;
-  "btn-apply-zone-snowy-forest": HTMLButtonElement;
   // buttons
   "button-open-side-menu": HTMLButtonElement;
   "button-close-side-menu": HTMLButtonElement;
