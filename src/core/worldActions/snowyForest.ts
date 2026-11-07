@@ -17,4 +17,10 @@ export const SNOWY_FOREST_ACTIONS = {
     description: "walk toward the gate checkpoint",
     execute: actionsFunc.walkTowardCheckpoint,
   },
+  WALK_TOWARD_FROST_BASIN: {
+    command: "walk toward frost basin",
+    description:
+      "walk toward the frost bassin ( a.k.a the relay station A-01 ( bunker ))",
+    execute: actionsFunc.walkTowardFrostBasin,
+  },
 } as const satisfies Record<string, ZoneAction>;

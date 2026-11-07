@@ -6,6 +6,8 @@ import {
   GATE_CHECKPOINT_SHACK_ACTIONS,
   GET_TOOL_BOX_ACTION,
   OUTSIDE_TRUCK_INIT_ACTIONS,
+  RELAY_A01_ACTIONS,
+  RELAY_A01_OUTSIDE_ACTIONS,
   RESONATOR_ENCOUNTER,
   SAY_STUFF_TO_QG,
   SNOWY_FOREST_ACTIONS,
@@ -31,10 +33,10 @@ export const ZONES = {
       //if there is no current focus then we do the normal thing
       const actions: ZoneAction[] = [];
       actions.push(SNOWY_FOREST_ACTIONS.GO_BACK_TO_TRUCK);
-
       actions.push(SNOWY_FOREST_ACTIONS.INSPECT_DIRECTION_SIGN);
       if (hasFlag("INSPECTED_DIRECTION_SIGN")) {
         actions.push(SNOWY_FOREST_ACTIONS.WALK_TOWARD_GATE_CHECKPOINT);
+        actions.push(SNOWY_FOREST_ACTIONS.WALK_TOWARD_FROST_BASIN);
       }
       return actions;
     },
@@ -191,11 +193,23 @@ export const ZONES = {
       return actions;
     },
   },
-  RELAY_A01: {
-    name: "SUB-RELAY-A01",
+  RELAY_A01_OUTSIDE: {
+    name: "RELAY-A01 - OUTSIDE BUNKER",
     description: "not yet done", //TODO do the description
     getActions: (): ZoneAction[] => {
       const actions: ZoneAction[] = [];
+      //TODO do the actions
+      actions.push(RELAY_A01_OUTSIDE_ACTIONS.ENTER_BUNKER);
+      actions.push(RELAY_A01_OUTSIDE_ACTIONS.INSPECT_FOUNDATION);
+      return actions;
+    },
+  },
+  RELAY_A01: {
+    name: "RELAY-A01 - INSIDE BUNKER",
+    description: "not yet done", //TODO do the description
+    getActions: (): ZoneAction[] => {
+      const actions: ZoneAction[] = [];
+      actions.push(RELAY_A01_ACTIONS.GO_OUTSIDE_BUNKER);
       //TODO do the actions
       return actions;
     },
@@ -237,6 +251,10 @@ function getWhatToSayToQG(): ZoneAction[] {
   return actions;
 }
 
+/**
+ * function to get the actions for the first encounter only
+ * @param zoneId the zone where the player gets his first encounter
+ */
 function getFirstEncounterActions(zoneId: ZoneId): ZoneAction[] {
   const actions: ZoneAction[] = [];
   //do the actions

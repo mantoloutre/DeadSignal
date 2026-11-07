@@ -1,7 +1,11 @@
 import { printToTerminal } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
 import { addFlag, hasFlag, setFocus } from "../gameState.js";
-import { addItemToInventory, removeItemFromInventory } from "../inventory.js";
+import {
+  addItemToInventory,
+  doesThePlayerHasTheItem,
+  removeItemFromInventory,
+} from "../inventory.js";
 import { addDiscoveredFrequency } from "../radioFrequency.js";
 
 /*
@@ -10,8 +14,8 @@ ZONE : TRUCK CABIN
 ##################
  */
 
-/*
-function to check the truck's trunk at the beginning of the game
+/**
+ * function to check the truck's trunk at the beginning of the game
  */
 export async function checkTruckTrunk(): Promise<void> {
   if (!hasFlag("OPENED_TRUCK_TRUNK_INIT")) {
@@ -41,9 +45,9 @@ export async function getOutOfTheDamnTruck(): Promise<void> {
   await gameBridge.loadZone("OUTSIDE_TRUCK");
 }
 
-/*
-function to add winter gloves to the player inventory when the player look inside the glove box
-and decide to take the gloves
+/**
+ *function to add winter gloves to the player inventory when the player look inside the glove box
+ *and decide to take the gloves
  */
 export async function addWinterGlovesToThePlayerInventory(): Promise<void> {
   addFlag("TOOK_WINTER_GLOVE");

@@ -1,33 +1,38 @@
 import { printToTerminal } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
 import { addFlag, hasFlag, setFocus } from "../gameState.js";
-import { addItemToInventory, removeItemFromInventory } from "../inventory.js";
+import { addItemToInventory, doesThePlayerHasTheItem, removeItemFromInventory, } from "../inventory.js";
 import { addDiscoveredFrequency } from "../radioFrequency.js";
 /*
 ##################
 ZONE : TRUCK CABIN
 ##################
  */
-/*
-function to check the truck's trunk at the beginning of the game
+/**
+ * function to check the truck's trunk at the beginning of the game
  */
 export async function checkTruckTrunk() {
     if (!hasFlag("OPENED_TRUCK_TRUNK_INIT")) {
         addFlag("OPENED_TRUCK_TRUNK_INIT");
         await printToTerminal("You force the frozen trunk open with your hands. Inside, you spot" +
             " a heavy toolbox, a small black barrel full of wine, a crowbar and two spare tires.", "action");
-    } /*else {
-          await printToTerminal("Inside the truck, nothing changed, still a heavy toolbox, " +
-              "the barrel of wine and the two spare tire.", "system");
-      }*/ //TODO maybe add this later on
+    }
+    else if (doesThePlayerHasTheItem("crowbar")) {
+        await printToTerminal("Inside the trunk, there is the toolbox, the small black barrel" +
+            " full of wine and two spare tires", "system");
+    }
+    else {
+        await printToTerminal("Inside the trunk, there is the toolbox, the small black barrel, the crowbar and the two " +
+            "spare tires", "system");
+    }
 }
 export async function getOutOfTheDamnTruck() {
     await printToTerminal("You go out of the truck", "action");
     await gameBridge.loadZone("OUTSIDE_TRUCK");
 }
-/*
-function to add winter gloves to the player inventory when the player look inside the glove box
-and decide to take the gloves
+/**
+ *function to add winter gloves to the player inventory when the player look inside the glove box
+ *and decide to take the gloves
  */
 export async function addWinterGlovesToThePlayerInventory() {
     addFlag("TOOK_WINTER_GLOVE");
@@ -104,8 +109,17 @@ export async function openToolBoxTruckTrunkInit() {
         await printToTerminal("you try to open the toolbox, but the latch appear to be frozen", "action");
         await printToTerminal("how do you want to try to open it?", "system");
     }
-    else {
-        await printToTerminal("you look back in the toolbox", "system");
+    else if (doesThePlayerHasTheItem("duct_tape") &&
+        doesThePlayerHasTheItem("adjustable_wrench")) {
+        await printToTerminal("You look back in the toolbox, nothing is left in there.", "action");
+    }
+    else if (doesThePlayerHasTheItem("duct_tape") &&
+        !doesThePlayerHasTheItem("adjustable_wrench")) {
+        await printToTerminal("You look back in the toolbox, only the adjustable wrench is left in it.", "action");
+    }
+    else if (doesThePlayerHasTheItem("adjustable_wrench") &&
+        !doesThePlayerHasTheItem("duct_tape")) {
+        await printToTerminal("You look back int the toolbox, only the duct tape is left in it.", "action");
     }
 }
 /*

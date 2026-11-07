@@ -17,7 +17,7 @@ export async function goBackToTheTruck(): Promise<void> {
 export async function inspectDirectionSign(): Promise<void> {
   await printToTerminal("You inspect the sign...", "action");
   await printToTerminal(
-    "on the sign you see: left for frozen lake and right to go to the gate checkpoint",
+    "on the sign you see: left for frost basin and right to go to the gate checkpoint.",
     "system",
   );
   addFlag("INSPECTED_DIRECTION_SIGN");
@@ -27,4 +27,11 @@ export async function inspectDirectionSign(): Promise<void> {
 export async function walkTowardCheckpoint(): Promise<void> {
   await printToTerminal("You walk toward the gate checkpoint.", "action");
   await gameBridge.loadZone("GATE_CHECKPOINT");
+}
+export async function walkTowardFrostBasin(): Promise<void> {
+  await printToTerminal(
+    "the zone is not finished/in an acceptable state yet",
+    "alert",
+  );
+  await gameBridge.loadZone("RELAY_A01_OUTSIDE");
 }

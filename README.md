@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](./LICENSE)<br>
 
-Dead Signal is a simple story-driven text based game, but you can die( early stage / not greatly implemented ), so be careful.
+Dead Signal is a simple story-driven text based game, but you can die, so be careful.
 The goal of the game is simple:
 : <details> <summary>!!!Spoiler warning!!!</summary>
 _you ain't getting no spoiler!!! go play the game if you wanna know!_
@@ -25,6 +25,9 @@ Some zones are in an okay / good state ( I'm probably going to add more stuff la
 Here is the link to my game if you are still interested in trying it out :D [Dead Signal](https://mantoloutre.github.io/DeadSignal/) <br>
 
 Btw the only name that's in the game i chose it randomly so i'm sorry if that's your name T-T<br>
+
+> ### Tips:
+> if you hover an action long enough, you get its description :D
 ### Game is made to be played on a screen wider than a phone ( laptop/desktop recomended)
 
 > ### Some information ( you can skip if you want )
@@ -40,6 +43,5 @@ if you press the p key, it open a cheat menu, for now, you can skip to the outsi
 i do not recommend using it to review, because i added stuff before your supposed to reach the main watchpost.
 However it can be useful if you are testing much much and doesnt want to always restart at the begining.
 </details>
-
 
 © 2026 mantoloutre, licensed under BSD-3-Clause

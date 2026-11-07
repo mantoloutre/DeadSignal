@@ -1,6 +1,6 @@
 import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
-import { GATE_CHECKPOINT_ACTION, GATE_CHECKPOINT_SHACK_ACTIONS, GET_TOOL_BOX_ACTION, OUTSIDE_TRUCK_INIT_ACTIONS, RESONATOR_ENCOUNTER, SAY_STUFF_TO_QG, SNOWY_FOREST_ACTIONS, TRUCK_CABIN_INIT_ACTIONS, WATCH_POST, WATCH_POST_OUTSIDE, } from "./worldActions/index.js";
+import { GATE_CHECKPOINT_ACTION, GATE_CHECKPOINT_SHACK_ACTIONS, GET_TOOL_BOX_ACTION, OUTSIDE_TRUCK_INIT_ACTIONS, RELAY_A01_ACTIONS, RELAY_A01_OUTSIDE_ACTIONS, RESONATOR_ENCOUNTER, SAY_STUFF_TO_QG, SNOWY_FOREST_ACTIONS, TRUCK_CABIN_INIT_ACTIONS, WATCH_POST, WATCH_POST_OUTSIDE, } from "./worldActions/index.js";
 /*
 the const containing all the zone that I'm using in the game
  */
@@ -19,6 +19,7 @@ export const ZONES = {
             actions.push(SNOWY_FOREST_ACTIONS.INSPECT_DIRECTION_SIGN);
             if (hasFlag("INSPECTED_DIRECTION_SIGN")) {
                 actions.push(SNOWY_FOREST_ACTIONS.WALK_TOWARD_GATE_CHECKPOINT);
+                actions.push(SNOWY_FOREST_ACTIONS.WALK_TOWARD_FROST_BASIN);
             }
             return actions;
         },
@@ -159,11 +160,23 @@ export const ZONES = {
             return actions;
         },
     },
-    RELAY_A01: {
-        name: "SUB-RELAY-A01",
+    RELAY_A01_OUTSIDE: {
+        name: "RELAY-A01 - OUTSIDE BUNKER",
         description: "not yet done", //TODO do the description
         getActions: () => {
             const actions = [];
+            //TODO do the actions
+            actions.push(RELAY_A01_OUTSIDE_ACTIONS.ENTER_BUNKER);
+            actions.push(RELAY_A01_OUTSIDE_ACTIONS.INSPECT_FOUNDATION);
+            return actions;
+        },
+    },
+    RELAY_A01: {
+        name: "RELAY-A01 - INSIDE BUNKER",
+        description: "not yet done", //TODO do the description
+        getActions: () => {
+            const actions = [];
+            actions.push(RELAY_A01_ACTIONS.GO_OUTSIDE_BUNKER);
             //TODO do the actions
             return actions;
         },
@@ -201,6 +214,10 @@ function getWhatToSayToQG() {
     }
     return actions;
 }
+/**
+ * function to get the actions for the first encounter only
+ * @param zoneId the zone where the player gets his first encounter
+ */
 function getFirstEncounterActions(zoneId) {
     const actions = [];
     //do the actions

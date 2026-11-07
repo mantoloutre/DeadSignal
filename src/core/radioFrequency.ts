@@ -100,6 +100,7 @@ function addFrequencyToHelperInterface(
     helperList.append(line);
   }
 }
+
 /**
  * function to load all the frequencies into the helper interface. <br>
  *
@@ -165,7 +166,8 @@ export function removeOneFromBuffer(): string {
 }
 
 /**
- add a message from qg to the queue and inform the player there is pending message
+ * add a message from qg to the queue and inform the player there is pending message
+ * @param message the message we want to add to the queue
  */
 export async function queueQGMessage(message: QGMessageKey): Promise<void> {
   currentState.pendingQGMessages.push(message);
@@ -190,7 +192,7 @@ export async function queueQGMessage(message: QGMessageKey): Promise<void> {
 }
 
 /**
- handle the reading of pending messages from the QG
+ * handle the reading of pending messages from the QG
  */
 export async function handleQGFrequency(): Promise<void> {
   // if no message from QG
@@ -228,14 +230,13 @@ export function hasDiscoveredSignal(frequency: string): boolean {
   return currentState.discoveredSignals.includes(frequency);
 }
 
+/**
+ * function to handle the tuning of the radio
+ */
 export async function handleFrequency(): Promise<void> {
   const formattedFreq: string = getFormattedBuffer();
   if (currentBuffer.length === 0) {
-    await printToTerminal(
-      "this message is a test to say there is no set signal in the currentState. " +
-        "this message will be removed in future stage of the game",
-      "alert",
-    );
+    await printToTerminal("Set you radio to a frequency to use it.", "alert");
     return;
   }
   //making sure he has it
@@ -277,7 +278,7 @@ export async function handleFrequency(): Promise<void> {
 /**
  * function that handles the Resonator's frequency
  */
-async function handleResonatorFrequency() {
+async function handleResonatorFrequency(): Promise<void> {
   if (
     currentState.currentZone === "WATCH_POST" &&
     !hasFlag("HAD_FIRST_ENCOUNTER")
@@ -312,14 +313,14 @@ export async function handleResonatorEncounter(): Promise<void> {
       break;
     case "WATCH_POST_OUTSIDE":
       /* TODO do the actions if player is outside
-      if (!hasFlag("HAD_FIRST_ENCOUNTER")){
-        setFocus("FIRST_ENCOUNTER");
-        gameBridge.renderZoneActions("WATCH_POST_OUTSIDE");
-        await handleResonatorActions("WATCH_POST_OUTSIDE");
-      } else {
-      //TODO
-      }
-      */
+                  if (!hasFlag("HAD_FIRST_ENCOUNTER")){
+                    setFocus("FIRST_ENCOUNTER");
+                    gameBridge.renderZoneActions("WATCH_POST_OUTSIDE");
+                    await handleResonatorActions("WATCH_POST_OUTSIDE");
+                  } else {
+                  //TODO
+                  }
+                  */
       await printToTerminal("Sorry, not implemented yet", "alert"); //TODO remove when done
       break;
     default:
@@ -328,11 +329,12 @@ export async function handleResonatorEncounter(): Promise<void> {
         "alert",
       ); //TODO remove when done
       /*
-        choose if you want to implement a first death for every zone or not? TODO decide this
-         */
+                    choose if you want to implement a first death for every zone or not? TODO decide this
+                     */
       break;
   }
 }
+
 async function getDialogWatchPostInsideFirstEncounter(): Promise<void> {
   await printToTerminal(
     "You tune your radio to 940.700 MHz. For a moment, pure silence. " +

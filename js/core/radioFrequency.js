@@ -131,7 +131,8 @@ export function removeOneFromBuffer() {
     return getFormattedBuffer();
 }
 /**
- add a message from qg to the queue and inform the player there is pending message
+ * add a message from qg to the queue and inform the player there is pending message
+ * @param message the message we want to add to the queue
  */
 export async function queueQGMessage(message) {
     currentState.pendingQGMessages.push(message);
@@ -150,7 +151,7 @@ export async function queueQGMessage(message) {
     }
 }
 /**
- handle the reading of pending messages from the QG
+ * handle the reading of pending messages from the QG
  */
 export async function handleQGFrequency() {
     // if no message from QG
@@ -180,11 +181,13 @@ export async function handleQGFrequency() {
 export function hasDiscoveredSignal(frequency) {
     return currentState.discoveredSignals.includes(frequency);
 }
+/**
+ * function to handle the tuning of the radio
+ */
 export async function handleFrequency() {
     const formattedFreq = getFormattedBuffer();
     if (currentBuffer.length === 0) {
-        await printToTerminal("this message is a test to say there is no set signal in the currentState. " +
-            "this message will be removed in future stage of the game", "alert");
+        await printToTerminal("Set you radio to a frequency to use it.", "alert");
         return;
     }
     //making sure he has it
@@ -249,21 +252,21 @@ export async function handleResonatorEncounter() {
             break;
         case "WATCH_POST_OUTSIDE":
             /* TODO do the actions if player is outside
-            if (!hasFlag("HAD_FIRST_ENCOUNTER")){
-              setFocus("FIRST_ENCOUNTER");
-              gameBridge.renderZoneActions("WATCH_POST_OUTSIDE");
-              await handleResonatorActions("WATCH_POST_OUTSIDE");
-            } else {
-            //TODO
-            }
-            */
+                        if (!hasFlag("HAD_FIRST_ENCOUNTER")){
+                          setFocus("FIRST_ENCOUNTER");
+                          gameBridge.renderZoneActions("WATCH_POST_OUTSIDE");
+                          await handleResonatorActions("WATCH_POST_OUTSIDE");
+                        } else {
+                        //TODO
+                        }
+                        */
             await printToTerminal("Sorry, not implemented yet", "alert"); //TODO remove when done
             break;
         default:
             await printToTerminal("not implemented yet (error btw its default case of the switch)", "alert"); //TODO remove when done
             /*
-              choose if you want to implement a first death for every zone or not? TODO decide this
-               */
+                          choose if you want to implement a first death for every zone or not? TODO decide this
+                           */
             break;
     }
 }
