@@ -112,17 +112,10 @@ export async function printDrawing(
 ): Promise<void> {
   const canva: HTMLPreElement = getEl("drawing-canva");
   let drawing: string = "";
-  if (!fast) {
-    for (const line of drawingLines) {
-      drawing += `${drawing ? "\n" : ""}${line}`;
-      canva.textContent = drawing;
-      await sleep(100); //TODO find the right number
-    }
-  } else {
-    for (const line of drawingLines) {
-      drawing += `${drawing ? "\n" : ""}${line}`;
-      canva.textContent = drawing;
-    }
+  for (const line of drawingLines) {
+    drawing += `${drawing ? "\n" : ""}${line}`;
+    canva.textContent = drawing;
+    if (!fast) await sleep(100); //TODO find the right number
   }
 }
 /**
