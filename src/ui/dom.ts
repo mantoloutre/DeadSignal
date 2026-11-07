@@ -85,12 +85,19 @@ export function flashButton(btn: HTMLButtonElement): void {
   btn.classList.add("btn-error-flash");
   setTimeout((): void => btn.classList.remove("btn-error-flash"), 300);
 }
+
+/**
+ * function to print to the drawing panel
+ * @param drawingLines the string[] containing the lines to prints
+ * @note this require the panel to be visible or else you wont see the drawing
+ */
 export async function printDrawing(drawingLines: string[]): Promise<void> {
-  let drawing: string = "";
   const canva: HTMLPreElement = getEl("drawing-canva");
+  let drawing: string = "";
   for (const line of drawingLines) {
-    drawing += `${drawing}${line}`;
+    drawing += `${drawing ? "\n" : ""}${line}`;
     canva.textContent = drawing;
+    await sleep(100); //TODO find the right number
   }
 }
 /**
