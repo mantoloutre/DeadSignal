@@ -82,7 +82,16 @@ export function flashButton(btn: HTMLButtonElement): void {
   btn.classList.add("btn-error-flash");
   setTimeout((): void => btn.classList.remove("btn-error-flash"), 300);
 }
-
+export async function printDrawing(drawingLines: string[]): Promise<void> {
+  let drawing: string = "";
+  let oldDrawing: string = "";
+  const canva: HTMLPreElement = getEl("drawing-canva");
+  for (const line of drawingLines) {
+    oldDrawing = drawing;
+    drawing = `${oldDrawing}\n${line}`;
+    canva.textContent = drawing;
+  }
+}
 /**
  * function to print in the terminal :D
  * @param text the text you want to print
