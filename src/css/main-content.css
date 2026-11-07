@@ -61,6 +61,7 @@
   overflow-y: auto;
   box-sizing: border-box;
   padding: 1%;
+  position: relative;
 }
 
 #InOut {

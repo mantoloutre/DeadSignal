@@ -36,7 +36,7 @@
       </div>
     </header>
     <div id="menu-overlay" class="overlay hidden"></div>
-    <div id="die-overlay" class="die-hidden">
+    <div id="die-overlay" class="die-hidden border-glow">
       <div id="death-message"></div> <!-- TODO change the death message depending on how died?  -->
       <button type="button" id="btn-reset-game">restart</button>
     </div>
@@ -104,7 +104,8 @@
         <div id="terminal-input" class="border-glow">
           <div id="zone-action"></div>
         </div>
-        <div id="terminal-output" class="border-glow"></div>
+
+        <div id="terminal-output" class="border-glow"><div id="drawing-panel" class="border-glow"></div></div>
       </section>
     </main>
   </body>
