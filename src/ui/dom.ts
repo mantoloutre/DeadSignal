@@ -87,17 +87,42 @@ export function flashButton(btn: HTMLButtonElement): void {
 }
 
 /**
+ * function to make the drawing panel appear or disappear
+ * @param appear do you want it to appear? ( true ) or disappear ( false )
+ * @note When panel disappear, the innerHTML of the drawing canva gets wiped.
+ * @note Had some problem with toggle, so im trying it like that.
+ */
+export function makeCanvaAppearOrDisappear(appear: boolean): void {
+  const drawingPanel: HTMLDivElement = getEl("drawing-panel");
+  if (appear) {
+    drawingPanel.classList.add("active");
+  } else {
+    drawingPanel.classList.remove("active");
+  }
+}
+/**
  * function to print to the drawing panel
  * @param drawingLines the string[] containing the lines to prints
+ * @param fast do you want it fast or no?
  * @note this require the panel to be visible or else you wont see the drawing
  */
-export async function printDrawing(drawingLines: string[]): Promise<void> {
+export async function printDrawing(
+  drawingLines: string[],
+  fast: boolean,
+): Promise<void> {
   const canva: HTMLPreElement = getEl("drawing-canva");
   let drawing: string = "";
-  for (const line of drawingLines) {
-    drawing += `${drawing ? "\n" : ""}${line}`;
-    canva.textContent = drawing;
-    await sleep(100); //TODO find the right number
+  if (!fast) {
+    for (const line of drawingLines) {
+      drawing += `${drawing ? "\n" : ""}${line}`;
+      canva.textContent = drawing;
+      await sleep(100); //TODO find the right number
+    }
+  } else {
+    for (const line of drawingLines) {
+      drawing += `${drawing ? "\n" : ""}${line}`;
+      canva.textContent = drawing;
+    }
   }
 }
 /**
