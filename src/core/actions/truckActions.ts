@@ -146,8 +146,30 @@ export async function openToolBoxTruckTrunkInit(): Promise<void> {
       "action",
     );
     await printToTerminal("how do you want to try to open it?", "system");
-  } else {
-    await printToTerminal("you look back in the toolbox", "system");
+  } else if (
+    doesThePlayerHasTheItem("duct_tape") &&
+    doesThePlayerHasTheItem("adjustable_wrench")
+  ) {
+    await printToTerminal(
+      "You look back in the toolbox, nothing is left in there.",
+      "action",
+    );
+  } else if (
+    doesThePlayerHasTheItem("duct_tape") &&
+    !doesThePlayerHasTheItem("adjustable_wrench")
+  ) {
+    await printToTerminal(
+      "You look back in the toolbox, only the adjustable wrench is left in it.",
+      "action",
+    );
+  } else if (
+    doesThePlayerHasTheItem("adjustable_wrench") &&
+    !doesThePlayerHasTheItem("duct_tape")
+  ) {
+    await printToTerminal(
+      "You look back int the toolbox, only the duct tape is left in it.",
+      "action",
+    );
   }
 }
 
