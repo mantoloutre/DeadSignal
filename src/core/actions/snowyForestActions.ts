@@ -1,6 +1,6 @@
 import { printToTerminal } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
-import { addFlag } from "../gameState.js";
+import { addFlag, setFocus } from "../gameState.js";
 
 /*
 ###################
@@ -34,4 +34,7 @@ export async function walkTowardFrostBasin(): Promise<void> {
     "alert",
   );
   await gameBridge.loadZone("RELAY_A01_OUTSIDE");
+}
+export function getOutOfBreakerFocus(): void {
+  setFocus(null);
 }

@@ -1,5 +1,6 @@
 import { QG_MESSAGES, type QGMessageKey } from "../data/qgMessages.js";
 import type { StoryFlags } from "../data/storyFlags.js";
+import type { BreakerState } from "../data/types.ts";
 import type { InventorySlot } from "./inventory.js";
 import { ZONES, type ZoneId } from "./world.js";
 
@@ -17,6 +18,15 @@ export interface GameState {
   inactiveCommands: string[];
 }
 
+/**
+ * constant definint the breaker state
+ */
+export const BreakerStateRelayA01: BreakerState = {
+  int1: false,
+  int2: false,
+  int3: false,
+  wire1: false,
+};
 export type StoryFlag = (typeof StoryFlags)[keyof typeof StoryFlags];
 export const GAME_INITIAL_STATE: GameState = {
   app: "DEAD_SIGNAL",

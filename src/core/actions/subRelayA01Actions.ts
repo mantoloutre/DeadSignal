@@ -1,4 +1,8 @@
-import { printDrawing, printToTerminal } from "../../ui/dom.ts";
+import {
+  isDrawingPanelOpenOrNot,
+  setIsOpenDrawingPanel,
+} from "../../data/drawings.ts";
+import { makeCanvaAppearOrDisappear, printToTerminal } from "../../ui/dom.ts";
 import { gameBridge } from "../gameBridge.ts";
 /*
 #############
@@ -13,12 +17,22 @@ export async function goOutsideBunkerStationA01(): Promise<void> {
   await gameBridge.loadZone("RELAY_A01_OUTSIDE");
 }
 export async function openBreakerPanel(): Promise<void> {
-  await printToTerminal("not yet done, sorry :c", "alert");
+  await printToTerminal(
+    "ik its really simple... its in early stage forgive me :c",
+    "alert",
+  );
+  setIsOpenDrawingPanel(true);
+  makeCanvaAppearOrDisappear(true);
   //await printDrawing()
   //todo
 }
 export async function closeBreakerPanel(): Promise<void> {
-  await printToTerminal("not yet done, sowy :c", "alert");
+  await printToTerminal(
+    "ik its really simple... its in early stage forgive me :c",
+    "alert",
+  );
+  setIsOpenDrawingPanel(false);
+  makeCanvaAppearOrDisappear(true);
   //todo
 }
 /*
@@ -41,4 +55,19 @@ export async function inspectBunkerFoundation(): Promise<void> {
 export async function enterBunkerStationA01(): Promise<void> {
   await printToTerminal("not yet done, sorry :c", "alert"); //todo finish it
   await gameBridge.loadZone("RELAY_A01");
+}
+/*
+###################
+breaker panel focus
+###################
+ */
+
+export async function toggleInt1(on: number): Promise<void> {
+  if (!isDrawingPanelOpenOrNot()) {
+    await printToTerminal(
+      "The breaker panel is not open, how did you do that...?",
+      "alert",
+    );
+    return;
+  }
 }
