@@ -1,19 +1,16 @@
 //export const BREAKER_PANEL
-type BreakerState = {
-  int1: boolean;
-  int2: boolean;
-  int3: boolean;
-  wire1: boolean;
-};
+
+import type { BreakerState } from "./types.ts";
+
 export const BREAKER_PANEL: string[] = [
   "┌──────────────────────────────────────────────┐",
   "│ BREAKER ARRAY — RELAY A-01                   │",
   "├──────────────────────────────────────────────┤",
   "│  INT_1 ○───(X)───► CALIBRATOR   [ IDLE ]     │",
   "│                                              │",
-  "│  INT_2 ○──────────► AMPLIFIER   [ IDLE ]     │",
-  "│                                              │",
-  "│  INT_3 ○──────────►    │                     │",
+  "│  INT_2 ○───┐                                 │",
+  "│            ├──────►AMPLIFIER   [ IDLE ]      │",
+  "│  INT_3 ○───┘           │                     │",
   "│                        ▼                     │",
   "│                   ┌────────┐                 │",
   "│                   │  DISH  │   [ OFF ]       │",
@@ -35,7 +32,8 @@ function statRow(lbl: string, status: string): string {
 }
 
 /**
- * I think this is a functionning drawing function...?
+ * I think this is a functioning drawing function...?
+ * ( technically it is data )
  * @param stuff every state
  */
 export function getBreakerPanelV2(stuff: BreakerState): string[] {
@@ -69,14 +67,15 @@ export function getBreakerPanelV2(stuff: BreakerState): string[] {
     SEP,
     statRow(`  INT_1 ${i1}───${cut}──► CALIBRATOR`, `[ ${calibratorStatus} ]`),
     makeRow(""),
-    statRow(`  INT_2 ${i2}──────────► AMPLIFIER`, `[ ${amplifierStatus} ]`),
-    makeRow(""),
-    statRow(`  INT_3 ${i3}──────────►    │`, "[      ]"),
-    makeRow("                        ▼"),
-    statRow(`                   ┌────────┐`, ""),
-    statRow(`                   │  DISH  │`, `[ ${dishStatus} ]`),
-    makeRow("                   └────────┘"),
+    makeRow(`  INT_2 ${i2}───┐`),
+    statRow(`            ├────► AMPLIFIER`, `[ ${amplifierStatus} ]`),
+    makeRow(`  INT_3 ${i3}───┘         │`),
+    makeRow("                      ▼"),
+    statRow(`                  ┌────────┐`, ""),
+    statRow(`                  │  DISH  │`, `[ ${dishStatus} ]`),
+    makeRow("                  └────────┘"),
     makeRow(""),
     makeRow(`  BUS STATUS: ${busStatus}`),
+    BTM,
   ];
 }

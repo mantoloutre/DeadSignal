@@ -18,13 +18,16 @@ import {
 } from "./core/radioFrequency.js";
 import { ZONES, type ZoneId } from "./core/world.js";
 import { presetBeforeDiscoveringBody } from "./data/devPresets.js";
+import { getBreakerPanelV2 } from "./data/drawings.ts";
 import { ITEMS, type Item } from "./data/items.js";
-import type { Zone, ZoneAction } from "./data/types.js";
+import type { BreakerState, Zone, ZoneAction } from "./data/types.js";
 import {
   die,
   flashButton,
   getEl,
   isPrinting,
+  makeCanvaAppearOrDisappear,
+  printDrawing,
   printToTerminal,
 } from "./ui/dom.js";
 import {
@@ -216,6 +219,21 @@ function closeInventory(): void {
   }
 }
 
+/**
+ * function to test the drawing thingy
+ */
+async function testDraw(): Promise<void> {
+  const panel = getEl("drawing-panel");
+  makeCanvaAppearOrDisappear(true);
+  const stuff: BreakerState = {
+    int1: false,
+    int2: false,
+    int3: false,
+    wire1: false,
+  };
+  await printDrawing(getBreakerPanelV2(stuff), false);
+}
+bindingAsyncAction(getEl("test-drawing"), testDraw);
 /*
 function for opening or closing the radio interface for tuning the radio
  */

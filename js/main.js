@@ -4,8 +4,9 @@ import { gameBridge } from "./core/gameBridge.js";
 import { handleFrequency, loadAllFrequency, queueQGMessage, } from "./core/radioFrequency.js";
 import { ZONES } from "./core/world.js";
 import { presetBeforeDiscoveringBody } from "./data/devPresets.js";
+import { getBreakerPanelV2 } from "./data/drawings.js";
 import { ITEMS } from "./data/items.js";
-import { die, flashButton, getEl, isPrinting, printToTerminal, } from "./ui/dom.js";
+import { die, flashButton, getEl, isPrinting, makeCanvaAppearOrDisappear, printDrawing, printToTerminal, } from "./ui/dom.js";
 import { closeRadioInterface, setDisplayFrequency, } from "./ui/radioInterface.js";
 gameBridge.loadZone = loadZone;
 gameBridge.renderZoneActions = renderZoneActions;
@@ -167,6 +168,21 @@ function closeInventory() {
         toggleOverlay();
     }
 }
+/**
+ * function to test the drawing thingy
+ */
+async function testDraw() {
+    const panel = getEl("drawing-panel");
+    makeCanvaAppearOrDisappear(true);
+    const stuff = {
+        int1: false,
+        int2: false,
+        int3: false,
+        wire1: false,
+    };
+    await printDrawing(getBreakerPanelV2(stuff), false);
+}
+bindingAsyncAction(getEl("test-drawing"), testDraw);
 /*
 function for opening or closing the radio interface for tuning the radio
  */
