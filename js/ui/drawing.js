@@ -1,1 +1,2 @@
-export async function drawRelayStationA01BreakerPanel() { }
+export async function drawRelayStationA01BreakerPanel() {
+}

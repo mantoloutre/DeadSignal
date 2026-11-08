@@ -104,7 +104,7 @@ export function makeCanvaAppearOrDisappear(appear: boolean): void {
  * function to print to the drawing panel
  * @param drawingLines the string[] containing the lines to prints
  * @param fast do you want it fast or no?
- * @note this require the panel to be visible or else you wont see the drawing
+ * @note this require the panel to be visible or else you won't see the drawing
  */
 export async function printDrawing(
   drawingLines: string[],

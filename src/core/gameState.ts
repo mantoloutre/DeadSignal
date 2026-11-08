@@ -63,10 +63,18 @@ export function addFlag(flag: StoryFlag): void {
   }
 }
 
+/**
+ * verify is the player has a flag
+ * @param flag the flag we want to verify if the player has it
+ */
 export function hasFlag(flag: StoryFlag): boolean {
   return currentState.storyFlags.includes(flag);
 }
 
+/**
+ * remove a flag from the current state
+ * @param flag the flag we want to remove
+ */
 export function removeFlag(flag: StoryFlag): void {
   const index: number = currentState.storyFlags.indexOf(flag);
   if (index !== -1) {

@@ -30,6 +30,37 @@ export function flashButton(btn) {
     setTimeout(() => btn.classList.remove("btn-error-flash"), 300);
 }
 /**
+ * function to make the drawing panel appear or disappear
+ * @param appear do you want it to appear? ( true ) or disappear ( false )
+ * @note When panel disappear, the innerHTML of the drawing canva gets wiped.
+ * @note Had some problem with toggle, so im trying it like that.
+ */
+export function makeCanvaAppearOrDisappear(appear) {
+    const drawingPanel = getEl("drawing-panel");
+    if (appear) {
+        drawingPanel.classList.add("active");
+    }
+    else {
+        drawingPanel.classList.remove("active");
+    }
+}
+/**
+ * function to print to the drawing panel
+ * @param drawingLines the string[] containing the lines to prints
+ * @param fast do you want it fast or no?
+ * @note this require the panel to be visible or else you won't see the drawing
+ */
+export async function printDrawing(drawingLines, fast) {
+    const canva = getEl("drawing-canva");
+    let drawing = "";
+    for (const line of drawingLines) {
+        drawing += `${drawing ? "\n" : ""}${line}`;
+        canva.textContent = drawing;
+        if (!fast)
+            await sleep(100); //TODO find the right number
+    }
+}
+/**
  * function to print in the terminal :D
  * @param text the text you want to print
  * @param from who is supposed to be sending it?

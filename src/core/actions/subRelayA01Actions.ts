@@ -1,4 +1,4 @@
-import { printToTerminal } from "../../ui/dom.ts";
+import { printDrawing, printToTerminal } from "../../ui/dom.ts";
 import { gameBridge } from "../gameBridge.ts";
 /*
 #############
@@ -14,6 +14,7 @@ export async function goOutsideBunkerStationA01(): Promise<void> {
 }
 export async function openBreakerPanel(): Promise<void> {
   await printToTerminal("not yet done, sorry :c", "alert");
+  //await printDrawing()
   //todo
 }
 export async function closeBreakerPanel(): Promise<void> {

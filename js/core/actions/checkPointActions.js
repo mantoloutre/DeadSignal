@@ -40,7 +40,7 @@ export async function walkTowardMainWatchPost() {
     await gameBridge.loadZone("WATCH_POST_OUTSIDE");
     if (!hasFlag("GOT_QG_MESSAGE_GOT_TO_TOWER")) {
         addFlag("GOT_QG_MESSAGE_GOT_TO_TOWER");
-        await queueQGMessage("QG_MESSAGE_GOT_TOWER_FIRST_TIME");
+        await queueQGMessage("GOT_TOWER_FIRST_TIME");
     }
 }
 export async function salvageMemoryModule() {

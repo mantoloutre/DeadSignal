@@ -1,4 +1,4 @@
-import { printToTerminal } from "../../ui/dom.js";
+import { printDrawing, printToTerminal } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
 /*
 #############
@@ -14,6 +14,7 @@ export async function goOutsideBunkerStationA01() {
 }
 export async function openBreakerPanel() {
     await printToTerminal("not yet done, sorry :c", "alert");
+    //await printDrawing()
     //todo
 }
 export async function closeBreakerPanel() {
