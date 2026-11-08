@@ -1,4 +1,10 @@
 //export const BREAKER_PANEL
+type BreakerState = {
+  int1: boolean;
+  int2: boolean;
+  int3: boolean;
+  wire1: boolean;
+};
 export const BREAKER_PANEL: string[] = [
   "┌──────────────────────────────────────────────┐",
   "│ BREAKER ARRAY — RELAY A-01                   │",
@@ -77,4 +83,12 @@ export function getBreakerPanel(
       "└──────────────────────────────────────────────┘",
     ];
   }
+}
+const TOP: string = "┌──────────────────────────────────────────────┐";
+const SEP: string = "├──────────────────────────────────────────────┤";
+const BTM: string = "└──────────────────────────────────────────────┘";
+export function getBreakerPanelV2(stuff: BreakerState): void {
+  const i1: string = stuff.int1 ? "●" : "○";
+  const i2: string = stuff.int2 ? "●" : "○";
+  const i3: string = stuff.int3 ? "●" : "○";
 }
