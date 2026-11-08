@@ -165,6 +165,7 @@ export const ZONES = {
       return actions;
     },
   },
+  //##########################################
   GATE_CHECKPOINT_SHACK: {
     name: "CHECKPOINT SHACK",
     description:
@@ -193,6 +194,7 @@ export const ZONES = {
       return actions;
     },
   },
+  //##########################################
   RELAY_A01_OUTSIDE: {
     name: "RELAY-A01 - OUTSIDE BUNKER",
     description: "not yet done", //TODO do the description
@@ -204,6 +206,7 @@ export const ZONES = {
       return actions;
     },
   },
+  //##########################################
   RELAY_A01: {
     name: "RELAY-A01 - INSIDE BUNKER",
     description: "not yet done", //TODO do the description
