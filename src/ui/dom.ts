@@ -46,6 +46,7 @@ export interface UIElements {
   "radio-interface-help": HTMLDivElement;
   "death-message": HTMLDivElement;
   "drawing-panel": HTMLDivElement;
+  "drawing-panel-print": HTMLDivElement;
   // paragraph elements
   "inventory-item-details": HTMLParagraphElement;
   "radio-current-frequency": HTMLParagraphElement;
@@ -178,4 +179,27 @@ export async function printDeathMessage(
 export async function die(): Promise<void> {
   getEl("cheat-menu").classList.add("hidden");
   getEl("die-overlay").classList.remove("die-hidden");
+}
+
+/**
+ * function to print in the drawing panel, cuz the player wont see the rest..
+ * @param text
+ * @param speedMs
+ */
+export async function drawingPanelPrintLine(
+  text: string,
+  speedMs: number = 15,
+): Promise<void> {
+  const panelPrint: HTMLDivElement = getEl("drawing-panel-print");
+  isPrinting = true;
+  const panelLine: HTMLDivElement = document.createElement("div");
+  panelLine.className = `terminal-line`;
+  panelPrint.append(panelLine);
+  const textNode: Text = document.createTextNode("");
+  panelLine.append(textNode);
+  for (let i: number = 0; i < text.length; ++i) {
+    textNode.appendData(text[i]);
+    await sleep(speedMs);
+  }
+  isPrinting = false;
 }
