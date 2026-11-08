@@ -68,7 +68,27 @@ export async function enterBunkerStationA01(): Promise<void> {
 breaker panel focus
 ###################
  */
-
+/**
+ * utilitary function to not reapeat my self do draw
+ * @param speed fast ( true ) or slow ( false )
+ */
+async function draw(speed: boolean): Promise<void> {
+  await printDrawing(getBreakerPanelV2(BreakerStateRelayA01), speed);
+}
+export async function toggleInt2(): Promise<void> {
+  if (!isDrawingPanelOpenOrNot()) {
+    await printToTerminal(
+      "The breaker panel is not open, how did you do that...?",
+      "alert",
+    );
+    return;
+  }
+  BreakerStateRelayA01.int2 = !BreakerStateRelayA01.int2;
+  await draw(true);
+}
+/**
+ * function to toggle the first interrupter
+ */
 export async function toggleInt1(): Promise<void> {
   if (!isDrawingPanelOpenOrNot()) {
     await printToTerminal(
