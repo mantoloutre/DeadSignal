@@ -30,7 +30,22 @@ function statRow(lbl: string, status: string): string {
   const pad: string = " ".repeat(LENGTH - lbl.length - status.length);
   return `│${lbl}${pad}${status}│`;
 }
+let theState: boolean = false;
 
+/**
+ * function to define if the drawing panel is open or no
+ * @param openOrNot
+ */
+export function setIsOpenDrawingPanel(openOrNot: boolean): void {
+  theState = openOrNot;
+}
+
+/**
+ * function to know if the drawing panel is open or no
+ */
+export function isDrawingPanelOpenOrNot(): boolean {
+  return theState;
+}
 /**
  * I think this is a functioning drawing function...?
  * ( technically it is data )
