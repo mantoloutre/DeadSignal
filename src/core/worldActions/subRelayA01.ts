@@ -56,6 +56,11 @@ export const RELAY_A01_ACTIONS = {
   },
 } as const satisfies Record<string, ZoneAction>;
 export const REPAIR_CONNECTION = {
+  DO_SOMETHING_ELSE: {
+    command: "Do something else",
+    description: "simply get out of the puzzle's focus and do something else",
+    execute: async () => {}, //todo do the action
+  },
   TRY_CROWBAR: {
     command: "try crowbar",
     description:
