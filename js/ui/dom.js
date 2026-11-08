@@ -110,3 +110,22 @@ export async function die() {
     getEl("cheat-menu").classList.add("hidden");
     getEl("die-overlay").classList.remove("die-hidden");
 }
+/**
+ * function to print in the drawing panel, cuz the player wont see the rest..
+ * @param text
+ * @param speedMs
+ */
+export async function drawingPanelPrintLine(text, speedMs = 15) {
+    const panelPrint = getEl("drawing-panel-print");
+    isPrinting = true;
+    const panelLine = document.createElement("div");
+    panelLine.className = `terminal-line`;
+    panelPrint.append(panelLine);
+    const textNode = document.createTextNode("");
+    panelLine.append(textNode);
+    for (let i = 0; i < text.length; ++i) {
+        textNode.appendData(text[i]);
+        await sleep(speedMs);
+    }
+    isPrinting = false;
+}

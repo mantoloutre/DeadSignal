@@ -1,3 +1,4 @@
+import { isDrawingPanelOpenOrNot } from "../data/drawings.ts";
 import type { Zone, ZoneAction } from "../data/types.js";
 import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
@@ -214,6 +215,13 @@ export const ZONES = {
       const actions: ZoneAction[] = [];
       actions.push(RELAY_A01_ACTIONS.GO_OUTSIDE_BUNKER);
       //TODO do the actions
+      if (!isDrawingPanelOpenOrNot()) {
+        actions.push(RELAY_A01_ACTIONS.OPEN_BREAKER_PANEL);
+      } else {
+        actions.push(RELAY_A01_ACTIONS.CLOSE_BREAKER_PANEL);
+        actions.push(RELAY_A01_ACTIONS.INT_1);
+      }
+
       return actions;
     },
   },

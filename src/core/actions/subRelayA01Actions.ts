@@ -1,9 +1,15 @@
 import {
+  getBreakerPanelV2,
   isDrawingPanelOpenOrNot,
   setIsOpenDrawingPanel,
 } from "../../data/drawings.ts";
-import { makeCanvaAppearOrDisappear, printToTerminal } from "../../ui/dom.ts";
+import {
+  makeCanvaAppearOrDisappear,
+  printDrawing,
+  printToTerminal,
+} from "../../ui/dom.ts";
 import { gameBridge } from "../gameBridge.ts";
+import { BreakerStateRelayA01, currentState } from "../gameState.ts";
 /*
 #############
 zone : BUNKER
@@ -23,6 +29,7 @@ export async function openBreakerPanel(): Promise<void> {
   );
   setIsOpenDrawingPanel(true);
   makeCanvaAppearOrDisappear(true);
+  await printDrawing(getBreakerPanelV2(BreakerStateRelayA01), false);
   //await printDrawing()
   //todo
 }
@@ -62,7 +69,7 @@ breaker panel focus
 ###################
  */
 
-export async function toggleInt1(on: number): Promise<void> {
+export async function toggleInt1(): Promise<void> {
   if (!isDrawingPanelOpenOrNot()) {
     await printToTerminal(
       "The breaker panel is not open, how did you do that...?",
@@ -70,4 +77,6 @@ export async function toggleInt1(on: number): Promise<void> {
     );
     return;
   }
+  BreakerStateRelayA01.int1 = !BreakerStateRelayA01.int1;
+  await printDrawing(getBreakerPanelV2(BreakerStateRelayA01), true);
 }

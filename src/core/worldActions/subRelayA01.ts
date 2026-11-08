@@ -1,5 +1,6 @@
 import type { ZoneAction } from "../../data/types.ts";
 import * as actionsFunc from "../actions/subRelayA01Actions.ts";
+import { toggleInt1 } from "../actions/subRelayA01Actions.ts";
 
 export const RELAY_A01_OUTSIDE_ACTIONS = {
   ENTER_BUNKER: {
@@ -35,7 +36,7 @@ export const RELAY_A01_ACTIONS = {
   INT_1: {
     command: "INT 1",
     description: "toggle the first switch",
-    execute: async () => {}, //TODO do the action
+    execute: toggleInt1,
   },
   INT_2: {
     command: "INT 2",

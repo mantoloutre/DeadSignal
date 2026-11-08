@@ -1,3 +1,4 @@
+import { isDrawingPanelOpenOrNot } from "../data/drawings.js";
 import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import { GATE_CHECKPOINT_ACTION, GATE_CHECKPOINT_SHACK_ACTIONS, GET_TOOL_BOX_ACTION, OUTSIDE_TRUCK_INIT_ACTIONS, RELAY_A01_ACTIONS, RELAY_A01_OUTSIDE_ACTIONS, RESONATOR_ENCOUNTER, SAY_STUFF_TO_QG, SNOWY_FOREST_ACTIONS, TRUCK_CABIN_INIT_ACTIONS, WATCH_POST, WATCH_POST_OUTSIDE, } from "./worldActions/index.js";
@@ -137,6 +138,7 @@ export const ZONES = {
             return actions;
         },
     },
+    //##########################################
     GATE_CHECKPOINT_SHACK: {
         name: "CHECKPOINT SHACK",
         description: "Inside the shack, its a mess. The guard robot is absolutely wrecked " +
@@ -160,6 +162,7 @@ export const ZONES = {
             return actions;
         },
     },
+    //##########################################
     RELAY_A01_OUTSIDE: {
         name: "RELAY-A01 - OUTSIDE BUNKER",
         description: "not yet done", //TODO do the description
@@ -171,6 +174,7 @@ export const ZONES = {
             return actions;
         },
     },
+    //##########################################
     RELAY_A01: {
         name: "RELAY-A01 - INSIDE BUNKER",
         description: "not yet done", //TODO do the description
@@ -178,6 +182,13 @@ export const ZONES = {
             const actions = [];
             actions.push(RELAY_A01_ACTIONS.GO_OUTSIDE_BUNKER);
             //TODO do the actions
+            if (!isDrawingPanelOpenOrNot()) {
+                actions.push(RELAY_A01_ACTIONS.OPEN_BREAKER_PANEL);
+            }
+            else {
+                actions.push(RELAY_A01_ACTIONS.CLOSE_BREAKER_PANEL);
+                actions.push(RELAY_A01_ACTIONS.INT_1);
+            }
             return actions;
         },
     },

@@ -1,4 +1,5 @@
 import * as actionsFunc from "../actions/subRelayA01Actions.js";
+import { toggleInt1 } from "../actions/subRelayA01Actions.js";
 export const RELAY_A01_OUTSIDE_ACTIONS = {
     ENTER_BUNKER: {
         command: "enter bunker",
@@ -33,7 +34,7 @@ export const RELAY_A01_ACTIONS = {
     INT_1: {
         command: "INT 1",
         description: "toggle the first switch",
-        execute: async () => { }, //TODO do the action
+        execute: toggleInt1,
     },
     INT_2: {
         command: "INT 2",
@@ -53,6 +54,11 @@ export const RELAY_A01_ACTIONS = {
     },
 };
 export const REPAIR_CONNECTION = {
+    DO_SOMETHING_ELSE: {
+        command: "Do something else",
+        description: "simply get out of the puzzle's focus and do something else",
+        execute: async () => { }, //todo do the action
+    },
     TRY_CROWBAR: {
         command: "try crowbar",
         description: "try to wedge the crowbar so the two end of the " + "wire connects",

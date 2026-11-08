@@ -1,5 +1,14 @@
 import { QG_MESSAGES } from "../data/qgMessages.js";
 import { ZONES } from "./world.js";
+/**
+ * constant definint the breaker state
+ */
+export const BreakerStateRelayA01 = {
+    int1: false,
+    int2: false,
+    int3: false,
+    wire1: false,
+};
 export const GAME_INITIAL_STATE = {
     app: "DEAD_SIGNAL",
     version: 1,

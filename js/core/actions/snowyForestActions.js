@@ -1,6 +1,6 @@
 import { printToTerminal } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
-import { addFlag } from "../gameState.js";
+import { addFlag, setFocus } from "../gameState.js";
 /*
 ###################
 ZONE : SNOWY FOREST
@@ -24,4 +24,7 @@ export async function walkTowardCheckpoint() {
 export async function walkTowardFrostBasin() {
     await printToTerminal("the zone is not finished/in an acceptable state yet", "alert");
     await gameBridge.loadZone("RELAY_A01_OUTSIDE");
+}
+export function getOutOfBreakerFocus() {
+    setFocus(null);
 }
