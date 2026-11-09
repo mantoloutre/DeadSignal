@@ -171,6 +171,16 @@ export function parseSaveData(json: string): GameState | null {
   const maybeInvalidPendingQGMessages = (msg: unknown): msg is QGMessageKey => {
     return typeof msg === "string" && msg in QG_MESSAGES;
   };
+  const maybeInvalidBreakerState = (value: unknown): value is BreakerState => {
+    return (
+      typeof value === "object" &&
+      value !== null &&
+      typeof (value as BreakerState).int1 === "boolean" &&
+      typeof (value as BreakerState).int2 === "boolean" &&
+      typeof (value as BreakerState).int3 === "boolean" &&
+      typeof (value as BreakerState).wire1 === "boolean"
+    );
+  };
   const validStoryFlags: StoryFlag[] = Array.isArray(obj.storyFlags)
     ? obj.storyFlags.filter((f): f is StoryFlag => typeof f === "string")
     : [...GAME_INITIAL_STATE.storyFlags];
