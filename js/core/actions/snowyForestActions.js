@@ -22,7 +22,7 @@ export async function walkTowardCheckpoint() {
     await gameBridge.loadZone("GATE_CHECKPOINT");
 }
 export async function walkTowardFrostBasin() {
-    await printToTerminal("the zone is not finished/in an acceptable state yet", "alert");
+    await printToTerminal("i'm warning you, stuff doesnt work 100% for now, if you are experiencing problem, its normal", "alert");
     await gameBridge.loadZone("RELAY_A01_OUTSIDE");
 }
 export function getOutOfBreakerFocus() {

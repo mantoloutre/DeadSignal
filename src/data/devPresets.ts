@@ -69,3 +69,11 @@ export const presetBeforeDiscoveringBody: GameState = {
     "pickup duct tape",
   ],
 } satisfies GameState;
+/* todo
+export const presetTestDrawingPanel: GameState = {
+  app: "DEAD_SIGNAL",
+  version: 1,
+  currentZone: "RELAY_A01",
+};
+
+ */

@@ -30,7 +30,7 @@ export async function walkTowardCheckpoint(): Promise<void> {
 }
 export async function walkTowardFrostBasin(): Promise<void> {
   await printToTerminal(
-    "the zone is not finished/in an acceptable state yet",
+    "i'm warning you, stuff doesnt work 100% for now, if you are experiencing problem, its normal",
     "alert",
   );
   await gameBridge.loadZone("RELAY_A01_OUTSIDE");

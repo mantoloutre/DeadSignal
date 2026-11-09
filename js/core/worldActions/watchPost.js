@@ -1,6 +1,5 @@
-import { goOutside } from "../actions/resonatorActions.js";
+import { coverYourEars, goOutside } from "../actions/resonatorActions.js";
 import * as actionsFunc from "../actions/watchPostActions.js";
-import { handleResonatorEncounter } from "../radioFrequency.js";
 export const SAY_STUFF_TO_QG = {
     PRESS_WHEN_PLAYER_DONE: {
         command: "Press When done",
@@ -90,7 +89,7 @@ export const RESONATOR_ENCOUNTER = {
     COVER_EARS: {
         command: "cover your ears",
         description: "go in a corner and cover your ears",
-        execute: handleResonatorEncounter,
+        execute: coverYourEars,
     },
     GO_OUTSIDE: {
         command: "go outside",

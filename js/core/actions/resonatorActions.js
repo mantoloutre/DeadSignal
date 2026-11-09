@@ -77,12 +77,15 @@ async function choseToAngerResonatorIGuess() {
         "Your sternum caves inward with a dull, wet snap. Just like Keller's");
     await printDeathMessage("Frost bleeds outward across your visor as the inside of the watchpost fades to black");
 }
-/**
+/** todo link action
  *function to deal with the cover your ears option
  */
 export async function coverYourEars() {
     //TODO add the text & action ?
     await printToTerminal("You decide to quickly go sit down in the corner and cover your ears.", "action");
+    await die();
+    await printDeathMessage("sorry i haven't done this part yet...");
+    await printDeathMessage("In short your dead X-X");
 }
 /**
  * function to handle if the player want to go outside during the encounter

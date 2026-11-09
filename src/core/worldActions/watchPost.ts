@@ -1,7 +1,6 @@
 import type { ZoneAction } from "../../data/types.js";
-import { goOutside } from "../actions/resonatorActions.ts";
+import { coverYourEars, goOutside } from "../actions/resonatorActions.ts";
 import * as actionsFunc from "../actions/watchPostActions.js";
-import { handleResonatorEncounter } from "../radioFrequency.ts";
 export const SAY_STUFF_TO_QG = {
   PRESS_WHEN_PLAYER_DONE: {
     command: "Press When done",
@@ -91,7 +90,7 @@ export const RESONATOR_ENCOUNTER = {
   COVER_EARS: {
     command: "cover your ears",
     description: "go in a corner and cover your ears",
-    execute: handleResonatorEncounter,
+    execute: coverYourEars,
   },
   GO_OUTSIDE: {
     command: "go outside",

@@ -19,7 +19,7 @@ export interface GameState {
 }
 
 /**
- * constant definint the breaker state
+ * constant defining the breaker state
  */
 export const BreakerStateRelayA01: BreakerState = {
   int1: false,
@@ -49,6 +49,7 @@ export const FOCUS = {
   JUNCTION_BOX: "JUNCTION_BOX",
   TELLING_QG: "TELLING_QG",
   FIRST_ENCOUNTER: "FIRST_ENCOUNTER",
+  BREAKER_PANEL: "BREAKER_PANEL",
 } as const;
 let currentFocus: ZoneFocus | null = null;
 

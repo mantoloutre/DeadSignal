@@ -1,7 +1,7 @@
 import { QG_MESSAGES } from "../data/qgMessages.js";
 import { ZONES } from "./world.js";
 /**
- * constant definint the breaker state
+ * constant defining the breaker state
  */
 export const BreakerStateRelayA01 = {
     int1: false,
@@ -29,6 +29,7 @@ export const FOCUS = {
     JUNCTION_BOX: "JUNCTION_BOX",
     TELLING_QG: "TELLING_QG",
     FIRST_ENCOUNTER: "FIRST_ENCOUNTER",
+    BREAKER_PANEL: "BREAKER_PANEL",
 };
 let currentFocus = null;
 /*

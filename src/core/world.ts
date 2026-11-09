@@ -204,32 +204,43 @@ export const ZONES = {
       //TODO do the actions
       actions.push(RELAY_A01_OUTSIDE_ACTIONS.ENTER_BUNKER);
       actions.push(RELAY_A01_OUTSIDE_ACTIONS.INSPECT_FOUNDATION);
+      actions.push(RELAY_A01_OUTSIDE_ACTIONS.BACK_TO_DIRECTION_SIGN);
       return actions;
     },
   },
   //##########################################
   RELAY_A01: {
     name: "RELAY-A01 - INSIDE BUNKER",
-    description: "not yet done", //TODO do the description
+    description: "Not finished", //TODO do the description
     getActions: (): ZoneAction[] => {
       const actions: ZoneAction[] = [];
+      if (getFocus() === FOCUS.BREAKER_PANEL) {
+        return getBreakerPanelActions();
+      }
       actions.push(RELAY_A01_ACTIONS.GO_OUTSIDE_BUNKER);
       //TODO do the actions
       if (!isDrawingPanelOpenOrNot()) {
         actions.push(RELAY_A01_ACTIONS.OPEN_BREAKER_PANEL);
       } else {
         actions.push(RELAY_A01_ACTIONS.CLOSE_BREAKER_PANEL);
-        actions.push(RELAY_A01_ACTIONS.INT_1);
       }
 
       return actions;
     },
   },
 } as const satisfies Record<string, Zone>;
-
+function getBreakerPanelActions(): ZoneAction[] {
+  const actions: ZoneAction[] = [];
+  actions.push(RELAY_A01_ACTIONS.CLOSE_BREAKER_PANEL);
+  actions.push(RELAY_A01_ACTIONS.INT_1);
+  actions.push(RELAY_A01_ACTIONS.INT_2);
+  actions.push(RELAY_A01_ACTIONS.INT_3);
+  //TODO do the actions
+  return actions;
+}
 function getJunctionBoxActions(): ZoneAction[] {
   const actions: ZoneAction[] = [];
-  //TODO
+  //TODO do the actions
   return actions;
 }
 function getWhatToSayToQG(): ZoneAction[] {

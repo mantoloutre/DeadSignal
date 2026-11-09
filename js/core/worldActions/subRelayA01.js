@@ -1,5 +1,4 @@
 import * as actionsFunc from "../actions/subRelayA01Actions.js";
-import { toggleInt1 } from "../actions/subRelayA01Actions.js";
 export const RELAY_A01_OUTSIDE_ACTIONS = {
     ENTER_BUNKER: {
         command: "enter bunker",
@@ -11,6 +10,11 @@ export const RELAY_A01_OUTSIDE_ACTIONS = {
         description: "inspect the foundation of the bunker's door",
         execute: actionsFunc.inspectBunkerFoundation,
         oneTime: true,
+    },
+    BACK_TO_DIRECTION_SIGN: {
+        command: "go back to forest",
+        description: "go back to the direction sign",
+        execute: actionsFunc.goBackToDirectionSign,
     },
 };
 export const RELAY_A01_ACTIONS = {
@@ -34,17 +38,17 @@ export const RELAY_A01_ACTIONS = {
     INT_1: {
         command: "INT 1",
         description: "toggle the first switch",
-        execute: toggleInt1,
+        execute: actionsFunc.toggleInt1,
     },
     INT_2: {
         command: "INT 2",
         description: "toggle the second switch",
-        execute: async () => { }, //TODO do the action
+        execute: actionsFunc.toggleInt2, //TODO do the action
     },
     INT_3: {
         command: "INT 3",
         description: "toggle the third switch",
-        execute: async () => { }, //TODO do the action
+        execute: actionsFunc.toggleInt3, //TODO do the action
     },
     // Keller cut it and maybe left a note?
     INSPECT_CONNECTIONS: {
@@ -57,12 +61,12 @@ export const REPAIR_CONNECTION = {
     DO_SOMETHING_ELSE: {
         command: "Do something else",
         description: "simply get out of the puzzle's focus and do something else",
-        execute: async () => { }, //todo do the action
+        execute: actionsFunc.nuhUh, //todo do the action
     },
     TRY_CROWBAR: {
         command: "try crowbar",
         description: "try to wedge the crowbar so the two end of the " + "wire connects",
-        execute: async () => { }, //TODO do the action
+        execute: actionsFunc.nuhUh, //TODO do the action
     },
     //At this point in game if player doesn't have either crowbar or duct tape well he's
     //blocked until he gets one of the two ( he should have it )

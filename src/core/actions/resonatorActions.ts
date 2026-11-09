@@ -123,7 +123,7 @@ async function choseToAngerResonatorIGuess(): Promise<void> {
   );
 }
 
-/**
+/** todo link action
  *function to deal with the cover your ears option
  */
 export async function coverYourEars(): Promise<void> {
@@ -132,6 +132,9 @@ export async function coverYourEars(): Promise<void> {
     "You decide to quickly go sit down in the corner and cover your ears.",
     "action",
   );
+  await die();
+  await printDeathMessage("sorry i haven't done this part yet...");
+  await printDeathMessage("In short your dead X-X");
 }
 
 /**

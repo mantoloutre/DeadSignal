@@ -77,7 +77,7 @@ export async function listenRobotMemoryModule() {
 // search Keller's body
 export async function searchKellerBody() {
     await printToTerminal("You search Keller's body...", "action");
-    await printToTerminal("You find: his credentials, snow and a pen in his pocket", "system");
+    await printToTerminal("You find: his credentials, his access keycard, snow and a pen in his pocket", "system");
     addFlag("SEARCHED_KELLER_BODY");
 }
 export async function takeKellerCredential() {

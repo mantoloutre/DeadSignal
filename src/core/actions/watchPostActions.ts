@@ -147,7 +147,7 @@ export async function listenRobotMemoryModule(): Promise<void> {
 export async function searchKellerBody(): Promise<void> {
   await printToTerminal("You search Keller's body...", "action");
   await printToTerminal(
-    "You find: his credentials, snow and a pen in his pocket",
+    "You find: his credentials, his access keycard, snow and a pen in his pocket",
     "system",
   );
   addFlag("SEARCHED_KELLER_BODY");

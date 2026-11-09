@@ -1,8 +1,6 @@
 import type { fromType } from "../data/types.js";
 
 export interface UIElements {
-  // buttons ( test )
-  "test-drawing": HTMLButtonElement;
   // buttons
   "button-open-side-menu": HTMLButtonElement;
   "button-close-side-menu": HTMLButtonElement;
@@ -53,7 +51,7 @@ export interface UIElements {
   frequency: HTMLParagraphElement;
   // list element
   "radio-interface-help-list": HTMLUListElement;
-  // preformated text elements
+  // pre formatted text elements
   "drawing-canva": HTMLPreElement;
 }
 /*
@@ -113,6 +111,7 @@ export async function printDrawing(
   drawingLines: string[],
   fast: boolean,
 ): Promise<void> {
+  isPrinting = true;
   const canva: HTMLPreElement = getEl("drawing-canva");
   let drawing: string = "";
   for (const line of drawingLines) {
@@ -120,6 +119,7 @@ export async function printDrawing(
     canva.textContent = drawing;
     if (!fast) await sleep(100); //TODO find the right number
   }
+  isPrinting = false;
 }
 /**
  * function to print in the terminal :D

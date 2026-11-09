@@ -168,21 +168,6 @@ function closeInventory() {
         toggleOverlay();
     }
 }
-/**
- * function to test the drawing thingy
- */
-async function testDraw() {
-    const panel = getEl("drawing-panel");
-    makeCanvaAppearOrDisappear(true);
-    const stuff = {
-        int1: false,
-        int2: false,
-        int3: false,
-        wire1: false,
-    };
-    await printDrawing(getBreakerPanelV2(stuff), false);
-}
-bindingAsyncAction(getEl("test-drawing"), testDraw);
 /*
 function for opening or closing the radio interface for tuning the radio
  */

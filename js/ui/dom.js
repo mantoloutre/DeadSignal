@@ -51,6 +51,7 @@ export function makeCanvaAppearOrDisappear(appear) {
  * @note this require the panel to be visible or else you won't see the drawing
  */
 export async function printDrawing(drawingLines, fast) {
+    isPrinting = true;
     const canva = getEl("drawing-canva");
     let drawing = "";
     for (const line of drawingLines) {
@@ -59,6 +60,7 @@ export async function printDrawing(drawingLines, fast) {
         if (!fast)
             await sleep(100); //TODO find the right number
     }
+    isPrinting = false;
 }
 /**
  * function to print in the terminal :D
