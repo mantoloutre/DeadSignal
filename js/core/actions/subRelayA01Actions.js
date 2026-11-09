@@ -99,6 +99,9 @@ export async function tryWithCrowbar() {
 export async function tryWithDuctTape() {
     //todo
 }
+export async function inspectConnection() {
+    //todo
+}
 /**
  * nuh uh ( for drawing panel )
  */

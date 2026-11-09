@@ -113,7 +113,9 @@ export async function tryWithCrowbar(): Promise<void> {
 export async function tryWithDuctTape(): Promise<void> {
   //todo
 }
-
+export async function inspectConnection(): Promise<void> {
+  //todo
+}
 /**
  * nuh uh ( for drawing panel )
  */

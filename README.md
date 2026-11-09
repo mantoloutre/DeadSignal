@@ -16,7 +16,6 @@ you go on the website, you have many interface (feel free to explore) to use<br>
 Btw, this game isn't the type of game everyone likes, its slow paced, lots of reading
 and also a lot of imagination comes into play. If you are into fps or maybe open world, this
 isn't the game for you.
-----
 
 The game is in a pretty good state, however many part of the story has not been
 made yet. <br>
@@ -42,6 +41,10 @@ Btw the only name that's in the game i chose it randomly so i'm sorry if that's 
 > 1. the first is I encourage other to use it and instead of copying and pasting something they don't understand, they can see what is it and what it does.
 > 2. Sometimes it's also for myself, as a human, i don't know everything and commenting my code is a good way to remember stuff more easily
 > 3. It also gives the option to use one part of a function faster, i read the explanation, see "step 3 does that" and I find the step 3 faster.
+
+The reason I made this game is rather simple: I wanted to OwO.
+
+What i use to make it: html, css, typescript.
 
 <details><summary>note for the reviewers</summary>
 if you press the p key, it opens a cheat menu, you can skip to certain zone or like test features.

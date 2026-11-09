@@ -20,6 +20,7 @@ export const GAME_INITIAL_STATE = {
     storyFlags: [],
     playerInventory: [],
     inactiveCommands: [],
+    relayA01BreakerPanel: BreakerStateRelayA01,
 };
 /*
 this is for subzone ( mainly puzzle )
@@ -143,6 +144,14 @@ export function parseSaveData(json) {
     const maybeInvalidPendingQGMessages = (msg) => {
         return typeof msg === "string" && msg in QG_MESSAGES;
     };
+    const maybeInvalidBreakerState = (value) => {
+        return (typeof value === "object" &&
+            value !== null &&
+            typeof value.int1 === "boolean" &&
+            typeof value.int2 === "boolean" &&
+            typeof value.int3 === "boolean" &&
+            typeof value.wire1 === "boolean");
+    };
     const validStoryFlags = Array.isArray(obj.storyFlags)
         ? obj.storyFlags.filter((f) => typeof f === "string")
         : [...GAME_INITIAL_STATE.storyFlags];
@@ -158,6 +167,9 @@ export function parseSaveData(json) {
     const validPendingQGMessages = Array.isArray(obj.pendingQGMessages)
         ? obj.pendingQGMessages.filter(maybeInvalidPendingQGMessages)
         : [...GAME_INITIAL_STATE.pendingQGMessages];
+    const validBreakerState = maybeInvalidBreakerState(obj.relayA01BreakerPanel)
+        ? obj.relayA01BreakerPanel
+        : { ...BreakerStateRelayA01 };
     // step 8
     return {
         ...GAME_INITIAL_STATE,
@@ -175,6 +187,7 @@ export function parseSaveData(json) {
         storyFlags: validStoryFlags,
         playerInventory: validPlayerInventory,
         inactiveCommands: validInactiveCommands,
+        relayA01BreakerPanel: validBreakerState,
     };
 }
 const LOCAL_STORAGE_KEY = "DEAD_SIGNAL_AUTOSAVE";

@@ -68,12 +68,15 @@ export const presetBeforeDiscoveringBody: GameState = {
     "pickup ajustable wrench",
     "pickup duct tape",
   ],
+  relayA01BreakerPanel: {
+    int1: false,
+    int2: false,
+    int3: false,
+    wire1: false,
+  },
 } satisfies GameState;
-/* todo
+/*
 export const presetTestDrawingPanel: GameState = {
-  app: "DEAD_SIGNAL",
-  version: 1,
-  currentZone: "RELAY_A01",
-};
 
- */
+};
+*/

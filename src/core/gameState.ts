@@ -16,6 +16,7 @@ export interface GameState {
   storyFlags: StoryFlag[];
   playerInventory: InventorySlot[];
   inactiveCommands: string[];
+  relayA01BreakerPanel: BreakerState;
 }
 
 /**
@@ -39,6 +40,7 @@ export const GAME_INITIAL_STATE: GameState = {
   storyFlags: [],
   playerInventory: [],
   inactiveCommands: [],
+  relayA01BreakerPanel: BreakerStateRelayA01,
 };
 export type ZoneFocus = (typeof FOCUS)[keyof typeof FOCUS];
 /*
@@ -200,6 +202,11 @@ export function parseSaveData(json: string): GameState | null {
   )
     ? obj.pendingQGMessages.filter(maybeInvalidPendingQGMessages)
     : [...GAME_INITIAL_STATE.pendingQGMessages];
+  const validBreakerState: BreakerState = maybeInvalidBreakerState(
+    obj.relayA01BreakerPanel,
+  )
+    ? obj.relayA01BreakerPanel
+    : { ...BreakerStateRelayA01 };
   // step 8
   return {
     ...GAME_INITIAL_STATE,
@@ -219,6 +226,7 @@ export function parseSaveData(json: string): GameState | null {
     storyFlags: validStoryFlags,
     playerInventory: validPlayerInventory,
     inactiveCommands: validInactiveCommands,
+    relayA01BreakerPanel: validBreakerState,
   };
 }
 
