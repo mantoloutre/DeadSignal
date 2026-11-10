@@ -109,6 +109,9 @@ export async function printDeathMessage(text, speedMs = 15) {
  * pretty self-explanatory function
  */
 export async function die() {
+    isPrinting = true;
+    await sleep(2000);
+    isPrinting = false;
     getEl("cheat-menu").classList.add("hidden");
     getEl("die-overlay").classList.remove("die-hidden");
 }

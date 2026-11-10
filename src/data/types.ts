@@ -22,6 +22,10 @@ export type ZoneId =
     | "CORE_CONTROL_ROOM"
 
 */
+export interface Drawing {
+  executing: (state: BreakerState) => string[];
+}
+
 export interface BreakerState {
   int1: boolean;
   int2: boolean;

@@ -137,13 +137,13 @@ export async function listenRobotMemoryModule(): Promise<void> {
     "13:03 - ping failed, transmission jammed by broadband EMI on 940.700 MHz.",
     "log",
   );
-  await addDiscoveredFrequency("THE_RESONATOR");
   await printToTerminal(
     "13:04 - Relay A-01 grid feed severed by manual unauthorized killswitch. Attempting reboot...",
     "log",
   );
   await printToTerminal("13:04 - Attempt failed, access denied", "log");
   await printToTerminal("13:04 - Power failure. Unit going offline", "log");
+  await addDiscoveredFrequency("THE_RESONATOR");
 }
 // search Keller's body
 export async function searchKellerBody(): Promise<void> {

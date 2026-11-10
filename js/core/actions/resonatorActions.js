@@ -33,9 +33,17 @@ async function tuningInEncounter() {
                 break;
             default:
                 await printToTerminal(`You decide to set your radio to the 
-        following frequency: ${currentState.currentFrequency}`, "action");
+        following frequency: ${currentState.currentFrequency} MHz`, "action");
                 await printToTerminal("whatever is happening" + "doesn't seem to be stopping...", "system");
-            //TODO sadness
+                await printToTerminal("You know its there... IT also knows YOU are there...", "log");
+                await printToTerminal("you were tracking it, IT is still tracking you.. and it found you", "alert", 30);
+                await printToTerminal("Frost rapidly make it way inside the watch post toward you.", "alert", 30);
+                await printToTerminal("You dont even have the time to react that it gets to you", "alert", 40);
+                await die();
+                //TODO death message
+                //todo finish this
+                await printDeathMessage("The frost rapidly cover your body, entering through every hole there is...");
+                await printDeathMessage("As your temperature drops and you get frozen from the inside, everything fade to black");
         }
     }
     else {
@@ -82,15 +90,16 @@ async function choseToAngerResonatorIGuess() {
         "Your sternum caves inward with a dull, wet snap. Just like Keller's");
     await printDeathMessage("Frost bleeds outward across your visor as the inside of the watchpost fades to black");
 }
-/** todo link action
+/**
  *function to deal with the cover your ears option
  */
 export async function coverYourEars() {
-    //TODO add the text & action ?
     await printToTerminal("You decide to quickly go sit down in the corner and cover your ears.", "action");
     await die();
-    await printDeathMessage("sorry i haven't done this part yet...");
-    await printDeathMessage("In short your dead X-X");
+    await printDeathMessage("One blink, nothing happens, the second blink, you look toward the entrance.");
+    await printDeathMessage("Another blink later, the door that was in the snow " +
+        "comes flying toward you.");
+    await printDeathMessage("You dont even have time to react that it splits your head from your body.");
 }
 /**
  * function to handle if the player want to go outside during the encounter

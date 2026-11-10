@@ -1,6 +1,6 @@
 //export const BREAKER_PANEL
 
-import type { BreakerState } from "./types.ts";
+import type { BreakerState, Drawing } from "./types.ts";
 
 export const BREAKER_PANEL: string[] = [
   "┌──────────────────────────────────────────────┐",
@@ -39,7 +39,12 @@ let theState: boolean = false;
 export function setIsOpenDrawingPanel(openOrNot: boolean): void {
   theState = openOrNot;
 }
-
+export type DrawingsName = keyof typeof Drawings;
+export const Drawings = {
+  BREAKER_PANEL_RELAY_A01: {
+    executing: getBreakerPanelV2,
+  },
+} satisfies Record<string, Drawing>;
 /**
  * function to know if the drawing panel is open or no
  */

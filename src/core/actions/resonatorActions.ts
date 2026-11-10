@@ -1,3 +1,4 @@
+import { FREQUENCY_REGISTRY } from "../../data/frequencies.ts";
 import {
   die,
   flashButton,
@@ -7,16 +8,21 @@ import {
 } from "../../ui/dom.ts";
 import { closeRadioInterface, tuningEvent } from "../../ui/radioInterface.ts";
 import { addFlag, currentState, hasFlag } from "../gameState.ts";
-import { FREQUENCY_REGISTRY, getFormattedBuffer } from "../radioFrequency.ts";
+import { getFormattedBuffer } from "../radioFrequency.ts";
 import type { ZoneId } from "../world.ts";
 
 export async function handleResonatorActions(zone: ZoneId): Promise<void> {
-  const tuning: HTMLButtonElement = getEl("btn-tune");
-  tuning.removeEventListener("click", tuningEvent);
-  tuning.addEventListener("click", tuningInEncounter);
-  if (hasFlag("HAD_FIRST_ENCOUNTER")) {
-    tuning.removeEventListener("click", tuningInEncounter);
-    tuning.addEventListener("click", tuningEvent);
+  if (zone === "WATCH_POST") {
+    const tuning: HTMLButtonElement = getEl("btn-tune");
+    tuning.removeEventListener("click", tuningEvent);
+    tuning.addEventListener("click", tuningInEncounter);
+    if (hasFlag("HAD_FIRST_ENCOUNTER")) {
+      tuning.removeEventListener("click", tuningInEncounter);
+      tuning.addEventListener("click", tuningEvent);
+    }
+  } else {
+    //todo implementes this
+    await printToTerminal("sorry, not implemented yet", "alert");
   }
 }
 
@@ -43,17 +49,38 @@ async function tuningInEncounter(): Promise<void> {
       default:
         await printToTerminal(
           `You decide to set your radio to the 
-        following frequency: ${currentState.currentFrequency}`,
+        following frequency: ${currentState.currentFrequency} MHz`,
           "action",
         );
         await printToTerminal(
           "whatever is happening" + "doesn't seem to be stopping...",
           "system",
         );
+        await printToTerminal(
+          "You know its there... IT also knows YOU are there...",
+          "log",
+        );
+        await printToTerminal(
+          "you were tracking it, IT is still tracking you.. and it found you",
+          "alert",
+          30,
+        );
+        await printToTerminal(
+          "Frost rapidly make it way inside the watch post toward you.",
+          "alert",
+          30,
+        );
+        await printToTerminal(
+          "You dont even have the time to react that it gets to you",
+          "alert",
+          40,
+        );
         await die();
-        //TODO death message
         await printDeathMessage(
-          "You know its there... It knows YOU are there...",
+          "The frost rapidly cover your body, entering through every hole there is...",
+        );
+        await printDeathMessage(
+          "As your temperature drops and you get frozen from the inside, everything fade to black",
         );
     }
   } else {
@@ -137,11 +164,10 @@ async function choseToAngerResonatorIGuess(): Promise<void> {
   );
 }
 
-/** todo link action
+/**
  *function to deal with the cover your ears option
  */
 export async function coverYourEars(): Promise<void> {
-  //TODO add the text & action ?
   await printToTerminal(
     "You decide to quickly go sit down in the corner and cover your ears.",
     "action",

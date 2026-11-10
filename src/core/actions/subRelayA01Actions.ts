@@ -1,8 +1,11 @@
 import {
+  Drawings,
+  type DrawingsName,
   getBreakerPanelV2,
   isDrawingPanelOpenOrNot,
   setIsOpenDrawingPanel,
 } from "../../data/drawings.ts";
+import type { Drawing } from "../../data/types.ts";
 import {
   drawingPanelPrintLine,
   makeCanvaAppearOrDisappear,
@@ -20,7 +23,10 @@ zone : BUNKER
  * action to go outside the bunker
  */
 export async function goOutsideBunkerStationA01(): Promise<void> {
-  //todo finish it
+  await printToTerminal(
+    "You walk toward the bunker, which serve as the first relay station",
+    "action",
+  );
   await gameBridge.loadZone("RELAY_A01_OUTSIDE");
 }
 export async function goBackToDirectionSign(): Promise<void> {
@@ -30,7 +36,7 @@ export async function openBreakerPanel(): Promise<void> {
   setFocus("BREAKER_PANEL");
   setIsOpenDrawingPanel(true);
   makeCanvaAppearOrDisappear(true);
-  await draw(false);
+  await draw("BREAKER_PANEL_RELAY_A01", false);
   //await printDrawing()
   //todo
 }
@@ -74,6 +80,7 @@ breaker panel focus
  */
 /**
  * utility function to not repeat my self to draw
+ * @param whichDrawing which drawing do you want?
  * @param speed fast ( true ) or slow ( false )
  */
 async function draw(whichDrawing: DrawingsName, speed: boolean): Promise<void> {
@@ -89,7 +96,7 @@ async function draw(whichDrawing: DrawingsName, speed: boolean): Promise<void> {
 export async function toggleInt3(): Promise<void> {
   if (!(await verifyDrawingPanelClosed())) return;
   BreakerStateRelayA01.int3 = !BreakerStateRelayA01.int3;
-  await draw(true);
+  await draw("BREAKER_PANEL_RELAY_A01", true);
 }
 
 /**
@@ -98,7 +105,7 @@ export async function toggleInt3(): Promise<void> {
 export async function toggleInt2(): Promise<void> {
   if (!(await verifyDrawingPanelClosed())) return;
   BreakerStateRelayA01.int2 = !BreakerStateRelayA01.int2;
-  await draw(true);
+  await draw("BREAKER_PANEL_RELAY_A01", true);
 }
 /**
  * function to toggle the first interrupter
@@ -106,7 +113,7 @@ export async function toggleInt2(): Promise<void> {
 export async function toggleInt1(): Promise<void> {
   if (!(await verifyDrawingPanelClosed())) return;
   BreakerStateRelayA01.int1 = !BreakerStateRelayA01.int1;
-  await draw(true);
+  await draw("BREAKER_PANEL_RELAY_A01", true);
 }
 
 //focus for the wire

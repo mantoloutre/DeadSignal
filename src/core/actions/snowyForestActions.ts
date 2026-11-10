@@ -1,6 +1,7 @@
 import { printToTerminal } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
 import { addFlag, setFocus } from "../gameState.js";
+import { doesThePlayerHasTheItem } from "../inventory.ts";
 
 /*
 ###################
@@ -10,7 +11,6 @@ ZONE : SNOWY FOREST
 
 export async function goBackToTheTruck(): Promise<void> {
   await printToTerminal("You walk back to the truck", "action");
-  //TODO maybe do another thing here idk?
   await gameBridge.loadZone("OUTSIDE_TRUCK");
 }
 
@@ -21,7 +21,6 @@ export async function inspectDirectionSign(): Promise<void> {
     "system",
   );
   addFlag("INSPECTED_DIRECTION_SIGN");
-  //TODO continue?
 }
 
 export async function walkTowardCheckpoint(): Promise<void> {
