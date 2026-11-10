@@ -76,8 +76,11 @@ breaker panel focus
  * utility function to not repeat my self to draw
  * @param speed fast ( true ) or slow ( false )
  */
-async function draw(speed: boolean): Promise<void> {
-  await printDrawing(getBreakerPanelV2(BreakerStateRelayA01), speed);
+async function draw(whichDrawing: DrawingsName, speed: boolean): Promise<void> {
+  await printDrawing(
+    Drawings[whichDrawing].executing(BreakerStateRelayA01),
+    speed,
+  );
 }
 
 /**
