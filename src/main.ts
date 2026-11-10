@@ -18,16 +18,13 @@ import {
 } from "./core/radioFrequency.js";
 import { ZONES, type ZoneId } from "./core/world.js";
 import { presetBeforeDiscoveringBody } from "./data/devPresets.js";
-import { getBreakerPanelV2 } from "./data/drawings.ts";
 import { ITEMS, type Item } from "./data/items.js";
-import type { BreakerState, Zone, ZoneAction } from "./data/types.js";
+import type { Zone, ZoneAction } from "./data/types.js";
 import {
   die,
   flashButton,
   getEl,
   isPrinting,
-  makeCanvaAppearOrDisappear,
-  printDrawing,
   printToTerminal,
 } from "./ui/dom.js";
 import {

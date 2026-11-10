@@ -50,7 +50,11 @@ async function tuningInEncounter(): Promise<void> {
           "whatever is happening" + "doesn't seem to be stopping...",
           "system",
         );
-      //TODO sadness
+        await die();
+        //TODO death message
+        await printDeathMessage(
+          "You know its there... It knows YOU are there...",
+        );
     }
   } else {
     flashButton(getEl("btn-tune"));
@@ -143,14 +147,15 @@ export async function coverYourEars(): Promise<void> {
     "action",
   );
   await die();
-  await printDeathMessage("One blink, nothing happens, the second blink");
-  await printDeathMessage("you look toward the entry, something feels off...");
   await printDeathMessage(
-    "Another blink later, the door which was in the snow suddenly " +
+    "One blink, nothing happens, the second blink, you look toward the entrance.",
+  );
+  await printDeathMessage(
+    "Another blink later, the door that was in the snow " +
       "comes flying toward you.",
   );
   await printDeathMessage(
-    "You dont even have time to react that it splits your head from your body...",
+    "You dont even have time to react that it splits your head from your body.",
   );
 }
 
