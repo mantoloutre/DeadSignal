@@ -29,6 +29,7 @@ export interface UIElements {
   "btn-close-cheat-menu": HTMLButtonElement;
   "btn-die": HTMLButtonElement;
   "btn-reset-game": HTMLButtonElement;
+  "btn-skip-to-after-memory-module": HTMLButtonElement;
   // div elements
   "side-menu": HTMLDivElement;
   "cheat-menu": HTMLDivElement;

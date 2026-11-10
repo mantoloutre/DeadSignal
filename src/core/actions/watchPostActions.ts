@@ -70,6 +70,8 @@ export async function goInsideTheWatchPost(): Promise<void> {
       "Note left: Tell the QG about the note Keller wrote before dying",
       "system",
     );
+  } else {
+    await gameBridge.loadZone("WATCH_POST");
   }
   //TODO make player choose what he want to do next
 }

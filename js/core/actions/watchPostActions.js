@@ -42,6 +42,9 @@ export async function goInsideTheWatchPost() {
         await printToTerminal("Dead body: Tell the QG you found Keller's dead body", "system");
         await printToTerminal("Note left: Tell the QG about the note Keller wrote before dying", "system");
     }
+    else {
+        await gameBridge.loadZone("WATCH_POST");
+    }
     //TODO make player choose what he want to do next
 }
 /*

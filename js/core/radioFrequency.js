@@ -281,6 +281,7 @@ async function getDialogWatchPostInsideFirstEncounter() {
         "is getting close fast.", "alert");
     await printToTerminal("As more time passes, the more sound the frequency emits... " +
         "Your radio is starting to get really loud.", "system");
+    await printToTerminal("Pressure start building up in your ears...", "alert");
     await printToTerminal("You should do something...", "system");
     await printToTerminal("(Pick an action from the left panel or use the radio.)", "system");
 }

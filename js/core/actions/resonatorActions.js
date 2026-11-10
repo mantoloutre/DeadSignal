@@ -1,5 +1,5 @@
 import { die, flashButton, getEl, printDeathMessage, printToTerminal, } from "../../ui/dom.js";
-import { closeRadioInterface, tuningEvent } from "../../ui/radioInterface.js"; //TODO watch out for possible circular reference
+import { closeRadioInterface, tuningEvent } from "../../ui/radioInterface.js";
 import { addFlag, currentState, hasFlag } from "../gameState.js";
 import { FREQUENCY_REGISTRY, getFormattedBuffer } from "../radioFrequency.js";
 export async function handleResonatorActions(zone) {
@@ -28,10 +28,8 @@ async function tuningInEncounter() {
                 await choseToContactTheQg();
                 break;
             case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
-                await printToTerminal("You decide set your radio so you can only receive transmission and it" +
-                    " doesn't emit anything anymore.", "action");
+                await choseToDoTheRightThing();
                 addFlag("HAD_FIRST_ENCOUNTER");
-                //TODO noice
                 break;
             default:
                 await printToTerminal(`You decide to set your radio to the 
@@ -43,6 +41,13 @@ async function tuningInEncounter() {
     else {
         flashButton(getEl("btn-tune"));
     }
+}
+async function choseToDoTheRightThing() {
+    await printToTerminal("You decide set your radio so you can only receive transmission and it" +
+        " doesn't emit anything anymore.", "action");
+    await printToTerminal("As soon as you type in the frequency, the pressure that was building in your " +
+        "ears starts dropping really fast until it's gone.", "system");
+    await printToTerminal("You look back at Keller's body and you feel a chill run down your spine...", "system");
 }
 /**
  * function to deal with contacting the QG in the first encounter with
