@@ -143,8 +143,15 @@ export async function coverYourEars(): Promise<void> {
     "action",
   );
   await die();
-  await printDeathMessage("sorry i haven't done this part yet...");
-  await printDeathMessage("In short your dead X-X");
+  await printDeathMessage("One blink, nothing happens, the second blink");
+  await printDeathMessage("you look toward the entry, something feels off...");
+  await printDeathMessage(
+    "Another blink later, the door which was in the snow suddenly " +
+      "comes flying toward you.",
+  );
+  await printDeathMessage(
+    "You dont even have time to react that it splits your head from your body...",
+  );
 }
 
 /**
