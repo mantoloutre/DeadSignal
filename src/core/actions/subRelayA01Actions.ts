@@ -14,6 +14,7 @@ import {
 } from "../../ui/dom.ts";
 import { gameBridge } from "../gameBridge.ts";
 import { BreakerStateRelayA01, setFocus } from "../gameState.ts";
+import { doesThePlayerHasTheItem } from "../inventory.ts";
 /*
 #############
 zone : BUNKER
@@ -37,15 +38,11 @@ export async function openBreakerPanel(): Promise<void> {
   setIsOpenDrawingPanel(true);
   makeCanvaAppearOrDisappear(true);
   await draw("BREAKER_PANEL_RELAY_A01", false);
-  //await printDrawing()
-  //todo
 }
 export async function closeBreakerPanel(): Promise<void> {
   setFocus(null);
   setIsOpenDrawingPanel(false);
   makeCanvaAppearOrDisappear(false);
-
-  //todo
 }
 /*
 #####################
@@ -71,7 +68,13 @@ export async function enterBunkerStationA01(): Promise<void> {
       "reload the cache it might also help.",
     "alert",
   ); //todo finish it
-  await gameBridge.loadZone("RELAY_A01");
+  if (doesThePlayerHasTheItem("keller_keycard")) {
+    await printToTerminal(
+      "You swipe the keycard in the slot and the big bunker's doors opens.",
+      "action",
+    ); //todo finish the text
+    await gameBridge.loadZone("RELAY_A01");
+  }
 }
 /*
 ###################

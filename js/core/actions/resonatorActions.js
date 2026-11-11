@@ -1,14 +1,21 @@
+import { FREQUENCY_REGISTRY } from "../../data/frequencies.js";
 import { die, flashButton, getEl, printDeathMessage, printToTerminal, } from "../../ui/dom.js";
 import { closeRadioInterface, tuningEvent } from "../../ui/radioInterface.js";
 import { addFlag, currentState, hasFlag } from "../gameState.js";
-import { FREQUENCY_REGISTRY, getFormattedBuffer } from "../radioFrequency.js";
+import { getFormattedBuffer } from "../radioFrequency.js";
 export async function handleResonatorActions(zone) {
-    const tuning = getEl("btn-tune");
-    tuning.removeEventListener("click", tuningEvent);
-    tuning.addEventListener("click", tuningInEncounter);
-    if (hasFlag("HAD_FIRST_ENCOUNTER")) {
-        tuning.removeEventListener("click", tuningInEncounter);
-        tuning.addEventListener("click", tuningEvent);
+    if (zone === "WATCH_POST") {
+        const tuning = getEl("btn-tune");
+        tuning.removeEventListener("click", tuningEvent);
+        tuning.addEventListener("click", tuningInEncounter);
+        if (hasFlag("HAD_FIRST_ENCOUNTER")) {
+            tuning.removeEventListener("click", tuningInEncounter);
+            tuning.addEventListener("click", tuningEvent);
+        }
+    }
+    else {
+        //todo implementes this
+        await printToTerminal("sorry, not implemented yet", "alert");
     }
 }
 /**
@@ -40,8 +47,6 @@ async function tuningInEncounter() {
                 await printToTerminal("Frost rapidly make it way inside the watch post toward you.", "alert", 30);
                 await printToTerminal("You dont even have the time to react that it gets to you", "alert", 40);
                 await die();
-                //TODO death message
-                //todo finish this
                 await printDeathMessage("The frost rapidly cover your body, entering through every hole there is...");
                 await printDeathMessage("As your temperature drops and you get frozen from the inside, everything fade to black");
         }

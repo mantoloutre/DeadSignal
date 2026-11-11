@@ -35,6 +35,11 @@ let theState = false;
 export function setIsOpenDrawingPanel(openOrNot) {
     theState = openOrNot;
 }
+export const Drawings = {
+    BREAKER_PANEL_RELAY_A01: {
+        executing: getBreakerPanelV2,
+    },
+};
 /**
  * function to know if the drawing panel is open or no
  */
