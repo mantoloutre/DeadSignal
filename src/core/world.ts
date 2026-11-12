@@ -1,6 +1,6 @@
 import { isDrawingPanelOpenOrNot } from "../data/drawings.ts";
 import type { Zone, ZoneAction } from "../data/types.js";
-import { drawingPanelPrintLine } from "../ui/dom.ts"; //todo watch out for possible circular reference
+import { drawingPanelPrintLine, printToTerminal } from "../ui/dom.ts"; //todo watch out for possible circular reference
 import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import {
@@ -220,7 +220,7 @@ export const ZONES = {
         return getBreakerPanelActions();
       }
       if (getFocus() === FOCUS.BREAKER_PANEL_CONNECTION) {
-        return;
+        return getBreakerPanelInspectActions();
       }
       actions.push(RELAY_A01_ACTIONS.GO_OUTSIDE_BUNKER);
       //TODO do the actions
@@ -242,10 +242,11 @@ function getBreakerPanelActions(): ZoneAction[] {
   //TODO do the actions
   return actions;
 }
-async function getBreakerPanelInspectActions(): ZoneAction[] {
+
+function getBreakerPanelInspectActions(): ZoneAction[] {
   const actions: ZoneAction[] = [];
-  if (doesThePlayerHasTheItem("crowbar")) {
-    actions.push(REPAIR_CONNECTION.TRY_CROWBAR);
+  if (doesThePlayerHasTheItem("insulated_wirecutter")) {
+    actions.push(REPAIR_CONNECTION.TRY_WIRECUTTER);
   }
   if (doesThePlayerHasTheItem("duct_tape")) {
     actions.push(REPAIR_CONNECTION.TRY_DUCT_TAPE);
@@ -254,9 +255,11 @@ async function getBreakerPanelInspectActions(): ZoneAction[] {
     !doesThePlayerHasTheItem("crowbar") &&
     !doesThePlayerHasTheItem("duct_tape")
   ) {
-    await drawingPanelPrintLine(
+    drawingPanelPrintLine(
       "You have nothing in your inventory " + "that can help with this task",
-    );
+    ).catch(() => {
+      console.error("drawingPanelPrintln failed...");
+    });
     actions.push(REPAIR_CONNECTION.TRY_DUCT_TAPE);
   }
   actions.push(REPAIR_CONNECTION.DO_SOMETHING_ELSE);

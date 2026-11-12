@@ -1,11 +1,9 @@
 import {
   Drawings,
   type DrawingsName,
-  getBreakerPanelV2,
   isDrawingPanelOpenOrNot,
   setIsOpenDrawingPanel,
 } from "../../data/drawings.ts";
-import type { Drawing } from "../../data/types.ts";
 import {
   drawingPanelPrintLine,
   makeCanvaAppearOrDisappear,
@@ -126,7 +124,15 @@ export async function toggleInt1(): Promise<void> {
 
 //focus for the wire
 
+/**
+ * self explanatory function ( for the breaker panel )
+ */
 export async function tryWithWireCutter(): Promise<void> {
+  await printToTerminal(
+    "You remove the plastic grip of the wirecutter's handles, " +
+      "revealing the metal.",
+    "action",
+  );
   await printToTerminal(
     "You attach each end of the wire to a handle of the wireCutter, " +
       "connection is now up.",
@@ -134,14 +140,17 @@ export async function tryWithWireCutter(): Promise<void> {
   );
   addFlag("REPAIRED_CONNEXION_WITH_WIRECUTTER");
 }
+
+/**
+ * self explanatory function ( for the breaker panel )
+ */
 export async function tryWithDuctTape(): Promise<void> {
   await printToTerminal(
     "You take both end of the wire and attach them with tape, " +
       "connection is now up.",
     "action",
   );
-
-  //todo
+  addFlag("REPAIRED_CONNEXION_WITH_WIRECUTTER");
 }
 export async function inspectConnection(): Promise<void> {
   await printToTerminal(
@@ -150,6 +159,7 @@ export async function inspectConnection(): Promise<void> {
     "system",
   );
   await printToTerminal("how do you want to try and repair it?", "system");
+  setFocus("BREAKER_PANEL_CONNECTION");
   //todo
 }
 /**

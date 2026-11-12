@@ -57,7 +57,7 @@ export const RELAY_A01_ACTIONS = {
     command: "inspect connections",
     description:
       "inspect the connection of the switches to see what happened here",
-    execute: async () => {}, //TODO do the action
+    execute: actionsFunc.inspectConnection,
   },
 } as const satisfies Record<string, ZoneAction>;
 export const REPAIR_CONNECTION = {
