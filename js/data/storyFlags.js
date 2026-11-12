@@ -29,6 +29,8 @@ export const StoryFlags = {
     ALPHA_DOOR_UNLOCKED: "ALPHA_DOOR_UNLOCKED",
     HEARD_ROOF_IMPACT: "HEARD_ROOF_IMPACT",
     RELAY_A01_ONLINE: "RELAY_A01_ONLINE",
+    REPAIRED_CONNEXION_WITH_WIRECUTTER: "REPAIRED_CONNEXION_WITH_WIRECUTTER",
+    REPAIRED_CONNEXION_WITH_DUCT_TAPE: "REPAIRED_CONNEXION_WITH_DUCT_TAPE",
     // easter egg? ( this would be like there is another condition and then
     // u go back there to re-inspect the sign i guess...
     EXAMINED_TOWER_STRUTS: "EXAMINED_TOWER_STRUTS",

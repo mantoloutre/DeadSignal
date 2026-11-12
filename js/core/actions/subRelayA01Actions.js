@@ -1,7 +1,8 @@
-import { Drawings, getBreakerPanelV2, isDrawingPanelOpenOrNot, setIsOpenDrawingPanel, } from "../../data/drawings.js";
+import { Drawings, isDrawingPanelOpenOrNot, setIsOpenDrawingPanel, } from "../../data/drawings.js";
 import { drawingPanelPrintLine, makeCanvaAppearOrDisappear, printDrawing, printToTerminal, } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
-import { BreakerStateRelayA01, setFocus } from "../gameState.js";
+import { addFlag, BreakerStateRelayA01, setFocus } from "../gameState.js";
+import { doesThePlayerHasTheItem } from "../inventory.js";
 /*
 #############
 zone : BUNKER
@@ -22,14 +23,11 @@ export async function openBreakerPanel() {
     setIsOpenDrawingPanel(true);
     makeCanvaAppearOrDisappear(true);
     await draw("BREAKER_PANEL_RELAY_A01", false);
-    //await printDrawing()
-    //todo
 }
 export async function closeBreakerPanel() {
     setFocus(null);
     setIsOpenDrawingPanel(false);
     makeCanvaAppearOrDisappear(false);
-    //todo
 }
 /*
 #####################
@@ -42,6 +40,8 @@ zone : OUTSIDE_BUNKER
 export async function inspectBunkerFoundation() {
     // here I feel like maybe player is going to discover a mark of some sort
     await printToTerminal("not yet done, sorry :c", "alert");
+    await printToTerminal("you inspect the base of the bunker and you see something ( nothing ) " +
+        "( not yet done done ) :c", "action");
     //todo
 }
 /**
@@ -51,7 +51,10 @@ export async function enterBunkerStationA01() {
     await printToTerminal("i'm warning you, stuff doesnt work 100% for now, if you are experiencing problem with the drawing panel, please " +
         "reload your page, it might help make it show up cuz its supposed to show up, if it doesnt work, press ctrl + f5 to " +
         "reload the cache it might also help.", "alert"); //todo finish it
-    await gameBridge.loadZone("RELAY_A01");
+    if (doesThePlayerHasTheItem("keller_keycard")) {
+        await printToTerminal("You swipe the keycard in the slot and the big bunker's doors opens.", "action"); //todo finish the text
+        await gameBridge.loadZone("RELAY_A01");
+    }
 }
 /*
 ###################
@@ -94,13 +97,29 @@ export async function toggleInt1() {
     await draw("BREAKER_PANEL_RELAY_A01", true);
 }
 //focus for the wire
-export async function tryWithCrowbar() {
-    //todo
+/**
+ * self explanatory function ( for the breaker panel )
+ */
+export async function tryWithWireCutter() {
+    await printToTerminal("You remove the plastic grip of the wirecutter's handles, " +
+        "revealing the metal.", "action");
+    await printToTerminal("You attach each end of the wire to a handle of the wireCutter, " +
+        "connection is now up.", "action");
+    addFlag("REPAIRED_CONNEXION_WITH_WIRECUTTER");
 }
+/**
+ * self explanatory function ( for the breaker panel )
+ */
 export async function tryWithDuctTape() {
-    //todo
+    await printToTerminal("You take both end of the wire and attach them with tape, " +
+        "connection is now up.", "action");
+    addFlag("REPAIRED_CONNEXION_WITH_WIRECUTTER");
 }
 export async function inspectConnection() {
+    await printToTerminal("The connection from the first switch to the calibrator was cut " +
+        "to prevent it from being turned back on.", "system");
+    await printToTerminal("how do you want to try and repair it?", "system");
+    setFocus("BREAKER_PANEL_CONNECTION");
     //todo
 }
 /**

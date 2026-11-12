@@ -1,7 +1,8 @@
 import { isDrawingPanelOpenOrNot } from "../data/drawings.js";
+import { drawingPanelPrintLine, printToTerminal } from "../ui/dom.js"; //todo watch out for possible circular reference
 import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
-import { GATE_CHECKPOINT_ACTION, GATE_CHECKPOINT_SHACK_ACTIONS, GET_TOOL_BOX_ACTION, OUTSIDE_TRUCK_INIT_ACTIONS, RELAY_A01_ACTIONS, RELAY_A01_OUTSIDE_ACTIONS, RESONATOR_ENCOUNTER, SAY_STUFF_TO_QG, SNOWY_FOREST_ACTIONS, TRUCK_CABIN_INIT_ACTIONS, WATCH_POST, WATCH_POST_OUTSIDE, } from "./worldActions/index.js";
+import { GATE_CHECKPOINT_ACTION, GATE_CHECKPOINT_SHACK_ACTIONS, GET_TOOL_BOX_ACTION, OUTSIDE_TRUCK_INIT_ACTIONS, RELAY_A01_ACTIONS, RELAY_A01_OUTSIDE_ACTIONS, REPAIR_CONNECTION, RESONATOR_ENCOUNTER, SAY_STUFF_TO_QG, SNOWY_FOREST_ACTIONS, TRUCK_CABIN_INIT_ACTIONS, WATCH_POST, WATCH_POST_OUTSIDE, } from "./worldActions/index.js";
 /*
 the const containing all the zone that I'm using in the game
  */
@@ -184,6 +185,9 @@ export const ZONES = {
             if (getFocus() === FOCUS.BREAKER_PANEL) {
                 return getBreakerPanelActions();
             }
+            if (getFocus() === FOCUS.BREAKER_PANEL_CONNECTION) {
+                return getBreakerPanelInspectActions();
+            }
             actions.push(RELAY_A01_ACTIONS.GO_OUTSIDE_BUNKER);
             //TODO do the actions
             if (!isDrawingPanelOpenOrNot()) {
@@ -203,6 +207,24 @@ function getBreakerPanelActions() {
     actions.push(RELAY_A01_ACTIONS.INT_2);
     actions.push(RELAY_A01_ACTIONS.INT_3);
     //TODO do the actions
+    return actions;
+}
+function getBreakerPanelInspectActions() {
+    const actions = [];
+    if (doesThePlayerHasTheItem("insulated_wirecutter")) {
+        actions.push(REPAIR_CONNECTION.TRY_WIRECUTTER);
+    }
+    if (doesThePlayerHasTheItem("duct_tape")) {
+        actions.push(REPAIR_CONNECTION.TRY_DUCT_TAPE);
+    }
+    if (!doesThePlayerHasTheItem("crowbar") &&
+        !doesThePlayerHasTheItem("duct_tape")) {
+        drawingPanelPrintLine("You have nothing in your inventory " + "that can help with this task").catch(() => {
+            console.error("drawingPanelPrintln failed...");
+        });
+        actions.push(REPAIR_CONNECTION.TRY_DUCT_TAPE);
+    }
+    actions.push(REPAIR_CONNECTION.DO_SOMETHING_ELSE);
     return actions;
 }
 function getJunctionBoxActions() {
