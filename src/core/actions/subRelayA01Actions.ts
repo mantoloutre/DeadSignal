@@ -142,6 +142,15 @@ export async function tryWithWireCutter(): Promise<void> {
 }
 
 /**
+ * pretty self-explanatory function
+ */
+export async function smtElseThanBreakerPanelConnection(): Promise<void> {
+  await drawingPanelPrintLine(
+    "You decide its better to not try to repair the connection yet.",
+  );
+  setFocus("BREAKER_PANEL");
+}
+/**
  * self explanatory function ( for the breaker panel )
  */
 export async function tryWithDuctTape(): Promise<void> {
