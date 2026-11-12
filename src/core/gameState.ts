@@ -52,6 +52,7 @@ export const FOCUS = {
   TELLING_QG: "TELLING_QG",
   FIRST_ENCOUNTER: "FIRST_ENCOUNTER",
   BREAKER_PANEL: "BREAKER_PANEL",
+  BREAKER_PANEL_CONNECTION: "BREAKER_PANEL_CONNECTION",
 } as const;
 let currentFocus: ZoneFocus | null = null;
 

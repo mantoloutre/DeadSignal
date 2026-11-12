@@ -1,5 +1,6 @@
 import { isDrawingPanelOpenOrNot } from "../data/drawings.ts";
 import type { Zone, ZoneAction } from "../data/types.js";
+import { drawingPanelPrintLine } from "../ui/dom.ts"; //todo watch out for possible circular reference
 import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import {
@@ -9,6 +10,7 @@ import {
   OUTSIDE_TRUCK_INIT_ACTIONS,
   RELAY_A01_ACTIONS,
   RELAY_A01_OUTSIDE_ACTIONS,
+  REPAIR_CONNECTION,
   RESONATOR_ENCOUNTER,
   SAY_STUFF_TO_QG,
   SNOWY_FOREST_ACTIONS,
@@ -217,6 +219,9 @@ export const ZONES = {
       if (getFocus() === FOCUS.BREAKER_PANEL) {
         return getBreakerPanelActions();
       }
+      if (getFocus() === FOCUS.BREAKER_PANEL_CONNECTION) {
+        return;
+      }
       actions.push(RELAY_A01_ACTIONS.GO_OUTSIDE_BUNKER);
       //TODO do the actions
       if (!isDrawingPanelOpenOrNot()) {
@@ -224,7 +229,6 @@ export const ZONES = {
       } else {
         actions.push(RELAY_A01_ACTIONS.CLOSE_BREAKER_PANEL);
       }
-
       return actions;
     },
   },
@@ -236,6 +240,26 @@ function getBreakerPanelActions(): ZoneAction[] {
   actions.push(RELAY_A01_ACTIONS.INT_2);
   actions.push(RELAY_A01_ACTIONS.INT_3);
   //TODO do the actions
+  return actions;
+}
+async function getBreakerPanelInspectActions(): ZoneAction[] {
+  const actions: ZoneAction[] = [];
+  if (doesThePlayerHasTheItem("crowbar")) {
+    actions.push(REPAIR_CONNECTION.TRY_CROWBAR);
+  }
+  if (doesThePlayerHasTheItem("duct_tape")) {
+    actions.push(REPAIR_CONNECTION.TRY_DUCT_TAPE);
+  }
+  if (
+    !doesThePlayerHasTheItem("crowbar") &&
+    !doesThePlayerHasTheItem("duct_tape")
+  ) {
+    await drawingPanelPrintLine(
+      "You have nothing in your inventory " + "that can help with this task",
+    );
+    actions.push(REPAIR_CONNECTION.TRY_DUCT_TAPE);
+  }
+  actions.push(REPAIR_CONNECTION.DO_SOMETHING_ELSE);
   return actions;
 }
 function getJunctionBoxActions(): ZoneAction[] {

@@ -13,7 +13,7 @@ import {
   printToTerminal,
 } from "../../ui/dom.ts";
 import { gameBridge } from "../gameBridge.ts";
-import { BreakerStateRelayA01, setFocus } from "../gameState.ts";
+import { addFlag, BreakerStateRelayA01, setFocus } from "../gameState.ts";
 import { doesThePlayerHasTheItem } from "../inventory.ts";
 /*
 #############
@@ -55,6 +55,11 @@ zone : OUTSIDE_BUNKER
 export async function inspectBunkerFoundation(): Promise<void> {
   // here I feel like maybe player is going to discover a mark of some sort
   await printToTerminal("not yet done, sorry :c", "alert");
+  await printToTerminal(
+    "you inspect the base of the bunker and you see something ( nothing ) " +
+      "( not yet done done ) :c",
+    "action",
+  );
   //todo
 }
 
@@ -120,13 +125,31 @@ export async function toggleInt1(): Promise<void> {
 }
 
 //focus for the wire
-export async function tryWithCrowbar(): Promise<void> {
-  //todo
+
+export async function tryWithWireCutter(): Promise<void> {
+  await printToTerminal(
+    "You attach each end of the wire to a handle of the wireCutter, " +
+      "connection is now up.",
+    "action",
+  );
+  addFlag("REPAIRED_CONNEXION_WITH_WIRECUTTER");
 }
 export async function tryWithDuctTape(): Promise<void> {
+  await printToTerminal(
+    "You take both end of the wire and attach them with tape, " +
+      "connection is now up.",
+    "action",
+  );
+
   //todo
 }
 export async function inspectConnection(): Promise<void> {
+  await printToTerminal(
+    "The connection from the first switch to the calibrator was cut " +
+      "to prevent it from being turned back on.",
+    "system",
+  );
+  await printToTerminal("how do you want to try and repair it?", "system");
   //todo
 }
 /**
