@@ -1,9 +1,10 @@
 import { isDrawingPanelOpenOrNot } from "../data/drawings.ts";
 import type { Zone, ZoneAction } from "../data/types.js";
-import { drawingPanelPrintLine, printToTerminal } from "../ui/dom.ts"; //todo watch out for possible circular reference
+import { drawingPanelPrintLine } from "../ui/dom.ts"; //todo watch out for possible circular reference
 import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import {
+  BREAKER_PANEL_ACTIONS,
   GATE_CHECKPOINT_ACTION,
   GATE_CHECKPOINT_SHACK_ACTIONS,
   GET_TOOL_BOX_ACTION,
@@ -227,7 +228,7 @@ export const ZONES = {
       if (!isDrawingPanelOpenOrNot()) {
         actions.push(RELAY_A01_ACTIONS.OPEN_BREAKER_PANEL);
       } else {
-        actions.push(RELAY_A01_ACTIONS.CLOSE_BREAKER_PANEL);
+        actions.push(BREAKER_PANEL_ACTIONS.CLOSE_BREAKER_PANEL);
       }
       return actions;
     },
@@ -235,10 +236,11 @@ export const ZONES = {
 } as const satisfies Record<string, Zone>;
 function getBreakerPanelActions(): ZoneAction[] {
   const actions: ZoneAction[] = [];
-  actions.push(RELAY_A01_ACTIONS.CLOSE_BREAKER_PANEL);
-  actions.push(RELAY_A01_ACTIONS.INT_1);
-  actions.push(RELAY_A01_ACTIONS.INT_2);
-  actions.push(RELAY_A01_ACTIONS.INT_3);
+  actions.push(BREAKER_PANEL_ACTIONS.CLOSE_BREAKER_PANEL);
+  actions.push(BREAKER_PANEL_ACTIONS.INT_1);
+  actions.push(BREAKER_PANEL_ACTIONS.INT_2);
+  actions.push(BREAKER_PANEL_ACTIONS.INT_3);
+  actions.push(BREAKER_PANEL_ACTIONS.INSPECT_CONNECTIONS);
   //TODO do the actions
   return actions;
 }

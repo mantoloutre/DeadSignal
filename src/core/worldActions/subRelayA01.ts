@@ -31,6 +31,28 @@ export const RELAY_A01_ACTIONS = {
     description: "open the breaker panel to access it",
     execute: actionsFunc.openBreakerPanel,
   },
+} as const satisfies Record<string, ZoneAction>;
+export const REPAIR_CONNECTION = {
+  DO_SOMETHING_ELSE: {
+    command: "Do something else",
+    description: "simply get out of the puzzle's focus and do something else",
+    execute: actionsFunc.nuhUh, //todo do the action
+  },
+  TRY_WIRECUTTER: {
+    command: "try wirecutter",
+    description:
+      "try to link both ends of the link using the wire cutter as a `bridge`", //todo make this description better
+    execute: actionsFunc.tryWithWireCutter,
+  },
+  //At this point in game if player doesn't have either crowbar or duct tape well he's
+  //blocked until he gets one of the two ( he should have it )
+  TRY_DUCT_TAPE: {
+    command: "try duct tape",
+    description: "try to join the two end of the wire with duct tape", //TODO upgrade description?
+    execute: actionsFunc.tryWithDuctTape, //todo do the action
+  },
+} as const satisfies Record<string, ZoneAction>;
+export const BREAKER_PANEL_ACTIONS = {
   // make it only available if breaker panel is open
   CLOSE_BREAKER_PANEL: {
     command: "close breaker panel",
@@ -58,25 +80,5 @@ export const RELAY_A01_ACTIONS = {
     description:
       "inspect the connection of the switches to see what happened here",
     execute: actionsFunc.inspectConnection,
-  },
-} as const satisfies Record<string, ZoneAction>;
-export const REPAIR_CONNECTION = {
-  DO_SOMETHING_ELSE: {
-    command: "Do something else",
-    description: "simply get out of the puzzle's focus and do something else",
-    execute: actionsFunc.nuhUh, //todo do the action
-  },
-  TRY_WIRECUTTER: {
-    command: "try wirecutter",
-    description:
-      "try to link both ends of the link using the wire cutter as a `bridge`", //todo make this description better
-    execute: actionsFunc.tryWithWireCutter,
-  },
-  //At this point in game if player doesn't have either crowbar or duct tape well he's
-  //blocked until he gets one of the two ( he should have it )
-  TRY_DUCT_TAPE: {
-    command: "try duct tape",
-    description: "try to join the two end of the wire with duct tape", //TODO upgrade description?
-    execute: actionsFunc.tryWithDuctTape, //todo do the action
   },
 } as const satisfies Record<string, ZoneAction>;

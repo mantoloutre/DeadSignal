@@ -153,13 +153,13 @@ export async function tryWithDuctTape(): Promise<void> {
   addFlag("REPAIRED_CONNEXION_WITH_WIRECUTTER");
 }
 export async function inspectConnection(): Promise<void> {
-  await printToTerminal(
+  await drawingPanelPrintLine(
     "The connection from the first switch to the calibrator was cut " +
       "to prevent it from being turned back on.",
-    "system",
   );
-  await printToTerminal("how do you want to try and repair it?", "system");
+  await drawingPanelPrintLine("how do you want to try and repair it?");
   setFocus("BREAKER_PANEL_CONNECTION");
+  await gameBridge.loadZone("RELAY_A01");
   //todo
 }
 /**
