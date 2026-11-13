@@ -14,9 +14,14 @@ body {
   height: 100dvh;
   background-color: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(4px);
-  z-index: var(--die-index);
   opacity: 1;
   pointer-events: auto;
+}
+#die-overlay {
+  z-index: var(--die-index);
+}
+.overlay {
+  z-index: var(--overlay-index);
 }
 .overlay {
   transition: opacity 0.25s ease-in-out;

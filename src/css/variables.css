@@ -20,8 +20,8 @@
   --separetor-color: #2a7c20;
   /* z-index variables */
   --die-index: 5;
-  --overlay-index: 4;
-  --normal-menu-index: 3;
+  --normal-menu-index: 4;
+  --overlay-index: 3;
   --drawing-panel-index: 2;
   --main-content-index: 1;
 }
