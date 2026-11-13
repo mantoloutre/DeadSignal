@@ -7,7 +7,8 @@ import {
   printToTerminal,
 } from "../../ui/dom.ts";
 import { closeRadioInterface, tuningEvent } from "../../ui/radioInterface.ts";
-import { addFlag, currentState, hasFlag } from "../gameState.ts";
+import { gameBridge } from "../gameBridge.ts";
+import { addFlag, currentState, hasFlag, setFocus } from "../gameState.ts";
 import { getFormattedBuffer } from "../radioFrequency.ts";
 import type { ZoneId } from "../world.ts";
 
@@ -102,6 +103,8 @@ async function choseToDoTheRightThing(): Promise<void> {
     "You look back at Keller's body and you feel a chill run down your spine...",
     "system",
   );
+  setFocus(null);
+  gameBridge.renderZoneActions("WATCH_POST");
 }
 /**
  * function to deal with contacting the QG in the first encounter with

@@ -11,7 +11,7 @@ import {
   printToTerminal,
 } from "../../ui/dom.ts";
 import { gameBridge } from "../gameBridge.ts";
-import { addFlag, BreakerStateRelayA01, setFocus } from "../gameState.ts";
+import { addFlag, currentState, setFocus } from "../gameState.ts";
 import { doesThePlayerHasTheItem } from "../inventory.ts";
 /*
 #############
@@ -91,7 +91,7 @@ breaker panel focus
  */
 async function draw(whichDrawing: DrawingsName, speed: boolean): Promise<void> {
   await printDrawing(
-    Drawings[whichDrawing].executing(BreakerStateRelayA01),
+    Drawings[whichDrawing].executing(currentState.relayA01BreakerPanel),
     speed,
   );
 }
@@ -101,7 +101,8 @@ async function draw(whichDrawing: DrawingsName, speed: boolean): Promise<void> {
  */
 export async function toggleInt3(): Promise<void> {
   if (!(await verifyDrawingPanelClosed())) return;
-  BreakerStateRelayA01.int3 = !BreakerStateRelayA01.int3;
+  currentState.relayA01BreakerPanel.int3 =
+    !currentState.relayA01BreakerPanel.int3;
   await draw("BREAKER_PANEL_RELAY_A01", true);
 }
 
@@ -110,7 +111,8 @@ export async function toggleInt3(): Promise<void> {
  */
 export async function toggleInt2(): Promise<void> {
   if (!(await verifyDrawingPanelClosed())) return;
-  BreakerStateRelayA01.int2 = !BreakerStateRelayA01.int2;
+  currentState.relayA01BreakerPanel.int2 =
+    !currentState.relayA01BreakerPanel.int2;
   await draw("BREAKER_PANEL_RELAY_A01", true);
 }
 /**
@@ -118,7 +120,8 @@ export async function toggleInt2(): Promise<void> {
  */
 export async function toggleInt1(): Promise<void> {
   if (!(await verifyDrawingPanelClosed())) return;
-  BreakerStateRelayA01.int1 = !BreakerStateRelayA01.int1;
+  currentState.relayA01BreakerPanel.int1 =
+    !currentState.relayA01BreakerPanel.int1;
   await draw("BREAKER_PANEL_RELAY_A01", true);
 }
 
@@ -129,7 +132,7 @@ export async function toggleInt1(): Promise<void> {
  */
 export async function tryWithWireCutter(): Promise<void> {
   await printToTerminal(
-    "You remove the plastic grip of the wirecutter's handles, " +
+    "You remove the plastic grip of the wire cutter's handles, " +
       "revealing the metal.",
     "action",
   );
@@ -139,6 +142,7 @@ export async function tryWithWireCutter(): Promise<void> {
     "action",
   );
   addFlag("REPAIRED_CONNEXION_WITH_WIRECUTTER");
+  currentState.relayA01BreakerPanel.wire1 = true;
 }
 
 /**
@@ -151,7 +155,7 @@ export async function smtElseThanBreakerPanelConnection(): Promise<void> {
   setFocus("BREAKER_PANEL");
 }
 /**
- * self explanatory function ( for the breaker panel )
+ * self-explanatory function ( for the breaker panel )
  */
 export async function tryWithDuctTape(): Promise<void> {
   await printToTerminal(
@@ -159,7 +163,8 @@ export async function tryWithDuctTape(): Promise<void> {
       "connection is now up.",
     "action",
   );
-  addFlag("REPAIRED_CONNEXION_WITH_WIRECUTTER");
+  addFlag("REPAIRED_CONNEXION_WITH_DUCT_TAPE");
+  currentState.relayA01BreakerPanel.wire1 = true;
 }
 export async function inspectConnection(): Promise<void> {
   await drawingPanelPrintLine(

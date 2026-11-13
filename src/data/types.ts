@@ -30,6 +30,9 @@ export interface BreakerState {
   int1: boolean;
   int2: boolean;
   int3: boolean;
+  /**
+   * true if repaired, false if broken
+   */
   wire1: boolean;
 }
 export interface ZoneAction {

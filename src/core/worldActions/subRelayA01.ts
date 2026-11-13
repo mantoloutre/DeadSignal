@@ -36,10 +36,10 @@ export const REPAIR_CONNECTION = {
   DO_SOMETHING_ELSE: {
     command: "Do something else",
     description: "simply get out of the puzzle's focus and do something else",
-    execute: actionsFunc.nuhUh, //todo do the action
+    execute: actionsFunc.smtElseThanBreakerPanelConnection, //todo do the action
   },
   TRY_WIRECUTTER: {
-    command: "try wirecutter",
+    command: "try Wirecutter",
     description:
       "try to link both ends of the link using the wire cutter as a `bridge`", //todo make this description better
     execute: actionsFunc.tryWithWireCutter,
@@ -67,12 +67,12 @@ export const BREAKER_PANEL_ACTIONS = {
   INT_2: {
     command: "INT 2",
     description: "toggle the second switch",
-    execute: actionsFunc.toggleInt2, //TODO do the action
+    execute: actionsFunc.toggleInt2,
   },
   INT_3: {
     command: "INT 3",
     description: "toggle the third switch",
-    execute: actionsFunc.toggleInt3, //TODO do the action
+    execute: actionsFunc.toggleInt3,
   },
   // Keller cut it and maybe left a note?
   INSPECT_CONNECTIONS: {

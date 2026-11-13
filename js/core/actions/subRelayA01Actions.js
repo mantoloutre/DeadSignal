@@ -1,7 +1,7 @@
 import { Drawings, isDrawingPanelOpenOrNot, setIsOpenDrawingPanel, } from "../../data/drawings.js";
 import { drawingPanelPrintLine, makeCanvaAppearOrDisappear, printDrawing, printToTerminal, } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
-import { addFlag, BreakerStateRelayA01, setFocus } from "../gameState.js";
+import { addFlag, BreakerStateRelayA01, currentState, setFocus, } from "../gameState.js";
 import { doesThePlayerHasTheItem } from "../inventory.js";
 /*
 #############
@@ -101,25 +101,35 @@ export async function toggleInt1() {
  * self explanatory function ( for the breaker panel )
  */
 export async function tryWithWireCutter() {
-    await printToTerminal("You remove the plastic grip of the wirecutter's handles, " +
+    await printToTerminal("You remove the plastic grip of the wire cutter's handles, " +
         "revealing the metal.", "action");
     await printToTerminal("You attach each end of the wire to a handle of the wireCutter, " +
         "connection is now up.", "action");
     addFlag("REPAIRED_CONNEXION_WITH_WIRECUTTER");
+    currentState.relayA01BreakerPanel.wire1 = true;
 }
 /**
- * self explanatory function ( for the breaker panel )
+ * pretty self-explanatory function
+ */
+export async function smtElseThanBreakerPanelConnection() {
+    await drawingPanelPrintLine("You decide its better to not try to repair the connection yet.");
+    setFocus("BREAKER_PANEL");
+}
+/**
+ * self-explanatory function ( for the breaker panel )
  */
 export async function tryWithDuctTape() {
     await printToTerminal("You take both end of the wire and attach them with tape, " +
         "connection is now up.", "action");
-    addFlag("REPAIRED_CONNEXION_WITH_WIRECUTTER");
+    addFlag("REPAIRED_CONNEXION_WITH_DUCT_TAPE");
+    currentState.relayA01BreakerPanel.wire1 = true;
 }
 export async function inspectConnection() {
-    await printToTerminal("The connection from the first switch to the calibrator was cut " +
-        "to prevent it from being turned back on.", "system");
-    await printToTerminal("how do you want to try and repair it?", "system");
+    await drawingPanelPrintLine("The connection from the first switch to the calibrator was cut " +
+        "to prevent it from being turned back on.");
+    await drawingPanelPrintLine("how do you want to try and repair it?");
     setFocus("BREAKER_PANEL_CONNECTION");
+    await gameBridge.loadZone("RELAY_A01");
     //todo
 }
 /**
