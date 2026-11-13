@@ -29,7 +29,7 @@ Btw the only name that's in the game i chose it randomly so i'm sorry if that's 
 
 > ### Tips:
 > if you hover an action long enough, you get its description :D
-### Game is made to be played on a screen wider than a phone ( laptop/desktop recomended)
+### Game has to to be played on a screen wider than a phone ( laptop/desktop recomended). I do not know if it works on mobile
 
 > ### Some information ( you can skip if you want )
 >

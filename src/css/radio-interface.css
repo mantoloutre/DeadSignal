@@ -30,7 +30,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: var(--main-color-background);
-  z-index: 901;
+  z-index: var(--normal-menu-index);
   width: min(90vw, 500px);
   padding: 10px;
   opacity: 0;
