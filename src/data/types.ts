@@ -47,4 +47,11 @@ export interface Zone {
   readonly description: string;
   readonly getActions: () => ZoneAction[];
 }
-export type fromType = "system" | "alert" | "QG" | "log" | "action" | "YOU";
+export type fromType =
+  | "note"
+  | "system"
+  | "alert"
+  | "QG"
+  | "log"
+  | "action"
+  | "YOU";

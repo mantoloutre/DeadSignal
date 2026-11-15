@@ -56,7 +56,7 @@ export async function goInsideTheWatchPost(): Promise<void> {
     );
     await printToTerminal(
       "everything is jammed, something is close... i feel it.. QG is not wh-",
-      "log",
+      "note",
     );
     //TODO do the rest
     setFocus("TELLING_QG");
