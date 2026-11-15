@@ -80,3 +80,80 @@ export const presetTestDrawingPanel: GameState = {
 
 };
 */
+export const presetOutsideFirstRelay: GameState = {
+  app: "DEAD_SIGNAL",
+  version: 1,
+  currentZone: "RELAY_A01_OUTSIDE",
+  powerLevel: 100,
+  pendingQGMessages: [],
+  currentFrequency: "112.400",
+  discoveredSignals: ["000.000", "112.400", "940.700"],
+  storyFlags: [
+    "OPENED_GLOVE_BOX",
+    "READ_MANUAL",
+    "TOOK_WINTER_GLOVE",
+    "OPENED_TRUCK_TRUNK_INIT",
+    "OPENED_HOOD_TRUCK_INIT",
+    "INSPECTED_DIRECTION_SIGN",
+    "OPENED_TOOLBOX_INIT",
+    "SEARCHED_GUARD_SHACK",
+    "GOT_QG_MESSAGE_GOT_TO_TOWER",
+    "DISCOVERED_KELLER_BODY",
+    "TOLD_QG_ABOUT_NOTE",
+    "TOLD_QG_ABOUT_BODY",
+    "SEARCHED_KELLER_BODY",
+  ],
+  playerInventory: [
+    {
+      itemId: "flare",
+      count: 2,
+    },
+    {
+      itemId: "winter_gloves",
+      count: 1,
+    },
+    {
+      itemId: "crowbar",
+      count: 1,
+    },
+    {
+      itemId: "adjustable_wrench",
+      count: 1,
+    },
+    {
+      itemId: "duct_tape",
+      count: 1,
+    },
+    {
+      itemId: "keller_keycard",
+      count: 1,
+    },
+    {
+      itemId: "keller_credential",
+      count: 1,
+    },
+  ],
+  inactiveCommands: [
+    "read emergency manual",
+    "take flares",
+    "take gloves",
+    "open the truck's trunk",
+    "look into the truck's trunk",
+    "take crowbar",
+    "pickup ajustable wrench",
+    "pickup duct tape",
+    "Salvage memory module",
+    "Note Found",
+    "Dead Body",
+    "search body",
+    "take Keller's keycard",
+    "take Keller's credential",
+    "take pen",
+  ],
+  relayA01BreakerPanel: {
+    int1: false,
+    int2: false,
+    int3: false,
+    wire1: false,
+  },
+} satisfies GameState;
