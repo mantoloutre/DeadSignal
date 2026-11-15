@@ -232,7 +232,6 @@ export async function forceToolBoxOpenWithHand(): Promise<void> {
     "You try to open the latch with your hands, it doesnt seem to budge.",
     "action",
   );
-  //TODO something else?
 }
 
 export async function pryToolBoxWithCrowbar(): Promise<void> {
@@ -250,6 +249,5 @@ export async function walkTowardSnowyForestFromOutsideTruck(): Promise<void> {
     "You walk toward the forest away from the truck",
     "action",
   );
-  //TODO load zone
   await gameBridge.loadZone("SNOWY_FOREST");
 }

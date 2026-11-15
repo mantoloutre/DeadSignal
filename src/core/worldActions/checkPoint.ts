@@ -22,12 +22,12 @@ export const GATE_CHECKPOINT_SHACK_ACTIONS = {
   GO_BACK_OUTSIDE_THE_SHACK: {
     command: "Go Back Outside",
     description: "Go back outside of the shack",
-    execute: actionsFunc.goOutsideTheShack_GateCheckpoint, //TODO bind the action
+    execute: actionsFunc.goOutsideTheShack_GateCheckpoint,
   },
   SEARCH_THE_SHACK: {
     command: "Search the room",
     description: "search the messy room for anything that could be useful",
-    execute: actionsFunc.searchTheGuardShack, //TODO bind the action
+    execute: actionsFunc.searchTheGuardShack,
   },
   PICKUP_MEMORY_MODULE: {
     command: "Salvage memory module",

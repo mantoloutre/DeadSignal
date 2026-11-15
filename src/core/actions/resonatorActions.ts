@@ -213,4 +213,5 @@ export async function goOutside(): Promise<void> {
   await printDeathMessage(
     "You feel your insides freezing as you loose any sense of feeling.",
   );
+
 }
