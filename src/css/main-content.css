@@ -74,7 +74,9 @@
   padding: 1%;
   position: relative;
 }
-
+#terminal-output.breaker-panel-open {
+  overflow: hidden;
+}
 #InOut {
   display: flex;
   gap: 10px;

@@ -6,6 +6,7 @@ import {
 } from "../../data/drawings.ts";
 import {
   drawingPanelPrintLine,
+  getEl,
   makeCanvaAppearOrDisappear,
   printDrawing,
   printToTerminal,
@@ -33,12 +34,18 @@ export async function goBackToDirectionSign(): Promise<void> {
 }
 export async function openBreakerPanel(): Promise<void> {
   setFocus("BREAKER_PANEL");
+  const terminalOutput: HTMLDivElement = getEl("terminal-output");
+  terminalOutput.classList.add("breaker-panel-open");
+  terminalOutput.scrollTo(0, 0);
   setIsOpenDrawingPanel(true);
   makeCanvaAppearOrDisappear(true);
   await draw("BREAKER_PANEL_RELAY_A01", false);
 }
 export async function closeBreakerPanel(): Promise<void> {
   setFocus(null);
+  const terminalOutput: HTMLDivElement = getEl("terminal-output");
+  terminalOutput.classList.remove("breaker-panel-open");
+  terminalOutput.scrollTo(0, terminalOutput.scrollHeight);
   setIsOpenDrawingPanel(false);
   makeCanvaAppearOrDisappear(false);
 }
