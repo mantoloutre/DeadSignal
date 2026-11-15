@@ -77,6 +77,12 @@ export async function enterBunkerStationA01(): Promise<void> {
       "action",
     ); //todo finish the text
     await gameBridge.loadZone("RELAY_A01");
+  } else {
+    await printToTerminal(
+      "There is a visible keycard slot," +
+        " however, you have no keycard to fill that slot",
+      "system",
+    );
   }
 }
 /*
@@ -128,7 +134,7 @@ export async function toggleInt1(): Promise<void> {
 //focus for the wire
 
 /**
- * self explanatory function ( for the breaker panel )
+ * self-explanatory function ( for the breaker panel )
  */
 export async function tryWithWireCutter(): Promise<void> {
   await printToTerminal(
