@@ -32,6 +32,11 @@ export async function walkTowardFrostBasin(): Promise<void> {
     "i'm warning you, stuff doesnt work 100% for now, if you are experiencing problem, its normal",
     "alert",
   );
+  await printToTerminal(
+    "You walk toward the frost basin, you see a big satellite " +
+      "dish and not far from it the doors to a bunker.",
+    "system",
+  );
   await gameBridge.loadZone("RELAY_A01_OUTSIDE");
 }
 export function getOutOfBreakerFocus(): void {
