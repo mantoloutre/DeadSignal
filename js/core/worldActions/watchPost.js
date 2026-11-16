@@ -86,6 +86,7 @@ export const WATCH_POST_OUTSIDE = {
     },
 };
 export const RESONATOR_ENCOUNTER = {
+    // actions for inside the watch post
     COVER_EARS: {
         command: "cover your ears",
         description: "go in a corner and cover your ears",
@@ -95,5 +96,21 @@ export const RESONATOR_ENCOUNTER = {
         command: "go outside",
         description: "go outside of the watch tower",
         execute: goOutside,
+    },
+    // actions for outside the watch post
+    GO_INSIDE: {
+        command: "go inside watch post",
+        description: "go inside the watch tower",
+        execute: async () => { }, //todo do the action
+    },
+    HIDE_IN_SNOW: {
+        command: "hide in snow",
+        description: "hide in the snow",
+        execute: async () => { }, //todo do the action
+    },
+    MAKE_RUN_FOR_IT: {
+        command: "run toward the truck",
+        description: "try to escape and run toward the truck",
+        execute: async () => { }, //todo do the action
     },
 };

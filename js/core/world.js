@@ -272,6 +272,9 @@ function getFirstEncounterActions(zoneId) {
             actions.push(RESONATOR_ENCOUNTER.COVER_EARS);
             actions.push(RESONATOR_ENCOUNTER.GO_OUTSIDE);
             break;
+        case "WATCH_POST_OUTSIDE":
+            //todo do & link the action
+            break;
         default:
             actions.push({
                 command: "return (not implemented yet)",
