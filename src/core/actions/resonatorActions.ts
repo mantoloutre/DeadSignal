@@ -214,3 +214,19 @@ export async function goOutside(): Promise<void> {
     "You feel your insides freezing as you loose any sense of feeling.",
   );
 }
+
+/**
+ * function to handle if the player want to go inside
+ * during the first encounter with the resonator
+ */
+export async function goInside(): Promise<void> {
+  //todo
+}
+
+/**
+ * function to handle if the player wants to hide in
+ * the snow during his first encounter with the resonator
+ */
+export async function hideInSnow(): Promise<void> {
+  //todo
+}
