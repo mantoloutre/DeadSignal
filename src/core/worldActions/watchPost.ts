@@ -97,4 +97,20 @@ export const RESONATOR_ENCOUNTER = {
     description: "go outside of the watch tower",
     execute: goOutside,
   },
+  // actions for outside the watch post
+  GO_INSIDE: {
+    command: "go inside watch post",
+    description: "go inside the watch tower",
+    execute: async (): Promise<void> => {}, //todo do the action
+  },
+  HIDE_IN_SNOW: {
+    command: "hide in snow",
+    description: "hide in the snow",
+    execute: async (): Promise<void> => {}, //todo do the action
+  },
+  MAKE_RUN_FOR_IT: {
+    command: "run toward the truck",
+    description: "try to escape and run toward the truck",
+    execute: async (): Promise<void> => {}, //todo do the action
+  },
 } as const satisfies Record<string, ZoneAction>;
