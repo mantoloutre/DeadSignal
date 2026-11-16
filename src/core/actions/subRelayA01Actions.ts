@@ -73,11 +73,9 @@ export async function inspectBunkerFoundation(): Promise<void> {
  */
 export async function enterBunkerStationA01(): Promise<void> {
   await printToTerminal(
-    "i'm warning you, stuff doesnt work 100% for now, if you are experiencing problem with the drawing panel, please " +
-      "reload your page, it might help make it show up cuz its supposed to show up, if it doesnt work, press ctrl + f5 to " +
-      "reload the cache it might also help.",
+    "warning - stuff might be broken ( prob not but just warning you )",
     "alert",
-  ); //todo finish it
+  );
   if (doesThePlayerHasTheItem("keller_keycard")) {
     await printToTerminal(
       "You swipe the keycard in the slot and the big bunker's doors opens.",
@@ -186,7 +184,7 @@ export async function inspectConnection(): Promise<void> {
   );
   await drawingPanelPrintLine("how do you want to try and repair it?");
   setFocus("BREAKER_PANEL_CONNECTION");
-  await gameBridge.loadZone("RELAY_A01");
+  gameBridge.renderZoneActions("RELAY_A01");
   //todo
 }
 /**

@@ -1,7 +1,8 @@
 import { FREQUENCY_REGISTRY } from "../../data/frequencies.js";
 import { die, flashButton, getEl, printDeathMessage, printToTerminal, } from "../../ui/dom.js";
 import { closeRadioInterface, tuningEvent } from "../../ui/radioInterface.js";
-import { addFlag, currentState, hasFlag } from "../gameState.js";
+import { gameBridge } from "../gameBridge.js";
+import { addFlag, currentState, hasFlag, setFocus } from "../gameState.js";
 import { getFormattedBuffer } from "../radioFrequency.js";
 export async function handleResonatorActions(zone) {
     if (zone === "WATCH_POST") {
@@ -61,6 +62,8 @@ async function choseToDoTheRightThing() {
     await printToTerminal("As soon as you type in the frequency, the pressure that was building in your " +
         "ears starts dropping really fast until it's gone.", "system");
     await printToTerminal("You look back at Keller's body and you feel a chill run down your spine...", "system");
+    setFocus(null);
+    gameBridge.renderZoneActions("WATCH_POST");
 }
 /**
  * function to deal with contacting the QG in the first encounter with

@@ -170,15 +170,13 @@ export async function takePenFromKeller(): Promise<void> {
 }
 //Tell QG for the dead body
 export async function tellQGAboutDeadBody(): Promise<void> {
-  await printToTerminal("Found Keller. He's dead.", "YOU"); //TODO do the color for YOU ( the player )
-  //TODO add response from qg by adding to the queue
+  await printToTerminal("Found Keller. He's dead.", "YOU");
   await queueQGMessage("TOLD_DEAD_BODY");
   addFlag("TOLD_QG_ABOUT_BODY");
 }
 
 //Don't tell QG for the dead body
 export async function tellQGNoBodyFound(): Promise<void> {
-  //TODO add response from qg by adding to the queue & finish this
   await printToTerminal(
     "I'm in the main relay watch tower, Keller is nowhere to be found.",
     "YOU",
@@ -188,10 +186,9 @@ export async function tellQGNoBodyFound(): Promise<void> {
 
 //Tell QG for the note Keller left
 export async function tellQGAboutNoteLeft(): Promise<void> {
-  //TODO add response from qg by adding to the queue & finish this
   await printToTerminal(
     "From what i can see, Kelley left a note, apparently, there is something " +
-      "dangerous that is drawn to the signal when it is running",
+      "dangerous that is drawn to the signal when it is running.",
     "YOU",
   );
   addFlag("TOLD_QG_ABOUT_NOTE");

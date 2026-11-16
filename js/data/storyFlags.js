@@ -51,7 +51,6 @@ export const StoryFlags = {
     // verification
     CONFIRMATION1: "CONFIRMATION1",
     // reusable flags?
-    IN_CORNER: "IN_CORNER",
     DISABLED_RADIO: "DISABLED_RADIO",
     ENCOUNTER_IN_PROGRESS_NOW: "ENCOUNTER_IN_PROGRESS_NOW",
     // weird stuff I'm testing out

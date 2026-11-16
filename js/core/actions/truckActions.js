@@ -152,7 +152,6 @@ export async function takeDuctTapeFromToolBoxInit() {
 }
 export async function forceToolBoxOpenWithHand() {
     await printToTerminal("You try to open the latch with your hands, it doesnt seem to budge.", "action");
-    //TODO something else?
 }
 export async function pryToolBoxWithCrowbar() {
     await printToTerminal("you hit a few time the latch with your crowbar and manage to break it." +
@@ -162,6 +161,5 @@ export async function pryToolBoxWithCrowbar() {
 }
 export async function walkTowardSnowyForestFromOutsideTruck() {
     await printToTerminal("You walk toward the forest away from the truck", "action");
-    //TODO load zone
     await gameBridge.loadZone("SNOWY_FOREST");
 }

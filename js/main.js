@@ -3,7 +3,7 @@ import "./ui/sideMenu.js";
 import { gameBridge } from "./core/gameBridge.js";
 import { handleFrequency, loadAllFrequency, queueQGMessage, } from "./core/radioFrequency.js";
 import { ZONES } from "./core/world.js";
-import { presetBeforeDiscoveringBody } from "./data/devPresets.js";
+import { presetBeforeDiscoveringBody, presetOutsideFirstRelay, } from "./data/devPresets.js";
 import { ITEMS } from "./data/items.js";
 import { die, flashButton, getEl, isPrinting, printToTerminal, } from "./ui/dom.js";
 import { closeRadioInterface, setDisplayFrequency, } from "./ui/radioInterface.js";
@@ -123,9 +123,17 @@ export function bindingAction(button, action) {
         action();
     });
 }
-//bind the skip zone action to its function
+/**
+ * pretty self-explanatory function
+ */
 async function skipToZoneOutsideWatchpost() {
     setGameState(presetBeforeDiscoveringBody);
+}
+/**
+ * pretty self-explanatory function
+ */
+async function skipToZoneOutsideFirstRelayStation() {
+    setGameState(presetOutsideFirstRelay);
 }
 //close or open the side menu
 function openOrCloseCheatMenu() {
@@ -181,6 +189,7 @@ async function saveGame() {
 bindingAction(getEl("btn-open-inventory"), openInventory);
 bindingAction(getEl("btn-close-inventory"), closeInventory);
 bindingAsyncAction(getEl("btn-skip-to-outside-watch-tower"), skipToZoneOutsideWatchpost);
+bindingAsyncAction(getEl("btn-skip-to-outside-first-relay"), skipToZoneOutsideFirstRelayStation);
 bindingAction(getEl("btn-close-radio-interface"), closeRadioInterface);
 bindingAction(getEl("btn-close-cheat-menu"), openOrCloseCheatMenu);
 //general

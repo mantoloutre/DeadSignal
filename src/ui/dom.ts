@@ -25,11 +25,12 @@ export interface UIElements {
   "btn-k0": HTMLButtonElement;
   "btn-tune": HTMLButtonElement;
   "btn-delete-key": HTMLButtonElement;
-  "btn-skip-to-outside-watch-tower": HTMLButtonElement;
   "btn-close-cheat-menu": HTMLButtonElement;
   "btn-die": HTMLButtonElement;
   "btn-reset-game": HTMLButtonElement;
+  "btn-skip-to-outside-watch-tower": HTMLButtonElement;
   "btn-skip-to-after-memory-module": HTMLButtonElement;
+  "btn-skip-to-outside-first-relay": HTMLButtonElement;
   // div elements
   "side-menu": HTMLDivElement;
   "cheat-menu": HTMLDivElement;
@@ -52,7 +53,7 @@ export interface UIElements {
   frequency: HTMLParagraphElement;
   // list element
   "radio-interface-help-list": HTMLUListElement;
-  // pre formatted text elements
+  // pre-formatted text elements
   "drawing-canva": HTMLPreElement;
 }
 /*
@@ -118,7 +119,7 @@ export async function printDrawing(
   for (const line of drawingLines) {
     drawing += `${drawing ? "\n" : ""}${line}`;
     canva.textContent = drawing;
-    if (!fast) await sleep(100); //TODO find the right number
+    if (!fast) await sleep(40);
   }
   isPrinting = false;
 }

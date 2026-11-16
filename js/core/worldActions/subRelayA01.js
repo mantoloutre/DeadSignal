@@ -34,19 +34,19 @@ export const REPAIR_CONNECTION = {
     DO_SOMETHING_ELSE: {
         command: "Do something else",
         description: "simply get out of the puzzle's focus and do something else",
-        execute: actionsFunc.smtElseThanBreakerPanelConnection, //todo do the action
+        execute: actionsFunc.smtElseThanBreakerPanelConnection,
     },
     TRY_WIRECUTTER: {
         command: "try Wirecutter",
-        description: "try to link both ends of the link using the wire cutter as a `bridge`", //todo make this description better
+        description: "try to link both ends of the link using the wire cutter as a `bridge` for the electricity",
         execute: actionsFunc.tryWithWireCutter,
     },
     //At this point in game if player doesn't have either crowbar or duct tape well he's
     //blocked until he gets one of the two ( he should have it )
     TRY_DUCT_TAPE: {
         command: "try duct tape",
-        description: "try to join the two end of the wire with duct tape", //TODO upgrade description?
-        execute: actionsFunc.tryWithDuctTape, //todo do the action
+        description: "try to join the two end of the wire with duct tape",
+        execute: actionsFunc.tryWithDuctTape,
     },
 };
 export const BREAKER_PANEL_ACTIONS = {
@@ -64,12 +64,12 @@ export const BREAKER_PANEL_ACTIONS = {
     INT_2: {
         command: "INT 2",
         description: "toggle the second switch",
-        execute: actionsFunc.toggleInt2, //TODO do the action
+        execute: actionsFunc.toggleInt2,
     },
     INT_3: {
         command: "INT 3",
         description: "toggle the third switch",
-        execute: actionsFunc.toggleInt3, //TODO do the action
+        execute: actionsFunc.toggleInt3,
     },
     // Keller cut it and maybe left a note?
     INSPECT_CONNECTIONS: {

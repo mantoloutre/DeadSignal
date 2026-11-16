@@ -166,7 +166,7 @@ export const ZONES = {
     //##########################################
     RELAY_A01_OUTSIDE: {
         name: "RELAY-A01 - OUTSIDE BUNKER",
-        description: "not yet done", //TODO do the description
+        description: "description not done, forgive me :c", //TODO do the description
         getActions: () => {
             const actions = [];
             //TODO do the actions
@@ -179,7 +179,7 @@ export const ZONES = {
     //##########################################
     RELAY_A01: {
         name: "RELAY-A01 - INSIDE BUNKER",
-        description: "Not finished", //TODO do the description
+        description: "the description is not yet done sowy :c", //TODO do the description
         getActions: () => {
             const actions = [];
             if (getFocus() === FOCUS.BREAKER_PANEL) {

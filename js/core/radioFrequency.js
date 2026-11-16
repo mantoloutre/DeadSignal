@@ -167,7 +167,6 @@ export async function handleFrequency() {
     //making sure he has it
     // ( don't care if it doesn't exist cuz the switch case is going to take care of that )
     if (!hasDiscoveredSignal(formattedFreq)) {
-        //TODO make it so if unknown well its a static noice?
         await printToTerminal("Heavy carrier distortion. Signal unreadable.", "alert");
         return;
     }
@@ -200,9 +199,11 @@ async function handleResonatorFrequency() {
     }
     else if (currentState.currentZone === "WATCH_POST" &&
         hasFlag("HAD_FIRST_ENCOUNTER")) {
+        await printToTerminal("Not implemented yet, sorry", "alert");
         //TODO he dies, cmon man dont activate it a second time if first time you almost died
     }
     else {
+        await printToTerminal("not implemented yet, sorry", "alert");
         //TODO if the player activate the frequency but isnt in the watchpost?
     }
 }
@@ -221,7 +222,7 @@ export async function handleResonatorEncounter() {
             }
             else {
                 //TODO do if its not the first encounter
-                await printToTerminal("Sorry, not implemented yet", "alert"); //TODO remove when done
+                await printToTerminal("Sorry, not implemented yet", "alert");
             }
             break;
         case "WATCH_POST_OUTSIDE":

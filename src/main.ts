@@ -17,7 +17,10 @@ import {
   queueQGMessage,
 } from "./core/radioFrequency.js";
 import { ZONES, type ZoneId } from "./core/world.js";
-import { presetBeforeDiscoveringBody } from "./data/devPresets.js";
+import {
+  presetBeforeDiscoveringBody,
+  presetOutsideFirstRelay,
+} from "./data/devPresets.js";
 import { ITEMS, type Item } from "./data/items.js";
 import type { Zone, ZoneAction } from "./data/types.js";
 import {
@@ -165,11 +168,19 @@ export function bindingAction(
   });
 }
 
-//bind the skip zone action to its function
+/**
+ * pretty self-explanatory function
+ */
 async function skipToZoneOutsideWatchpost(): Promise<void> {
   setGameState(presetBeforeDiscoveringBody);
 }
 
+/**
+ * pretty self-explanatory function
+ */
+async function skipToZoneOutsideFirstRelayStation(): Promise<void> {
+  setGameState(presetOutsideFirstRelay);
+}
 //close or open the side menu
 function openOrCloseCheatMenu(): void {
   //TODO maybe add a menu-overlay? maybe not cuz no?
@@ -235,6 +246,10 @@ bindingAction(getEl("btn-close-inventory"), closeInventory);
 bindingAsyncAction(
   getEl("btn-skip-to-outside-watch-tower"),
   skipToZoneOutsideWatchpost,
+);
+bindingAsyncAction(
+  getEl("btn-skip-to-outside-first-relay"),
+  skipToZoneOutsideFirstRelayStation,
 );
 bindingAction(getEl("btn-close-radio-interface"), closeRadioInterface);
 bindingAction(getEl("btn-close-cheat-menu"), openOrCloseCheatMenu);

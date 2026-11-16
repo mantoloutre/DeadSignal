@@ -58,7 +58,7 @@ export async function printDrawing(drawingLines, fast) {
         drawing += `${drawing ? "\n" : ""}${line}`;
         canva.textContent = drawing;
         if (!fast)
-            await sleep(100); //TODO find the right number
+            await sleep(40);
     }
     isPrinting = false;
 }

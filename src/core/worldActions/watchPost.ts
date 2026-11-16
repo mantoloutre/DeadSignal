@@ -87,6 +87,7 @@ export const WATCH_POST_OUTSIDE = {
   },
 } as const satisfies Record<string, ZoneAction>;
 export const RESONATOR_ENCOUNTER = {
+  // actions for inside the watch post
   COVER_EARS: {
     command: "cover your ears",
     description: "go in a corner and cover your ears",

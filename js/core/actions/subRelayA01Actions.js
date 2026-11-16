@@ -1,7 +1,7 @@
 import { Drawings, isDrawingPanelOpenOrNot, setIsOpenDrawingPanel, } from "../../data/drawings.js";
-import { drawingPanelPrintLine, makeCanvaAppearOrDisappear, printDrawing, printToTerminal, } from "../../ui/dom.js";
+import { drawingPanelPrintLine, getEl, makeCanvaAppearOrDisappear, printDrawing, printToTerminal, } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
-import { addFlag, BreakerStateRelayA01, currentState, setFocus, } from "../gameState.js";
+import { addFlag, currentState, setFocus } from "../gameState.js";
 import { doesThePlayerHasTheItem } from "../inventory.js";
 /*
 #############
@@ -20,12 +20,18 @@ export async function goBackToDirectionSign() {
 }
 export async function openBreakerPanel() {
     setFocus("BREAKER_PANEL");
+    const terminalOutput = getEl("terminal-output");
+    terminalOutput.classList.add("breaker-panel-open");
+    terminalOutput.scrollTo(0, 0);
     setIsOpenDrawingPanel(true);
     makeCanvaAppearOrDisappear(true);
     await draw("BREAKER_PANEL_RELAY_A01", false);
 }
 export async function closeBreakerPanel() {
     setFocus(null);
+    const terminalOutput = getEl("terminal-output");
+    terminalOutput.classList.remove("breaker-panel-open");
+    terminalOutput.scrollTo(0, terminalOutput.scrollHeight);
     setIsOpenDrawingPanel(false);
     makeCanvaAppearOrDisappear(false);
 }
@@ -48,12 +54,14 @@ export async function inspectBunkerFoundation() {
  * enter the bunker of the station A-01
  */
 export async function enterBunkerStationA01() {
-    await printToTerminal("i'm warning you, stuff doesnt work 100% for now, if you are experiencing problem with the drawing panel, please " +
-        "reload your page, it might help make it show up cuz its supposed to show up, if it doesnt work, press ctrl + f5 to " +
-        "reload the cache it might also help.", "alert"); //todo finish it
+    await printToTerminal("warning - stuff might be broken ( prob not but just warning you )", "alert");
     if (doesThePlayerHasTheItem("keller_keycard")) {
         await printToTerminal("You swipe the keycard in the slot and the big bunker's doors opens.", "action"); //todo finish the text
         await gameBridge.loadZone("RELAY_A01");
+    }
+    else {
+        await printToTerminal("There is a visible keycard slot," +
+            " however, you have no keycard to fill that slot", "system");
     }
 }
 /*
@@ -67,7 +75,7 @@ breaker panel focus
  * @param speed fast ( true ) or slow ( false )
  */
 async function draw(whichDrawing, speed) {
-    await printDrawing(Drawings[whichDrawing].executing(BreakerStateRelayA01), speed);
+    await printDrawing(Drawings[whichDrawing].executing(currentState.relayA01BreakerPanel), speed);
 }
 /**
  * function to toggle the third interrupter
@@ -75,7 +83,8 @@ async function draw(whichDrawing, speed) {
 export async function toggleInt3() {
     if (!(await verifyDrawingPanelClosed()))
         return;
-    BreakerStateRelayA01.int3 = !BreakerStateRelayA01.int3;
+    currentState.relayA01BreakerPanel.int3 =
+        !currentState.relayA01BreakerPanel.int3;
     await draw("BREAKER_PANEL_RELAY_A01", true);
 }
 /**
@@ -84,7 +93,8 @@ export async function toggleInt3() {
 export async function toggleInt2() {
     if (!(await verifyDrawingPanelClosed()))
         return;
-    BreakerStateRelayA01.int2 = !BreakerStateRelayA01.int2;
+    currentState.relayA01BreakerPanel.int2 =
+        !currentState.relayA01BreakerPanel.int2;
     await draw("BREAKER_PANEL_RELAY_A01", true);
 }
 /**
@@ -93,12 +103,13 @@ export async function toggleInt2() {
 export async function toggleInt1() {
     if (!(await verifyDrawingPanelClosed()))
         return;
-    BreakerStateRelayA01.int1 = !BreakerStateRelayA01.int1;
+    currentState.relayA01BreakerPanel.int1 =
+        !currentState.relayA01BreakerPanel.int1;
     await draw("BREAKER_PANEL_RELAY_A01", true);
 }
 //focus for the wire
 /**
- * self explanatory function ( for the breaker panel )
+ * self-explanatory function ( for the breaker panel )
  */
 export async function tryWithWireCutter() {
     await printToTerminal("You remove the plastic grip of the wire cutter's handles, " +
@@ -129,7 +140,7 @@ export async function inspectConnection() {
         "to prevent it from being turned back on.");
     await drawingPanelPrintLine("how do you want to try and repair it?");
     setFocus("BREAKER_PANEL_CONNECTION");
-    await gameBridge.loadZone("RELAY_A01");
+    gameBridge.renderZoneActions("RELAY_A01");
     //todo
 }
 /**

@@ -17,6 +17,5 @@ export const QG_MESSAGES = {
     "turn back on the auxiliary relay, he also did shut them down. Get moving.",
   TOLD_ABOUT_NOTE:
     "Nonsense! We don't leave in a fantasy here, there's nothing that's drawn to the " +
-    "signal in this dead valley and monster don't exist.", //TODO finish this
-  //TODO add maybe a hint for what the player would have to do next
+    "signal in this dead valley and monster don't exist.",
 } as const;
