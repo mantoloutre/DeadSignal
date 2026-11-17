@@ -204,3 +204,17 @@ export async function confirmingDoneTalkingToQG(): Promise<void> {
   setFocus(null);
   gameBridge.renderZoneActions("WATCH_POST");
 }
+/*
+##################################
+first encounter outside watch post
+##################################
+ */
+export async function goInsideTheWatchPostFirstEncounter(): Promise<void> {
+  //todo
+}
+export async function hideInSnowOutsideWatchpostFirstEncounter(): Promise<void> {
+  //todo
+}
+export async function makeRunForItOutsideWatchpostFirstEncounter(): Promise<void> {
+  //todo
+}
