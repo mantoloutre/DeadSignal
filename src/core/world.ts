@@ -5,6 +5,7 @@ import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import {
   BREAKER_PANEL_ACTIONS,
+  FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST,
   FIRST_RESONATOR_ENCOUNTER_TRUCK,
   FIRST_RESONATOR_ENCOUNTER_WATCHPOST,
   GATE_CHECKPOINT_ACTION,
@@ -108,7 +109,7 @@ export const ZONES = {
     getActions: (): ZoneAction[] => {
       //focus
       if (getFocus() === FOCUS.FIRST_ENCOUNTER) {
-        return getOustideWatchpostFirstEncounterActions();
+        return getFirstEncounterActions("WATCH_POST_OUTSIDE");
       }
       //normal actions
       const actions: ZoneAction[] = [];
@@ -318,7 +319,18 @@ function getFirstEncounterActions(zoneId: ZoneId): ZoneAction[] {
       actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.GO_OUTSIDE);
       break;
     case "WATCH_POST_OUTSIDE":
-      //todo do & link the action
+      actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.GO_OUTSIDE);
+      actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.HIDE_IN_SNOW);
+      actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.MAKE_RUN_FOR_IT);
+      break;
+    case "OUTSIDE_TRUCK":
+      actions.push(FIRST_RESONATOR_ENCOUNTER_TRUCK.GO_BACK_IN_TRUCK);
+      actions.push(FIRST_RESONATOR_ENCOUNTER_TRUCK.GO_TOWARD_THE_FOREST);
+      actions.push(FIRST_RESONATOR_ENCOUNTER_TRUCK.HIDE_UNDER_TRUCK);
+      break;
+    case "SNOWY_FOREST":
+      actions.push(FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST.HIDE_BEHIND_TREE);
+      actions.push(FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST.HIDE_IN_THE_SNOW);
       break;
     default:
       actions.push({
@@ -349,23 +361,5 @@ function getToolBoxActions(): ZoneAction[] {
       actions.push(GET_TOOL_BOX_ACTION.FORCE_LATCH_HEAT);
     }
   }
-  return actions;
-}
-
-/**
- * function to get the actions if the first encounter happen outside the watch post
- */
-function getOustideWatchpostFirstEncounterActions(): ZoneAction[] {
-  const actions: ZoneAction[] = [];
-  actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.GO_OUTSIDE);
-  actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.HIDE_IN_SNOW);
-  actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.MAKE_RUN_FOR_IT);
-  return actions;
-}
-function getTruckZoneFirstEncounterActions(): ZoneAction[] {
-  const actions: ZoneAction[] = [];
-  actions.push(FIRST_RESONATOR_ENCOUNTER_TRUCK.GO_BACK_IN_TRUCK);
-  actions.push(FIRST_RESONATOR_ENCOUNTER_TRUCK.GO_TOWARD_THE_FOREST);
-  actions.push(FIRST_RESONATOR_ENCOUNTER_TRUCK.HIDE_UNDER_TRUCK);
   return actions;
 }

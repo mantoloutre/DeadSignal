@@ -42,3 +42,16 @@ export async function walkTowardFrostBasin(): Promise<void> {
 export function getOutOfBreakerFocus(): void {
   setFocus(null);
 }
+
+/*
+############################
+first encounter snowy forest
+############################
+ */
+
+export async function firstEncounterHideBehindTree(): Promise<void> {
+  //todo
+}
+export async function firstEncounterHideInSnow(): Promise<void> {
+  //todo
+}

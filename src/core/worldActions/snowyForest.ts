@@ -24,3 +24,15 @@ export const SNOWY_FOREST_ACTIONS = {
     execute: actionsFunc.walkTowardFrostBasin,
   },
 } as const satisfies Record<string, ZoneAction>;
+export const FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST = {
+  HIDE_BEHIND_TREE: {
+    command: "hide behind tree",
+    description: "hide behind a tree",
+    execute: actionsFunc.firstEncounterHideBehindTree,
+  },
+  HIDE_IN_THE_SNOW: {
+    command: "hide in snow",
+    description: "hide in a snow nears the trees ( lot of snow )",
+    execute: actionsFunc.firstEncounterHideInSnow,
+  },
+} as const satisfies Record<string, ZoneAction>;
