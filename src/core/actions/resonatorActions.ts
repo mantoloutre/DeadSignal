@@ -13,17 +13,20 @@ import { getFormattedBuffer } from "../radioFrequency.ts";
 import type { ZoneId } from "../world.ts";
 
 export async function handleResonatorActions(zone: ZoneId): Promise<void> {
-  if (zone === "WATCH_POST") {
-    const tuning: HTMLButtonElement = getEl("btn-tune");
-    tuning.removeEventListener("click", tuningEvent);
-    tuning.addEventListener("click", tuningInEncounter);
-    if (hasFlag("HAD_FIRST_ENCOUNTER")) {
-      tuning.removeEventListener("click", tuningInEncounter);
-      tuning.addEventListener("click", tuningEvent);
-    }
-  } else {
-    //todo implements this
-    await printToTerminal("sorry, not implemented yet", "alert");
+  if (zone !== "WATCH_POST") {
+    await printToTerminal(
+      "not done implementing it, if it doesnt work, " +
+        "it mean i havent done that part yet.",
+      "alert",
+      10,
+    );
+  }
+  const tuning: HTMLButtonElement = getEl("btn-tune");
+  tuning.removeEventListener("click", tuningEvent);
+  tuning.addEventListener("click", tuningInEncounter);
+  if (hasFlag("HAD_FIRST_ENCOUNTER")) {
+    tuning.removeEventListener("click", tuningInEncounter);
+    tuning.addEventListener("click", tuningEvent);
   }
 }
 
@@ -242,7 +245,6 @@ async function switchCaseOutsideWatchPost(): Promise<void> {
         "A big spike then surges from the ground and pierces your torso, " +
           "giving you a slow and painful death.",
       );
-    //todo
   }
 }
 async function switchCaseGateCheckpointOutsideShack(): Promise<void> {

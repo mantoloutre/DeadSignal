@@ -273,43 +273,35 @@ async function handleResonatorFrequency(): Promise<void> {
  */
 export async function handleResonatorEncounter(): Promise<void> {
   const theZone: ZoneId = currentState.currentZone;
-  switch (theZone) {
-    case "WATCH_POST":
-      if (!hasFlag("HAD_FIRST_ENCOUNTER")) {
-        setFocus("FIRST_ENCOUNTER");
+  if (!hasFlag("HAD_FIRST_ENCOUNTER")) {
+    setFocus("FIRST_ENCOUNTER");
+    switch (theZone) {
+      case "WATCH_POST":
         gameBridge.renderZoneActions("WATCH_POST");
         await handleResonatorActions("WATCH_POST");
-        await getDialogWatchPostInsideFirstEncounter();
-      } else {
-        //TODO do if its not the first encounter
-        await printToTerminal("Sorry, not implemented yet", "alert");
-      }
-      break;
-    case "WATCH_POST_OUTSIDE":
-      /* TODO do the actions if player is outside
-                  if (!hasFlag("HAD_FIRST_ENCOUNTER")){
-                    setFocus("FIRST_ENCOUNTER");
-                    gameBridge.renderZoneActions("WATCH_POST_OUTSIDE");
-                    await handleResonatorActions("WATCH_POST_OUTSIDE");
-                  } else {
-                  //TODO
-                  }
-                  */
-      await printToTerminal("Sorry, not implemented yet", "alert"); //TODO remove when done
-      break;
-    default:
-      await printToTerminal(
-        "not implemented yet (error btw its default case of the switch)",
-        "alert",
-      ); //TODO remove when done
-      /*
-                    choose if you want to implement a first death for every zone or not? TODO decide this
-                     */
-      break;
+        await getDialogFirstEncounter();
+        break;
+      case "WATCH_POST_OUTSIDE":
+        gameBridge.renderZoneActions("WATCH_POST_OUTSIDE");
+        await handleResonatorActions("WATCH_POST_OUTSIDE");
+        await getDialogFirstEncounter();
+        break;
+      case "GATE_CHECKPOINT":
+        gameBridge.renderZoneActions("GATE_CHECKPOINT");
+        await handleResonatorActions("GATE_CHECKPOINT");
+        await getDialogFirstEncounter();
+        break;
+      //todo implements the other zones.
+      default:
+        await printToTerminal("Sorry, not implemented yet :c", "alert");
+    }
+  } else {
+    //TODO do if its not the first encounter
+    await printToTerminal("Sorry, not implemented yet", "alert");
   }
 }
 
-async function getDialogWatchPostInsideFirstEncounter(): Promise<void> {
+async function getDialogFirstEncounter(): Promise<void> {
   await printToTerminal(
     "You tune your radio to 940.700 MHz. For a moment, pure silence. " +
       "Better than static, you think. Because at least it mean your picking up the frequency",
@@ -326,8 +318,8 @@ async function getDialogWatchPostInsideFirstEncounter(): Promise<void> {
   );
   await printToTerminal(
     "Whatever is broadcasting this frequency... It can't be a station. " +
-      "Somewhere, outside, something started walking toward the watchpost and " +
-      "is getting close fast.",
+      "Somewhere, outside, something started walking toward you and " +
+      "its getting close fast.",
     "alert",
   );
   await printToTerminal(
