@@ -275,46 +275,9 @@ export async function handleResonatorEncounter(): Promise<void> {
   const theZone: ZoneId = currentState.currentZone;
   if (!hasFlag("HAD_FIRST_ENCOUNTER")) {
     setFocus("FIRST_ENCOUNTER");
-    switch (theZone) {
-      case "WATCH_POST":
-        gameBridge.renderZoneActions("WATCH_POST");
-        await handleResonatorActions("WATCH_POST");
-        await getDialogFirstEncounter();
-        break;
-      case "WATCH_POST_OUTSIDE":
-        gameBridge.renderZoneActions("WATCH_POST_OUTSIDE");
-        await handleResonatorActions("WATCH_POST_OUTSIDE");
-        await getDialogFirstEncounter();
-        break;
-      case "GATE_CHECKPOINT":
-        gameBridge.renderZoneActions("GATE_CHECKPOINT");
-        await handleResonatorActions("GATE_CHECKPOINT");
-        await getDialogFirstEncounter();
-        break;
-      //todo implements the other zones.
-      case "GATE_CHECKPOINT_SHACK":
-        gameBridge.renderZoneActions("GATE_CHECKPOINT_SHACK");
-        await handleResonatorActions("GATE_CHECKPOINT_SHACK");
-        await getDialogFirstEncounter();
-        break;
-      case "SNOWY_FOREST":
-        gameBridge.renderZoneActions("SNOWY_FOREST");
-        await handleResonatorActions("SNOWY_FOREST");
-        await getDialogFirstEncounter();
-        break;
-      case "OUTSIDE_TRUCK":
-        gameBridge.renderZoneActions("OUTSIDE_TRUCK");
-        await handleResonatorActions("OUTSIDE_TRUCK");
-        await getDialogFirstEncounter();
-        break;
-      case "TRUCK_CABIN":
-        gameBridge.renderZoneActions("TRUCK_CABIN");
-        await handleResonatorActions("TRUCK_CABIN");
-        await getDialogFirstEncounter();
-        break;
-      default:
-        await printToTerminal("Sorry, not implemented yet :c", "alert");
-    }
+    gameBridge.renderZoneActions(theZone);
+    await handleResonatorActions(theZone);
+    await getDialogFirstEncounter();
   } else {
     //TODO do if its not the first encounter
     await printToTerminal("Sorry, not implemented yet", "alert");
