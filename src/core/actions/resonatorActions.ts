@@ -22,7 +22,7 @@ export async function handleResonatorActions(zone: ZoneId): Promise<void> {
       tuning.addEventListener("click", tuningEvent);
     }
   } else {
-    //todo implementes this
+    //todo implements this
     await printToTerminal("sorry, not implemented yet", "alert");
   }
 }
@@ -36,58 +36,18 @@ async function tuningInEncounter(): Promise<void> {
     currentState.currentFrequency = buffer;
     getEl("frequency").textContent = buffer;
     closeRadioInterface();
-    switch (currentState.currentFrequency) {
-      case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
-        await choseToAngerResonatorIGuess();
+    switch (currentState.currentZone) {
+      case "WATCH_POST":
+        await switchCaseInsideWatchpost();
         break;
-      case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
-        await choseToContactTheQg();
+      case "WATCH_POST_OUTSIDE":
         break;
-      case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
-        await choseToDoTheRightThing();
-        addFlag("HAD_FIRST_ENCOUNTER");
-        break;
-      default:
-        await printToTerminal(
-          `You decide to set your radio to the 
-        following frequency: ${currentState.currentFrequency} MHz`,
-          "action",
-        );
-        await printToTerminal(
-          "whatever is happening" + "doesn't seem to be stopping...",
-          "system",
-        );
-        await printToTerminal(
-          "You know its there... IT also knows YOU are there...",
-          "log",
-        );
-        await printToTerminal(
-          "you were tracking it, IT is still tracking you.. and it found you",
-          "alert",
-          30,
-        );
-        await printToTerminal(
-          "Frost rapidly make it way inside the watch post toward you.",
-          "alert",
-          30,
-        );
-        await printToTerminal(
-          "You dont even have the time to react that it gets to you",
-          "alert",
-          40,
-        );
-        await die();
-        await printDeathMessage(
-          "The frost rapidly cover your body, entering through every hole there is...",
-        );
-        await printDeathMessage(
-          "As your temperature drops and you get frozen from the inside, everything fade to black",
-        );
     }
   } else {
     flashButton(getEl("btn-tune"));
   }
 }
+
 async function choseToDoTheRightThing(): Promise<void> {
   await printToTerminal(
     "You decide set your radio so you can only receive transmission and it" +
@@ -106,6 +66,7 @@ async function choseToDoTheRightThing(): Promise<void> {
   setFocus(null);
   gameBridge.renderZoneActions("WATCH_POST");
 }
+
 /**
  * function to deal with contacting the QG in the first encounter with
  * the resonator
@@ -216,17 +177,107 @@ export async function goOutside(): Promise<void> {
 }
 
 /**
- * function to handle if the player want to go inside
- * during the first encounter with the resonator
+ * the switch case for the tuning outside the watch post
  */
-export async function goInside(): Promise<void> {
-  //todo
+async function switchCaseInsideWatchpost(): Promise<void> {
+  switch (currentState.currentFrequency) {
+    case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
+      await choseToAngerResonatorIGuess();
+      break;
+    case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
+      await choseToContactTheQg();
+      break;
+    case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
+      await choseToDoTheRightThing();
+      addFlag("HAD_FIRST_ENCOUNTER");
+      break;
+    default:
+      await writeDefaultDefaultDeathMessage();
+      await printToTerminal(
+        "Frost rapidly make it way inside the watch post toward you.",
+        "alert",
+        30,
+      );
+      await printToTerminal(
+        "You dont even have the time to react that it gets to you",
+        "alert",
+        40,
+      );
+      await die();
+      await printDeathMessage(
+        "The frost rapidly cover your body, entering through every hole there is...",
+      );
+      await printDeathMessage(
+        "As your temperature drops and you get frozen from the inside, everything fade to black",
+      );
+  }
+}
+async function switchCaseOutsideWatchPost(): Promise<void> {
+  switch (currentState.currentFrequency) {
+    case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
+      //todo
+      break;
+    case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
+      //todo
+      break;
+    case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
+      //todo
+      break;
+    default:
+    //todo
+  }
+}
+async function switchCaseGateCheckpointOutsideShack(): Promise<void> {
+  switch (currentState.currentFrequency) {
+    case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
+      //todo
+      break;
+    case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
+      //todo
+      break;
+    case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
+      //todo
+      break;
+    default:
+    //todo
+  }
+}
+async function switchCaseGateCheckpointInsideShack(): Promise<void> {
+  switch (currentState.currentFrequency) {
+    case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
+      //todo
+      break;
+    case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
+      //todo
+      break;
+    case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
+      //todo
+      break;
+    default:
+    //todo
+  }
 }
 
 /**
- * function to handle if the player wants to hide in
- * the snow during his first encounter with the resonator
+ * reusable default text to not always re-write it
  */
-export async function hideInSnow(): Promise<void> {
-  //todo
+async function writeDefaultDefaultDeathMessage(): Promise<void> {
+  await printToTerminal(
+    `You decide to set your radio to the 
+        following frequency: ${currentState.currentFrequency} MHz`,
+    "action",
+  );
+  await printToTerminal(
+    "whatever is happening" + "doesn't seem to be stopping...",
+    "system",
+  );
+  await printToTerminal(
+    "You know its there... IT also knows YOU are there...",
+    "log",
+  );
+  await printToTerminal(
+    "you were tracking it, IT is still tracking you.. and it found you",
+    "alert",
+    30,
+  );
 }
