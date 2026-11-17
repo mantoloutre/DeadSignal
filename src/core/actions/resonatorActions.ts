@@ -41,7 +41,16 @@ async function tuningInEncounter(): Promise<void> {
         await switchCaseInsideWatchpost();
         break;
       case "WATCH_POST_OUTSIDE":
+        await switchCaseOutsideWatchPost();
         break;
+      case "GATE_CHECKPOINT":
+        await switchCaseGateCheckpointOutsideShack();
+        break;
+      case "GATE_CHECKPOINT_SHACK":
+        await switchCaseGateCheckpointInsideShack();
+        break;
+      default:
+        await printToTerminal("zone not implemented yet, sorry :c", "alert");
     }
   } else {
     flashButton(getEl("btn-tune"));
@@ -208,7 +217,7 @@ async function switchCaseInsideWatchpost(): Promise<void> {
         "The frost rapidly cover your body, entering through every hole there is...",
       );
       await printDeathMessage(
-        "As your temperature drops and you get frozen from the inside, everything fade to black",
+        "As your temperature drops and you get frozen from the inside, everything fade to black.",
       );
   }
 }
@@ -224,6 +233,15 @@ async function switchCaseOutsideWatchPost(): Promise<void> {
       //todo
       break;
     default:
+      await writeDefaultDefaultDeathMessage();
+      await die();
+      await printDeathMessage(
+        "20 ice arms surge from the ground at once, immobilizing you in an instant.",
+      );
+      await printDeathMessage(
+        "A big spike then surges from the ground and pierces your torso, " +
+          "giving you a slow and painful death.",
+      );
     //todo
   }
 }
@@ -239,6 +257,7 @@ async function switchCaseGateCheckpointOutsideShack(): Promise<void> {
       //todo
       break;
     default:
+      await writeDefaultDefaultDeathMessage();
     //todo
   }
 }
@@ -254,6 +273,7 @@ async function switchCaseGateCheckpointInsideShack(): Promise<void> {
       //todo
       break;
     default:
+      await writeDefaultDefaultDeathMessage();
     //todo
   }
 }
@@ -263,16 +283,16 @@ async function switchCaseGateCheckpointInsideShack(): Promise<void> {
  */
 async function writeDefaultDefaultDeathMessage(): Promise<void> {
   await printToTerminal(
-    `You decide to set your radio to the 
-        following frequency: ${currentState.currentFrequency} MHz`,
+    "You decide to set your radio to the following frequency: " +
+      `${currentState.currentFrequency} MHz`,
     "action",
   );
   await printToTerminal(
-    "whatever is happening" + "doesn't seem to be stopping...",
+    "whatever is happening doesn't seem to be stopping...",
     "system",
   );
   await printToTerminal(
-    "You know its there... IT also knows YOU are there...",
+    "You know it's there... IT also knows YOU are there...",
     "log",
   );
   await printToTerminal(
