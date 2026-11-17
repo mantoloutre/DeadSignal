@@ -86,7 +86,7 @@ export const WATCH_POST_OUTSIDE = {
     execute: actionsFunc.goBackToCheckpoint,
   },
 } as const satisfies Record<string, ZoneAction>;
-export const RESONATOR_ENCOUNTER = {
+export const FIRST_RESONATOR_ENCOUNTER_WATCHPOST = {
   // actions for inside the watch post
   COVER_EARS: {
     command: "cover your ears",
@@ -102,16 +102,16 @@ export const RESONATOR_ENCOUNTER = {
   GO_INSIDE: {
     command: "go inside watch post",
     description: "go inside the watch tower",
-    execute: async (): Promise<void> => {}, //todo do the action
+    execute: actionsFunc.goInsideTheWatchPostFirstEncounter,
   },
   HIDE_IN_SNOW: {
     command: "hide in snow",
     description: "hide in the snow",
-    execute: async (): Promise<void> => {}, //todo do the action
+    execute: actionsFunc.hideInSnowOutsideWatchpostFirstEncounter,
   },
   MAKE_RUN_FOR_IT: {
     command: "run toward the truck",
     description: "try to escape and run toward the truck",
-    execute: async (): Promise<void> => {}, //todo do the action
+    execute: actionsFunc.makeRunForItOutsideWatchpostFirstEncounter,
   },
 } as const satisfies Record<string, ZoneAction>;

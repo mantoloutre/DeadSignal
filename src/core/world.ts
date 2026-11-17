@@ -5,6 +5,8 @@ import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import {
   BREAKER_PANEL_ACTIONS,
+  FIRST_RESONATOR_ENCOUNTER_TRUCK,
+  FIRST_RESONATOR_ENCOUNTER_WATCHPOST,
   GATE_CHECKPOINT_ACTION,
   GATE_CHECKPOINT_SHACK_ACTIONS,
   GET_TOOL_BOX_ACTION,
@@ -12,7 +14,6 @@ import {
   RELAY_A01_ACTIONS,
   RELAY_A01_OUTSIDE_ACTIONS,
   REPAIR_CONNECTION,
-  RESONATOR_ENCOUNTER,
   SAY_STUFF_TO_QG,
   SNOWY_FOREST_ACTIONS,
   TRUCK_CABIN_INIT_ACTIONS,
@@ -106,7 +107,9 @@ export const ZONES = {
       "Broken glass surrounds the dark entrance",
     getActions: (): ZoneAction[] => {
       //focus
-
+      if (getFocus() === FOCUS.FIRST_ENCOUNTER) {
+        return getOustideWatchpostFirstEncounterActions();
+      }
       //normal actions
       const actions: ZoneAction[] = [];
       actions.push(WATCH_POST_OUTSIDE.GO_BACK_TO_CHECKPOINT);
@@ -311,8 +314,8 @@ function getFirstEncounterActions(zoneId: ZoneId): ZoneAction[] {
   //do the actions
   switch (zoneId) {
     case "WATCH_POST":
-      actions.push(RESONATOR_ENCOUNTER.COVER_EARS);
-      actions.push(RESONATOR_ENCOUNTER.GO_OUTSIDE);
+      actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.COVER_EARS);
+      actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.GO_OUTSIDE);
       break;
     case "WATCH_POST_OUTSIDE":
       //todo do & link the action
@@ -346,5 +349,23 @@ function getToolBoxActions(): ZoneAction[] {
       actions.push(GET_TOOL_BOX_ACTION.FORCE_LATCH_HEAT);
     }
   }
+  return actions;
+}
+
+/**
+ * function to get the actions if the first encounter happen outside the watch post
+ */
+function getOustideWatchpostFirstEncounterActions(): ZoneAction[] {
+  const actions: ZoneAction[] = [];
+  actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.GO_OUTSIDE);
+  actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.HIDE_IN_SNOW);
+  actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.MAKE_RUN_FOR_IT);
+  return actions;
+}
+function getTruckZoneFirstEncounterActions(): ZoneAction[] {
+  const actions: ZoneAction[] = [];
+  actions.push(FIRST_RESONATOR_ENCOUNTER_TRUCK.GO_BACK_IN_TRUCK);
+  actions.push(FIRST_RESONATOR_ENCOUNTER_TRUCK.GO_TOWARD_THE_FOREST);
+  actions.push(FIRST_RESONATOR_ENCOUNTER_TRUCK.HIDE_UNDER_TRUCK);
   return actions;
 }

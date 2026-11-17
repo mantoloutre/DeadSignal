@@ -251,3 +251,18 @@ export async function walkTowardSnowyForestFromOutsideTruck(): Promise<void> {
   );
   await gameBridge.loadZone("SNOWY_FOREST");
 }
+/*
+######################
+first encounter action
+######################
+ */
+
+export async function goInTheTruckFirstEncounter(): Promise<void> {
+  //todo
+}
+export async function hideUnderTruckFirstEncounter(): Promise<void> {
+  //todo
+}
+export async function runTowardForestFirstEncounter(): Promise<void> {
+  //todo
+}
