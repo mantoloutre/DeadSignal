@@ -292,6 +292,26 @@ export async function handleResonatorEncounter(): Promise<void> {
         await getDialogFirstEncounter();
         break;
       //todo implements the other zones.
+      case "GATE_CHECKPOINT_SHACK":
+        gameBridge.renderZoneActions("GATE_CHECKPOINT_SHACK");
+        await handleResonatorActions("GATE_CHECKPOINT_SHACK");
+        await getDialogFirstEncounter();
+        break;
+      case "SNOWY_FOREST":
+        gameBridge.renderZoneActions("SNOWY_FOREST");
+        await handleResonatorActions("SNOWY_FOREST");
+        await getDialogFirstEncounter();
+        break;
+      case "OUTSIDE_TRUCK":
+        gameBridge.renderZoneActions("OUTSIDE_TRUCK");
+        await handleResonatorActions("OUTSIDE_TRUCK");
+        await getDialogFirstEncounter();
+        break;
+      case "TRUCK_CABIN":
+        gameBridge.renderZoneActions("TRUCK_CABIN");
+        await handleResonatorActions("TRUCK_CABIN");
+        await getDialogFirstEncounter();
+        break;
       default:
         await printToTerminal("Sorry, not implemented yet :c", "alert");
     }
