@@ -1,4 +1,4 @@
-import { printToTerminal } from "../../ui/dom.js";
+import { die, printDeathMessage, printToTerminal } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
 import { addFlag, hasFlag, setFocus } from "../gameState.js";
 import { addItemToInventory, removeItemFromInventory } from "../inventory.js";
@@ -225,5 +225,25 @@ export async function firstEncounterHideUnderDoorOutsideWatchpost(): Promise<voi
     "system",
   );
   await printToTerminal("For a moment, you hear nothing.", "system");
-  await printToTerminal("Suddenly,", "alert"); //todo finish this
+  await printToTerminal(
+    "Silence, Total, absolute silence. the kind that weight a ton.",
+    "system",
+  );
+  await printToTerminal(
+    "Then you hear it walking. Slow, unhurried steps in " +
+    "the snow, circling around you.",
+    "system",
+  );
+  await printToTerminal(
+    "It stops close to you. you can hear it breathing...",
+    "alert",
+  );
+  await die();
+  await printDeathMessage("It seems to be pressing on the door...");
+  await printDeathMessage(
+    "The door lifts like a leaf. What happens next happen too fast to feel.",
+  );
+  await printDeathMessage(
+    "Frost blleds outward accross your visor as everything fades to black.",
+  );
 }

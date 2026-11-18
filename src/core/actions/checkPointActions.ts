@@ -26,26 +26,6 @@ export async function walkBackSnowyForestTowardTruck(): Promise<void> {
   );
   await gameBridge.loadZone("SNOWY_FOREST");
 }
-/*
- #######################
- FIRST ENCOUNTER ACTION
- #######################
- */
-//todo do documentation
-export async function hideInShowFirstEncounter(): Promise<void> {
-  //todo do this :D
-  await printToTerminal("work in progress", "alert");
-}
-//todo do documentation
-export async function makeRunForItTowardTruckFirstEncounter(): Promise<void> {
-  //todo do this :D
-  await printToTerminal("work in progress", "alert");
-}
-//todo do documentation
-export async function makeRunForItTowardForestFirstEncounter(): Promise<void> {
-  //todo do this
-  await printToTerminal("work in progress", "alert");
-}
 
 /*
 #############################
@@ -96,4 +76,30 @@ export async function jumpOutsideWindowFirstEncounterShack(): Promise<void> {
 }
 export async function hideUnderDeskFirstEncounterShack(): Promise<void> {
   //TODO finish this
+}
+/*
+ #######################
+ FIRST ENCOUNTER ACTION
+ #######################
+ */
+//todo do documentation
+export async function hideInShowFirstEncounter(): Promise<void> {
+  //todo do this :D
+  await printToTerminal("work in progress", "alert");
+}
+/**
+ * for the encouter actions outside the shack
+ */
+export async function makeRunForItTowardTruckFirstEncounter(): Promise<void> {
+  //todo do this :D
+  await printToTerminal("work in progress", "alert");
+  await printToTerminal(
+    "You try to make a run for toward the truck, nuh uhhh",
+    "alert",
+  );
+}
+//todo do documentation
+export async function makeRunForItTowardForestFirstEncounter(): Promise<void> {
+  //todo do this
+  await printToTerminal("work in progress", "alert");
 }
