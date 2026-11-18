@@ -28,30 +28,30 @@ export async function goInsideTheWatchPost(): Promise<void> {
     );
     await printToTerminal(
       "Technician Vance Keller lies slumped on his side against the terminal's lower chassis" +
-        ", his body frozen in a rigid and unnatural pose",
+      ", his body frozen in a rigid and unnatural pose",
       "log",
     );
 
     await printToTerminal(
       "His chest is crushed clean through his sternum, yet " +
-        "the exterior fabric shows no impact, claw marks or tool strikes.",
+      "the exterior fabric shows no impact, claw marks or tool strikes.",
       "log",
     );
     await printToTerminal(
       "Keller's body is coated in a fine, brittle crust of frost, far too solid " +
-        "for a man whose station went dark only an hour ago.",
+      "for a man whose station went dark only an hour ago.",
       "log",
     );
     await printToTerminal(
       "The crystalline residue isn't from the draft; It radiates " +
-        "directly outward from his blown ear canals and across the spiderweb " +
-        //the player choices ( multiple choice
-        "fracture of his visor",
+      "directly outward from his blown ear canals and across the spiderweb " +
+      //the player choices ( multiple choice
+      "fracture of his visor",
       "log",
     );
     await printToTerminal(
       "You also see one other thing, a note he left, however, he didn't seem to have the time " +
-        "to finish writing it",
+      "to finish writing it",
       "system",
     );
     await printToTerminal(
@@ -188,7 +188,7 @@ export async function tellQGNoBodyFound(): Promise<void> {
 export async function tellQGAboutNoteLeft(): Promise<void> {
   await printToTerminal(
     "From what i can see, Kelley left a note, apparently, there is something " +
-      "dangerous that is drawn to the signal when it is running.",
+    "dangerous that is drawn to the signal when it is running.",
     "YOU",
   );
   addFlag("TOLD_QG_ABOUT_NOTE");
@@ -217,4 +217,13 @@ export async function hideInSnowOutsideWatchpostFirstEncounter(): Promise<void> 
 }
 export async function makeRunForItOutsideWatchpostFirstEncounter(): Promise<void> {
   //todo
+}
+export async function firstEncounterHideUnderDoorOutsideWatchpost(): Promise<void> {
+  //todo finish this
+  await printToTerminal(
+    "You quickly hide under the door in the snow as IT is getting closer.",
+    "system",
+  );
+  await printToTerminal("For a moment, you hear nothing.", "system");
+  await printToTerminal("Suddenly,", "alert"); //todo finish this
 }

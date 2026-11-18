@@ -21,11 +21,32 @@ walk toward the intersection of : outside watchpost, broken down truck, frozen l
 export async function walkBackSnowyForestTowardTruck(): Promise<void> {
   await printToTerminal(
     "You go back in the forest toward the intersection" +
-      " of the frozen lake and the truck",
+    " of the frozen lake and the truck",
     "action",
   );
   await gameBridge.loadZone("SNOWY_FOREST");
 }
+/*
+ #######################
+ FIRST ENCOUNTER ACTION
+ #######################
+ */
+//todo do documentation
+export async function hideInShowFirstEncounter(): Promise<void> {
+  //todo do this :D
+  await printToTerminal("work in progress", "alert");
+}
+//todo do documentation
+export async function makeRunForItTowardTruckFirstEncounter(): Promise<void> {
+  //todo do this :D
+  await printToTerminal("work in progress", "alert");
+}
+//todo do documentation
+export async function makeRunForItTowardForestFirstEncounter(): Promise<void> {
+  //todo do this
+  await printToTerminal("work in progress", "alert");
+}
+
 /*
 #############################
 ZONE : GATE_CHECKPOINT_SHACK
@@ -60,8 +81,19 @@ export async function walkTowardMainWatchPost(): Promise<void> {
 export async function salvageMemoryModule(): Promise<void> {
   await printToTerminal(
     "You take the memory modules from the the " +
-      "robot's head and then put the head back down",
+    "robot's head and then put the head back down",
     "action",
   );
   await addItemToInventory("robot_memory_module");
+}
+/*
+############################
+FIRST ENCOUNTER SHACK ACTION
+############################
+*/
+export async function jumpOutsideWindowFirstEncounterShack(): Promise<void> {
+  //TODO finish this
+}
+export async function hideUnderDeskFirstEncounterShack(): Promise<void> {
+  //TODO finish this
 }

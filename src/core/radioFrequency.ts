@@ -275,9 +275,9 @@ export async function handleResonatorEncounter(): Promise<void> {
   const theZone: ZoneId = currentState.currentZone;
   if (!hasFlag("HAD_FIRST_ENCOUNTER")) {
     setFocus("FIRST_ENCOUNTER");
+    await getDialogFirstEncounter();
     gameBridge.renderZoneActions(theZone);
     await handleResonatorActions(theZone);
-    await getDialogFirstEncounter();
   } else {
     //TODO do if its not the first encounter
     await printToTerminal("Sorry, not implemented yet", "alert");

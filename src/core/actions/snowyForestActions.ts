@@ -34,7 +34,7 @@ export async function walkTowardFrostBasin(): Promise<void> {
   );
   await printToTerminal(
     "You walk toward the frost basin, you see a big satellite " +
-      "dish and not far from it the doors to a bunker.",
+    "dish and not far from it the doors to a bunker.",
     "system",
   );
   await gameBridge.loadZone("RELAY_A01_OUTSIDE");

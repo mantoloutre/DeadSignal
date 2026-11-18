@@ -4,7 +4,7 @@ import { drawingPanelPrintLine } from "../ui/dom.ts"; //todo watch out for possi
 import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import {
-  BREAKER_PANEL_ACTIONS,
+  BREAKER_PANEL_ACTIONS, FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION,
   FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST,
   FIRST_RESONATOR_ENCOUNTER_TRUCK,
   FIRST_RESONATOR_ENCOUNTER_WATCHPOST,
@@ -164,6 +164,9 @@ export const ZONES = {
       if (getFocus() === FOCUS.JUNCTION_BOX) {
         //TODO set the focus at the right place
         return getJunctionBoxActions();
+      }
+      if (getFocus() === FOCUS.FIRST_ENCOUNTER) {
+        //TODO
       }
       //normal action
       const actions: ZoneAction[] = [];
@@ -331,6 +334,28 @@ function getFirstEncounterActions(zoneId: ZoneId): ZoneAction[] {
     case "SNOWY_FOREST":
       actions.push(FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST.HIDE_BEHIND_TREE);
       actions.push(FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST.HIDE_IN_THE_SNOW);
+      break;
+    case "TRUCK_CABIN":
+      //TODO do this
+      break;
+    case "GATE_CHECKPOINT":
+      actions.push(FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION.HIDE_IN_SNOW);
+      actions.push(
+        FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION.MAKE_RUN_FOR_IT_TOWARD_TRUCK,
+      );
+      actions.push(
+        FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION.MAKE_RUN_FOR_IT_TOWARD_FOREST,
+      );
+      //TODO do this
+      break;
+    case "GATE_CHECKPOINT_SHACK":
+      //TODO do this
+      break;
+    case "RELAY_A01_OUTSIDE":
+      //TODO do this
+      break;
+    case "RELAY_A01":
+      //TODO do this
       break;
     default:
       actions.push({
