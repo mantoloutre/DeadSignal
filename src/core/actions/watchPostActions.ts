@@ -218,11 +218,11 @@ export async function goInsideTheWatchPostFirstEncounter(): Promise<void> {
   );
   await printToTerminal(
     "The pressure in your ears spikes a lot that you " +
-    "almost drop to the ground.",
+    "almost drop to your knees.",
     "system",
   );
   await printToTerminal(
-    "You look at your radio screeching, 'this can't be a coincidence!' you think..",
+    "Your holding your screeching radio. Whatever is doing this is tied to it somehow..",
     "system",
   );
   await printToTerminal(
@@ -232,7 +232,34 @@ export async function goInsideTheWatchPostFirstEncounter(): Promise<void> {
   //TODO make it so the player has to input a frequency.
 }
 export async function hideInSnowOutsideWatchpostFirstEncounter(): Promise<void> {
-  //todo
+  await printToTerminal(
+    "You jump into a snowbank and hide in the snow.",
+    "action",
+  );
+  await printToTerminal(
+    "Muffled, half-smothered, you wait. The pressure keeps climbing, less fast however.",
+    "system",
+  );
+  await printToTerminal(
+    "it's not enough. it knows you heard it. hearing it IS receiving it.",
+    "alert",
+  );
+  await die();
+  await printDeathMessage(
+    "You hold your breath. You count. On the 30s count, the snow above you " +
+    "start to vibrate.",
+  );
+  await printDeathMessage(
+    "then it stops vibrating, and starts humming, at a pitch you feel in " +
+    "your bones more than your ears.",
+  );
+  await printDeathMessage(
+    "Warm blood fills both your ear's canals. You never hear the part that kills you.",
+  );
+  await printDeathMessage(
+    "Frost bleeds outward across your visor as the snow around you turns red " +
+    "and you vision fades to black.",
+  );
 }
 export async function makeRunForItOutsideWatchpostFirstEncounter(): Promise<void> {
   //todo
