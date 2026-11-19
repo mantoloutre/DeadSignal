@@ -211,6 +211,25 @@ first encounter outside watch post
  */
 export async function goInsideTheWatchPostFirstEncounter(): Promise<void> {
   //todo
+  await printToTerminal(
+    "You run inside the watchpost, and you forgot the door wasn't there " +
+    "as you tried to close it.",
+    "system",
+  );
+  await printToTerminal(
+    "The pressure in your ears spikes a lot that you " +
+    "almost drop to the ground.",
+    "system",
+  );
+  await printToTerminal(
+    "You look at your radio screeching, 'this can't be a coincidence!' you think..",
+    "system",
+  );
+  await printToTerminal(
+    "You managed to buy yourself a few second, but you need to do something about the radio...",
+    "alert",
+  );
+  //TODO make it so the player has to input a frequency.
 }
 export async function hideInSnowOutsideWatchpostFirstEncounter(): Promise<void> {
   //todo
@@ -231,19 +250,23 @@ export async function firstEncounterHideUnderDoorOutsideWatchpost(): Promise<voi
   );
   await printToTerminal(
     "Then you hear it walking. Slow, unhurried steps in " +
-    "the snow, circling around you.",
+    "the snow, circling the door you're under.",
     "system",
   );
   await printToTerminal(
-    "It stops close to you. you can hear it breathing...",
+    "It stops beside you. You can hear it breathing, if you can even call that breathing...",
     "alert",
   );
   await die();
-  await printDeathMessage("It seems to be pressing on the door...");
+  await printDeathMessage("A long, probing pressure pushes down on the door.");
+  await printDeathMessage(
+    "';not under there.' The thought isn't yours." +
+    "'not under there. not under there. NOT UNDER THERE.'",
+  );
   await printDeathMessage(
     "The door lifts like a leaf. What happens next happen too fast to feel.",
   );
   await printDeathMessage(
-    "Frost blleds outward accross your visor as everything fades to black.",
+    "Frost bleeds outward across your visor as everything fades to black.",
   );
 }
