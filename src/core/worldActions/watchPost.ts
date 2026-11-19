@@ -111,8 +111,9 @@ export const FIRST_RESONATOR_ENCOUNTER_WATCHPOST = {
     execute: actionsFunc.hideInSnowOutsideWatchpostFirstEncounter,
   },
   MAKE_RUN_FOR_IT: {
-    command: "run toward the truck",
-    description: "try to escape and run toward the truck",
+    command: "run toward truck",
+    description:
+      "run toward the truck, passing the checkpoint and the intersection",
     execute: actionsFunc.makeRunForItOutsideWatchpostFirstEncounter,
   },
   HIDE_UNDER_DOOR_IN_SNOW: {

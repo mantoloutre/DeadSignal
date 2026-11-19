@@ -263,6 +263,28 @@ export async function hideInSnowOutsideWatchpostFirstEncounter(): Promise<void> 
 }
 export async function makeRunForItOutsideWatchpostFirstEncounter(): Promise<void> {
   //todo
+  await printToTerminal(
+    "You take your legs to your neck and bolt toward the checkpoint, " +
+    "not even looking back once.",
+    "system",
+  );
+  await printToTerminal(
+    "The pressure is like a fist squeezing your skull right now, but you " +
+    "keep running because who knows what will happen if you stop...",
+    "system",
+  );
+  await printToTerminal(
+    "You pass the checkpoint... Then the intersection... the truck is " +
+    "now in sight",
+    "system",
+  );
+  await die();
+  await printDeathMessage(
+    "Barely twenty meters from the truck, the snow in front of you rises.",
+  );
+  await printDeathMessage(
+    "You run around it, the truck being your only objective.",
+  );
 }
 export async function firstEncounterHideUnderDoorOutsideWatchpost(): Promise<void> {
   //todo finish this
