@@ -278,12 +278,34 @@ export async function makeRunForItOutsideWatchpostFirstEncounter(): Promise<void
     "now in sight",
     "system",
   );
+  await printToTerminal(
+    "'Wait!' You realise something... why run toward the truck, like.... " +
+    "Do you think the truck is going start? A piston blew up..",
+    "system",
+  );
+  await printToTerminal(
+    "Still, you continue running toward it. Hoping for a miracle...",
+    "system",
+  );
   await die();
   await printDeathMessage(
     "Barely twenty meters from the truck, the snow in front of you rises.",
   );
   await printDeathMessage(
     "You run around it, the truck being your only objective.",
+  );
+  await printDeathMessage(
+    "A shape unfolds out of the drift, tall, wrong, faceless.",
+  );
+  await printDeathMessage(
+    "The last thing you perceive is not light, not sound, just a certainty " +
+    "pressed into your skull:",
+  );
+  await printDeathMessage("'Found you.'");
+
+  await printDeathMessage(
+    "You feel a sharp pain in your skull as Frost bleeds outward across " +
+    "your visor and as the treeline fades to black.",
   );
 }
 export async function firstEncounterHideUnderDoorOutsideWatchpost(): Promise<void> {
