@@ -212,6 +212,9 @@ export async function handleFrequency(): Promise<void> {
     await printToTerminal("Set you radio to a frequency to use it.", "alert");
     return;
   }
+  //some will bypass
+  const isBypassed: boolean = await checkBypass(formattedFreq);
+  if (isBypassed) return; //return cuz we won't need to continue.
   //making sure he has it
   // ( don't care if it doesn't exist cuz the switch case is going to take care of that )
   if (!hasDiscoveredSignal(formattedFreq)) {
@@ -316,4 +319,34 @@ async function getDialogFirstEncounter(): Promise<void> {
     "(Pick an action from the left panel or use the radio.)",
     "system",
   );
+}
+async function checkBypass(formattedFreq: string): Promise<boolean> {
+  switch (formattedFreq) {
+    case "121.500":
+      window.open(
+        "https://en.wikipedia.org/wiki/Aircraft_emergency_frequency",
+        "_blank",
+        "noopener",
+      );
+      return true;
+    case "243.000":
+      window.open(
+        "https://en.wikipedia.org/wiki/Aircraft_emergency_frequency",
+        "_blank",
+        "noopener",
+      );
+      return true;
+    case "158.8000":
+      window.open(
+        "https://en.wikipedia.org/wiki/Channel_16_VHF",
+        "_blank",
+        "noopener",
+      );
+      return true;
+    case "004.625":
+      window.open("https://en.wikipedia.org/wiki/UVB-76", "_blank", "noopener");
+      return true;
+    default:
+      return false;
+  }
 }

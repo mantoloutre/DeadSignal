@@ -302,7 +302,6 @@ export async function makeRunForItOutsideWatchpostFirstEncounter(): Promise<void
     "pressed into your skull:",
   );
   await printDeathMessage("'Found you.'");
-
   await printDeathMessage(
     "You feel a sharp pain in your skull as Frost bleeds outward across " +
     "your visor and as the treeline fades to black.",
@@ -335,7 +334,7 @@ export async function firstEncounterHideUnderDoorOutsideWatchpost(): Promise<voi
     "'not under there. not under there. NOT UNDER THERE.'",
   );
   await printDeathMessage(
-    "The door lifts like a leaf. What happens next happen too fast to feel.",
+    "The door lifts like a leaf. What happens next happens too fast to feel.",
   );
   await printDeathMessage(
     "Frost bleeds outward across your visor as everything fades to black.",

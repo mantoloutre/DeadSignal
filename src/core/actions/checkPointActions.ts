@@ -4,7 +4,7 @@ ZONE : GATE_CHECKPOINT
 ######################
  */
 
-import { printToTerminal } from "../../ui/dom.js";
+import {die, printDeathMessage, printToTerminal} from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
 import { addFlag, hasFlag } from "../gameState.js";
 import { addItemToInventory } from "../inventory.js";
@@ -85,10 +85,36 @@ export async function jumpOutsideWindowFirstEncounterShack(): Promise<void> {
   await printDeathMessage(
     "Suddenly, you drop on one knee even if you didn't do it on your own.",
   );
-  await printDeathMessage("The last thing you hear... is nothing.");
+  await printDeathMessage(
+    "The last thing you hear is the shack getting pulled toward you.",
+  );
 }
 export async function hideUnderDeskFirstEncounterShack(): Promise<void> {
   //TODO finish this
+  await printToTerminal(
+    "You go under the guard's desk, knees to your chest, " +
+    "hands over your ears",
+    "action",
+  );
+  await printToTerminal(
+    "Through the floor you feel it... " + "A hum, slow and patient.",
+    "system",
+  );
+  await die();
+  await printDeathMessage(
+    "The remaining glass in the broken window starts to ring.",
+  );
+  await printDeathMessage("Then, the desk starts to resonate too.");
+  await printDeathMessage(
+    "Everything metal in the room is resonating, and your skeleton is " +
+    "made of calcium, which resonates too.",
+  );
+  await printDeathMessage(
+    "You bit down hard but you can't stop your own jaw from humming along...",
+  );
+  await printDeathMessage(
+    "The desk above you folds flat like paper and Everything fades to black before it crushes you.",
+  );
 }
 /*
  #######################
