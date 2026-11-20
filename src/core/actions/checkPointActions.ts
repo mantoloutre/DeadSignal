@@ -4,7 +4,7 @@ ZONE : GATE_CHECKPOINT
 ######################
  */
 
-import {die, printDeathMessage, printToTerminal} from "../../ui/dom.js";
+import { die, printDeathMessage, printToTerminal } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
 import { addFlag, hasFlag } from "../gameState.js";
 import { addItemToInventory } from "../inventory.js";
@@ -71,10 +71,12 @@ export async function salvageMemoryModule(): Promise<void> {
 FIRST ENCOUNTER SHACK ACTION
 ############################
 */
+/**
+ * function for a pretty self-explanatory reason
+ */
 export async function jumpOutsideWindowFirstEncounterShack(): Promise<void> {
-  //TODO finish this
   await printToTerminal(
-    "you grab the window frame and jump throught it.",
+    "you grab the window frame and throw yourself through it.",
     "action",
   );
   await die();
@@ -86,18 +88,17 @@ export async function jumpOutsideWindowFirstEncounterShack(): Promise<void> {
     "Suddenly, you drop on one knee even if you didn't do it on your own.",
   );
   await printDeathMessage(
-    "The last thing you hear is the shack getting pulled toward you.",
+    "The last thing you hear is the shack collapsing.. toward you as if pulled.",
   );
 }
 export async function hideUnderDeskFirstEncounterShack(): Promise<void> {
-  //TODO finish this
   await printToTerminal(
-    "You go under the guard's desk, knees to your chest, " +
-    "hands over your ears",
+    "You squeeze yourself under the guard's desk, knees to your chest, " +
+    "hands over your ears.",
     "action",
   );
   await printToTerminal(
-    "Through the floor you feel it... " + "A hum, slow and patient.",
+    "Through the floor you feel it: A rising hum, slow and patient.",
     "system",
   );
   await die();
@@ -124,7 +125,26 @@ export async function hideUnderDeskFirstEncounterShack(): Promise<void> {
 //todo do documentation
 export async function hideInShowFirstEncounter(): Promise<void> {
   //todo do this :D
-  await printToTerminal("work in progress", "alert");
+  await printToTerminal(
+    "You jump into the snowbank beside the shack and burrow in.",
+    "action",
+  );
+  await printToTerminal(
+    "Muffled, cold, blind, the hum in the air passes over you like a searchlight.",
+    "system",
+  );
+  await die();
+  await printDeathMessage("It passes. It stops. Then it goes back.");
+  await printDeathMessage(
+    "The snow around you begins to hum all together, even through your coat.",
+  );
+  await printDeathMessage(
+    "You realize too late the snow is conducting it straight into you.",
+  );
+  await printDeathMessage(
+    "Yours ears pop. Warmth blood spreads down your collar as " +
+    "everything fades to black.",
+  );
 }
 /**
  * for the encouter actions outside the shack
@@ -135,6 +155,25 @@ export async function makeRunForItTowardTruckFirstEncounter(): Promise<void> {
   await printToTerminal(
     "You try to make a run for toward the truck, nuh uhhh",
     "alert",
+  );
+  await printToTerminal("You start sprinting toward the truck.", "action");
+  await printToTerminal(
+    "Every crunch of snow under your steps sounds impossibly loud...",
+    "system",
+  );
+  await die();
+  await printDeathMessage(
+    "Hafway there, the huming catches up to you, not chasin, " +
+    "matching your pace exactly.",
+  );
+  await printDeathMessage(
+    "You glance only once back. The shape keeps perfect distance..",
+  );
+  await printDeathMessage(
+    "'It isnt't hunting. it's herding.' The thought arruves alkready knowing its awnser.",
+  );
+  await printDeathMessage(
+    "The truck driver's door swing open ahead of you, welcoming, and you never slow down...",
   );
 }
 //todo do documentation
