@@ -158,16 +158,16 @@ export async function makeRunForItTowardTruckFirstEncounter(): Promise<void> {
   );
   await printToTerminal("You start sprinting toward the truck.", "action");
   await printToTerminal(
-    "Every crunch of snow under your steps sounds impossibly loud...",
+    "Every crunch of snow underfoot sounds impossibly loud...",
     "system",
   );
   await die();
   await printDeathMessage(
-    "Hafway there, the huming catches up to you, not chasin, " +
+    "Hafway there, the huming catches up to you, not chasing, " +
     "matching your pace exactly.",
   );
   await printDeathMessage(
-    "You glance only once back. The shape keeps perfect distance..",
+    "You glance only once back. The shape keeps perfect distance, gliding, not running.",
   );
   await printDeathMessage(
     "'It isnt't hunting. it's herding.' The thought arruves alkready knowing its awnser.",
@@ -179,5 +179,15 @@ export async function makeRunForItTowardTruckFirstEncounter(): Promise<void> {
 //todo do documentation
 export async function makeRunForItTowardForestFirstEncounter(): Promise<void> {
   //todo do this
-  await printToTerminal("work in progress", "alert");
+  await printToTerminal(
+    "You run the other way, toward the forest, puttings trees between you and wathever is incoming.",
+    "action",
+  );
+  await die();
+  await printDeathMessage(
+    "Trees whip past. The hum doesn't fade. Between the trunks you catch silhouettes moving parallel to you.",
+  );
+  await printDeathMessage(
+    "Whatever is following you doesn't seem alone... or happy..."
+  );
 }
