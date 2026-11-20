@@ -1,4 +1,4 @@
-import { printToTerminal } from "../../ui/dom.js";
+import { printToTerminal, die, printDeathMessage } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
 import { addFlag, setFocus } from "../gameState.js";
 import { doesThePlayerHasTheItem } from "../inventory.ts";
@@ -51,6 +51,25 @@ first encounter snowy forest
 
 export async function firstEncounterHideBehindTree(): Promise<void> {
   //todo
+  await printToTerminal(
+    "You go flat behind the wides tree you can find and stop moving.",
+    "action",
+  );
+  await printToTerminal(
+    "The pressure keeps building, then everything goes silent.",
+    "system",
+  );
+  await die();
+  await printDeathMessage(
+    "You watch the snow around the base of your tree starting to swirld upward, gently, like it's being poured.",
+  );
+  await printDeathMessage("The tree begins to hum. Bark cracks in long lines.");
+  await printDeathMessage(
+    "You back away. From the threeline ahead of you, twelve more trees begin to hum in the same key.",
+  );
+  await printDeathMessage(
+    "You were never hiding, You were standing in the melodie.",
+  );
 }
 export async function firstEncounterHideInSnow(): Promise<void> {
   //todo

@@ -150,12 +150,6 @@ export async function hideInShowFirstEncounter(): Promise<void> {
  * for the encouter actions outside the shack
  */
 export async function makeRunForItTowardTruckFirstEncounter(): Promise<void> {
-  //todo do this :D
-  await printToTerminal("work in progress", "alert");
-  await printToTerminal(
-    "You try to make a run for toward the truck, nuh uhhh",
-    "alert",
-  );
   await printToTerminal("You start sprinting toward the truck.", "action");
   await printToTerminal(
     "Every crunch of snow underfoot sounds impossibly loud...",
@@ -163,11 +157,11 @@ export async function makeRunForItTowardTruckFirstEncounter(): Promise<void> {
   );
   await die();
   await printDeathMessage(
-    "Hafway there, the huming catches up to you, not chasing, " +
+    "Halfway there, the humming catches up to you, not chasing, " +
     "matching your pace exactly.",
   );
   await printDeathMessage(
-    "You glance only once back. The shape keeps perfect distance, gliding, not running.",
+    "You risk one glance only once back. The shape keeps perfect distance, gliding, not running.",
   );
   await printDeathMessage(
     "'It isnt't hunting. it's herding.' The thought arruves alkready knowing its awnser.",
@@ -188,6 +182,12 @@ export async function makeRunForItTowardForestFirstEncounter(): Promise<void> {
     "Trees whip past. The hum doesn't fade. Between the trunks you catch silhouettes moving parallel to you.",
   );
   await printDeathMessage(
-    "Whatever is following you doesn't seem alone... or happy..."
+    "Whatever is following you doesn't seem alone... or happy...",
+  );
+  await printDeathMessage(
+    "The trees stop. You hit the edge of a clearing you swear was supposed to be forest, and the vibration surrounds you.",
+  );
+  await printDeathMessage(
+    "You keep runnign into the black until the black runs out of ground.",
   );
 }
