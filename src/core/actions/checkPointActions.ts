@@ -73,6 +73,19 @@ FIRST ENCOUNTER SHACK ACTION
 */
 export async function jumpOutsideWindowFirstEncounterShack(): Promise<void> {
   //TODO finish this
+  await printToTerminal(
+    "you grab the window frame and jump throught it.",
+    "action",
+  );
+  await die();
+  await printDeathMessage(
+    "You roll, coughing, trying to get up. The pressure in you ears is gone.",
+  );
+  await printDeathMessage("'Its gone?', you ask yourself.");
+  await printDeathMessage(
+    "Suddenly, you drop on one knee even if you didn't do it on your own.",
+  );
+  await printDeathMessage("The last thing you hear... is nothing.");
 }
 export async function hideUnderDeskFirstEncounterShack(): Promise<void> {
   //TODO finish this
