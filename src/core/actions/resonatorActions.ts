@@ -5,6 +5,7 @@ import {
   getEl,
   printDeathMessage,
   printToTerminal,
+  sleep,
 } from "../../ui/dom.ts";
 import { closeRadioInterface, tuningEvent } from "../../ui/radioInterface.ts";
 import { gameBridge } from "../gameBridge.ts";
@@ -237,10 +238,11 @@ async function switchCaseOutsideWatchPost(): Promise<void> {
         "The snow at your feet spreads apart in a perfect circle, like a mouth opening.",
       );
       await printDeathMessage(
-        "The hum is coming from below you now. It has been for a while.",
+        "The hum is coming from below you now. " +
+        "Directly below you... It has been for a while.",
       );
       await printDeathMessage(
-        "The ground collapse. You never touch the ground again.",
+        "The ground exhales. You never touch the ground again.",
       );
       break;
     case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
@@ -263,7 +265,23 @@ async function switchCaseOutsideWatchPost(): Promise<void> {
       gameBridge.renderZoneActions("WATCH_POST_OUTSIDE");
       break;
     case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
-      //todo
+      await printToTerminal(
+        "You key the QG frequency in your radio.",
+        "action",
+      );
+      await printToTerminal("Your outside?", "QG");
+      await sleep(1500);
+      await printToTerminal("'You shouldn't be outside...'", "QG");
+      await die();
+      await printDeathMessage(
+        "It sounds so reasonable. So caring. 'Come back inside. I'll keep you safe.'",
+      );
+      await printDeathMessage(
+        "You feel your leg start walking before your brain agrees to it.",
+      );
+      await printDeathMessage(
+        "As soon as your inside, a wall of thick snow & ice start forming in the door",
+      );
       break;
     default:
       await writeDefaultDefaultDeathMessage();
@@ -280,7 +298,7 @@ async function switchCaseOutsideWatchPost(): Promise<void> {
 async function switchCaseGateCheckpointOutsideShack(): Promise<void> {
   switch (currentState.currentFrequency) {
     case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
-      //todo
+      await choseAwnserItOutsideShack();
       break;
     case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
       //todo
@@ -331,5 +349,71 @@ async function writeDefaultDefaultDeathMessage(): Promise<void> {
     "you were tracking it, IT is still tracking you.. and it found you",
     "alert",
     30,
+  );
+}
+async function choseAwnserItOutsideShack(): Promise<void> {
+  await printToTerminal(
+    "Standing in the open, right next to the guard shack, you punch back 940.700 in the radio." +
+    "and hold it up like an answer.",
+    "action",
+  );
+  await printToTerminal(
+    "It answers. The static doesn't just come out of the speaker, ijt climbs out of it.",
+    "alert",
+  );
+  await die();
+  await printDeathMessage(
+    "The pressure that was building in your ears all this time snaps " +
+    "into focus, like an eye opening in each channel.",
+  );
+  await printDeathMessage(
+    "You throw the radio into the snow. It keeps broadcasting. It doesn't need the speaker anymore.",
+  );
+  await printDeathMessage(
+    "The snow around it starts humming, then the fence wire, then you.",
+  );
+  await printDeathMessage(
+    "The last thing you feel is your own chest joining the chord as " +
+    "everything fades to black.",
+  );
+}
+async function choseReceiveOnlyOutsideShack(): Promise<void> {
+  await printToTerminal(
+    "You set the radio to receive-only and press yourself agaisnt the shack's wall.",
+    "action",
+  );
+  await printToTerminal(
+    "The pressure in your ears holds... then starts letting go. Little by little.",
+    "system",
+  );
+  await printToTerminal(
+    "the humming pulls back, away from the fence line.",
+    "system",
+  );
+  await printToTerminal("This could have gone very wrong...", "system");
+  addFlag("HAD_FIRST_ENCOUNTER");
+  gameBridge.renderZoneActions("GATE_CHECKPOINT");
+}
+async function choseToContactTheQGOutsideShack(): Promise<void> {
+  await printToTerminal(
+    "You key in the QG frequency and call for help.",
+    "action",
+  );
+  await die();
+  await printDeathMessage(
+    "The answer comes instanly. No operator alive responds that fast.",
+  );
+  await printDeathMessage("'How may we help?' the voice ask?");
+  await printDeathMessage(
+    "Then, warmer: 'You're doing so well. Walk to the tower. I'll guide you every step.'",
+  );
+  await printDeathMessage(
+    "Your legs start moving before you finish disagreeing with them.",
+  );
+  await printDeathMessage(
+    "You start feeling weird, something isn't right... and you're right...",
+  );
+  await printDeathMessage(
+    "Frost blees outward accross your visor as the gate checkpoint fades to black.",
   );
 }
