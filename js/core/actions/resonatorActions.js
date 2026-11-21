@@ -5,18 +5,16 @@ import { gameBridge } from "../gameBridge.js";
 import { addFlag, currentState, hasFlag, setFocus } from "../gameState.js";
 import { getFormattedBuffer } from "../radioFrequency.js";
 export async function handleResonatorActions(zone) {
-    if (zone === "WATCH_POST") {
-        const tuning = getEl("btn-tune");
-        tuning.removeEventListener("click", tuningEvent);
-        tuning.addEventListener("click", tuningInEncounter);
-        if (hasFlag("HAD_FIRST_ENCOUNTER")) {
-            tuning.removeEventListener("click", tuningInEncounter);
-            tuning.addEventListener("click", tuningEvent);
-        }
+    if (zone !== "WATCH_POST") {
+        await printToTerminal("not done implementing it, if it doesnt work, " +
+            "it mean i havent done that part yet.", "alert", 10);
     }
-    else {
-        //todo implementes this
-        await printToTerminal("sorry, not implemented yet", "alert");
+    const tuning = getEl("btn-tune");
+    tuning.removeEventListener("click", tuningEvent);
+    tuning.addEventListener("click", tuningInEncounter);
+    if (hasFlag("HAD_FIRST_ENCOUNTER")) {
+        tuning.removeEventListener("click", tuningInEncounter);
+        tuning.addEventListener("click", tuningEvent);
     }
 }
 /**
@@ -28,28 +26,21 @@ async function tuningInEncounter() {
         currentState.currentFrequency = buffer;
         getEl("frequency").textContent = buffer;
         closeRadioInterface();
-        switch (currentState.currentFrequency) {
-            case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
-                await choseToAngerResonatorIGuess();
+        switch (currentState.currentZone) {
+            case "WATCH_POST":
+                await switchCaseInsideWatchpost();
                 break;
-            case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
-                await choseToContactTheQg();
+            case "WATCH_POST_OUTSIDE":
+                await switchCaseOutsideWatchPost();
                 break;
-            case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
-                await choseToDoTheRightThing();
-                addFlag("HAD_FIRST_ENCOUNTER");
+            case "GATE_CHECKPOINT":
+                await switchCaseGateCheckpointOutsideShack();
+                break;
+            case "GATE_CHECKPOINT_SHACK":
+                await switchCaseGateCheckpointInsideShack();
                 break;
             default:
-                await printToTerminal(`You decide to set your radio to the 
-        following frequency: ${currentState.currentFrequency} MHz`, "action");
-                await printToTerminal("whatever is happening" + "doesn't seem to be stopping...", "system");
-                await printToTerminal("You know its there... IT also knows YOU are there...", "log");
-                await printToTerminal("you were tracking it, IT is still tracking you.. and it found you", "alert", 30);
-                await printToTerminal("Frost rapidly make it way inside the watch post toward you.", "alert", 30);
-                await printToTerminal("You dont even have the time to react that it gets to you", "alert", 40);
-                await die();
-                await printDeathMessage("The frost rapidly cover your body, entering through every hole there is...");
-                await printDeathMessage("As your temperature drops and you get frozen from the inside, everything fade to black");
+                await printToTerminal("zone not implemented yet, sorry :c", "alert");
         }
     }
     else {
@@ -125,16 +116,87 @@ export async function goOutside() {
     await printDeathMessage("You feel your insides freezing as you loose any sense of feeling.");
 }
 /**
- * function to handle if the player want to go inside
- * during the first encounter with the resonator
+ * the switch case for the tuning outside the watch post
  */
-export async function goInside() {
-    //todo
+async function switchCaseInsideWatchpost() {
+    switch (currentState.currentFrequency) {
+        case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
+            await choseToAngerResonatorIGuess();
+            break;
+        case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
+            await choseToContactTheQg();
+            break;
+        case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
+            await choseToDoTheRightThing();
+            addFlag("HAD_FIRST_ENCOUNTER");
+            break;
+        default:
+            await writeDefaultDefaultDeathMessage();
+            await printToTerminal("Frost rapidly make it way inside the watch post toward you.", "alert", 30);
+            await printToTerminal("You dont even have the time to react that it gets to you", "alert", 40);
+            await die();
+            await printDeathMessage("The frost rapidly cover your body, entering through every hole there is...");
+            await printDeathMessage("As your temperature drops and you get frozen from the inside, everything fade to black.");
+    }
+}
+async function switchCaseOutsideWatchPost() {
+    switch (currentState.currentFrequency) {
+        case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
+            //todo
+            break;
+        case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
+            //todo
+            break;
+        case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
+            //todo
+            break;
+        default:
+            await writeDefaultDefaultDeathMessage();
+            await die();
+            await printDeathMessage("20 ice arms surge from the ground at once, immobilizing you in an instant.");
+            await printDeathMessage("A big spike then surges from the ground and pierces your torso, " +
+                "giving you a slow and painful death.");
+    }
+}
+async function switchCaseGateCheckpointOutsideShack() {
+    switch (currentState.currentFrequency) {
+        case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
+            //todo
+            break;
+        case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
+            //todo
+            break;
+        case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
+            //todo
+            break;
+        default:
+            await writeDefaultDefaultDeathMessage();
+        //todo
+    }
+}
+async function switchCaseGateCheckpointInsideShack() {
+    switch (currentState.currentFrequency) {
+        case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
+            //todo
+            break;
+        case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
+            //todo
+            break;
+        case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
+            //todo
+            break;
+        default:
+            await writeDefaultDefaultDeathMessage();
+        //todo
+    }
 }
 /**
- * function to handle if the player wants to hide in
- * the snow during his first encounter with the resonator
+ * reusable default text to not always re-write it
  */
-export async function hideInSnow() {
-    //todo
+async function writeDefaultDefaultDeathMessage() {
+    await printToTerminal("You decide to set your radio to the following frequency: " +
+        `${currentState.currentFrequency} MHz`, "action");
+    await printToTerminal("whatever is happening doesn't seem to be stopping...", "system");
+    await printToTerminal("You know it's there... IT also knows YOU are there...", "log");
+    await printToTerminal("you were tracking it, IT is still tracking you.. and it found you", "alert", 30);
 }

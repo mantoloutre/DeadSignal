@@ -37,3 +37,31 @@ export const GATE_CHECKPOINT_SHACK_ACTIONS = {
 /*
 ###################################################
  */
+export const FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION = {
+    HIDE_IN_SNOW: {
+        command: "Hide in snow",
+        description: "hide in the snow near the gate",
+        execute: actionsFunc.hideInShowFirstEncounter,
+    },
+    MAKE_RUN_FOR_IT_TOWARD_TRUCK: {
+        command: "run toward truck",
+        description: "try to make a run for it toward the truck",
+        execute: actionsFunc.makeRunForItTowardForestFirstEncounter,
+    },
+    MAKE_RUN_FOR_IT_TOWARD_FOREST: {
+        command: "run toward forest",
+        description: "try to make a fur for it toward the forest",
+        execute: actionsFunc.makeRunForItTowardForestFirstEncounter,
+    },
+    //for inside the shack
+    HIDE_UNDER_DESK: {
+        command: "hide under desk",
+        description: "hide under the only desk there is",
+        execute: actionsFunc.jumpOutsideWindowFirstEncounterShack,
+    },
+    JUMP_OUT_OF_WINDOW: {
+        command: "jump out window",
+        description: "try to jump out of the broken window",
+        execute: actionsFunc.hideUnderDeskFirstEncounterShack,
+    },
+};

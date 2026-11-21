@@ -116,3 +116,20 @@ export const OUTSIDE_TRUCK_INIT_ACTIONS = {
         oneTime: true,
     },
 };
+export const FIRST_RESONATOR_ENCOUNTER_TRUCK = {
+    GO_BACK_IN_TRUCK: {
+        command: "go back in truck",
+        description: "go back inside the truck cabin.",
+        execute: actionsFunc.goInTheTruckFirstEncounter,
+    },
+    GO_TOWARD_THE_FOREST: {
+        command: "run toward forest",
+        description: "run toward the forest in the direction of the direction sign.",
+        execute: actionsFunc.runTowardForestFirstEncounter,
+    },
+    HIDE_UNDER_TRUCK: {
+        command: "hide under truck",
+        description: "hide under the truck and try to not make too much noise too.",
+        execute: actionsFunc.hideUnderTruckFirstEncounter,
+    },
+};

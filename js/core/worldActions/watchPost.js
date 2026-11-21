@@ -85,7 +85,7 @@ export const WATCH_POST_OUTSIDE = {
         execute: actionsFunc.goBackToCheckpoint,
     },
 };
-export const RESONATOR_ENCOUNTER = {
+export const FIRST_RESONATOR_ENCOUNTER_WATCHPOST = {
     // actions for inside the watch post
     COVER_EARS: {
         command: "cover your ears",
@@ -101,16 +101,22 @@ export const RESONATOR_ENCOUNTER = {
     GO_INSIDE: {
         command: "go inside watch post",
         description: "go inside the watch tower",
-        execute: async () => { }, //todo do the action
+        execute: actionsFunc.goInsideTheWatchPostFirstEncounter,
     },
     HIDE_IN_SNOW: {
+        //TODO remove this maybe ?
         command: "hide in snow",
         description: "hide in the snow",
-        execute: async () => { }, //todo do the action
+        execute: actionsFunc.hideInSnowOutsideWatchpostFirstEncounter,
     },
     MAKE_RUN_FOR_IT: {
-        command: "run toward the truck",
-        description: "try to escape and run toward the truck",
-        execute: async () => { }, //todo do the action
+        command: "run toward truck",
+        description: "run toward the truck, passing the checkpoint and the intersection",
+        execute: actionsFunc.makeRunForItOutsideWatchpostFirstEncounter,
+    },
+    HIDE_UNDER_DOOR_IN_SNOW: {
+        command: "hide under door",
+        description: "hide under the door in the snow",
+        execute: async () => { }, //todo link the action
     },
 };

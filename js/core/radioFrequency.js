@@ -164,6 +164,10 @@ export async function handleFrequency() {
         await printToTerminal("Set you radio to a frequency to use it.", "alert");
         return;
     }
+    //some will bypass
+    const isBypassed = await checkBypass(formattedFreq);
+    if (isBypassed)
+        return; //return cuz we won't need to continue.
     //making sure he has it
     // ( don't care if it doesn't exist cuz the switch case is going to take care of that )
     if (!hasDiscoveredSignal(formattedFreq)) {
@@ -212,51 +216,47 @@ async function handleResonatorFrequency() {
  */
 export async function handleResonatorEncounter() {
     const theZone = currentState.currentZone;
-    switch (theZone) {
-        case "WATCH_POST":
-            if (!hasFlag("HAD_FIRST_ENCOUNTER")) {
-                setFocus("FIRST_ENCOUNTER");
-                gameBridge.renderZoneActions("WATCH_POST");
-                await handleResonatorActions("WATCH_POST");
-                await getDialogWatchPostInsideFirstEncounter();
-            }
-            else {
-                //TODO do if its not the first encounter
-                await printToTerminal("Sorry, not implemented yet", "alert");
-            }
-            break;
-        case "WATCH_POST_OUTSIDE":
-            /* TODO do the actions if player is outside
-                        if (!hasFlag("HAD_FIRST_ENCOUNTER")){
-                          setFocus("FIRST_ENCOUNTER");
-                          gameBridge.renderZoneActions("WATCH_POST_OUTSIDE");
-                          await handleResonatorActions("WATCH_POST_OUTSIDE");
-                        } else {
-                        //TODO
-                        }
-                        */
-            await printToTerminal("Sorry, not implemented yet", "alert"); //TODO remove when done
-            break;
-        default:
-            await printToTerminal("not implemented yet (error btw its default case of the switch)", "alert"); //TODO remove when done
-            /*
-                          choose if you want to implement a first death for every zone or not? TODO decide this
-                           */
-            break;
+    if (!hasFlag("HAD_FIRST_ENCOUNTER")) {
+        setFocus("FIRST_ENCOUNTER");
+        await getDialogFirstEncounter();
+        gameBridge.renderZoneActions(theZone);
+        await handleResonatorActions(theZone);
+    }
+    else {
+        //TODO do if its not the first encounter
+        await printToTerminal("Sorry, not implemented yet", "alert");
     }
 }
-async function getDialogWatchPostInsideFirstEncounter() {
+async function getDialogFirstEncounter() {
     await printToTerminal("You tune your radio to 940.700 MHz. For a moment, pure silence. " +
         "Better than static, you think. Because at least it mean your picking up the frequency", "action");
     await printToTerminal("Then, the silence start breathing. Slow, steady and you can somehow " +
         "feel it on your body.", "system");
     await printToTerminal("The temperature drops a bit, not enough to worry but enough to notice.", "system");
     await printToTerminal("Whatever is broadcasting this frequency... It can't be a station. " +
-        "Somewhere, outside, something started walking toward the watchpost and " +
-        "is getting close fast.", "alert");
+        "Somewhere, outside, something started walking toward you and " +
+        "its getting close fast.", "alert");
     await printToTerminal("As more time passes, the more sound the frequency emits... " +
         "Your radio is starting to get really loud.", "system");
     await printToTerminal("Pressure start building up in your ears...", "alert");
     await printToTerminal("You should do something...", "system");
     await printToTerminal("(Pick an action from the left panel or use the radio.)", "system");
+}
+async function checkBypass(formattedFreq) {
+    switch (formattedFreq) {
+        case "121.500":
+            window.open("https://en.wikipedia.org/wiki/Aircraft_emergency_frequency", "_blank", "noopener");
+            return true;
+        case "243.000":
+            window.open("https://en.wikipedia.org/wiki/Aircraft_emergency_frequency", "_blank", "noopener");
+            return true;
+        case "158.8000":
+            window.open("https://en.wikipedia.org/wiki/Channel_16_VHF", "_blank", "noopener");
+            return true;
+        case "004.625":
+            window.open("https://en.wikipedia.org/wiki/UVB-76", "_blank", "noopener");
+            return true;
+        default:
+            return false;
+    }
 }

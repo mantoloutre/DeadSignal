@@ -2,7 +2,7 @@ import { isDrawingPanelOpenOrNot } from "../data/drawings.js";
 import { drawingPanelPrintLine } from "../ui/dom.js"; //todo watch out for possible circular reference
 import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
-import { BREAKER_PANEL_ACTIONS, GATE_CHECKPOINT_ACTION, GATE_CHECKPOINT_SHACK_ACTIONS, GET_TOOL_BOX_ACTION, OUTSIDE_TRUCK_INIT_ACTIONS, RELAY_A01_ACTIONS, RELAY_A01_OUTSIDE_ACTIONS, REPAIR_CONNECTION, RESONATOR_ENCOUNTER, SAY_STUFF_TO_QG, SNOWY_FOREST_ACTIONS, TRUCK_CABIN_INIT_ACTIONS, WATCH_POST, WATCH_POST_OUTSIDE, } from "./worldActions/index.js";
+import { BREAKER_PANEL_ACTIONS, FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION, FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST, FIRST_RESONATOR_ENCOUNTER_TRUCK, FIRST_RESONATOR_ENCOUNTER_WATCHPOST, GATE_CHECKPOINT_ACTION, GATE_CHECKPOINT_SHACK_ACTIONS, GET_TOOL_BOX_ACTION, OUTSIDE_TRUCK_INIT_ACTIONS, RELAY_A01_ACTIONS, RELAY_A01_OUTSIDE_ACTIONS, REPAIR_CONNECTION, SAY_STUFF_TO_QG, SNOWY_FOREST_ACTIONS, TRUCK_CABIN_INIT_ACTIONS, WATCH_POST, WATCH_POST_OUTSIDE, } from "./worldActions/index.js";
 /*
 the const containing all the zone that I'm using in the game
  */
@@ -79,6 +79,9 @@ export const ZONES = {
             "Broken glass surrounds the dark entrance",
         getActions: () => {
             //focus
+            if (getFocus() === FOCUS.FIRST_ENCOUNTER) {
+                return getFirstEncounterActions("WATCH_POST_OUTSIDE");
+            }
             //normal actions
             const actions = [];
             actions.push(WATCH_POST_OUTSIDE.GO_BACK_TO_CHECKPOINT);
@@ -130,6 +133,9 @@ export const ZONES = {
             if (getFocus() === FOCUS.JUNCTION_BOX) {
                 //TODO set the focus at the right place
                 return getJunctionBoxActions();
+            }
+            if (getFocus() === FOCUS.FIRST_ENCOUNTER) {
+                //TODO
             }
             //normal action
             const actions = [];
@@ -269,11 +275,40 @@ function getFirstEncounterActions(zoneId) {
     //do the actions
     switch (zoneId) {
         case "WATCH_POST":
-            actions.push(RESONATOR_ENCOUNTER.COVER_EARS);
-            actions.push(RESONATOR_ENCOUNTER.GO_OUTSIDE);
+            actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.COVER_EARS);
+            actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.GO_OUTSIDE);
             break;
         case "WATCH_POST_OUTSIDE":
-            //todo do & link the action
+            actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.GO_OUTSIDE);
+            actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.HIDE_IN_SNOW);
+            actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.MAKE_RUN_FOR_IT);
+            break;
+        case "OUTSIDE_TRUCK":
+            actions.push(FIRST_RESONATOR_ENCOUNTER_TRUCK.GO_BACK_IN_TRUCK);
+            actions.push(FIRST_RESONATOR_ENCOUNTER_TRUCK.GO_TOWARD_THE_FOREST);
+            actions.push(FIRST_RESONATOR_ENCOUNTER_TRUCK.HIDE_UNDER_TRUCK);
+            break;
+        case "SNOWY_FOREST":
+            actions.push(FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST.HIDE_BEHIND_TREE);
+            actions.push(FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST.HIDE_IN_THE_SNOW);
+            break;
+        case "TRUCK_CABIN":
+            //TODO do this
+            break;
+        case "GATE_CHECKPOINT":
+            actions.push(FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION.HIDE_IN_SNOW);
+            actions.push(FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION.MAKE_RUN_FOR_IT_TOWARD_TRUCK);
+            actions.push(FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION.MAKE_RUN_FOR_IT_TOWARD_FOREST);
+            //TODO do this
+            break;
+        case "GATE_CHECKPOINT_SHACK":
+            //TODO do this
+            break;
+        case "RELAY_A01_OUTSIDE":
+            //TODO do this
+            break;
+        case "RELAY_A01":
+            //TODO do this
             break;
         default:
             actions.push({

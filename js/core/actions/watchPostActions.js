@@ -1,4 +1,4 @@
-import { printToTerminal } from "../../ui/dom.js";
+import { die, printDeathMessage, printToTerminal } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
 import { addFlag, hasFlag, setFocus } from "../gameState.js";
 import { addItemToInventory, removeItemFromInventory } from "../inventory.js";
@@ -120,4 +120,68 @@ export async function DontTellQGAboutNoteLeft() {
 export async function confirmingDoneTalkingToQG() {
     setFocus(null);
     gameBridge.renderZoneActions("WATCH_POST");
+}
+/*
+##################################
+first encounter outside watch post
+##################################
+ */
+export async function goInsideTheWatchPostFirstEncounter() {
+    //todo
+    await printToTerminal("You run inside the watchpost, and you forgot the door wasn't there " +
+        "as you tried to close it.", "system");
+    await printToTerminal("The pressure in your ears spikes a lot that you " +
+        "almost drop to your knees.", "system");
+    await printToTerminal("Your holding your screeching radio. Whatever is doing this is tied to it somehow..", "system");
+    await printToTerminal("You managed to buy yourself a few second, but you need to do something about the radio...", "alert");
+    //TODO make it so the player has to input a frequency.
+}
+export async function hideInSnowOutsideWatchpostFirstEncounter() {
+    await printToTerminal("You jump into a snowbank and hide in the snow.", "action");
+    await printToTerminal("Muffled, half-smothered, you wait. The pressure keeps climbing, less fast however.", "system");
+    await printToTerminal("it's not enough. it knows you heard it. hearing it IS receiving it.", "alert");
+    await die();
+    await printDeathMessage("You hold your breath. You count. On the 30s count, the snow above you " +
+        "start to vibrate.");
+    await printDeathMessage("then it stops vibrating, and starts humming, at a pitch you feel in " +
+        "your bones more than your ears.");
+    await printDeathMessage("Warm blood fills both your ear's canals. You never hear the part that kills you.");
+    await printDeathMessage("Frost bleeds outward across your visor as the snow around you turns red " +
+        "and you vision fades to black.");
+}
+export async function makeRunForItOutsideWatchpostFirstEncounter() {
+    //todo
+    await printToTerminal("You take your legs to your neck and bolt toward the checkpoint, " +
+        "not even looking back once.", "system");
+    await printToTerminal("The pressure is like a fist squeezing your skull right now, but you " +
+        "keep running because who knows what will happen if you stop...", "system");
+    await printToTerminal("You pass the checkpoint... Then the intersection... the truck is " +
+        "now in sight", "system");
+    await printToTerminal("'Wait!' You realise something... why run toward the truck, like.... " +
+        "Do you think the truck is going start? A piston blew up..", "system");
+    await printToTerminal("Still, you continue running toward it. Hoping for a miracle...", "system");
+    await die();
+    await printDeathMessage("Barely twenty meters from the truck, the snow in front of you rises.");
+    await printDeathMessage("You run around it, the truck being your only objective.");
+    await printDeathMessage("A shape unfolds out of the drift, tall, wrong, faceless.");
+    await printDeathMessage("The last thing you perceive is not light, not sound, just a certainty " +
+        "pressed into your skull:");
+    await printDeathMessage("'Found you.'");
+    await printDeathMessage("You feel a sharp pain in your skull as Frost bleeds outward across " +
+        "your visor and as the treeline fades to black.");
+}
+export async function firstEncounterHideUnderDoorOutsideWatchpost() {
+    //todo finish this
+    await printToTerminal("You quickly hide under the door in the snow as IT is getting closer.", "system");
+    await printToTerminal("For a moment, you hear nothing.", "system");
+    await printToTerminal("Silence, Total, absolute silence. the kind that weight a ton.", "system");
+    await printToTerminal("Then you hear it walking. Slow, unhurried steps in " +
+        "the snow, circling the door you're under.", "system");
+    await printToTerminal("It stops beside you. You can hear it breathing, if you can even call that breathing...", "alert");
+    await die();
+    await printDeathMessage("A long, probing pressure pushes down on the door.");
+    await printDeathMessage("';not under there.' The thought isn't yours." +
+        "'not under there. not under there. NOT UNDER THERE.'");
+    await printDeathMessage("The door lifts like a leaf. What happens next happens too fast to feel.");
+    await printDeathMessage("Frost bleeds outward across your visor as everything fades to black.");
 }
