@@ -21,7 +21,7 @@ walk toward the intersection of : outside watchpost, broken down truck, frozen l
 export async function walkBackSnowyForestTowardTruck(): Promise<void> {
   await printToTerminal(
     "You go back in the forest toward the intersection" +
-    " of the frozen lake and the truck",
+      " of the frozen lake and the truck",
     "action",
   );
   await gameBridge.loadZone("SNOWY_FOREST");
@@ -61,7 +61,7 @@ export async function walkTowardMainWatchPost(): Promise<void> {
 export async function salvageMemoryModule(): Promise<void> {
   await printToTerminal(
     "You take the memory modules from the the " +
-    "robot's head and then put the head back down",
+      "robot's head and then put the head back down",
     "action",
   );
   await addItemToInventory("robot_memory_module");
@@ -94,7 +94,7 @@ export async function jumpOutsideWindowFirstEncounterShack(): Promise<void> {
 export async function hideUnderDeskFirstEncounterShack(): Promise<void> {
   await printToTerminal(
     "You squeeze yourself under the guard's desk, knees to your chest, " +
-    "hands over your ears.",
+      "hands over your ears.",
     "action",
   );
   await printToTerminal(
@@ -108,7 +108,7 @@ export async function hideUnderDeskFirstEncounterShack(): Promise<void> {
   await printDeathMessage("Then, the desk starts to resonate too.");
   await printDeathMessage(
     "Everything metal in the room is resonating, and your skeleton is " +
-    "made of calcium, which resonates too.",
+      "made of calcium, which resonates too.",
   );
   await printDeathMessage(
     "You bit down hard but you can't stop your own jaw from humming along...",
@@ -143,7 +143,7 @@ export async function hideInShowFirstEncounter(): Promise<void> {
   );
   await printDeathMessage(
     "Yours ears pop. Warmth blood spreads down your collar as " +
-    "everything fades to black.",
+      "everything fades to black.",
   );
 }
 /**
@@ -158,7 +158,7 @@ export async function makeRunForItTowardTruckFirstEncounter(): Promise<void> {
   await die();
   await printDeathMessage(
     "Halfway there, the humming catches up to you, not chasing, " +
-    "matching your pace exactly.",
+      "matching your pace exactly.",
   );
   await printDeathMessage(
     "You risk one glance only once back. The shape keeps perfect distance, gliding, not running.",
