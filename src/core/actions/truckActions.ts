@@ -264,7 +264,7 @@ export async function goInTheTruckFirstEncounter(): Promise<void> {
     "action",
   );
   await printToTerminal(
-    "Inside the metal cabin, the pressure drops suddenly.",
+    "Inside the metal cabin, the pressure drops suddenly. Like surfacing from a dive",
     "system",
   );
   await printToTerminal(
@@ -278,6 +278,7 @@ export async function goInTheTruckFirstEncounter(): Promise<void> {
   );
   await printToTerminal("You then hear it move away, pretty far.", "system");
   addFlag("HAD_FIRST_ENCOUNTER");
+  gameBridge.loadZone("TRUCK_CABIN");
 }
 export async function hideUnderTruckFirstEncounter(): Promise<void> {
   //todo
