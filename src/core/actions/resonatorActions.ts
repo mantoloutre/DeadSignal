@@ -17,7 +17,7 @@ export async function handleResonatorActions(zone: ZoneId): Promise<void> {
   if (zone !== "WATCH_POST") {
     await printToTerminal(
       "not done implementing it, if it doesnt work, " +
-        "it mean i havent done that part yet.",
+      "it mean i havent done that part yet.",
       "alert",
       10,
     );
@@ -64,12 +64,12 @@ async function tuningInEncounter(): Promise<void> {
 async function choseToDoTheRightThing(): Promise<void> {
   await printToTerminal(
     "You decide set your radio so you can only receive transmission and it" +
-      " doesn't emit anything anymore.",
+    " doesn't emit anything anymore.",
     "action",
   );
   await printToTerminal(
     "As soon as you type in the frequency, the pressure that was building in your " +
-      "ears starts dropping really fast until it's gone.",
+    "ears starts dropping really fast until it's gone.",
     "system",
   );
   await printToTerminal(
@@ -87,32 +87,32 @@ async function choseToDoTheRightThing(): Promise<void> {
 async function choseToContactTheQg(): Promise<void> {
   await printToTerminal(
     "You type the frequency as fast as you can to try and contact the QG even " +
-      "if you are not supposed to. You press transmit.",
+    "if you are not supposed to. You press transmit.",
     "action",
   );
   await die();
   await printDeathMessage(
     "You hear static, even with heavy distortion, you hear a firm voice." +
-      "'Stay on this channel, we are on our way', it says.",
+    "'Stay on this channel, we are on our way', it says.",
   );
   await printDeathMessage(
     "Then, the voice repeats it, same pause, same breath...",
   );
   await printDeathMessage(
     "The voice says: 'You did well, going this far'." +
-      "Its really warm, friendly.. and its making your skin crawl.",
+    "Its really warm, friendly.. and its making your skin crawl.",
   );
   await printDeathMessage(
     "After a long pause it end up saying: 'Just relax, it will all be over soon.'.",
   );
   await printDeathMessage(
     "Your ears pop violently. Warm bloods fill both canals, " +
-      "and the voice never stop comforting you, " +
-      "not even as it takes you.",
+    "and the voice never stop comforting you, " +
+    "not even as it takes you.",
   );
   await printDeathMessage(
     "Frost bleeds outward across your visor as the inside of the watchpost " +
-      "fades to black.",
+    "fades to black.",
   );
 }
 
@@ -122,7 +122,7 @@ async function choseToContactTheQg(): Promise<void> {
 async function choseToAngerResonatorIGuess(): Promise<void> {
   await printToTerminal(
     "The Frequency was already tuned into this frequency, and you decide to " +
-      "press the tune button again",
+    "press the tune button again",
     "action",
   );
   await die();
@@ -134,7 +134,7 @@ async function choseToAngerResonatorIGuess(): Promise<void> {
   );
   await printDeathMessage(
     "Then, the shockwave hammers your chest like a dropped weight. " +
-      "Your sternum caves inward with a dull, wet snap. Just like Keller's",
+    "Your sternum caves inward with a dull, wet snap. Just like Keller's",
   );
   await printDeathMessage(
     "Frost bleeds outward across your visor as the inside of the watchpost fades to black",
@@ -155,7 +155,7 @@ export async function coverYourEars(): Promise<void> {
   );
   await printDeathMessage(
     "Another blink later, the door that was in the snow " +
-      "comes flying toward you.",
+    "comes flying toward you.",
   );
   await printDeathMessage(
     "You dont even have time to react that it splits your head from your body.",
@@ -169,20 +169,20 @@ export async function goOutside(): Promise<void> {
   //await printToTerminal("You run outside into the snow, ");
   await printToTerminal(
     "You run outside into the snow, hoping that being away from the watchpost " +
-      "will calm whatever is happening right now.",
+    "will calm whatever is happening right now.",
     "action",
   );
   await die();
   await printDeathMessage(
     "Something big was waiting right outside. You never saw its face, " +
-      "only the shadow it cast on the ground",
+    "only the shadow it cast on the ground",
   );
   await printDeathMessage(
     "You don't even get three steps outside before something grabs your head, making you unable to see anything.",
   );
   await printDeathMessage(
     "Still holding your head with inhuman strength, it screeches extremely loudly so close to you" +
-      " that your eardrums pop in less than a second.",
+    " that your eardrums pop in less than a second.",
   );
   await printDeathMessage(
     "You feel your insides freezing as you loose any sense of feeling.",
@@ -239,7 +239,7 @@ async function switchCaseOutsideWatchPost(): Promise<void> {
       );
       await printDeathMessage(
         "The hum is coming from below you now. " +
-          "Directly below you... It has been for a while.",
+        "Directly below you... It has been for a while.",
       );
       await printDeathMessage(
         "The ground exhales. You never touch the ground again.",
@@ -291,7 +291,7 @@ async function switchCaseOutsideWatchPost(): Promise<void> {
       );
       await printDeathMessage(
         "A big spike then surges from the ground and pierces your torso, " +
-          "giving you a slow and painful death.",
+        "giving you a slow and painful death.",
       );
   }
 }
@@ -308,24 +308,67 @@ async function switchCaseGateCheckpointOutsideShack(): Promise<void> {
       break;
     default:
       await writeDefaultDefaultDeathMessage();
+      await die();
+      await printDeathMessage(
+        "The fence posts around the checkpoint begin to sing, all together " +
+        "like a full chord of cold metal.",
+      );
+      await printDeathMessage(
+        "You cover your ears and run, but the chord follows you. tightening, " +
+        "until everything around you fades to black as you freeze.",
+      );
   }
 }
 async function switchCaseGateCheckpointInsideShack(): Promise<void> {
   switch (currentState.currentFrequency) {
     case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
-      await choseToAwnserItInsideShack();
+      await choseToAnswerItInsideShack();
       break;
     case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
-      //todo
+      await choseToContactQGInsideShack();
       break;
     case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
-      //todo
+      await choseReceiveOnlyInsideShack();
       break;
     default:
       await writeDefaultDefaultDeathMessage();
-    //todo
+      await die();
+      await printDeathMessage(
+        "Every loose screw in the shack starts vibrating at once.",
+      );
+      await printDeathMessage(
+        "Your last breath hangs in the air, visible, and stays there " +
+        "as everything fades to black.",
+      );
   }
 }
+async function choseToContactQGInsideShack(): Promise<void> {
+  await printToTerminal(
+    "You type in the QG frequency and call out, " +
+    "begging for anyone listening to awnser.",
+    "action",
+  );
+  await printToTerminal(
+    "Someone awnsers before you even let go of the button.",
+    "alert",
+  );
+  await printToTerminal(
+    "Your safe now, you don't have to worry anymore..",
+    "QG",
+  );
+  await printToTerminal("Stay inside. Stay warm. I'll come to you.", "QG");
+  await die();
+  await printDeathMessage(
+    "The door of the shack doesn't open. It just stops being a door, " +
+    "and the cold walks in like it owns the place.",
+  );
+  await printDeathMessage(
+    "Everything around you fades to black, warm and wrong...",
+  );
+}
+/**
+ * function to handle an action for the first encounter inside the shack.
+ */
 async function choseReceiveOnlyInsideShack(): Promise<void> {
   await printToTerminal(
     "You kill the transmitter on your radio and set it on receive-only.",
@@ -339,31 +382,42 @@ async function choseReceiveOnlyInsideShack(): Promise<void> {
     "outside, the humming slows... Then goes quiet.",
     "system",
   );
+  await printToTerminal(
+    "When you finally stand up, you notice something: " +
+    "the robot's head on the floor is humming, softly, in the same key.",
+    "alert",
+  );
+  //TODO maybe make the player able to pickup the head?
 }
 /**
  * function to handle an action inside the shack during the first encounter
  */
-async function choseToAwnserItInsideShack(): Promise<void> {
+async function choseToAnswerItInsideShack(): Promise<void> {
   await printToTerminal("You input 940.700 a second time.", "action");
   await printToTerminal(
     "On the guard's desk, the old desk radio clicks. You don't touch it.",
     "system",
   );
   await printToTerminal(
-    "Both the desk radio and your personal radio start humming at each other.",
+    "The dusty radio set itself slowly to 940.700 MHz. When you realise, its already set.",
+    "alert",
+  );
+  await printToTerminal(
+    "Both the desk radio and your personal radio start humming at each other." +
+    "A conversation in a language made of frequency and pressure.",
     "system",
   );
   await die();
   await printDeathMessage(
     "Dust fall down from the ceiling. The walls of the shack begin to " +
-      "buzz in the same key.",
+    "buzz in the same key.",
   );
   await printDeathMessage(
     "Your teeth pickup the harmony without asking permission...",
   );
   await printDeathMessage(
     "The shack fold inward around you, and everything fades to black " +
-      "as pain consume you...",
+    "as pain consume you...",
   );
 }
 /**
@@ -372,7 +426,7 @@ async function choseToAwnserItInsideShack(): Promise<void> {
 async function writeDefaultDefaultDeathMessage(): Promise<void> {
   await printToTerminal(
     "You decide to set your radio to the following frequency: " +
-      `${currentState.currentFrequency} MHz`,
+    `${currentState.currentFrequency} MHz`,
     "action",
   );
   await printToTerminal(
@@ -396,7 +450,7 @@ async function writeDefaultDefaultDeathMessage(): Promise<void> {
 async function choseAnswerItOutsideShack(): Promise<void> {
   await printToTerminal(
     "Standing in the open, right next to the guard shack, you punch back 940.700 in the radio." +
-      "and hold it up like an answer.",
+    "and hold it up like an answer.",
     "action",
   );
   await printToTerminal(
@@ -406,7 +460,7 @@ async function choseAnswerItOutsideShack(): Promise<void> {
   await die();
   await printDeathMessage(
     "The pressure that was building in your ears all this time snaps " +
-      "into focus, like an eye opening in each channel.",
+    "into focus, like an eye opening in each channel.",
   );
   await printDeathMessage(
     "You throw the radio into the snow. It keeps broadcasting. It doesn't need the speaker anymore.",
@@ -416,7 +470,7 @@ async function choseAnswerItOutsideShack(): Promise<void> {
   );
   await printDeathMessage(
     "The last thing you feel is your own chest joining the chord as " +
-      "everything fades to black.",
+    "everything fades to black.",
   );
 }
 
@@ -466,6 +520,6 @@ async function choseToContactTheQGOutsideShack(): Promise<void> {
     "You start feeling weird, something isn't right... and you're right...",
   );
   await printDeathMessage(
-    "Frost bleeds outward accross your visor as the gate checkpoint fades to black.",
+    "Frost bleeds outward across your visor as the gate checkpoint fades to black.",
   );
 }
