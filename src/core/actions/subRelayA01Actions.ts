@@ -58,14 +58,18 @@ zone : OUTSIDE_BUNKER
  * inspect the mark on the bunker door foundation basically
  */
 export async function inspectBunkerFoundation(): Promise<void> {
-  // here I feel like maybe player is going to discover a mark of some sort
-  await printToTerminal("not yet done, sorry :c", "alert");
   await printToTerminal(
-    "you inspect the base of the bunker and you see something ( nothing ) " +
-      "( not yet done done ) :c",
+    "You scrape the frost off the base of the bunker and find grooves " +
+    "cut into the concrete.",
     "action",
   );
-  //todo
+  await printToTerminal(
+    "At the deepest groove, there's a symbol you don't reconize: a circle " +
+    "with a wave passing through it.",
+    "log",
+  );
+  await printToTerminal("Someone carved this from the inside.", "alert");
+  addFlag("EXAMINED_TOWER_STRUTS");
 }
 
 /**
@@ -85,7 +89,7 @@ export async function enterBunkerStationA01(): Promise<void> {
   } else {
     await printToTerminal(
       "There is a visible keycard slot," +
-        " however, you have no keycard to fill that slot",
+      " however, you have no keycard to fill that slot",
       "system",
     );
   }
@@ -144,12 +148,12 @@ export async function toggleInt1(): Promise<void> {
 export async function tryWithWireCutter(): Promise<void> {
   await printToTerminal(
     "You remove the plastic grip of the wire cutter's handles, " +
-      "revealing the metal.",
+    "revealing the metal.",
     "action",
   );
   await printToTerminal(
     "You attach each end of the wire to a handle of the wireCutter, " +
-      "connection is now up.",
+    "connection is now up.",
     "action",
   );
   addFlag("REPAIRED_CONNEXION_WITH_WIRECUTTER");
@@ -171,7 +175,7 @@ export async function smtElseThanBreakerPanelConnection(): Promise<void> {
 export async function tryWithDuctTape(): Promise<void> {
   await printToTerminal(
     "You take both end of the wire and attach them with tape, " +
-      "connection is now up.",
+    "connection is now up.",
     "action",
   );
   addFlag("REPAIRED_CONNEXION_WITH_DUCT_TAPE");
@@ -180,7 +184,7 @@ export async function tryWithDuctTape(): Promise<void> {
 export async function inspectConnection(): Promise<void> {
   await drawingPanelPrintLine(
     "The connection from the first switch to the calibrator was cut " +
-      "to prevent it from being turned back on.",
+    "to prevent it from being turned back on.",
   );
   await drawingPanelPrintLine("how do you want to try and repair it?");
   setFocus("BREAKER_PANEL_CONNECTION");
