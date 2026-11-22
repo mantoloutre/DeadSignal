@@ -147,7 +147,7 @@ export async function hideInSnowOutsideWatchpostFirstEncounter() {
         "your bones more than your ears.");
     await printDeathMessage("Warm blood fills both your ear's canals. You never hear the part that kills you.");
     await printDeathMessage("Frost bleeds outward across your visor as the snow around you turns red " +
-        "and you vision fades to black.");
+        "and your vision fades to black.");
 }
 export async function makeRunForItOutsideWatchpostFirstEncounter() {
     //todo

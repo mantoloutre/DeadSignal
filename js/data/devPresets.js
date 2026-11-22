@@ -156,3 +156,77 @@ export const presetOutsideFirstRelay = {
         wire1: false,
     },
 };
+export const presetAfterMemoryModule = {
+    app: "DEAD_SIGNAL",
+    version: 1,
+    currentZone: "WATCH_POST",
+    powerLevel: 100,
+    pendingQGMessages: [],
+    currentFrequency: "112.400",
+    discoveredSignals: ["112.400", "000.000", "940.700"],
+    storyFlags: [
+        "READ_MANUAL",
+        "OPENED_GLOVE_BOX",
+        "TOOK_WINTER_GLOVE",
+        "OPENED_HOOD_TRUCK_INIT",
+        "OPENED_TRUCK_TRUNK_INIT",
+        "WALKED_TO_TOWER",
+        "TOOK_FLARE_FROM_GLOVE_BOX",
+        "INSPECTED_DIRECTION_SIGN",
+        "OPENED_TOOLBOX_INIT",
+        "DISCOVERED_KELLER_BODY",
+        "TOLD_QG_ABOUT_NOTE",
+        "TOLD_QG_ABOUT_BODY",
+        "SEARCHED_KELLER_BODY",
+        "INSERTED_MEMORY_MODULE",
+    ],
+    playerInventory: [
+        {
+            itemId: "truck_insurance_papers",
+            count: 1,
+        },
+        {
+            itemId: "duct_tape",
+            count: 1,
+        },
+        {
+            itemId: "flare",
+            count: 2,
+        },
+        {
+            itemId: "crowbar",
+            count: 1,
+        },
+        {
+            itemId: "adjustable_wrench",
+            count: 1,
+        },
+        {
+            itemId: "winter_gloves",
+            count: 1,
+        },
+        {
+            itemId: "insulated_wirecutter",
+            count: 1,
+        },
+    ],
+    inactiveCommands: [
+        "take gloves",
+        "take flares",
+        "read emergency manual",
+        "take truck insurance papers",
+        "open the truck's trunk",
+        "take crowbar",
+        "look into the truck's trunk",
+        "pickup ajustable wrench",
+        "pickup duct tape",
+        "Note Found",
+        "Dead Body",
+    ],
+    relayA01BreakerPanel: {
+        int1: false,
+        int2: false,
+        int3: false,
+        wire1: false,
+    },
+};

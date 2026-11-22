@@ -136,6 +136,7 @@ export const ZONES = {
             }
             if (getFocus() === FOCUS.FIRST_ENCOUNTER) {
                 //TODO
+                return getFirstEncounterActions("GATE_CHECKPOINT");
             }
             //normal action
             const actions = [];
@@ -279,7 +280,7 @@ function getFirstEncounterActions(zoneId) {
             actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.GO_OUTSIDE);
             break;
         case "WATCH_POST_OUTSIDE":
-            actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.GO_OUTSIDE);
+            actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.GO_INSIDE);
             actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.HIDE_IN_SNOW);
             actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.MAKE_RUN_FOR_IT);
             break;

@@ -254,20 +254,13 @@ export async function handleFrequency(): Promise<void> {
  * function that handles the Resonator's frequency
  */
 async function handleResonatorFrequency(): Promise<void> {
-  if (
-    currentState.currentZone === "WATCH_POST" &&
-    !hasFlag("HAD_FIRST_ENCOUNTER")
-  ) {
+  if (!hasFlag("HAD_FIRST_ENCOUNTER")) {
     await handleResonatorEncounter();
-  } else if (
-    currentState.currentZone === "WATCH_POST" &&
-    hasFlag("HAD_FIRST_ENCOUNTER")
-  ) {
-    await printToTerminal("Not implemented yet, sorry", "alert");
-    //TODO he dies, cmon man dont activate it a second time if first time you almost died
-  } else {
-    await printToTerminal("not implemented yet, sorry", "alert");
-    //TODO if the player activate the frequency but isnt in the watchpost?
+  } else if (hasFlag("HAD_FIRST_ENCOUNTER")) {
+    await printToTerminal(
+      "second encounter not implemented yet, sorry",
+      "alert",
+    );
   }
 }
 
@@ -276,15 +269,10 @@ async function handleResonatorFrequency(): Promise<void> {
  */
 export async function handleResonatorEncounter(): Promise<void> {
   const theZone: ZoneId = currentState.currentZone;
-  if (!hasFlag("HAD_FIRST_ENCOUNTER")) {
-    setFocus("FIRST_ENCOUNTER");
-    await getDialogFirstEncounter();
-    gameBridge.renderZoneActions(theZone);
-    await handleResonatorActions(theZone);
-  } else {
-    //TODO do if its not the first encounter
-    await printToTerminal("Sorry, not implemented yet", "alert");
-  }
+  setFocus("FIRST_ENCOUNTER");
+  await getDialogFirstEncounter();
+  gameBridge.renderZoneActions(theZone);
+  await handleResonatorActions(theZone);
 }
 
 async function getDialogFirstEncounter(): Promise<void> {

@@ -18,18 +18,13 @@ import {
 } from "./core/radioFrequency.js";
 import { ZONES, type ZoneId } from "./core/world.js";
 import {
+  presetAfterMemoryModule,
   presetBeforeDiscoveringBody,
   presetOutsideFirstRelay,
 } from "./data/devPresets.js";
 import { ITEMS, type Item } from "./data/items.js";
 import type { Zone, ZoneAction } from "./data/types.js";
-import {
-  die,
-  flashButton,
-  getEl,
-  isPrinting,
-  printToTerminal,
-} from "./ui/dom.js";
+import { flashButton, getEl, isPrinting, printToTerminal } from "./ui/dom.js";
 import {
   closeRadioInterface,
   setDisplayFrequency,
@@ -168,19 +163,6 @@ export function bindingAction(
   });
 }
 
-/**
- * pretty self-explanatory function
- */
-async function skipToZoneOutsideWatchpost(): Promise<void> {
-  setGameState(presetBeforeDiscoveringBody);
-}
-
-/**
- * pretty self-explanatory function
- */
-async function skipToZoneOutsideFirstRelayStation(): Promise<void> {
-  setGameState(presetOutsideFirstRelay);
-}
 //close or open the side menu
 function openOrCloseCheatMenu(): void {
   //TODO maybe add a menu-overlay? maybe not cuz no?
@@ -243,14 +225,6 @@ async function saveGame(): Promise<void> {
 // buttons
 bindingAction(getEl("btn-open-inventory"), openInventory);
 bindingAction(getEl("btn-close-inventory"), closeInventory);
-bindingAsyncAction(
-  getEl("btn-skip-to-outside-watch-tower"),
-  skipToZoneOutsideWatchpost,
-);
-bindingAsyncAction(
-  getEl("btn-skip-to-outside-first-relay"),
-  skipToZoneOutsideFirstRelayStation,
-);
 bindingAction(getEl("btn-close-radio-interface"), closeRadioInterface);
 bindingAction(getEl("btn-close-cheat-menu"), openOrCloseCheatMenu);
 //general
@@ -375,9 +349,35 @@ if (document.readyState === "loading") {
 //###################
 //cheat-menu function
 //###################
-bindingAsyncAction(getEl("btn-die"), die);
-bindingAction(getEl("btn-reset-game"), resetGame);
+/**
+ * pretty self-explanatory function
+ */
+async function skipToZoneOutsideWatchpost(): Promise<void> {
+  setGameState(presetBeforeDiscoveringBody);
+}
 
+/**
+ * pretty self-explanatory function
+ */
+async function skipToZoneOutsideFirstRelayStation(): Promise<void> {
+  setGameState(presetOutsideFirstRelay);
+}
+async function skipToZoneAfterListenedMemoryModule(): Promise<void> {
+  setGameState(presetAfterMemoryModule);
+}
+bindingAction(getEl("btn-reset-game"), resetGame);
+bindingAsyncAction(
+  getEl("btn-skip-to-outside-watch-tower"),
+  skipToZoneOutsideWatchpost,
+);
+bindingAsyncAction(
+  getEl("btn-skip-to-outside-first-relay"),
+  skipToZoneOutsideFirstRelayStation,
+);
+bindingAsyncAction(
+  getEl("btn-skip-to-after-memory-module"),
+  skipToZoneAfterListenedMemoryModule,
+);
 // this is a button to test my death mechanic
 
 /**

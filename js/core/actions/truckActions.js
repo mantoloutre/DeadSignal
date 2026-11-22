@@ -1,4 +1,4 @@
-import { printToTerminal, die, printDeathMessage } from "../../ui/dom.js";
+import { die, printDeathMessage, printToTerminal } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
 import { addFlag, hasFlag, setFocus } from "../gameState.js";
 import { addItemToInventory, doesThePlayerHasTheItem, removeItemFromInventory, } from "../inventory.js";
@@ -171,12 +171,13 @@ first encounter action
 export async function goInTheTruckFirstEncounter() {
     //todo
     await printToTerminal("You open the truck door and dive inside, slamming it behind you", "action");
-    await printToTerminal("Inside the metal cabin, the pressure drops suddenly.", "system");
+    await printToTerminal("Inside the metal cabin, the pressure drops suddenly. Like surfacing from a dive", "system");
     await printToTerminal("The humming is muffled. Fain. The truck's steel seem to be shielding you", "system");
     await printToTerminal("Whatever is out there paces around the truck a few time, so fast that you can't " +
         "even see it. You just know its there.", "system");
     await printToTerminal("You then hear it move away, pretty far.", "system");
     addFlag("HAD_FIRST_ENCOUNTER");
+    await gameBridge.loadZone("TRUCK_CABIN");
 }
 export async function hideUnderTruckFirstEncounter() {
     //todo
@@ -194,5 +195,5 @@ export async function runTowardForestFirstEncounter() {
     await printDeathMessage("You make it fifty meters before the snow ahead of you erupts upward in a wall of white.");
     await printDeathMessage("Something stands in it. Not walking on it. Standing in it... The way a person stands in shallow water.");
     await printDeathMessage("The hum arrives last, through your boots, through your jaw, through everything.");
-    await printDeathMessage("You turn back toward the truck. It watches you do it. It lets you take exactly threee steps...");
+    await printDeathMessage("You turn back toward the truck. It watches you do it. It lets you take exactly three steps...");
 }

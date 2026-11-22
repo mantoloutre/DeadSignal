@@ -1,7 +1,6 @@
-import { printToTerminal, die, printDeathMessage } from "../../ui/dom.js";
+import { die, printDeathMessage, printToTerminal } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
 import { addFlag, setFocus } from "../gameState.js";
-import { doesThePlayerHasTheItem } from "../inventory.ts";
 
 /*
 ###################
@@ -35,7 +34,7 @@ export async function walkTowardFrostBasin(): Promise<void> {
   );
   await printToTerminal(
     "You walk toward the frost basin, you see a big satellite " +
-    "dish and not far from it the doors to a bunker.",
+      "dish and not far from it the doors to a bunker.",
     "system",
   );
   await gameBridge.loadZone("RELAY_A01_OUTSIDE");
@@ -95,7 +94,7 @@ export async function firstEncounterHideInSnow(): Promise<void> {
   );
   await printToTerminal(
     "You stay buried for a long time, When you finally surface, to your surpise, " +
-    "Your radio was left untouched.",
+      "Your radio was left untouched.",
     "system",
   );
   addFlag("HAD_FIRST_ENCOUNTER");

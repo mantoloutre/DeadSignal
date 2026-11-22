@@ -1,7 +1,6 @@
-import { printToTerminal, die, printDeathMessage } from "../../ui/dom.js";
+import { die, printDeathMessage, printToTerminal } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
 import { addFlag, setFocus } from "../gameState.js";
-import { doesThePlayerHasTheItem } from "../inventory.js";
 /*
 ###################
 ZONE : SNOWY FOREST

@@ -26,7 +26,6 @@ export interface UIElements {
   "btn-tune": HTMLButtonElement;
   "btn-delete-key": HTMLButtonElement;
   "btn-close-cheat-menu": HTMLButtonElement;
-  "btn-die": HTMLButtonElement;
   "btn-reset-game": HTMLButtonElement;
   "btn-skip-to-outside-watch-tower": HTMLButtonElement;
   "btn-skip-to-after-memory-module": HTMLButtonElement;

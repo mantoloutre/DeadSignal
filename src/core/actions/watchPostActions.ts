@@ -14,10 +14,12 @@ export async function walkBackOutside(): Promise<void> {
   await printToTerminal("You walk back outside the watch tower", "action");
   await gameBridge.loadZone("WATCH_POST_OUTSIDE");
 }
+
 export async function goBackToCheckpoint(): Promise<void> {
   await printToTerminal("You walk back toward the checkpoint.", "action");
   await gameBridge.loadZone("GATE_CHECKPOINT");
 }
+
 export async function goInsideTheWatchPost(): Promise<void> {
   await printToTerminal("You go inside the watch post", "action");
   if (!hasFlag("DISCOVERED_KELLER_BODY")) {
@@ -28,30 +30,30 @@ export async function goInsideTheWatchPost(): Promise<void> {
     );
     await printToTerminal(
       "Technician Vance Keller lies slumped on his side against the terminal's lower chassis" +
-      ", his body frozen in a rigid and unnatural pose",
+        ", his body frozen in a rigid and unnatural pose",
       "log",
     );
 
     await printToTerminal(
       "His chest is crushed clean through his sternum, yet " +
-      "the exterior fabric shows no impact, claw marks or tool strikes.",
+        "the exterior fabric shows no impact, claw marks or tool strikes.",
       "log",
     );
     await printToTerminal(
       "Keller's body is coated in a fine, brittle crust of frost, far too solid " +
-      "for a man whose station went dark only an hour ago.",
+        "for a man whose station went dark only an hour ago.",
       "log",
     );
     await printToTerminal(
       "The crystalline residue isn't from the draft; It radiates " +
-      "directly outward from his blown ear canals and across the spiderweb " +
-      //the player choices ( multiple choice
-      "fracture of his visor",
+        "directly outward from his blown ear canals and across the spiderweb " +
+        //the player choices ( multiple choice
+        "fracture of his visor",
       "log",
     );
     await printToTerminal(
       "You also see one other thing, a note he left, however, he didn't seem to have the time " +
-      "to finish writing it",
+        "to finish writing it",
       "system",
     );
     await printToTerminal(
@@ -75,6 +77,7 @@ export async function goInsideTheWatchPost(): Promise<void> {
   }
   //TODO make player choose what he want to do next
 }
+
 /*
 #################
 ZONE : WATCH_POST
@@ -88,9 +91,11 @@ export async function takeMemoryModule(): Promise<void> {
   );
   await addItemToInventory("robot_memory_module");
 }
+
 export async function turnOnTheMainConsole(): Promise<void> {
   //TODO maybe do like it can directly broadcast 940.700 mhz ?
 }
+
 export async function listenRobotMemoryModule(): Promise<void> {
   await printToTerminal(
     "You insert the memory module in the console.",
@@ -145,6 +150,7 @@ export async function listenRobotMemoryModule(): Promise<void> {
   await printToTerminal("13:04 - Power failure. Unit going offline", "log");
   await addDiscoveredFrequency("THE_RESONATOR");
 }
+
 // search Keller's body
 export async function searchKellerBody(): Promise<void> {
   await printToTerminal("You search Keller's body...", "action");
@@ -154,10 +160,12 @@ export async function searchKellerBody(): Promise<void> {
   );
   addFlag("SEARCHED_KELLER_BODY");
 }
+
 export async function takeKellerCredential(): Promise<void> {
   await printToTerminal("You take the credential from Keller's body", "action");
   await addItemToInventory("keller_credential");
 }
+
 export async function takeKellerKeyCard(): Promise<void> {
   await printToTerminal(
     "You take the access keycard from Keller's body",
@@ -165,9 +173,11 @@ export async function takeKellerKeyCard(): Promise<void> {
   );
   await addItemToInventory("keller_keycard");
 }
+
 export async function takePenFromKeller(): Promise<void> {
   await printToTerminal("You take Keller's favorite pen :c", "action");
 }
+
 //Tell QG for the dead body
 export async function tellQGAboutDeadBody(): Promise<void> {
   await printToTerminal("Found Keller. He's dead.", "YOU");
@@ -188,7 +198,7 @@ export async function tellQGNoBodyFound(): Promise<void> {
 export async function tellQGAboutNoteLeft(): Promise<void> {
   await printToTerminal(
     "From what i can see, Kelley left a note, apparently, there is something " +
-    "dangerous that is drawn to the signal when it is running.",
+      "dangerous that is drawn to the signal when it is running.",
     "YOU",
   );
   addFlag("TOLD_QG_ABOUT_NOTE");
@@ -199,11 +209,13 @@ export async function tellQGAboutNoteLeft(): Promise<void> {
 export async function DontTellQGAboutNoteLeft(): Promise<void> {
   //nothing happens here it's just to satisfy the zone
 }
+
 //this function is now simply to link stuff
 export async function confirmingDoneTalkingToQG(): Promise<void> {
   setFocus(null);
   gameBridge.renderZoneActions("WATCH_POST");
 }
+
 /*
 ##################################
 first encounter outside watch post
@@ -213,12 +225,12 @@ export async function goInsideTheWatchPostFirstEncounter(): Promise<void> {
   //todo
   await printToTerminal(
     "You run inside the watchpost, and you forgot the door wasn't there " +
-    "as you tried to close it.",
+      "as you tried to close it.",
     "system",
   );
   await printToTerminal(
     "The pressure in your ears spikes a lot that you " +
-    "almost drop to your knees.",
+      "almost drop to your knees.",
     "system",
   );
   await printToTerminal(
@@ -231,6 +243,7 @@ export async function goInsideTheWatchPostFirstEncounter(): Promise<void> {
   );
   //TODO make it so the player has to input a frequency.
 }
+
 export async function hideInSnowOutsideWatchpostFirstEncounter(): Promise<void> {
   await printToTerminal(
     "You jump into a snowbank and hide in the snow.",
@@ -247,40 +260,41 @@ export async function hideInSnowOutsideWatchpostFirstEncounter(): Promise<void> 
   await die();
   await printDeathMessage(
     "You hold your breath. You count. On the 30s count, the snow above you " +
-    "start to vibrate.",
+      "start to vibrate.",
   );
   await printDeathMessage(
     "then it stops vibrating, and starts humming, at a pitch you feel in " +
-    "your bones more than your ears.",
+      "your bones more than your ears.",
   );
   await printDeathMessage(
     "Warm blood fills both your ear's canals. You never hear the part that kills you.",
   );
   await printDeathMessage(
     "Frost bleeds outward across your visor as the snow around you turns red " +
-    "and you vision fades to black.",
+      "and your vision fades to black.",
   );
 }
+
 export async function makeRunForItOutsideWatchpostFirstEncounter(): Promise<void> {
   //todo
   await printToTerminal(
     "You take your legs to your neck and bolt toward the checkpoint, " +
-    "not even looking back once.",
+      "not even looking back once.",
     "system",
   );
   await printToTerminal(
     "The pressure is like a fist squeezing your skull right now, but you " +
-    "keep running because who knows what will happen if you stop...",
+      "keep running because who knows what will happen if you stop...",
     "system",
   );
   await printToTerminal(
     "You pass the checkpoint... Then the intersection... the truck is " +
-    "now in sight",
+      "now in sight",
     "system",
   );
   await printToTerminal(
     "'Wait!' You realise something... why run toward the truck, like.... " +
-    "Do you think the truck is going start? A piston blew up..",
+      "Do you think the truck is going start? A piston blew up..",
     "system",
   );
   await printToTerminal(
@@ -299,14 +313,15 @@ export async function makeRunForItOutsideWatchpostFirstEncounter(): Promise<void
   );
   await printDeathMessage(
     "The last thing you perceive is not light, not sound, just a certainty " +
-    "pressed into your skull:",
+      "pressed into your skull:",
   );
   await printDeathMessage("'Found you.'");
   await printDeathMessage(
     "You feel a sharp pain in your skull as Frost bleeds outward across " +
-    "your visor and as the treeline fades to black.",
+      "your visor and as the treeline fades to black.",
   );
 }
+
 export async function firstEncounterHideUnderDoorOutsideWatchpost(): Promise<void> {
   //todo finish this
   await printToTerminal(
@@ -320,7 +335,7 @@ export async function firstEncounterHideUnderDoorOutsideWatchpost(): Promise<voi
   );
   await printToTerminal(
     "Then you hear it walking. Slow, unhurried steps in " +
-    "the snow, circling the door you're under.",
+      "the snow, circling the door you're under.",
     "system",
   );
   await printToTerminal(
@@ -331,7 +346,7 @@ export async function firstEncounterHideUnderDoorOutsideWatchpost(): Promise<voi
   await printDeathMessage("A long, probing pressure pushes down on the door.");
   await printDeathMessage(
     "';not under there.' The thought isn't yours." +
-    "'not under there. not under there. NOT UNDER THERE.'",
+      "'not under there. not under there. NOT UNDER THERE.'",
   );
   await printDeathMessage(
     "The door lifts like a leaf. What happens next happens too fast to feel.",

@@ -44,11 +44,15 @@ zone : OUTSIDE_BUNKER
  * inspect the mark on the bunker door foundation basically
  */
 export async function inspectBunkerFoundation() {
-    // here I feel like maybe player is going to discover a mark of some sort
-    await printToTerminal("not yet done, sorry :c", "alert");
-    await printToTerminal("you inspect the base of the bunker and you see something ( nothing ) " +
-        "( not yet done done ) :c", "action");
-    //todo
+    await printToTerminal("You scrape the frost off the base of the bunker and find grooves " +
+        "cut into the concrete.", "action");
+    await printToTerminal("Not cracks. Grooves. Deliberate, Long parallel lines, like something " +
+        "dragged its claws along the wall, or like someone was scoring " +
+        "it to mesure something.", "system");
+    await printToTerminal("At the deepest groove, there's a symbol you don't reconize: a circle " +
+        "with a wave passing through it.", "log");
+    await printToTerminal("Someone carved this from the inside.", "alert");
+    addFlag("EXAMINED_TOWER_STRUTS");
 }
 /**
  * enter the bunker of the station A-01
@@ -56,7 +60,11 @@ export async function inspectBunkerFoundation() {
 export async function enterBunkerStationA01() {
     await printToTerminal("warning - stuff might be broken ( prob not but just warning you )", "alert");
     if (doesThePlayerHasTheItem("keller_keycard")) {
-        await printToTerminal("You swipe the keycard in the slot and the big bunker's doors opens.", "action"); //todo finish the text
+        await printToTerminal("You swipe the keycard in the slot and the big bunker's doors opens.", "action");
+        await printToTerminal("The seals around the frame crack free one by one. exhaling stale " +
+            "air that smells like dust and old machines.", "system");
+        await printToTerminal("The lights inside kick on, row by row, leading down. " +
+            "Something down here is still drawing power", "system");
         await gameBridge.loadZone("RELAY_A01");
     }
     else {

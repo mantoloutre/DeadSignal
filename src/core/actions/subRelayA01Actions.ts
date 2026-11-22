@@ -64,6 +64,12 @@ export async function inspectBunkerFoundation(): Promise<void> {
     "action",
   );
   await printToTerminal(
+    "Not cracks. Grooves. Deliberate, Long parallel lines, like something " +
+    "dragged its claws along the wall, or like someone was scoring " +
+    "it to mesure something.",
+    "system",
+  );
+  await printToTerminal(
     "At the deepest groove, there's a symbol you don't reconize: a circle " +
     "with a wave passing through it.",
     "log",
@@ -84,7 +90,17 @@ export async function enterBunkerStationA01(): Promise<void> {
     await printToTerminal(
       "You swipe the keycard in the slot and the big bunker's doors opens.",
       "action",
-    ); //todo finish the text
+    );
+    await printToTerminal(
+      "The seals around the frame crack free one by one. exhaling stale " +
+      "air that smells like dust and old machines.",
+      "system",
+    );
+    await printToTerminal(
+      "The lights inside kick on, row by row, leading down. " +
+      "Something down here is still drawing power",
+      "system",
+    );
     await gameBridge.loadZone("RELAY_A01");
   } else {
     await printToTerminal(

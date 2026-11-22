@@ -1,4 +1,4 @@
-import { printToTerminal, die, printDeathMessage } from "../../ui/dom.js";
+import { die, printDeathMessage, printToTerminal } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
 import { addFlag, hasFlag, setFocus } from "../gameState.js";
 import {
@@ -22,19 +22,19 @@ export async function checkTruckTrunk(): Promise<void> {
     addFlag("OPENED_TRUCK_TRUNK_INIT");
     await printToTerminal(
       "You force the frozen trunk open with your hands. Inside, you spot" +
-      " a heavy toolbox, a small black barrel full of wine, a crowbar and two spare tires.",
+        " a heavy toolbox, a small black barrel full of wine, a crowbar and two spare tires.",
       "action",
     );
   } else if (doesThePlayerHasTheItem("crowbar")) {
     await printToTerminal(
       "Inside the trunk, there is the toolbox, the small black barrel" +
-      " full of wine and two spare tires",
+        " full of wine and two spare tires",
       "system",
     );
   } else {
     await printToTerminal(
       "Inside the trunk, there is the toolbox, the small black barrel, the crowbar and the two " +
-      "spare tires",
+        "spare tires",
       "system",
     );
   }
@@ -61,7 +61,7 @@ look inside the glove box to be able to take what's inside
 export async function lookInGloveBoxInTruckCabin(): Promise<void> {
   await printToTerminal(
     "You open the glove box you look inside. you find 2 flares, " +
-    "the truck's insurance paper, a pair of winter gloves and the emergency manual.",
+      "the truck's insurance paper, a pair of winter gloves and the emergency manual.",
     "action",
   );
   addFlag("OPENED_GLOVE_BOX");
@@ -78,12 +78,12 @@ export async function addFlareTruckCabin(): Promise<void> {
 export async function readEmergencyManual(): Promise<void> {
   await printToTerminal(
     "In case of real Emergency, please set the " +
-    "radio at the following frequency: 112.400 MHz",
+      "radio at the following frequency: 112.400 MHz",
     "system",
   );
   await printToTerminal(
     "You are to not contact the QG as the QG will contact you first " +
-    "when you set your radio at this frequency.",
+      "when you set your radio at this frequency.",
     "system",
   );
   addFlag("READ_MANUAL");
@@ -125,7 +125,7 @@ export async function openTheHoodAndOrLookAtTheEngineInit(): Promise<void> {
   } else {
     await printToTerminal(
       "What you see is the engine that seem to be missing a piston, " +
-      "which might explain the big explosion and the hole in the hood",
+        "which might explain the big explosion and the hole in the hood",
       "system",
     );
   }
@@ -202,7 +202,7 @@ export async function doArsonToHeatTheLatch(): Promise<void> {
   );
   await printToTerminal(
     "You wait around 50 seconds for the flare to go out and you wait" +
-    " around 1 more minutes for the latches to cooldown.",
+      " around 1 more minutes for the latches to cooldown.",
     "action",
   );
   await printToTerminal("You try and you manage to open the toolbox", "action");
@@ -237,7 +237,7 @@ export async function forceToolBoxOpenWithHand(): Promise<void> {
 export async function pryToolBoxWithCrowbar(): Promise<void> {
   await printToTerminal(
     "you hit a few time the latch with your crowbar and manage to break it." +
-    " The toolbox is now open",
+      " The toolbox is now open",
     "action",
   );
   addFlag("OPENED_TOOLBOX_INIT");
@@ -273,12 +273,12 @@ export async function goInTheTruckFirstEncounter(): Promise<void> {
   );
   await printToTerminal(
     "Whatever is out there paces around the truck a few time, so fast that you can't " +
-    "even see it. You just know its there.",
+      "even see it. You just know its there.",
     "system",
   );
   await printToTerminal("You then hear it move away, pretty far.", "system");
   addFlag("HAD_FIRST_ENCOUNTER");
-  gameBridge.loadZone("TRUCK_CABIN");
+  await gameBridge.loadZone("TRUCK_CABIN");
 }
 export async function hideUnderTruckFirstEncounter(): Promise<void> {
   //todo
@@ -288,7 +288,7 @@ export async function hideUnderTruckFirstEncounter(): Promise<void> {
   );
   await printToTerminal(
     "Engine block above you, Steel all around, snow under. Doesn't matter, " +
-    "the pressure keep climbing anyway.",
+      "the pressure keep climbing anyway.",
     "system",
   );
   await die();
@@ -316,6 +316,6 @@ export async function runTowardForestFirstEncounter(): Promise<void> {
     "The hum arrives last, through your boots, through your jaw, through everything.",
   );
   await printDeathMessage(
-    "You turn back toward the truck. It watches you do it. It lets you take exactly threee steps...",
+    "You turn back toward the truck. It watches you do it. It lets you take exactly three steps...",
   );
 }

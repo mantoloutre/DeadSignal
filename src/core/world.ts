@@ -4,7 +4,8 @@ import { drawingPanelPrintLine } from "../ui/dom.ts"; //todo watch out for possi
 import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import {
-  BREAKER_PANEL_ACTIONS, FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION,
+  BREAKER_PANEL_ACTIONS,
+  FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION,
   FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST,
   FIRST_RESONATOR_ENCOUNTER_TRUCK,
   FIRST_RESONATOR_ENCOUNTER_WATCHPOST,
@@ -167,6 +168,7 @@ export const ZONES = {
       }
       if (getFocus() === FOCUS.FIRST_ENCOUNTER) {
         //TODO
+        return getFirstEncounterActions("GATE_CHECKPOINT");
       }
       //normal action
       const actions: ZoneAction[] = [];
@@ -322,7 +324,7 @@ function getFirstEncounterActions(zoneId: ZoneId): ZoneAction[] {
       actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.GO_OUTSIDE);
       break;
     case "WATCH_POST_OUTSIDE":
-      actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.GO_OUTSIDE);
+      actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.GO_INSIDE);
       actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.HIDE_IN_SNOW);
       actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.MAKE_RUN_FOR_IT);
       break;
