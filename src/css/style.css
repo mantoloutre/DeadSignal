@@ -43,6 +43,11 @@ body {
   justify-content: center;
   align-items: center;
   gap: 10px;
+  box-shadow:
+    0 0 2px var(--glow-border-color-red),
+    0 0 15px var(--glow-border-color-red),
+    0 0 15px var(--glow-border-color-red),
+    inset 0 0 50px var(--glow-border-color-red);
 }
 .overlay.hidden {
   opacity: 0;

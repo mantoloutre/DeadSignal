@@ -7,6 +7,8 @@
   /* red colors ( alert ) */
   --text-red-color: #f81b1b;
   --text-red-glow: #f81b1b66;
+  --glow-border-color-red: #ff1433;
+  /*--glow-border-color-red: #ff143333;*/
   /* yellow colors ( log? ) */
   --text-yellow-color: #f8db1b;
   --text-yellow-glow: #f8db1b66;
