@@ -60,18 +60,18 @@ zone : OUTSIDE_BUNKER
 export async function inspectBunkerFoundation(): Promise<void> {
   await printToTerminal(
     "You scrape the frost off the base of the bunker and find grooves " +
-    "cut into the concrete.",
+      "cut into the concrete.",
     "action",
   );
   await printToTerminal(
     "Not cracks. Grooves. Deliberate, Long parallel lines, like something " +
-    "dragged its claws along the wall, or like someone was scoring " +
-    "it to mesure something.",
+      "dragged its claws along the wall, or like someone was scoring " +
+      "it to mesure something.",
     "system",
   );
   await printToTerminal(
     "At the deepest groove, there's a symbol you don't reconize: a circle " +
-    "with a wave passing through it.",
+      "with a wave passing through it.",
     "log",
   );
   await printToTerminal("Someone carved this from the inside.", "alert");
@@ -93,20 +93,38 @@ export async function enterBunkerStationA01(): Promise<void> {
     );
     await printToTerminal(
       "The seals around the frame crack free one by one. exhaling stale " +
-      "air that smells like dust and old machines.",
+        "air that smells like dust and old machines.",
       "system",
     );
     await printToTerminal(
       "The lights inside kick on, row by row, leading down. " +
-      "Something down here is still drawing power",
+        "Something down here is still drawing power",
       "system",
     );
     await gameBridge.loadZone("RELAY_A01");
   } else {
     await printToTerminal(
       "There is a visible keycard slot," +
-      " however, you have no keycard to fill that slot",
+        " however, you have no keycard to fill that slot",
       "system",
+    );
+  }
+}
+export async function killRelayFirstEncounter(): Promise<void> {
+  //shut down every interrupter
+  currentState.relayA01BreakerPanel.int1 = false;
+  currentState.relayA01BreakerPanel.int2 = false;
+  currentState.relayA01BreakerPanel.int3 = false;
+  //depending on if its open, either slam them shut
+  if (await verifyDrawingPanelClosed()) {
+    await printToTerminal(
+      "You sprint toward the breaker panel and slam every interrupter down.",
+      "action",
+    );
+  } else {
+    await printToTerminal(
+      "You hastily slam off every interrupter down.",
+      "action",
     );
   }
 }
@@ -164,16 +182,17 @@ export async function toggleInt1(): Promise<void> {
 export async function tryWithWireCutter(): Promise<void> {
   await printToTerminal(
     "You remove the plastic grip of the wire cutter's handles, " +
-    "revealing the metal.",
+      "revealing the metal.",
     "action",
   );
   await printToTerminal(
     "You attach each end of the wire to a handle of the wireCutter, " +
-    "connection is now up.",
+      "connection is now up.",
     "action",
   );
   addFlag("REPAIRED_CONNEXION_WITH_WIRECUTTER");
   currentState.relayA01BreakerPanel.wire1 = true;
+  setFocus("BREAKER_PANEL");
 }
 
 /**
@@ -191,16 +210,17 @@ export async function smtElseThanBreakerPanelConnection(): Promise<void> {
 export async function tryWithDuctTape(): Promise<void> {
   await printToTerminal(
     "You take both end of the wire and attach them with tape, " +
-    "connection is now up.",
+      "connection is now up.",
     "action",
   );
   addFlag("REPAIRED_CONNEXION_WITH_DUCT_TAPE");
   currentState.relayA01BreakerPanel.wire1 = true;
+  setFocus("BREAKER_PANEL");
 }
 export async function inspectConnection(): Promise<void> {
   await drawingPanelPrintLine(
     "The connection from the first switch to the calibrator was cut " +
-    "to prevent it from being turned back on.",
+      "to prevent it from being turned back on.",
   );
   await drawingPanelPrintLine("how do you want to try and repair it?");
   setFocus("BREAKER_PANEL_CONNECTION");

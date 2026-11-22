@@ -5,7 +5,7 @@ import {
   printToTerminal,
 } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
-import { addFlag, currentState, hasFlag, setFocus } from "../gameState.js";
+import { addFlag, addToInactiveList, hasFlag, setFocus } from "../gameState.js";
 import { addItemToInventory, removeItemFromInventory } from "../inventory.js";
 import { addDiscoveredFrequency, queueQGMessage } from "../radioFrequency.js";
 /*

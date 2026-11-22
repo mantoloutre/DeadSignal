@@ -346,3 +346,15 @@ export function setGameState(state: GameState): void {
 export function isCommandInactive(command: string): boolean {
   return currentState.inactiveCommands.includes(command);
 }
+
+/**
+ * function to add a commande to inactive list
+ * @param command the command we want to add
+ */
+export function addToInactiveList(command: string): void {
+  if (!isCommandInactive(command)) {
+    currentState.inactiveCommands.push(command);
+  } else {
+    console.log(`command: ${command} is already inactive.`);
+  }
+}

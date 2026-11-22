@@ -173,7 +173,8 @@ export const ZONES = {
     //##########################################
     RELAY_A01_OUTSIDE: {
         name: "RELAY-A01 - OUTSIDE BUNKER",
-        description: "description not done, forgive me :c", //TODO do the description
+        description: "A dead satellite dish towers over the frost basin, next " +
+            "to the blast doors of the bunker.",
         getActions: () => {
             const actions = [];
             //TODO do the actions
@@ -186,7 +187,8 @@ export const ZONES = {
     //##########################################
     RELAY_A01: {
         name: "RELAY-A01 - INSIDE BUNKER",
-        description: "the description is not yet done sowy :c", //TODO do the description
+        description: "Rows of dead console line the walls, a single breaker panel " +
+            "hanging open on the far wall. Something down here still draws power.",
         getActions: () => {
             const actions = [];
             if (getFocus() === FOCUS.BREAKER_PANEL) {

@@ -126,6 +126,7 @@ export async function tryWithWireCutter() {
         "connection is now up.", "action");
     addFlag("REPAIRED_CONNEXION_WITH_WIRECUTTER");
     currentState.relayA01BreakerPanel.wire1 = true;
+    setFocus("BREAKER_PANEL");
 }
 /**
  * pretty self-explanatory function
@@ -142,6 +143,7 @@ export async function tryWithDuctTape() {
         "connection is now up.", "action");
     addFlag("REPAIRED_CONNEXION_WITH_DUCT_TAPE");
     currentState.relayA01BreakerPanel.wire1 = true;
+    setFocus("BREAKER_PANEL");
 }
 export async function inspectConnection() {
     await drawingPanelPrintLine("The connection from the first switch to the calibrator was cut " +
