@@ -248,11 +248,10 @@ export async function goInsideTheWatchPostFirstEncounter(): Promise<void> {
   );
   //TODO make it so the player has to input a frequency.
   //TODO watch for circular reference
-  //this is bad practice i should do it another way....
-  currentState.inactiveCommands.push("hide in snow");
-  currentState.inactiveCommands.push("run toward truck");
-  currentState.inactiveCommands.push("hide under door");
-  currentState.inactiveCommands.push("go inside watch post");
+  addToInactiveList("hide in snow");
+  addToInactiveList("run toward truck");
+  addToInactiveList("hide under door");
+  addToInactiveList("go inside watch post");
   // i know im not rlly supposed to do it like that...
   getEl("zone-tag").textContent = "INSIDE WATCHPOST";
   gameBridge.renderZoneActions("WATCH_POST_OUTSIDE");
