@@ -1,6 +1,6 @@
-import { die, printDeathMessage, printToTerminal } from "../../ui/dom.js";
+import { die, getEl, printDeathMessage, printToTerminal, } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
-import { addFlag, hasFlag, setFocus } from "../gameState.js";
+import { addFlag, currentState, hasFlag, setFocus } from "../gameState.js";
 import { addItemToInventory, removeItemFromInventory } from "../inventory.js";
 import { addDiscoveredFrequency, queueQGMessage } from "../radioFrequency.js";
 /*
@@ -135,6 +135,15 @@ export async function goInsideTheWatchPostFirstEncounter() {
     await printToTerminal("Your holding your screeching radio. Whatever is doing this is tied to it somehow..", "system");
     await printToTerminal("You managed to buy yourself a few second, but you need to do something about the radio...", "alert");
     //TODO make it so the player has to input a frequency.
+    //TODO watch for circular reference
+    //this is bad practice i should do it another way....
+    currentState.inactiveCommands.push("hide in snow");
+    currentState.inactiveCommands.push("run toward truck");
+    currentState.inactiveCommands.push("hide under door");
+    currentState.inactiveCommands.push("go inside watch post");
+    // i know im not rlly supposed to do it like that...
+    getEl("zone-tag").textContent = "INSIDE WATCHPOST";
+    gameBridge.renderZoneActions("WATCH_POST_OUTSIDE");
 }
 export async function hideInSnowOutsideWatchpostFirstEncounter() {
     await printToTerminal("You jump into a snowbank and hide in the snow.", "action");

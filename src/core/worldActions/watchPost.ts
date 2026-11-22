@@ -92,33 +92,38 @@ export const FIRST_RESONATOR_ENCOUNTER_WATCHPOST = {
     command: "cover your ears",
     description: "go in a corner and cover your ears",
     execute: coverYourEars,
+    oneTime: true,
   },
   GO_OUTSIDE: {
     command: "go outside",
     description: "go outside of the watch tower",
     execute: goOutside,
+    oneTime: true,
   },
   // actions for outside the watch post
   GO_INSIDE: {
     command: "go inside watch post",
     description: "go inside the watch tower",
     execute: actionsFunc.goInsideTheWatchPostFirstEncounter,
+    oneTime: true,
   },
   HIDE_IN_SNOW: {
-    //TODO remove this maybe ?
     command: "hide in snow",
     description: "hide in the snow",
     execute: actionsFunc.hideInSnowOutsideWatchpostFirstEncounter,
+    oneTime: true,
   },
   MAKE_RUN_FOR_IT: {
     command: "run toward truck",
     description:
       "run toward the truck, passing the checkpoint and the intersection",
     execute: actionsFunc.makeRunForItOutsideWatchpostFirstEncounter,
+    oneTime: true,
   },
   HIDE_UNDER_DOOR_IN_SNOW: {
     command: "hide under door",
     description: "hide under the door in the snow",
-    execute: async (): Promise<void> => { }, //todo link the action
+    execute: actionsFunc.firstEncounterHideUnderDoorOutsideWatchpost,
+    oneTime: true,
   },
 } as const satisfies Record<string, ZoneAction>;
