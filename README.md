@@ -20,16 +20,16 @@ isn't the game for you.
 The game is in a pretty good state, however many part of the story has not been
 made yet. <br>
 The project is still under
-development and it's going to take a while for it to be done. <br>
+development, and it's going to take a while for it to be done. <br>
 Some zones are in an okay / good state ( I'm probably going to add more stuff later on ) <br>
 
 Here is the link to my game if you are still interested in trying it out :D [Dead Signal](https://mantoloutre.github.io/DeadSignal/) <br>
 
-Btw the only name that's in the game i chose it randomly so i'm sorry if that's your name T-T<br>
+Btw the only name that's in the game I chose it randomly, so I'm sorry if that's your name T-T<br>
 
 > ### Tips:
 > if you hover an action long enough, you get its description :D
-### Game has to to be played on a screen wider than a phone ( laptop/desktop recomended). I do not know if it works on mobile
+### Game has to be played on a screen wider than a phone ( laptop/desktop recomended). I do not know if it works on mobile
 
 > ### Some information ( you can skip if you want )
 >
@@ -49,7 +49,8 @@ What i use to make it: html, css, typescript.
 <details><summary>note for the reviewers</summary>
 if you press the p key, it opens a cheat menu, you can skip to certain zone or like test features.
 i do not recommend using it to review, because I added stuff before your supposed to reach the main watchpost.
-However it can be useful if you are testing much and doesn't want to always restart at the begining.
+However it can be useful if you are testing much and doesn't want to always restart at the begining.<br>
+Also, the code that represent the website is the code on the branch gh-pages :D
 </details>
 
 © 2026 mantoloutre, licensed under BSD-3-Clause
