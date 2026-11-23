@@ -527,3 +527,19 @@ async function choseToContactTheQGOutsideShack(): Promise<void> {
     "Frost bleeds outward across your visor as the gate checkpoint fades to black.",
   );
 }
+async function choseToAwnserItOutsideRelayA01(): Promise<void> {
+  await printToTerminal(
+    "You punch 940.700 on the radio and lift it up to see if you pickup " +
+      "anything.",
+    "action",
+  );
+  await printToTerminal(
+    "It awnsers, But the reply doesn't come from your radio, it comes " +
+      "from above you.",
+    "alert",
+  );
+  await die();
+  await printDeathMessage(
+    "The dead satellite dish begins to rotate. Slowly. Toward you...",
+  );
+}

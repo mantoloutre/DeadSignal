@@ -101,4 +101,5 @@ export const FIRST_ENCOUNTER_A01_ACTIONS = {
     execute: actionsFunc.nuhUh,
     oneTime: true,
   },
+  //for outside the bunker
 } as const satisfies Record<string, ZoneAction>;

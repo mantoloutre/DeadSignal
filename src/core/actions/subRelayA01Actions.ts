@@ -117,6 +117,7 @@ export async function enterBunkerStationA01(): Promise<void> {
 }
 export async function killRelayFirstEncounter(): Promise<void> {
   //to not repeat myself
+  //todo close breaker panel before settings the frequency like during the set of the frequency 940.700
   await closeBreakerPanel();
   const closed: boolean = await verifyDrawingPanelClosed();
   const printer = closed
@@ -131,6 +132,9 @@ export async function killRelayFirstEncounter(): Promise<void> {
       ? "You sprint hastily toward the breaker panel and slam every interrupter down."
       : "You hastily slam every interrupter down.",
   );
+}
+export async function killRelayFirstEncounterV2(): Promise<void> {
+  await closeBreakerPanel();
 }
 /*
 ###################

@@ -5,6 +5,7 @@ import { getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import {
   BREAKER_PANEL_ACTIONS,
+  FIRST_ENCOUNTER_A01_ACTIONS,
   FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION,
   FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST,
   FIRST_RESONATOR_ENCOUNTER_TRUCK,
@@ -364,6 +365,9 @@ function getFirstEncounterActions(zoneId: ZoneId): ZoneAction[] {
       //TODO do this
       break;
     case "RELAY_A01":
+      actions.push(FIRST_ENCOUNTER_A01_ACTIONS.HIDE_IN_LOCKER);
+      actions.push(FIRST_ENCOUNTER_A01_ACTIONS.KILL_THE_RELAY);
+      actions.push(FIRST_ENCOUNTER_A01_ACTIONS.RUN_OUTSIDE);
       //TODO do this
       break;
     default:
