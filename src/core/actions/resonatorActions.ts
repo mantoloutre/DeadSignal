@@ -534,12 +534,26 @@ async function choseToAwnserItOutsideRelayA01(): Promise<void> {
     "action",
   );
   await printToTerminal(
-    "It awnsers, But the reply doesn't come from your radio, it comes " +
+    "It answers, But the reply doesn't come from your radio, it comes " +
       "from above you.",
+    "alert",
+  );
+  await printToTerminal(
+    "The dead satellite dish, rusted solid for months, begins to rotate. " +
+      "Slowly. Toward you...",
     "alert",
   );
   await die();
   await printDeathMessage(
-    "The dead satellite dish begins to rotate. Slowly. Toward you...",
+    "It's not broadcasting. It's listening..." +
+      " And every sound you make is being gathered into it.",
+  );
+  await printDeathMessage(
+    "You realize your breathing has joined the hum. Then your pulse." +
+      "You can't throw those into the snow...",
+  );
+  await printDeathMessage(
+    "Frost bleeds outward across your visor as the dish keeps turning " +
+      "and collecting long after everything around you faded to black.",
   );
 }
