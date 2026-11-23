@@ -12,7 +12,7 @@ import {
   printToTerminal,
 } from "../../ui/dom.ts";
 import { gameBridge } from "../gameBridge.ts";
-import { addFlag, currentState, setFocus } from "../gameState.ts";
+import { addFlag, currentState, hasFlag, setFocus } from "../gameState.ts";
 import { doesThePlayerHasTheItem } from "../inventory.ts";
 /*
 #############
@@ -43,7 +43,11 @@ export async function openBreakerPanel(): Promise<void> {
 }
 //todo make a variable to not do the setfocus ig..
 export async function closeBreakerPanel(): Promise<void> {
-  setFocus(null);
+  if (hasFlag("ENCOUNTER_IN_PROGRESS_NOW")) {
+    setFocus("FIRST_ENCOUNTER");
+  } else {
+    setFocus(null);
+  }
   const terminalOutput: HTMLDivElement = getEl("terminal-output");
   terminalOutput.classList.remove("breaker-panel-open");
   terminalOutput.scrollTo(0, terminalOutput.scrollHeight);
@@ -113,6 +117,7 @@ export async function enterBunkerStationA01(): Promise<void> {
 }
 export async function killRelayFirstEncounter(): Promise<void> {
   //to not repeat myself
+  await closeBreakerPanel();
   const closed: boolean = await verifyDrawingPanelClosed();
   const printer = closed
     ? (msg: string): Promise<void> => printToTerminal(msg, "system")
@@ -126,7 +131,6 @@ export async function killRelayFirstEncounter(): Promise<void> {
       ? "You sprint hastily toward the breaker panel and slam every interrupter down."
       : "You hastily slam every interrupter down.",
   );
-  await closeBreakerPanel();
 }
 /*
 ###################
@@ -135,6 +139,7 @@ breaker panel focus
  */
 /**
  * utility function to not repeat my self to draw
+ * this one is only for the breaker panel.
  * @param whichDrawing which drawing do you want?
  * @param speed fast ( true ) or slow ( false )
  */
@@ -221,6 +226,10 @@ export async function inspectConnection(): Promise<void> {
   await drawingPanelPrintLine(
     "The connection from the first switch to the calibrator was cut " +
       "to prevent it from being turned back on.",
+  );
+  await drawingPanelPrintLine(
+    "The cut is clean. Not sabotage from outside. This was done from " +
+      "inside, calmly, by someone who knew exactly which wire mattered.",
   );
   await drawingPanelPrintLine("how do you want to try and repair it?");
   setFocus("BREAKER_PANEL_CONNECTION");

@@ -268,7 +268,7 @@ export async function goInTheTruckFirstEncounter(): Promise<void> {
     "system",
   );
   await printToTerminal(
-    "The humming is muffled. Fain. The truck's steel seem to be shielding you",
+    "The humming is muffled. The truck's steel seem to be shielding you",
     "system",
   );
   await printToTerminal(
@@ -281,9 +281,8 @@ export async function goInTheTruckFirstEncounter(): Promise<void> {
   await gameBridge.loadZone("TRUCK_CABIN");
 }
 export async function hideUnderTruckFirstEncounter(): Promise<void> {
-  //todo
   await printToTerminal(
-    "You slide under the truck on your back, pressed against the under of the truck.",
+    "You slide under the truck on your back, pressed against the undercarriage of the truck.",
     "action",
   );
   await printToTerminal(
@@ -300,7 +299,6 @@ export async function hideUnderTruckFirstEncounter(): Promise<void> {
   );
 }
 export async function runTowardForestFirstEncounter(): Promise<void> {
-  //todo
   await printToTerminal(
     "You abandon the truck and sprint toward the treeline.",
     "action",

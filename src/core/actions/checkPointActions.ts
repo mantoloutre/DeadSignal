@@ -122,9 +122,11 @@ export async function hideUnderDeskFirstEncounterShack(): Promise<void> {
  FIRST ENCOUNTER ACTION
  #######################
  */
-//todo do documentation
+/**
+ * function to handle the hide in snow action for the
+ * first encounter in the checkpoint
+ */
 export async function hideInShowFirstEncounter(): Promise<void> {
-  //todo do this :D
   await printToTerminal(
     "You jump into the snowbank beside the shack and burrow in.",
     "action",
@@ -170,11 +172,14 @@ export async function makeRunForItTowardTruckFirstEncounter(): Promise<void> {
     "The truck driver's door swing open ahead of you, welcoming, and you never slow down...",
   );
 }
-//todo do documentation
+
+/**
+ * function to handle the action fo running toward the forest
+ * for the first encounter in the checkpoint
+ */
 export async function makeRunForItTowardForestFirstEncounter(): Promise<void> {
-  //todo do this
   await printToTerminal(
-    "You run the other way, toward the forest, puttings trees between you and wathever is incoming.",
+    "You run the other way, toward the forest, puttings trees between you and whatever is incoming.",
     "action",
   );
   await die();
@@ -188,6 +193,6 @@ export async function makeRunForItTowardForestFirstEncounter(): Promise<void> {
     "The trees stop. You hit the edge of a clearing you swear was supposed to be forest, and the vibration surrounds you.",
   );
   await printDeathMessage(
-    "You keep runnign into the black until the black runs out of ground.",
+    "You keep running into the black until the black runs out of ground.",
   );
 }

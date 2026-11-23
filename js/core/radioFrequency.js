@@ -3,7 +3,7 @@ import { QG_MESSAGES } from "../data/qgMessages.js";
 import { getEl, printToTerminal } from "../ui/dom.js";
 import { handleResonatorActions } from "./actions/resonatorActions.js";
 import { gameBridge } from "./gameBridge.js";
-import { currentState, hasFlag, saveTheDataToLocalStorage, setFocus, } from "./gameState.js";
+import { addFlag, currentState, hasFlag, saveTheDataToLocalStorage, setFocus, } from "./gameState.js";
 /**
  * the registry containing all the name of the frequency
  *
@@ -210,6 +210,7 @@ async function handleResonatorFrequency() {
 export async function handleResonatorEncounter() {
     const theZone = currentState.currentZone;
     setFocus("FIRST_ENCOUNTER");
+    addFlag("ENCOUNTER_IN_PROGRESS_NOW");
     await getDialogFirstEncounter();
     gameBridge.renderZoneActions(theZone);
     await handleResonatorActions(theZone);

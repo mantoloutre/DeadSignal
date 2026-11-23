@@ -74,6 +74,12 @@ export let currentState: GameState = structuredClone(GAME_INITIAL_STATE);
 export function addFlag(flag: StoryFlag): void {
   if (!currentState.storyFlags.includes(flag)) {
     currentState.storyFlags.push(flag);
+    //simply to not repeat myself across a lot
+    //of file even if most of time its not gonna be used
+    //todo change this maybe?
+    if (flag === "HAD_FIRST_ENCOUNTER") {
+      removeFlag("ENCOUNTER_IN_PROGRESS_NOW");
+    }
   }
 }
 

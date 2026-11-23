@@ -7,6 +7,7 @@ import { getEl, printToTerminal } from "../ui/dom.js";
 import { handleResonatorActions } from "./actions/resonatorActions.ts";
 import { gameBridge } from "./gameBridge.ts";
 import {
+  addFlag,
   currentState,
   hasFlag,
   saveTheDataToLocalStorage,
@@ -270,6 +271,7 @@ async function handleResonatorFrequency(): Promise<void> {
 export async function handleResonatorEncounter(): Promise<void> {
   const theZone: ZoneId = currentState.currentZone;
   setFocus("FIRST_ENCOUNTER");
+  addFlag("ENCOUNTER_IN_PROGRESS_NOW");
   await getDialogFirstEncounter();
   gameBridge.renderZoneActions(theZone);
   await handleResonatorActions(theZone);

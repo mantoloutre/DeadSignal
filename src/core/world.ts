@@ -1,7 +1,7 @@
 import { isDrawingPanelOpenOrNot } from "../data/drawings.ts";
 import type { Zone, ZoneAction } from "../data/types.js";
 import { drawingPanelPrintLine } from "../ui/dom.ts"; //todo watch out for possible circular reference
-import { FOCUS, getFocus, hasFlag, isCommandInactive } from "./gameState.js";
+import { getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
 import {
   BREAKER_PANEL_ACTIONS,
@@ -55,7 +55,7 @@ export const ZONES = {
       " in the middle of the road, engine fuming and a hole through the hood",
     getActions: (): ZoneAction[] => {
       //for the focus of the toolbox ( "puzzle" )
-      if (getFocus() === FOCUS.TOOLBOX) {
+      if (getFocus() === "TOOLBOX") {
         return getToolBoxActions();
       }
       //if no focus then normal things
@@ -109,7 +109,7 @@ export const ZONES = {
       "Broken glass surrounds the dark entrance",
     getActions: (): ZoneAction[] => {
       //focus
-      if (getFocus() === FOCUS.FIRST_ENCOUNTER) {
+      if (getFocus() === "FIRST_ENCOUNTER") {
         return getFirstEncounterActions("WATCH_POST_OUTSIDE");
       }
       //normal actions
@@ -127,10 +127,10 @@ export const ZONES = {
       "Keller's body lies motionless against the main terminal's chassis",
     getActions: (): ZoneAction[] => {
       //focus
-      if (getFocus() === FOCUS.TELLING_QG) {
+      if (getFocus() === "TELLING_QG") {
         return getWhatToSayToQG();
       }
-      if (getFocus() === FOCUS.FIRST_ENCOUNTER) {
+      if (getFocus() === "FIRST_ENCOUNTER") {
         return getFirstEncounterActions("WATCH_POST");
       }
       //normal action
@@ -162,11 +162,11 @@ export const ZONES = {
       " is shattered inward inside the shack.",
     getActions: (): ZoneAction[] => {
       //focus
-      if (getFocus() === FOCUS.JUNCTION_BOX) {
+      if (getFocus() === "JUNCTION_BOX") {
         //TODO set the focus at the right place
         return getJunctionBoxActions();
       }
-      if (getFocus() === FOCUS.FIRST_ENCOUNTER) {
+      if (getFocus() === "FIRST_ENCOUNTER") {
         //TODO
         return getFirstEncounterActions("GATE_CHECKPOINT");
       }
@@ -230,11 +230,14 @@ export const ZONES = {
       "hanging open on the far wall.",
     getActions: (): ZoneAction[] => {
       const actions: ZoneAction[] = [];
-      if (getFocus() === FOCUS.BREAKER_PANEL) {
+      if (getFocus() === "BREAKER_PANEL") {
         return getBreakerPanelActions();
       }
-      if (getFocus() === FOCUS.BREAKER_PANEL_CONNECTION) {
+      if (getFocus() === "BREAKER_PANEL_CONNECTION") {
         return getBreakerPanelInspectActions();
+      }
+      if (getFocus() === "FIRST_ENCOUNTER") {
+        return getFirstEncounterActions("RELAY_A01");
       }
       actions.push(RELAY_A01_ACTIONS.GO_OUTSIDE_BUNKER);
       //TODO do the actions

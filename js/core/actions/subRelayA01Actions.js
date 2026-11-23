@@ -1,7 +1,7 @@
 import { Drawings, isDrawingPanelOpenOrNot, setIsOpenDrawingPanel, } from "../../data/drawings.js";
 import { drawingPanelPrintLine, getEl, makeCanvaAppearOrDisappear, printDrawing, printToTerminal, } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
-import { addFlag, currentState, setFocus } from "../gameState.js";
+import { addFlag, currentState, hasFlag, setFocus, } from "../gameState.js";
 import { doesThePlayerHasTheItem } from "../inventory.js";
 /*
 #############
@@ -27,8 +27,14 @@ export async function openBreakerPanel() {
     makeCanvaAppearOrDisappear(true);
     await draw("BREAKER_PANEL_RELAY_A01", false);
 }
+//todo make a variable to not do the setfocus ig..
 export async function closeBreakerPanel() {
-    setFocus(null);
+    if (hasFlag("ENCOUNTER_IN_PROGRESS_NOW")) {
+        setFocus("FIRST_ENCOUNTER");
+    }
+    else {
+        setFocus(null);
+    }
     const terminalOutput = getEl("terminal-output");
     terminalOutput.classList.remove("breaker-panel-open");
     terminalOutput.scrollTo(0, terminalOutput.scrollHeight);
@@ -163,6 +169,8 @@ export async function tryWithDuctTape() {
 export async function inspectConnection() {
     await drawingPanelPrintLine("The connection from the first switch to the calibrator was cut " +
         "to prevent it from being turned back on.");
+    await drawingPanelPrintLine("The cut is clean. Not sabotage from outside. This was done from " +
+        "inside, calmly, by someone who knew exactly which wire mattered.");
     await drawingPanelPrintLine("how do you want to try and repair it?");
     setFocus("BREAKER_PANEL_CONNECTION");
     gameBridge.renderZoneActions("RELAY_A01");
