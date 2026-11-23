@@ -78,3 +78,23 @@ export const BREAKER_PANEL_ACTIONS = {
         execute: actionsFunc.inspectConnection,
     },
 };
+export const FIRST_ENCOUNTER_A01_ACTIONS = {
+    KILL_THE_RELAY: {
+        command: "cut the power",
+        description: "shut down every interrupter down and kill the relay",
+        execute: actionsFunc.killRelayFirstEncounter,
+        oneTime: true,
+    },
+    RUN_OUTSIDE: {
+        command: "run outside",
+        description: "run outside the bunker",
+        execute: actionsFunc.nuhUh,
+        oneTime: true,
+    },
+    HIDE_IN_LOCKER: {
+        command: "hide in locker",
+        description: "squeeze yourself into the maintenance locker",
+        execute: actionsFunc.nuhUh,
+        oneTime: true,
+    },
+};

@@ -72,6 +72,21 @@ export async function enterBunkerStationA01() {
             " however, you have no keycard to fill that slot", "system");
     }
 }
+export async function killRelayFirstEncounter() {
+    //to not repeat myself
+    const closed = await verifyDrawingPanelClosed();
+    const printer = closed
+        ? (msg) => printToTerminal(msg, "system")
+        : (msg) => drawingPanelPrintLine(msg);
+    //shut down every interrupter
+    currentState.relayA01BreakerPanel.int1 = false;
+    currentState.relayA01BreakerPanel.int2 = false;
+    currentState.relayA01BreakerPanel.int3 = false;
+    await printer(closed
+        ? "You sprint hastily toward the breaker panel and slam every interrupter down."
+        : "You hastily slam every interrupter down.");
+    await closeBreakerPanel();
+}
 /*
 ###################
 breaker panel focus

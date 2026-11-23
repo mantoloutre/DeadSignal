@@ -41,6 +41,7 @@ export async function openBreakerPanel(): Promise<void> {
   makeCanvaAppearOrDisappear(true);
   await draw("BREAKER_PANEL_RELAY_A01", false);
 }
+//todo make a variable to not do the setfocus ig..
 export async function closeBreakerPanel(): Promise<void> {
   setFocus(null);
   const terminalOutput: HTMLDivElement = getEl("terminal-output");
@@ -111,22 +112,21 @@ export async function enterBunkerStationA01(): Promise<void> {
   }
 }
 export async function killRelayFirstEncounter(): Promise<void> {
+  //to not repeat myself
+  const closed: boolean = await verifyDrawingPanelClosed();
+  const printer = closed
+    ? (msg: string): Promise<void> => printToTerminal(msg, "system")
+    : (msg: string): Promise<void> => drawingPanelPrintLine(msg);
   //shut down every interrupter
   currentState.relayA01BreakerPanel.int1 = false;
   currentState.relayA01BreakerPanel.int2 = false;
   currentState.relayA01BreakerPanel.int3 = false;
-  //depending on if its open, either slam them shut
-  if (await verifyDrawingPanelClosed()) {
-    await printToTerminal(
-      "You sprint toward the breaker panel and slam every interrupter down.",
-      "action",
-    );
-  } else {
-    await printToTerminal(
-      "You hastily slam off every interrupter down.",
-      "action",
-    );
-  }
+  await printer(
+    closed
+      ? "You sprint hastily toward the breaker panel and slam every interrupter down."
+      : "You hastily slam every interrupter down.",
+  );
+  await closeBreakerPanel();
 }
 /*
 ###################

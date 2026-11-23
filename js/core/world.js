@@ -188,7 +188,7 @@ export const ZONES = {
     RELAY_A01: {
         name: "RELAY-A01 - INSIDE BUNKER",
         description: "Rows of dead console line the walls, a single breaker panel " +
-            "hanging open on the far wall. Something down here still draws power.",
+            "hanging open on the far wall.",
         getActions: () => {
             const actions = [];
             if (getFocus() === FOCUS.BREAKER_PANEL) {

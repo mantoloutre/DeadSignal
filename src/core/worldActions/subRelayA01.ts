@@ -86,7 +86,7 @@ export const FIRST_ENCOUNTER_A01_ACTIONS = {
   KILL_THE_RELAY: {
     command: "cut the power",
     description: "shut down every interrupter down and kill the relay",
-    execute: actionsFunc.nuhUh,
+    execute: actionsFunc.killRelayFirstEncounter,
     oneTime: true,
   },
   RUN_OUTSIDE: {
