@@ -250,6 +250,24 @@ export const ZONES = {
       return actions;
     },
   },
+  RELAY_B02: {
+    name: "todo (bo2-inside)",
+    description: "todo",
+    getActions: (): ZoneAction[] => {
+      const actions: ZoneAction[] = [];
+      //todo
+      return actions;
+    },
+  },
+  RELAY_B02_OUTSIDE: {
+    name: "todo (b02-outside)",
+    description: "todo",
+    getActions: (): ZoneAction[] => {
+      const actions: ZoneAction[] = [];
+      //todo
+      return actions;
+    },
+  },
 } as const satisfies Record<string, Zone>;
 function getBreakerPanelActions(): ZoneAction[] {
   const actions: ZoneAction[] = [];
