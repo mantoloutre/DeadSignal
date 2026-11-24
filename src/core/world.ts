@@ -250,6 +250,13 @@ export const ZONES = {
       return actions;
     },
   },
+  SHATTERED_RIDGE: {
+    name: "shattered ridge",
+    description:
+      "A ridge of black rock split into plate by frost, like " +
+      "broken kitchenware?(todo)",
+    getActions: (): ZoneAction[] => {},
+  },
   RELAY_B02: {
     name: "todo (bo2-inside)",
     description: "todo",
