@@ -255,13 +255,19 @@ export const ZONES = {
     description:
       "A ridge of black rock split into plate by frost, like " +
       "broken kitchenware?(todo)",
-    getActions: (): ZoneAction[] => {},
+    getActions: (): ZoneAction[] => {
+      const actions: ZoneAction[] = [];
+      //todo
+      return actions;
+    },
   },
   RELAY_B02: {
     name: "todo (bo2-inside)",
     description: "todo",
     getActions: (): ZoneAction[] => {
       const actions: ZoneAction[] = [];
+      if (getFocus() === "FIRST_ENCOUNTER") {
+      }
       //todo
       return actions;
     },
@@ -286,6 +292,15 @@ export const ZONES = {
   },
   RELAY_C03_CORE: {
     name: "todo (co3 core)",
+    description: "todo",
+    getActions: (): ZoneAction[] => {
+      const actions: ZoneAction[] = [];
+      //todo
+      return actions;
+    },
+  },
+  EXCAVATION_CAMP: {
+    name: "todo (camp)",
     description: "todo",
     getActions: (): ZoneAction[] => {
       const actions: ZoneAction[] = [];
@@ -388,9 +403,6 @@ function getFirstEncounterActions(zoneId: ZoneId): ZoneAction[] {
       actions.push(FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST.HIDE_BEHIND_TREE);
       actions.push(FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST.HIDE_IN_THE_SNOW);
       break;
-    case "TRUCK_CABIN":
-      //TODO do this
-      break;
     case "GATE_CHECKPOINT":
       actions.push(FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION.HIDE_IN_SNOW);
       actions.push(
@@ -399,12 +411,6 @@ function getFirstEncounterActions(zoneId: ZoneId): ZoneAction[] {
       actions.push(
         FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION.MAKE_RUN_FOR_IT_TOWARD_FOREST,
       );
-      //TODO do this
-      break;
-    case "GATE_CHECKPOINT_SHACK":
-      //TODO do this
-      break;
-    case "RELAY_A01_OUTSIDE":
       //TODO do this
       break;
     case "RELAY_A01":
