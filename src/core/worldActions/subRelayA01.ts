@@ -102,4 +102,5 @@ export const FIRST_ENCOUNTER_A01_ACTIONS = {
     oneTime: true,
   },
   //for outside the bunker
+  //TODO
 } as const satisfies Record<string, ZoneAction>;

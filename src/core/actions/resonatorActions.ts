@@ -54,6 +54,12 @@ async function tuningInEncounter(): Promise<void> {
       case "GATE_CHECKPOINT_SHACK":
         await switchCaseGateCheckpointInsideShack();
         break;
+      case "RELAY_A01":
+        await switchCaseInsideFirstRelayStation();
+        break;
+      case "RELAY_A01_OUTSIDE":
+        await switchCaseOutsideFirstRelayStation();
+        break;
       default:
         await printToTerminal(
           "zone not implemented yet, sorry :c (resonatorActions.ts line 57",
@@ -346,10 +352,71 @@ async function switchCaseGateCheckpointInsideShack(): Promise<void> {
       );
   }
 }
+async function switchCaseOutsideFirstRelayStation(): Promise<void> {
+  switch (currentState.currentFrequency) {
+    case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
+      //todo do the case
+      break;
+    case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
+      //todo do the case
+      break;
+    case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
+      //todo do the case
+      break;
+    default:
+      await writeDefaultDefaultDeathMessage();
+      await die();
+      await printDeathMessage(
+        "death message not done, so you were basically killed",
+      );
+    //todo do the death message
+  }
+}
+async function choseToContactQGOutsideA01(): Promise<void> {}
+
+/**
+ * switch case to handle the tuning in the relay
+ * station A01
+ */
+async function switchCaseInsideFirstRelayStation(): Promise<void> {
+  switch (currentState.currentFrequency) {
+    case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
+      await choseToContactQGInsideBunkerA01();
+      break;
+    case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
+      await choseToContactResonatorInsideBunkerA01();
+      break;
+    case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
+      await choseToTurnOffRadioInsideBunkerA01();
+      break;
+    default:
+      await writeDefaultDefaultDeathMessage();
+      await die();
+      await printDeathMessage(
+        "death message not done, so you were basically killed",
+      );
+  }
+}
+async function choseToTurnOffRadioInsideBunkerA01(): Promise<void> {
+  //todo
+}
+async function choseToContactResonatorInsideBunkerA01(): Promise<void> {
+  //todo
+}
+async function choseToContactQGInsideBunkerA01(): Promise<void> {
+  //todo
+  await printToTerminal(
+    "You key in the QG frequency. You have no idea what you are facing, " +
+      "so you refer to those who might not know, even if you were not " +
+      "supposed to contact them first.",
+    "action",
+  );
+  await printToTerminal("The hum stops right outside the door.", "alert");
+}
 async function choseToContactQGInsideShack(): Promise<void> {
   await printToTerminal(
     "You type in the QG frequency and call out, " +
-      "begging for anyone listening to awnser.",
+      "begging for anyone listening to answer.",
     "action",
   );
   await printToTerminal(
