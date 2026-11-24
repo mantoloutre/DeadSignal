@@ -268,6 +268,24 @@ export const ZONES = {
       return actions;
     },
   },
+  RELAY_C03_AIRLOCK: {
+    name: "todo (c03 in between?)",
+    description: "todo",
+    getActions: (): ZoneAction[] => {
+      const actions: ZoneAction[] = [];
+      //todo
+      return actions;
+    },
+  },
+  RELAY_C03_CORE: {
+    name: "todo (co3 core)",
+    description: "todo",
+    getActions: (): ZoneAction[] => {
+      const actions: ZoneAction[] = [];
+      //todo
+      return actions;
+    },
+  },
 } as const satisfies Record<string, Zone>;
 function getBreakerPanelActions(): ZoneAction[] {
   const actions: ZoneAction[] = [];
