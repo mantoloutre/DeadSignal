@@ -250,7 +250,7 @@ export const ZONES = {
       return actions;
     },
   },
-  SHATTERED_RIDGE: {
+  SHATTERED_RIDGE_TOP: {
     name: "shattered ridge",
     description:
       "A ridge of black rock split into plate by frost, like " +
