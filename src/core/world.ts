@@ -261,6 +261,24 @@ export const ZONES = {
       return actions;
     },
   },
+  SHATTERED_RIDGE_SIDE_A01: {
+    name: "shattered ridge ( A01 )",
+    description: "todo, the bottom of the ridge, on the relay a01 side",
+    getActions: (): ZoneAction[] => {
+      const actions: ZoneAction[] = [];
+      //todo
+      return actions;
+    },
+  },
+  SHATTERED_RIDGE_SIDE_EXCAVATION_CAMP: {
+    name: "shattered ridge ( EC )",
+    description: "todo, the bottom of the ridge, on the excavation camp side",
+    getActions: (): ZoneAction[] => {
+      const actions: ZoneAction[] = [];
+      //todo
+      return actions;
+    },
+  },
   RELAY_B02: {
     name: "todo (bo2-inside)",
     description: "todo",
