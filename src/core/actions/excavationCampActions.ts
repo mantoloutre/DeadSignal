@@ -55,3 +55,27 @@ export async function openTheTruckDoor(): Promise<void> {
   await printToTerminal("todo", "system");
   //todo make the blackbox appear
 }
+//i loved making this part :3
+export async function playTheBlackBox(): Promise<void> {
+  await printToTerminal(
+    "You play the crew recorder back through its little speaker.",
+    "system",
+  );
+  await printToTerminal(
+    //TODO remove this maybe? or make a recording class
+    "just for ur info, this is a recording, not printed logs",
+    "YOU",
+  );
+  await printToTerminal(
+    "DAY 41: Cavity breakthrough at 3.2 kilometers. Rig's fine, " +
+    "but the depth gauge is drunk. Reads then meters more every " +
+    "hour. Corporate says keep drilling.",
+    "log",
+  );
+  await printToTerminal(
+    "DAY 42: Ambient hum on 940.700 measured INSIDE the cavity. It's not " +
+    "terrain noise. It repeats. PAtterned. We told them. They want " +
+    "amplifier arrays on every ridge to 'resolve the carrier.' They built us RELAYS.",
+    "log",
+  );
+}
