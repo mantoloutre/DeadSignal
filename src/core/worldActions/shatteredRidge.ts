@@ -24,7 +24,7 @@ export const SHATTERED_RIDGE_TOP_ACTIONS = {
   TAKE_A_BREAK: {
     command: "sit & take break",
     description: "sit down for a minute and take a break",
-    execute: actionsFunc.nuhUh, //TODO do this
+    execute: actionsFunc.nuhUh, //TODO do this make it actually be 1 minute
   },
   LOOK_TOWARD_DIG_SITE: {
     command: "look toward dig site",
@@ -35,14 +35,14 @@ export const SHATTERED_RIDGE_TOP_ACTIONS = {
   FOLLOW_THE_PATH_DOWN: {
     command: "go down path toward EC",
     description: "walk down the path toward the excavation camp",
-    execute: actionsFunc.nuhUh,
+    execute: actionsFunc.nuhUh, //TODO load the excavation camp
   },
-} as const satisfies Record<string, ZoneAction>;
-export const SHATTERED_RIDGE_EC_ACTIONS = {
-  //todo
-  FOLLOW_THE_PATH_UP: {
-    command: "walk to top",
-    description: "walk toward the summit of the ridge",
-    execute: actionsFunc.nuhUh,
+  LISTEN_TO_STUFF: {
+    command: "Admire the view", //aka listen to stuff
+    description:
+      "take a second to admire the view " +
+      "(also listen to what might be happening)",
+    execute: actionsFunc.nuhUh, //TODO do this
+    oneTime: true,
   },
 } as const satisfies Record<string, ZoneAction>;
