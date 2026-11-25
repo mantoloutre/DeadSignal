@@ -1,4 +1,5 @@
 import { printToTerminal } from "../../ui/dom.ts";
+import { doesThePlayerHasTheItem } from "../inventory.ts";
 
 export async function nuhUh(): Promise<void> {
   await printToTerminal(
@@ -55,6 +56,33 @@ export async function inspectTheBeautifulPieceOfRebarStickingOut(): Promise<void
   await printToTerminal(
     "Crew anchors. Somebody climbed this ridge regularly, roped in, " +
     "on this exact path. The rope was never taken down.",
+    "system",
+  );
+}
+/**
+ * in short: admire the beautiful view. ( and touch the ground )
+ */
+export async function listenToWhatheverIsHappeningAtTheSummit(): Promise<void> {
+  if (doesThePlayerHasTheItem("winter_gloves")) {
+    await printToTerminal(
+      "You take off one gloves and press your bare flat agaisnt the rock.",
+      "action",
+    );
+  } else {
+    await printToTerminal("why no glove my friend...", "alert");
+    //todo make this even if the player prob will never see it...
+  }
+  await printToTerminal(
+    "The rock is warm. Fifteen degrees warmer than the air. The warmth " +
+    "pulses... Slow. Patient. Once every forty seconds.",
+    "system",
+  );
+  await printToTerminal(
+    "It's like something breathing under a very thick blanket.",
+    "alert",
+  );
+  await printToTerminal(
+    "You decide not to touch the rock bare-handed anymore...",
     "system",
   );
 }
