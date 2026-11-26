@@ -215,22 +215,6 @@ export async function tryWithCrowbar(): Promise<void> {
         "the metal from the crowbar.",
       "action",
     );
-    //just a funny thing if the player doesnt have gloves to
-    //at lest insulate his hands from the electricity
-    //todo maybe remove this i guess?
-    if (!doesThePlayerHasTheItem("winter_gloves")) {
-      await printToTerminal(
-        "As you connect the second end of the wire, you feel " +
-          "a little tingly sensation, (like that you get when you " +
-          "test the end of a cable low voltage on your tongue)," +
-          "but it isn't too bad.",
-        "system",
-      );
-      await printToTerminal(
-        "DO NOT TRY THIS AT HOME, I WILL NOT BE HELD RESPONSIBLE",
-        "alert",
-      );
-    }
   } else {
     await printToTerminal(
       "You take the crowbar and you do your best to make it stay " +
