@@ -43,6 +43,7 @@ export const REPAIR_CONNECTION = {
     description:
       "try to link both ends of the link using the wire cutter as a `bridge` for the electricity",
     execute: actionsFunc.tryWithWireCutter,
+    oneTime: true,
   },
   //At this point in game if player doesn't have either crowbar or duct tape well he's
   //blocked until he gets one of the two ( he should have it )
@@ -50,6 +51,13 @@ export const REPAIR_CONNECTION = {
     command: "try duct tape",
     description: "try to join the two end of the wire with duct tape",
     execute: actionsFunc.tryWithDuctTape,
+    oneTime: true,
+  },
+  TRY_CROWBAR: {
+    command: "try crowbar",
+    description: "try with crowbar and a bit of duct tape if you have some.",
+    execute: actionsFunc.tryWithCrowbar,
+    oneTime: true,
   },
 } as const satisfies Record<string, ZoneAction>;
 export const BREAKER_PANEL_ACTIONS = {

@@ -203,6 +203,47 @@ export async function tryWithWireCutter(): Promise<void> {
   currentState.relayA01BreakerPanel.wire1 = true;
   setFocus("BREAKER_PANEL");
 }
+export async function tryWithCrowbar(): Promise<void> {
+  if (doesThePlayerHasTheItem("duct_tape")) {
+    await printToTerminal(
+      "You take the crowbar and some duct tape and you stick it on the " +
+        "breakerPanel.",
+      "action",
+    );
+    await printToTerminal(
+      "You then take both end of the wire and carefully link them using " +
+        "the metal from the crowbar.",
+      "action",
+    );
+    //just a funny thing if the player doesnt have gloves to
+    //at lest insulate his hands from the electricity
+    //todo maybe remove this i guess?
+    if (!doesThePlayerHasTheItem("winter_gloves")) {
+      await printToTerminal(
+        "As you connect the second end of the wire, you feel " +
+          "a little tingly sensation, (like that you get when you " +
+          "test the end of a cable low voltage on your tongue)," +
+          "but it isn't too bad.",
+        "system",
+      );
+      await printToTerminal(
+        "DO NOT TRY THIS AT HOME, I WILL NOT BE HELD RESPONSIBLE",
+        "alert",
+      );
+    }
+  } else {
+    await printToTerminal(
+      "You take the crowbar and you do your best to make it stay " +
+        "in place even if you don't have any duct tape.",
+      "action",
+    );
+    await printToTerminal(
+      "You then do you best to connect the two end of the wires " +
+        "together using the crowbar as a link for electricity.",
+      "action",
+    );
+  }
+}
 
 /**
  * pretty self-explanatory function
