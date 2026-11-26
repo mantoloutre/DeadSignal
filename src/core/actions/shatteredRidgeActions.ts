@@ -1,4 +1,5 @@
 import { printToTerminal } from "../../ui/dom.ts";
+import { gameBridge } from "../gameBridge.ts";
 import { doesThePlayerHasTheItem } from "../inventory.ts";
 
 export async function nuhUh(): Promise<void> {
@@ -18,7 +19,7 @@ zone: bottom summit a01 side
 export async function climbToSummitFromA01(): Promise<void> {
   await printToTerminal(
     "You climb the ridge path, boots cracking through refrozen " +
-    "slush on every step.",
+      "slush on every step.",
     "action",
   );
   await printToTerminal(
@@ -27,16 +28,16 @@ export async function climbToSummitFromA01(): Promise<void> {
   );
   await printToTerminal(
     "the gusts that were tearing at you from the basin are " +
-    "suddenly gone. Your own breathing is suddenly the loudest " +
-    "thing in the valley.",
+      "suddenly gone. Your own breathing is suddenly the loudest " +
+      "thing in the valley.",
     "system",
   );
   await printToTerminal(
-    //todo i feel this is too much added?
-    "You glance back down: the whiteout over the frost basin still churns, " +
-    "loud and violent. A curtain of weather you crossed out of.",
-    "system",
+    "From somewhere far below, a single deep pulse rolls through " +
+      "the rock and into your boots. Then quiet.",
+    "log",
   );
+  gameBridge.loadZone("SHATTERED_RIDGE_TOP");
 }
 //yes i know function name a uselessly long, but it isnt a game studio so i do wathever i want :3
 /**
@@ -50,12 +51,12 @@ export async function inspectTheBeautifulPieceOfRebarStickingOut(): Promise<void
   );
   await printToTerminal(
     "Hammered into the rock: a ring of old rebar stakes, and a decayed " +
-    "rope still strung between the two of them.",
+      "rope still strung between the two of them.",
     "log",
   );
   await printToTerminal(
     "Crew anchors. Somebody climbed this ridge regularly, roped in, " +
-    "on this exact path. The rope was never taken down.",
+      "on this exact path. The rope was never taken down.",
     "system",
   );
 }
@@ -74,7 +75,7 @@ export async function listenToWhatheverIsHappeningAtTheSummit(): Promise<void> {
   }
   await printToTerminal(
     "The rock is warm. Fifteen degrees warmer than the air. The warmth " +
-    "pulses... Slow. Patient. Once every forty seconds.",
+      "pulses... Slow. Patient. Once every forty seconds.",
     "system",
   );
   await printToTerminal(
@@ -84,5 +85,27 @@ export async function listenToWhatheverIsHappeningAtTheSummit(): Promise<void> {
   await printToTerminal(
     "You decide not to touch the rock bare-handed anymore...",
     "system",
+  );
+}
+export async function inspectFenceBreach(): Promise<void> {
+  await printToTerminal(
+    "You follow the perimeter fence where it climbs over the ridge.",
+    "action",
+  );
+  await printToTerminal(
+    "The fence segment excavation camp is torn outward. Not bent. " +
+      "Torn, welds snapped, barbs pointing away from the site.",
+    "log",
+  );
+  await printToTerminal("It looks oddly familiar...", "log");
+  await printToTerminal(
+    "It's the same failure as the robot's log. 'welds, broken under unknown " +
+      "source of tension.' Something clearly left the site...",
+    "system",
+  );
+  await printToTerminal(
+    "Caught on the top barb: a scrap of orange tarp. crew colored. " +
+      "It's not yours.",
+    "log",
   );
 }
