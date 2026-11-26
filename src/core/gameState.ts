@@ -160,6 +160,9 @@ export function parseSaveData(json: string): GameState | null {
   if (obj.app !== "DEAD_SIGNAL") {
     return null;
   }
+  if (obj.version !== GAME_INITIAL_STATE.version) {
+    return null;
+  }
   // step 7
   const maybeInvalidZone = (key: unknown): key is ZoneId => {
     return typeof key === "string" && key in ZONES;
