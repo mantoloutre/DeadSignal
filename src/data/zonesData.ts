@@ -6,9 +6,13 @@ import { hasFlag } from "../core/gameState.ts";
  */
 export function getExcavationCampDescription(): string {
   if (hasFlag("FIRST_TIME_EXCAVATION")) {
-    return "this";
+    return "todo, shortder description";
   } else {
-    return "else";
+    return (
+      "Two relay masts lie half-raised on their rigs, chaines " +
+      "still looped through their lattice. A heavy container compoud " +
+      "sits under orange tarp. It was left mid-task."
+    );
   }
 }
 export function relayA01Description(): string {

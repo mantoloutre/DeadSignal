@@ -50,4 +50,10 @@ export const EXCAVATION_CAMP_TODO = {
     execute: actionsFunc.nuhUh, //TODO do this
     oneTime: true,
   },
+  INSPECT_HALF_RAISED_MAST: {
+    command: "inspect mast",
+    description: "go and inspect the half raised mast",
+    execute: actionsFunc.nuhUh,
+    oneTime: true,
+  },
 } as const satisfies Record<string, ZoneAction>;
