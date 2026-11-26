@@ -9,10 +9,11 @@ export function excavationCampDescription(): string {
     return "todo, short description";
   } else {
     return (
-      "Two relay masts lie half-raised on their rigs, chaines " +
-      "still looped through their lattice. A heavy container compoud " +
-      "sits under orange tarps. The site is immaculate, because nobody " +
-      "left it gradually, they left it mid-task. Just, gone..."
+      "One relay mast lies half-raised on its rig, chains still " +
+      "looped through its lattice. A heavy container compound " +
+      "sits under corporate orange tarps beside a crew truck sunk nose-down " +
+      "in a drift. The site is immaculate because nobody left it " +
+      "gradually. They left it mid-task."
     );
   }
 }
