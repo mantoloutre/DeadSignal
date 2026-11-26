@@ -41,7 +41,6 @@ export interface ZoneAction {
   execute: () => Promise<void>;
   oneTime?: boolean;
 }
-
 export interface Zone {
   readonly name: string;
   readonly description: string;

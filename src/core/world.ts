@@ -1,5 +1,6 @@
 import { isDrawingPanelOpenOrNot } from "../data/drawings.ts";
-import type { Zone, ZoneAction } from "../data/types.js";
+import type { Zone, ZoneAction } from "../data/types.ts";
+import * as zoneInfo from "../data/zonesData.ts";
 import { drawingPanelPrintLine } from "../ui/dom.ts"; //todo watch out for possible circular reference
 import { getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
@@ -240,9 +241,7 @@ export const ZONES = {
   //##########################################
   RELAY_A01: {
     name: "RELAY-A01 - INSIDE BUNKER",
-    description:
-      "Rows of dead console line the walls, a single breaker panel " +
-      "hanging open on the far wall.",
+    description: zoneInfo.relayA01Description(),
     getActions: (): ZoneAction[] => {
       const actions: ZoneAction[] = [];
       if (getFocus() === "BREAKER_PANEL") {
@@ -266,9 +265,7 @@ export const ZONES = {
   },
   SHATTERED_RIDGE_TOP: {
     name: "shattered ridge",
-    description:
-      "A ridge of black rock split into plate by frost, like " +
-      "broken kitchenware?(todo)",
+    description: zoneInfo.shatteredRidgeTopDescription(),
     getActions: (): ZoneAction[] => {
       const actions: ZoneAction[] = [];
       //todo
