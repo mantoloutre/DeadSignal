@@ -1,6 +1,8 @@
 # IDE - WebStorm / JetBrains
 .idea/
 *.iml
+# IDE zed
+.zed/
 # quodana
 qodana.yaml
 # Node / Dépendances

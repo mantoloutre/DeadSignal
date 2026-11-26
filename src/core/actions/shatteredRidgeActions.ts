@@ -10,7 +10,7 @@ export async function nuhUh(): Promise<void> {
 }
 /*
 #############################
-zone: bottom summit a01 side 
+zone: bottom summit a01 side
 #############################
 */
 /**
