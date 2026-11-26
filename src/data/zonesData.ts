@@ -1,6 +1,17 @@
 import { gameBridge } from "../core/gameBridge.ts";
 
 /**
+ * function to give back the description for the snowy forest
+ * TODO make the shorter description
+ */
+export function snowyForestDescription(): string {
+  return (
+    "Towering ice-coated pine tree in a frozen service path. Heavy " +
+    "perimeter fencing runs parallel to the trail, warping and sheared appart as if " +
+    "hit by something big."
+  );
+}
+/**
  * function to return the good description
  * @returns return the good description for the excavation camp
  */

@@ -3,7 +3,7 @@ this const is to skip part of the game for the reviewer
  */
 export const presetBeforeDiscoveringBody = {
     app: "DEAD_SIGNAL",
-    version: 1,
+    version: 1.1,
     currentZone: "WATCH_POST_OUTSIDE",
     powerLevel: 100,
     pendingQGMessages: ["GOT_TOWER_FIRST_TIME"],
@@ -67,6 +67,13 @@ export const presetBeforeDiscoveringBody = {
         "pickup ajustable wrench",
         "pickup duct tape",
     ],
+    visitedZone: [
+        "GATE_CHECKPOINT_SHACK",
+        "GATE_CHECKPOINT",
+        "OUTSIDE_TRUCK",
+        "TRUCK_CABIN",
+        "SNOWY_FOREST",
+    ],
     relayA01BreakerPanel: {
         int1: false,
         int2: false,
@@ -81,7 +88,7 @@ export const presetTestDrawingPanel: GameState = {
 */
 export const presetOutsideFirstRelay = {
     app: "DEAD_SIGNAL",
-    version: 1,
+    version: 1.1,
     currentZone: "RELAY_A01_OUTSIDE",
     powerLevel: 100,
     pendingQGMessages: [],
@@ -132,6 +139,15 @@ export const presetOutsideFirstRelay = {
             count: 1,
         },
     ],
+    visitedZone: [
+        "GATE_CHECKPOINT_SHACK",
+        "GATE_CHECKPOINT",
+        "OUTSIDE_TRUCK",
+        "TRUCK_CABIN",
+        "SNOWY_FOREST",
+        "WATCH_POST",
+        "WATCH_POST_OUTSIDE",
+    ],
     inactiveCommands: [
         "read emergency manual",
         "take flares",
@@ -158,7 +174,7 @@ export const presetOutsideFirstRelay = {
 };
 export const presetAfterMemoryModule = {
     app: "DEAD_SIGNAL",
-    version: 1,
+    version: 1.1,
     currentZone: "WATCH_POST",
     powerLevel: 100,
     pendingQGMessages: [],
@@ -209,6 +225,15 @@ export const presetAfterMemoryModule = {
             itemId: "insulated_wirecutter",
             count: 1,
         },
+    ],
+    visitedZone: [
+        "GATE_CHECKPOINT_SHACK",
+        "GATE_CHECKPOINT",
+        "OUTSIDE_TRUCK",
+        "TRUCK_CABIN",
+        "SNOWY_FOREST",
+        "WATCH_POST_OUTSIDE",
+        "WATCH_POST",
     ],
     inactiveCommands: [
         "take gloves",

@@ -37,7 +37,7 @@ export async function climbToSummitFromA01(): Promise<void> {
       "the rock and into your boots. Then quiet.",
     "log",
   );
-  gameBridge.loadZone("SHATTERED_RIDGE_TOP");
+  await gameBridge.loadZone("SHATTERED_RIDGE_TOP");
 }
 //yes i know function name a uselessly long, but it isnt a game studio so i do wathever i want :3
 /**
@@ -87,6 +87,11 @@ export async function listenToWhatheverIsHappeningAtTheSummit(): Promise<void> {
     "system",
   );
 }
+
+/**
+ * function to handle the function of inspecting the fence
+ * breach at the top of the ridge.
+ */
 export async function inspectFenceBreach(): Promise<void> {
   await printToTerminal(
     "You follow the perimeter fence where it climbs over the ridge.",

@@ -172,7 +172,7 @@ export async function goInTheTruckFirstEncounter() {
     //todo
     await printToTerminal("You open the truck door and dive inside, slamming it behind you", "action");
     await printToTerminal("Inside the metal cabin, the pressure drops suddenly. Like surfacing from a dive", "system");
-    await printToTerminal("The humming is muffled. Fain. The truck's steel seem to be shielding you", "system");
+    await printToTerminal("The humming is muffled. The truck's steel seem to be shielding you", "system");
     await printToTerminal("Whatever is out there paces around the truck a few time, so fast that you can't " +
         "even see it. You just know its there.", "system");
     await printToTerminal("You then hear it move away, pretty far.", "system");
@@ -180,8 +180,7 @@ export async function goInTheTruckFirstEncounter() {
     await gameBridge.loadZone("TRUCK_CABIN");
 }
 export async function hideUnderTruckFirstEncounter() {
-    //todo
-    await printToTerminal("You slide under the truck on your back, pressed against the under of the truck.", "action");
+    await printToTerminal("You slide under the truck on your back, pressed against the undercarriage of the truck.", "action");
     await printToTerminal("Engine block above you, Steel all around, snow under. Doesn't matter, " +
         "the pressure keep climbing anyway.", "system");
     await die();
@@ -189,7 +188,6 @@ export async function hideUnderTruckFirstEncounter() {
     await printDeathMessage("Your teeth crack. The last thing you register is the truck's suspension collapsing onto you, almost gently.");
 }
 export async function runTowardForestFirstEncounter() {
-    //todo
     await printToTerminal("You abandon the truck and sprint toward the treeline.", "action");
     await die();
     await printDeathMessage("You make it fifty meters before the snow ahead of you erupts upward in a wall of white.");

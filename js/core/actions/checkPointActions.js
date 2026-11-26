@@ -81,9 +81,11 @@ export async function hideUnderDeskFirstEncounterShack() {
  FIRST ENCOUNTER ACTION
  #######################
  */
-//todo do documentation
+/**
+ * function to handle the hide in snow action for the
+ * first encounter in the checkpoint
+ */
 export async function hideInShowFirstEncounter() {
-    //todo do this :D
     await printToTerminal("You jump into the snowbank beside the shack and burrow in.", "action");
     await printToTerminal("Muffled, cold, blind, the hum in the air passes over you like a searchlight.", "system");
     await die();
@@ -106,13 +108,15 @@ export async function makeRunForItTowardTruckFirstEncounter() {
     await printDeathMessage("'It isnt't hunting. it's herding.' The thought arruves alkready knowing its awnser.");
     await printDeathMessage("The truck driver's door swing open ahead of you, welcoming, and you never slow down...");
 }
-//todo do documentation
+/**
+ * function to handle the action fo running toward the forest
+ * for the first encounter in the checkpoint
+ */
 export async function makeRunForItTowardForestFirstEncounter() {
-    //todo do this
-    await printToTerminal("You run the other way, toward the forest, puttings trees between you and wathever is incoming.", "action");
+    await printToTerminal("You run the other way, toward the forest, puttings trees between you and whatever is incoming.", "action");
     await die();
     await printDeathMessage("Trees whip past. The hum doesn't fade. Between the trunks you catch silhouettes moving parallel to you.");
     await printDeathMessage("Whatever is following you doesn't seem alone... or happy...");
     await printDeathMessage("The trees stop. You hit the edge of a clearing you swear was supposed to be forest, and the vibration surrounds you.");
-    await printDeathMessage("You keep runnign into the black until the black runs out of ground.");
+    await printDeathMessage("You keep running into the black until the black runs out of ground.");
 }

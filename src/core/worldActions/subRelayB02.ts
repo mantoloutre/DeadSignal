@@ -1,4 +1,5 @@
 import type { ZoneAction } from "../../data/types.ts";
+import * as actionsFunc from "../actions/subRelayB02Actions.ts";
 
 export const RELAY_B02_OUTSIDE_ACTIONS = {
   INSPECT_MARKS: {
@@ -11,6 +12,6 @@ export const RELAY_B02_OUTSIDE_ACTIONS = {
     //todo make it require the keycard from keller
     command: "open fuse locker",
     description: "open the fuse locker",
-    execute: actionsF,
+    execute: actionsFunc.nuhuh,
   },
 } as const satisfies Record<string, ZoneAction>;

@@ -1,7 +1,7 @@
 import { Drawings, isDrawingPanelOpenOrNot, setIsOpenDrawingPanel, } from "../../data/drawings.js";
 import { drawingPanelPrintLine, getEl, makeCanvaAppearOrDisappear, printDrawing, printToTerminal, } from "../../ui/dom.js";
 import { gameBridge } from "../gameBridge.js";
-import { addFlag, currentState, hasFlag, setFocus, } from "../gameState.js";
+import { addFlag, currentState, hasFlag, setFocus } from "../gameState.js";
 import { doesThePlayerHasTheItem } from "../inventory.js";
 /*
 #############
@@ -80,6 +80,8 @@ export async function enterBunkerStationA01() {
 }
 export async function killRelayFirstEncounter() {
     //to not repeat myself
+    //todo close breaker panel before settings the frequency like during the set of the frequency 940.700
+    await closeBreakerPanel();
     const closed = await verifyDrawingPanelClosed();
     const printer = closed
         ? (msg) => printToTerminal(msg, "system")
@@ -91,6 +93,8 @@ export async function killRelayFirstEncounter() {
     await printer(closed
         ? "You sprint hastily toward the breaker panel and slam every interrupter down."
         : "You hastily slam every interrupter down.");
+}
+export async function killRelayFirstEncounterV2() {
     await closeBreakerPanel();
 }
 /*
@@ -100,6 +104,7 @@ breaker panel focus
  */
 /**
  * utility function to not repeat my self to draw
+ * this one is only for the breaker panel.
  * @param whichDrawing which drawing do you want?
  * @param speed fast ( true ) or slow ( false )
  */

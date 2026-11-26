@@ -36,14 +36,14 @@ export async function goBackToWatchpost(): Promise<void> {
 }
 export async function inspectTheDrillRig(): Promise<void> {
   await printToTerminal(
-    "You walk to the drill rig and look up. And up. The mast disapear " +
+    "You walk to the drill rig and look up. And up. The mast disappear " +
       "into the dark.",
     "action",
   );
   //aethel is the company the player work for
   //project prometheus is something noice
   await printToTerminal(
-    "Stenciled on the base: PROJECT PROMETHEUS - GEOTHERMANL SURVEY " +
+    "Stenciled on the base: PROJECT PROMETHEUS - GEOTHERMAL SURVEY " +
       " - AETHEL CORP. PROPRETY",
     "log",
   );
@@ -75,7 +75,7 @@ export async function inspectTheCrewTruck(): Promise<void> {
       "the dent of a fist the size of the engine.",
     "system",
   );
-  //todo make it so the truck at the begining the engine imploded instead
+  //todo make it so the truck at the beginning the engine imploded instead
   //of explosing.
   await printToTerminal(
     "You look back at the direction of your own truck. You don't " +
@@ -111,8 +111,17 @@ export async function playTheBlackBox(): Promise<void> {
   );
   await printToTerminal(
     "DAY 42: Ambient hum on 940.700 measured INSIDE the cavity. It's not " +
-      "terrain noise. It repeats. PAtterned. We told them. They want " +
+      "terrain noise. It repeats. Patterned. We told them. They want " +
       "amplifier arrays on every ridge to 'resolve the carrier.' They built us RELAYS.",
     "log",
   );
+}
+export async function inspectHalfRaisedMast(): Promise<void> {
+  await printToTerminal(
+    "You walk to the nearest mast. Its winch motor is still powered, " +
+      "still seized mid-turn. The chain hangs slack at the exact angle " +
+      "it took when somebody let go of the crank.",
+    "action",
+  );
+  //todo finish this cuz it's not done
 }

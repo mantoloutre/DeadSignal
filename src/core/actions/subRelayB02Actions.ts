@@ -17,7 +17,7 @@ export async function inspectMarks(): Promise<void> {
     "system",
   );
   await printToTerminal(
-    "The handwritting changes halfway down. Steadier at the top. " +
+    "The handwriting changes halfway down. Steadier at the top. " +
       "Shaking at the bottom.",
     "log",
   );

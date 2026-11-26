@@ -40,6 +40,12 @@ async function tuningInEncounter() {
             case "GATE_CHECKPOINT_SHACK":
                 await switchCaseGateCheckpointInsideShack();
                 break;
+            case "RELAY_A01":
+                await switchCaseInsideFirstRelayStation();
+                break;
+            case "RELAY_A01_OUTSIDE":
+                await switchCaseOutsideFirstRelayStation();
+                break;
             default:
                 await printToTerminal("zone not implemented yet, sorry :c (resonatorActions.ts line 57", "alert");
         }
@@ -218,9 +224,62 @@ async function switchCaseGateCheckpointInsideShack() {
                 "as everything fades to black.");
     }
 }
+async function switchCaseOutsideFirstRelayStation() {
+    switch (currentState.currentFrequency) {
+        case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
+            //todo do the case
+            break;
+        case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
+            //todo do the case
+            await choseToAwnserItOutsideRelayA01();
+            break;
+        case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
+            //todo do the case
+            break;
+        default:
+            await writeDefaultDefaultDeathMessage();
+            await die();
+            await printDeathMessage("death message not done, so you were basically killed");
+        //todo do the death message
+    }
+}
+/**
+ * switch case to handle the tuning in the relay
+ * station A01
+ */
+async function switchCaseInsideFirstRelayStation() {
+    switch (currentState.currentFrequency) {
+        case FREQUENCY_REGISTRY.QG_FREQUENCY.frequency:
+            await choseToContactQGInsideBunkerA01();
+            break;
+        case FREQUENCY_REGISTRY.THE_RESONATOR.frequency:
+            await choseToContactResonatorInsideBunkerA01();
+            break;
+        case FREQUENCY_REGISTRY.RADIO_RECEIVE_ONLY.frequency:
+            await choseToTurnOffRadioInsideBunkerA01();
+            break;
+        default:
+            await writeDefaultDefaultDeathMessage();
+            await die();
+            await printDeathMessage("death message not done, so you were basically killed");
+    }
+}
+async function choseToTurnOffRadioInsideBunkerA01() {
+    //todo
+}
+async function choseToContactResonatorInsideBunkerA01() {
+    //todo
+}
+async function choseToContactQGInsideBunkerA01() {
+    //todo
+    await printToTerminal("You key in the QG frequency. You have no idea what you are facing, " +
+        "so you refer to those who might not know, even if you were not " +
+        "supposed to contact them first.", "action");
+    await printToTerminal("The hum stops right outside the door.", "alert");
+}
 async function choseToContactQGInsideShack() {
     await printToTerminal("You type in the QG frequency and call out, " +
-        "begging for anyone listening to awnser.", "action");
+        "begging for anyone listening to answer.", "action");
     await printToTerminal("Someone answers before you even let go of the button.", "alert");
     await printToTerminal("Your safe now, you don't have to worry anymore..", "QG");
     await printToTerminal("Stay inside. Stay warm. I'll come to you.", "QG");
@@ -305,4 +364,19 @@ async function choseToContactTheQGOutsideShack() {
     await printDeathMessage("Your legs start moving before you finish disagreeing with them.");
     await printDeathMessage("You start feeling weird, something isn't right... and you're right...");
     await printDeathMessage("Frost bleeds outward across your visor as the gate checkpoint fades to black.");
+}
+async function choseToAwnserItOutsideRelayA01() {
+    await printToTerminal("You punch 940.700 on the radio and lift it up to see if you pickup " +
+        "anything.", "action");
+    await printToTerminal("It answers, But the reply doesn't come from your radio, it comes " +
+        "from above you.", "alert");
+    await printToTerminal("The dead satellite dish, rusted solid for months, begins to rotate. " +
+        "Slowly. Toward you...", "alert");
+    await die();
+    await printDeathMessage("It's not broadcasting. It's listening..." +
+        " And every sound you make is being gathered into it.");
+    await printDeathMessage("You realize your breathing has joined the hum. Then your pulse." +
+        "You can't throw those into the snow...");
+    await printDeathMessage("Frost bleeds outward across your visor as the dish keeps turning " +
+        "and collecting long after everything around you faded to black.");
 }

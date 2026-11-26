@@ -5,12 +5,12 @@ export const SHATTERED_RIDGE_A01_ACTIONS = {
   CLIMB_TO_TOP: {
     command: "climb to top",
     description: "climb to the top of the ridge",
-    execute: actionsFunc.nuhUh, //TODO do this
+    execute: actionsFunc.climbToSummitFromA01,
   },
   INSPECT_REBAR: {
     command: "inspect rebar",
     description: "inspect the weird rebar sticking out of a rock",
-    execute: actionsFunc.nuhUh, //TODO do this
+    execute: actionsFunc.inspectTheBeautifulPieceOfRebarStickingOut,
     oneTime: true,
   },
 } as const satisfies Record<string, ZoneAction>;
@@ -32,10 +32,15 @@ export const SHATTERED_RIDGE_TOP_ACTIONS = {
     execute: actionsFunc.nuhUh, //TODO do this
     //make it oneTime?
   },
-  FOLLOW_THE_PATH_DOWN: {
+  FOLLOW_THE_PATH_DOWN_EC: {
     command: "go down path toward EC",
     description: "walk down the path toward the excavation camp",
     execute: actionsFunc.nuhUh, //TODO load the excavation camp
+  },
+  GO_BACK_DOWN_A01: {
+    command: "down toward first relay",
+    description: "go back down toward the first relay station",
+    execute: actionsFunc.nuhUh, //TODO load the damn thing
   },
   LISTEN_TO_STUFF: {
     command: "Admire the view", //aka listen to stuff

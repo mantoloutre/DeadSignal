@@ -11,12 +11,13 @@ export const BreakerStateRelayA01 = {
 };
 export const GAME_INITIAL_STATE = {
     app: "DEAD_SIGNAL",
-    version: 1,
+    version: 1.1,
     currentZone: "TRUCK_CABIN",
     powerLevel: 100,
     pendingQGMessages: [],
     currentFrequency: "---.---",
     discoveredSignals: ["000.000"],
+    visitedZone: [],
     storyFlags: [],
     playerInventory: [],
     inactiveCommands: [],
@@ -50,6 +51,12 @@ export let currentState = structuredClone(GAME_INITIAL_STATE);
 export function addFlag(flag) {
     if (!currentState.storyFlags.includes(flag)) {
         currentState.storyFlags.push(flag);
+        //simply to not repeat myself across a lot
+        //of file even if most of time its not gonna be used
+        //todo change this maybe?
+        if (flag === "HAD_FIRST_ENCOUNTER") {
+            removeFlag("ENCOUNTER_IN_PROGRESS_NOW");
+        }
     }
 }
 /**
@@ -124,6 +131,9 @@ export function parseSaveData(json) {
     if (obj.app !== "DEAD_SIGNAL") {
         return null;
     }
+    if (obj.version !== GAME_INITIAL_STATE.version) {
+        return null;
+    }
     // step 7
     const maybeInvalidZone = (key) => {
         return typeof key === "string" && key in ZONES;
@@ -138,6 +148,9 @@ export function parseSaveData(json) {
             typeof entry.count === "number" &&
             Number.isInteger(entry.count) &&
             entry.count > 0);
+    };
+    const maybeInvalidHasVisitedZone = (visitedZone) => {
+        return typeof visitedZone === "string";
     };
     const maybeInvalidInactiveCommand = (cmd) => {
         return typeof cmd === "string";
@@ -168,6 +181,9 @@ export function parseSaveData(json) {
     const validPendingQGMessages = Array.isArray(obj.pendingQGMessages)
         ? obj.pendingQGMessages.filter(maybeInvalidPendingQGMessages)
         : [...GAME_INITIAL_STATE.pendingQGMessages];
+    const validVisitedZone = Array.isArray(obj.visitedZone)
+        ? obj.visitedZone.filter(maybeInvalidHasVisitedZone)
+        : [...GAME_INITIAL_STATE.visitedZone];
     const validBreakerState = maybeInvalidBreakerState(obj.relayA01BreakerPanel)
         ? obj.relayA01BreakerPanel
         : { ...BreakerStateRelayA01 };
@@ -186,6 +202,7 @@ export function parseSaveData(json) {
             ? obj.discoveredSignals.filter((s) => typeof s === "string")
             : [...GAME_INITIAL_STATE.discoveredSignals],
         storyFlags: validStoryFlags,
+        visitedZone: validVisitedZone,
         playerInventory: validPlayerInventory,
         inactiveCommands: validInactiveCommands,
         relayA01BreakerPanel: validBreakerState,

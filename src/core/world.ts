@@ -13,10 +13,7 @@ export const ZONES = {
   //###################################################################
   SNOWY_FOREST: {
     name: "PERIMETER FOREST TRAIL",
-    description:
-      "Towering ice-coated pine tree in a frozen service path. Heavy " +
-      "perimeter fencing runs parallel to the trail, warping and sheared appart as if " +
-      "hit by something big.",
+    description: zoneInfo.snowyForestDescription(),
     getActions: (): ZoneAction[] => {
       //if focus its here
 
@@ -269,6 +266,7 @@ export const ZONES = {
     getActions: (): ZoneAction[] => {
       const actions: ZoneAction[] = [];
       //todo
+      actions.push(zoneActions.SHATTERED_RIDGE_TOP_ACTIONS.TAKE_A_BREAK);
 
       return actions;
     },

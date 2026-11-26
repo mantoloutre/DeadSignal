@@ -1,8 +1,9 @@
 import { isDrawingPanelOpenOrNot } from "../data/drawings.js";
+import * as zoneInfo from "../data/zonesData.js";
 import { drawingPanelPrintLine } from "../ui/dom.js"; //todo watch out for possible circular reference
 import { getFocus, hasFlag, isCommandInactive } from "./gameState.js";
 import { doesThePlayerHasTheItem } from "./inventory.js";
-import { BREAKER_PANEL_ACTIONS, FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION, FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST, FIRST_RESONATOR_ENCOUNTER_TRUCK, FIRST_RESONATOR_ENCOUNTER_WATCHPOST, GATE_CHECKPOINT_ACTION, GATE_CHECKPOINT_SHACK_ACTIONS, GET_TOOL_BOX_ACTION, OUTSIDE_TRUCK_INIT_ACTIONS, RELAY_A01_ACTIONS, RELAY_A01_OUTSIDE_ACTIONS, REPAIR_CONNECTION, SAY_STUFF_TO_QG, SNOWY_FOREST_ACTIONS, TRUCK_CABIN_INIT_ACTIONS, WATCH_POST, WATCH_POST_OUTSIDE, } from "./worldActions/index.js";
+import * as zoneActions from "./worldActions/index.js";
 /*
 the const containing all the zone that I'm using in the game
  */
@@ -10,18 +11,16 @@ export const ZONES = {
     //###################################################################
     SNOWY_FOREST: {
         name: "PERIMETER FOREST TRAIL",
-        description: "Towering ice-coated pine tree in a frozen service path. Heavy " +
-            "perimeter fencing runs parallel to the trail, warping and sheared appart as if " +
-            "hit by something big.",
+        description: zoneInfo.snowyForestDescription(),
         getActions: () => {
             //if focus its here
             //if there is no current focus then we do the normal thing
             const actions = [];
-            actions.push(SNOWY_FOREST_ACTIONS.GO_BACK_TO_TRUCK);
-            actions.push(SNOWY_FOREST_ACTIONS.INSPECT_DIRECTION_SIGN);
+            actions.push(zoneActions.SNOWY_FOREST_ACTIONS.GO_BACK_TO_TRUCK);
+            actions.push(zoneActions.SNOWY_FOREST_ACTIONS.INSPECT_DIRECTION_SIGN);
             if (hasFlag("INSPECTED_DIRECTION_SIGN")) {
-                actions.push(SNOWY_FOREST_ACTIONS.WALK_TOWARD_GATE_CHECKPOINT);
-                actions.push(SNOWY_FOREST_ACTIONS.WALK_TOWARD_FROST_BASIN);
+                actions.push(zoneActions.SNOWY_FOREST_ACTIONS.WALK_TOWARD_GATE_CHECKPOINT);
+                actions.push(zoneActions.SNOWY_FOREST_ACTIONS.WALK_TOWARD_FROST_BASIN);
             }
             return actions;
         },
@@ -37,17 +36,20 @@ export const ZONES = {
             }
             //if no focus then normal things
             const actions = [];
-            actions.push(OUTSIDE_TRUCK_INIT_ACTIONS.GO_BACK_IN_TRUCK_INIT);
-            actions.push(OUTSIDE_TRUCK_INIT_ACTIONS.WALK_TOWARD_FOREST_FROM_TRUCK_INIT);
-            actions.push(OUTSIDE_TRUCK_INIT_ACTIONS.LOOK_AT_ENGINE_TRUCK_INIT);
-            actions.push(OUTSIDE_TRUCK_INIT_ACTIONS.OPEN_TRUCK_TRUNK_INIT);
+            actions.push(zoneActions.OUTSIDE_TRUCK_INIT_ACTIONS.GO_BACK_IN_TRUCK_INIT);
+            actions.push(zoneActions.OUTSIDE_TRUCK_INIT_ACTIONS
+                .WALK_TOWARD_FOREST_FROM_TRUCK_INIT);
+            actions.push(zoneActions.OUTSIDE_TRUCK_INIT_ACTIONS.LOOK_AT_ENGINE_TRUCK_INIT);
+            actions.push(zoneActions.OUTSIDE_TRUCK_INIT_ACTIONS.OPEN_TRUCK_TRUNK_INIT);
             if (hasFlag("OPENED_TRUCK_TRUNK_INIT")) {
-                actions.push(OUTSIDE_TRUCK_INIT_ACTIONS.TAKE_CROWBAR_FROM_TRUCK_TRUNK_INIT);
-                actions.push(OUTSIDE_TRUCK_INIT_ACTIONS.OPEN_TOOLBOX_TRUCK_TRUNK_INIT);
+                actions.push(zoneActions.OUTSIDE_TRUCK_INIT_ACTIONS
+                    .TAKE_CROWBAR_FROM_TRUCK_TRUNK_INIT);
+                actions.push(zoneActions.OUTSIDE_TRUCK_INIT_ACTIONS.OPEN_TOOLBOX_TRUCK_TRUNK_INIT);
             }
             if (hasFlag("OPENED_TOOLBOX_INIT")) {
-                actions.push(OUTSIDE_TRUCK_INIT_ACTIONS.TAKE_DUCT_TAPE_FROM_TOOLBOX);
-                actions.push(OUTSIDE_TRUCK_INIT_ACTIONS.TAKE_ADJUSTABLE_WRENCH_FROM_TOOLBOX);
+                actions.push(zoneActions.OUTSIDE_TRUCK_INIT_ACTIONS.TAKE_DUCT_TAPE_FROM_TOOLBOX);
+                actions.push(zoneActions.OUTSIDE_TRUCK_INIT_ACTIONS
+                    .TAKE_ADJUSTABLE_WRENCH_FROM_TOOLBOX);
             }
             return actions;
         },
@@ -59,15 +61,15 @@ export const ZONES = {
             "steam coming from the engine slowly dissipate in the glacial crosswinds",
         getActions: () => {
             const actions = [];
-            actions.push(TRUCK_CABIN_INIT_ACTIONS.GET_OUT_OF_TRUCK_INIT);
+            actions.push(zoneActions.TRUCK_CABIN_INIT_ACTIONS.GET_OUT_OF_TRUCK_INIT);
             if (!hasFlag("OPENED_GLOVE_BOX")) {
-                actions.push(TRUCK_CABIN_INIT_ACTIONS.OPEN_GLOVE_BOX_TRUCK_INIT);
+                actions.push(zoneActions.TRUCK_CABIN_INIT_ACTIONS.OPEN_GLOVE_BOX_TRUCK_INIT);
             }
             else {
-                actions.push(TRUCK_CABIN_INIT_ACTIONS.TAKE_GLOVE_FROM_GLOVE_BOX);
-                actions.push(TRUCK_CABIN_INIT_ACTIONS.TAKE_FLARE_FROM_GLOVE_BOX);
-                actions.push(TRUCK_CABIN_INIT_ACTIONS.READ_EMERGENCY_MANUAL_INIT);
-                actions.push(TRUCK_CABIN_INIT_ACTIONS.TAKE_TRUCK_INSURANCE_PAPER);
+                actions.push(zoneActions.TRUCK_CABIN_INIT_ACTIONS.TAKE_GLOVE_FROM_GLOVE_BOX);
+                actions.push(zoneActions.TRUCK_CABIN_INIT_ACTIONS.TAKE_FLARE_FROM_GLOVE_BOX);
+                actions.push(zoneActions.TRUCK_CABIN_INIT_ACTIONS.READ_EMERGENCY_MANUAL_INIT);
+                actions.push(zoneActions.TRUCK_CABIN_INIT_ACTIONS.TAKE_TRUCK_INSURANCE_PAPER);
             }
             return actions;
         },
@@ -84,8 +86,8 @@ export const ZONES = {
             }
             //normal actions
             const actions = [];
-            actions.push(WATCH_POST_OUTSIDE.GO_BACK_TO_CHECKPOINT);
-            actions.push(WATCH_POST_OUTSIDE.GO_INSIDE_WATCH_POST);
+            actions.push(zoneActions.WATCH_POST_OUTSIDE.GO_BACK_TO_CHECKPOINT);
+            actions.push(zoneActions.WATCH_POST_OUTSIDE.GO_INSIDE_WATCH_POST);
             return actions;
         },
     },
@@ -104,21 +106,21 @@ export const ZONES = {
             }
             //normal action
             const actions = [];
-            actions.push(WATCH_POST.GO_BACK_OUTSIDE_WATCH_POST);
+            actions.push(zoneActions.WATCH_POST.GO_BACK_OUTSIDE_WATCH_POST);
             if (!hasFlag("SEARCHED_KELLER_BODY") &&
                 hasFlag("DISCOVERED_KELLER_BODY")) {
-                actions.push(WATCH_POST.SEARCH_KELLER_BODY);
+                actions.push(zoneActions.WATCH_POST.SEARCH_KELLER_BODY);
             }
             else {
-                actions.push(WATCH_POST.TAKE_KELLER_CREDENTIAL);
-                actions.push(WATCH_POST.TAKE_KELLER_KEYCARD);
-                actions.push(WATCH_POST.TAKE_PEN_FROM_KELLER);
+                actions.push(zoneActions.WATCH_POST.TAKE_KELLER_CREDENTIAL);
+                actions.push(zoneActions.WATCH_POST.TAKE_KELLER_KEYCARD);
+                actions.push(zoneActions.WATCH_POST.TAKE_PEN_FROM_KELLER);
             }
             if (doesThePlayerHasTheItem("robot_memory_module")) {
-                actions.push(WATCH_POST.INSERT_MEMORY_MODULE);
+                actions.push(zoneActions.WATCH_POST.INSERT_MEMORY_MODULE);
             }
             else {
-                actions.push(WATCH_POST.TAKE_MEMORY_MODULE);
+                actions.push(zoneActions.WATCH_POST.TAKE_MEMORY_MODULE);
             }
             return actions;
         },
@@ -140,9 +142,9 @@ export const ZONES = {
             }
             //normal action
             const actions = [];
-            actions.push(GATE_CHECKPOINT_ACTION.WALK_BACK_FOREST_TRAIL);
-            actions.push(GATE_CHECKPOINT_ACTION.WALK_TOWARD_POST);
-            actions.push(GATE_CHECKPOINT_ACTION.ENTER_GUARD_SHACK);
+            actions.push(zoneActions.GATE_CHECKPOINT_ACTION.WALK_BACK_FOREST_TRAIL);
+            actions.push(zoneActions.GATE_CHECKPOINT_ACTION.WALK_TOWARD_POST);
+            actions.push(zoneActions.GATE_CHECKPOINT_ACTION.ENTER_GUARD_SHACK);
             return actions;
         },
     },
@@ -155,14 +157,14 @@ export const ZONES = {
             const actions = [];
             //focus is applicable
             //normal thing
-            actions.push(GATE_CHECKPOINT_SHACK_ACTIONS.GO_BACK_OUTSIDE_THE_SHACK);
+            actions.push(zoneActions.GATE_CHECKPOINT_SHACK_ACTIONS.GO_BACK_OUTSIDE_THE_SHACK);
             if (!hasFlag("SEARCHED_GUARD_SHACK")) {
-                actions.push(GATE_CHECKPOINT_SHACK_ACTIONS.SEARCH_THE_SHACK);
+                actions.push(zoneActions.GATE_CHECKPOINT_SHACK_ACTIONS.SEARCH_THE_SHACK);
             }
             else {
                 if (!doesThePlayerHasTheItem("robot_memory_module") &&
                     !hasFlag("LISTENED_MEMORY_MODULE")) {
-                    actions.push(GATE_CHECKPOINT_SHACK_ACTIONS.PICKUP_MEMORY_MODULE);
+                    actions.push(zoneActions.GATE_CHECKPOINT_SHACK_ACTIONS.PICKUP_MEMORY_MODULE);
                 }
                 //maybe make it so player need to deactivate live wire?
                 //maybe make it so if he doesn't an alarm could start and attract "it"?
@@ -178,17 +180,16 @@ export const ZONES = {
         getActions: () => {
             const actions = [];
             //TODO do the actions
-            actions.push(RELAY_A01_OUTSIDE_ACTIONS.ENTER_BUNKER);
-            actions.push(RELAY_A01_OUTSIDE_ACTIONS.INSPECT_FOUNDATION);
-            actions.push(RELAY_A01_OUTSIDE_ACTIONS.BACK_TO_DIRECTION_SIGN);
+            actions.push(zoneActions.RELAY_A01_OUTSIDE_ACTIONS.ENTER_BUNKER);
+            actions.push(zoneActions.RELAY_A01_OUTSIDE_ACTIONS.INSPECT_FOUNDATION);
+            actions.push(zoneActions.RELAY_A01_OUTSIDE_ACTIONS.BACK_TO_DIRECTION_SIGN);
             return actions;
         },
     },
     //##########################################
     RELAY_A01: {
         name: "RELAY-A01 - INSIDE BUNKER",
-        description: "Rows of dead console line the walls, a single breaker panel " +
-            "hanging open on the far wall.",
+        description: zoneInfo.relayA01Description(),
         getActions: () => {
             const actions = [];
             if (getFocus() === "BREAKER_PANEL") {
@@ -200,44 +201,121 @@ export const ZONES = {
             if (getFocus() === "FIRST_ENCOUNTER") {
                 return getFirstEncounterActions("RELAY_A01");
             }
-            actions.push(RELAY_A01_ACTIONS.GO_OUTSIDE_BUNKER);
+            actions.push(zoneActions.RELAY_A01_ACTIONS.GO_OUTSIDE_BUNKER);
             //TODO do the actions
             if (!isDrawingPanelOpenOrNot()) {
-                actions.push(RELAY_A01_ACTIONS.OPEN_BREAKER_PANEL);
+                actions.push(zoneActions.RELAY_A01_ACTIONS.OPEN_BREAKER_PANEL);
             }
             else {
-                actions.push(BREAKER_PANEL_ACTIONS.CLOSE_BREAKER_PANEL);
+                actions.push(zoneActions.BREAKER_PANEL_ACTIONS.CLOSE_BREAKER_PANEL);
             }
+            return actions;
+        },
+    },
+    SHATTERED_RIDGE_TOP: {
+        name: "shattered ridge",
+        description: zoneInfo.shatteredRidgeTopDescription(),
+        getActions: () => {
+            const actions = [];
+            //todo
+            actions.push(zoneActions.SHATTERED_RIDGE_TOP_ACTIONS.TAKE_A_BREAK);
+            return actions;
+        },
+    },
+    SHATTERED_RIDGE_SIDE_A01: {
+        name: "shattered ridge ( A01 )",
+        description: "todo, the bottom of the ridge, on the relay a01 side",
+        getActions: () => {
+            const actions = [];
+            //todo
+            return actions;
+        },
+    },
+    SHATTERED_RIDGE_SIDE_EXCAVATION_CAMP: {
+        name: "shattered ridge ( EC )",
+        description: "todo, the bottom of the ridge, on the excavation camp side",
+        getActions: () => {
+            const actions = [];
+            //todo
+            return actions;
+        },
+    },
+    RELAY_B02: {
+        name: "Relay B02 - OUTSIDE",
+        description: //TODO i'm not sure if i like this description
+        "A lattice antenna mast leans off its mounting bolts, " +
+            "guy-wires singing when the wind crosses them.",
+        getActions: () => {
+            const actions = [];
+            if (getFocus() === "FIRST_ENCOUNTER") {
+            }
+            //todo
+            return actions;
+        },
+    },
+    RELAY_B02_OUTSIDE: {
+        name: "todo (b02-outside)",
+        description: zoneInfo.relayB02OutsideDescription(),
+        getActions: () => {
+            const actions = [];
+            //todo
+            return actions;
+        },
+    },
+    RELAY_C03_AIRLOCK: {
+        name: "todo (c03 in between?)",
+        description: "todo",
+        getActions: () => {
+            const actions = [];
+            //todo
+            return actions;
+        },
+    },
+    RELAY_C03_CORE: {
+        name: "todo (co3 core)",
+        description: "todo",
+        getActions: () => {
+            const actions = [];
+            //todo
+            return actions;
+        },
+    },
+    EXCAVATION_CAMP: {
+        name: "todo (camp)",
+        description: "todo",
+        getActions: () => {
+            const actions = [];
+            //todo
             return actions;
         },
     },
 };
 function getBreakerPanelActions() {
     const actions = [];
-    actions.push(BREAKER_PANEL_ACTIONS.CLOSE_BREAKER_PANEL);
-    actions.push(BREAKER_PANEL_ACTIONS.INT_1);
-    actions.push(BREAKER_PANEL_ACTIONS.INT_2);
-    actions.push(BREAKER_PANEL_ACTIONS.INT_3);
-    actions.push(BREAKER_PANEL_ACTIONS.INSPECT_CONNECTIONS);
+    actions.push(zoneActions.BREAKER_PANEL_ACTIONS.CLOSE_BREAKER_PANEL);
+    actions.push(zoneActions.BREAKER_PANEL_ACTIONS.INT_1);
+    actions.push(zoneActions.BREAKER_PANEL_ACTIONS.INT_2);
+    actions.push(zoneActions.BREAKER_PANEL_ACTIONS.INT_3);
+    actions.push(zoneActions.BREAKER_PANEL_ACTIONS.INSPECT_CONNECTIONS);
     //TODO do the actions
     return actions;
 }
 function getBreakerPanelInspectActions() {
     const actions = [];
     if (doesThePlayerHasTheItem("insulated_wirecutter")) {
-        actions.push(REPAIR_CONNECTION.TRY_WIRECUTTER);
+        actions.push(zoneActions.REPAIR_CONNECTION.TRY_WIRECUTTER);
     }
     if (doesThePlayerHasTheItem("duct_tape")) {
-        actions.push(REPAIR_CONNECTION.TRY_DUCT_TAPE);
+        actions.push(zoneActions.REPAIR_CONNECTION.TRY_DUCT_TAPE);
     }
     if (!doesThePlayerHasTheItem("crowbar") &&
         !doesThePlayerHasTheItem("duct_tape")) {
         drawingPanelPrintLine("You have nothing in your inventory " + "that can help with this task").catch(() => {
             console.error("drawingPanelPrintln failed...");
         });
-        actions.push(REPAIR_CONNECTION.TRY_DUCT_TAPE);
+        actions.push(zoneActions.REPAIR_CONNECTION.TRY_DUCT_TAPE);
     }
-    actions.push(REPAIR_CONNECTION.DO_SOMETHING_ELSE);
+    actions.push(zoneActions.REPAIR_CONNECTION.DO_SOMETHING_ELSE);
     return actions;
 }
 function getJunctionBoxActions() {
@@ -248,25 +326,25 @@ function getJunctionBoxActions() {
 function getWhatToSayToQG() {
     const actions = [];
     //section for the body
-    if (!isCommandInactive(SAY_STUFF_TO_QG.NO_BODY.command)) {
-        actions.push(SAY_STUFF_TO_QG.YES_BODY);
+    if (!isCommandInactive(zoneActions.SAY_STUFF_TO_QG.NO_BODY.command)) {
+        actions.push(zoneActions.SAY_STUFF_TO_QG.YES_BODY);
     }
-    if (!isCommandInactive(SAY_STUFF_TO_QG.YES_BODY.command)) {
-        actions.push(SAY_STUFF_TO_QG.NO_BODY);
+    if (!isCommandInactive(zoneActions.SAY_STUFF_TO_QG.YES_BODY.command)) {
+        actions.push(zoneActions.SAY_STUFF_TO_QG.NO_BODY);
     }
     // section for the note
-    if (!isCommandInactive(SAY_STUFF_TO_QG.NO_NOTE.command)) {
-        actions.push(SAY_STUFF_TO_QG.YES_NOTE);
+    if (!isCommandInactive(zoneActions.SAY_STUFF_TO_QG.NO_NOTE.command)) {
+        actions.push(zoneActions.SAY_STUFF_TO_QG.YES_NOTE);
     }
-    if (!isCommandInactive(SAY_STUFF_TO_QG.YES_NOTE.command)) {
-        actions.push(SAY_STUFF_TO_QG.NO_NOTE);
+    if (!isCommandInactive(zoneActions.SAY_STUFF_TO_QG.YES_NOTE.command)) {
+        actions.push(zoneActions.SAY_STUFF_TO_QG.NO_NOTE);
     }
     // section to see if at least one of both action were done
-    if ((isCommandInactive(SAY_STUFF_TO_QG.NO_NOTE.command) ||
-        isCommandInactive(SAY_STUFF_TO_QG.YES_NOTE.command)) &&
-        (isCommandInactive(SAY_STUFF_TO_QG.YES_BODY.command) ||
-            isCommandInactive(SAY_STUFF_TO_QG.NO_BODY.command))) {
-        SAY_STUFF_TO_QG.PRESS_WHEN_PLAYER_DONE.execute().catch(() => {
+    if ((isCommandInactive(zoneActions.SAY_STUFF_TO_QG.NO_NOTE.command) ||
+        isCommandInactive(zoneActions.SAY_STUFF_TO_QG.YES_NOTE.command)) &&
+        (isCommandInactive(zoneActions.SAY_STUFF_TO_QG.YES_BODY.command) ||
+            isCommandInactive(zoneActions.SAY_STUFF_TO_QG.NO_BODY.command))) {
+        zoneActions.SAY_STUFF_TO_QG.PRESS_WHEN_PLAYER_DONE.execute().catch(() => {
             console.error("i guess bro wanted to throw an error");
         });
     }
@@ -281,39 +359,35 @@ function getFirstEncounterActions(zoneId) {
     //do the actions
     switch (zoneId) {
         case "WATCH_POST":
-            actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.COVER_EARS);
-            actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.GO_OUTSIDE);
+            actions.push(zoneActions.FIRST_RESONATOR_ENCOUNTER_WATCHPOST.COVER_EARS);
+            actions.push(zoneActions.FIRST_RESONATOR_ENCOUNTER_WATCHPOST.GO_OUTSIDE);
             break;
         case "WATCH_POST_OUTSIDE":
-            actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.GO_INSIDE);
-            actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.HIDE_IN_SNOW);
-            actions.push(FIRST_RESONATOR_ENCOUNTER_WATCHPOST.MAKE_RUN_FOR_IT);
+            actions.push(zoneActions.FIRST_RESONATOR_ENCOUNTER_WATCHPOST.GO_INSIDE);
+            actions.push(zoneActions.FIRST_RESONATOR_ENCOUNTER_WATCHPOST.HIDE_IN_SNOW);
+            actions.push(zoneActions.FIRST_RESONATOR_ENCOUNTER_WATCHPOST.MAKE_RUN_FOR_IT);
             break;
         case "OUTSIDE_TRUCK":
-            actions.push(FIRST_RESONATOR_ENCOUNTER_TRUCK.GO_BACK_IN_TRUCK);
-            actions.push(FIRST_RESONATOR_ENCOUNTER_TRUCK.GO_TOWARD_THE_FOREST);
-            actions.push(FIRST_RESONATOR_ENCOUNTER_TRUCK.HIDE_UNDER_TRUCK);
+            actions.push(zoneActions.FIRST_RESONATOR_ENCOUNTER_TRUCK.GO_BACK_IN_TRUCK);
+            actions.push(zoneActions.FIRST_RESONATOR_ENCOUNTER_TRUCK.GO_TOWARD_THE_FOREST);
+            actions.push(zoneActions.FIRST_RESONATOR_ENCOUNTER_TRUCK.HIDE_UNDER_TRUCK);
             break;
         case "SNOWY_FOREST":
-            actions.push(FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST.HIDE_BEHIND_TREE);
-            actions.push(FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST.HIDE_IN_THE_SNOW);
-            break;
-        case "TRUCK_CABIN":
-            //TODO do this
+            actions.push(zoneActions.FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST.HIDE_BEHIND_TREE);
+            actions.push(zoneActions.FIRST_RESONATOR_ENCOUNTER_SNOWY_FOREST.HIDE_IN_THE_SNOW);
             break;
         case "GATE_CHECKPOINT":
-            actions.push(FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION.HIDE_IN_SNOW);
-            actions.push(FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION.MAKE_RUN_FOR_IT_TOWARD_TRUCK);
-            actions.push(FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION.MAKE_RUN_FOR_IT_TOWARD_FOREST);
-            //TODO do this
-            break;
-        case "GATE_CHECKPOINT_SHACK":
-            //TODO do this
-            break;
-        case "RELAY_A01_OUTSIDE":
+            actions.push(zoneActions.FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION.HIDE_IN_SNOW);
+            actions.push(zoneActions.FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION
+                .MAKE_RUN_FOR_IT_TOWARD_TRUCK);
+            actions.push(zoneActions.FIRST_ENCOUNTER_GATE_CHECKPOINT_ACTION
+                .MAKE_RUN_FOR_IT_TOWARD_FOREST);
             //TODO do this
             break;
         case "RELAY_A01":
+            actions.push(zoneActions.FIRST_ENCOUNTER_A01_ACTIONS.HIDE_IN_LOCKER);
+            actions.push(zoneActions.FIRST_ENCOUNTER_A01_ACTIONS.KILL_THE_RELAY);
+            actions.push(zoneActions.FIRST_ENCOUNTER_A01_ACTIONS.RUN_OUTSIDE);
             //TODO do this
             break;
         default:
@@ -333,14 +407,14 @@ function to get the actions related to opening the toolbox
  */
 function getToolBoxActions() {
     const actions = [];
-    actions.push(GET_TOOL_BOX_ACTION.DO_SOMETHING_ELSE);
+    actions.push(zoneActions.GET_TOOL_BOX_ACTION.DO_SOMETHING_ELSE);
     if (!hasFlag("OPENED_TOOLBOX_INIT")) {
-        actions.push(GET_TOOL_BOX_ACTION.FORCE_LATCH_BAREHAND);
+        actions.push(zoneActions.GET_TOOL_BOX_ACTION.FORCE_LATCH_BAREHAND);
         if (doesThePlayerHasTheItem("crowbar")) {
-            actions.push(GET_TOOL_BOX_ACTION.FORCE_LATCH_CROWBAR);
+            actions.push(zoneActions.GET_TOOL_BOX_ACTION.FORCE_LATCH_CROWBAR);
         }
         if (doesThePlayerHasTheItem("flare")) {
-            actions.push(GET_TOOL_BOX_ACTION.FORCE_LATCH_HEAT);
+            actions.push(zoneActions.GET_TOOL_BOX_ACTION.FORCE_LATCH_HEAT);
         }
     }
     return actions;
