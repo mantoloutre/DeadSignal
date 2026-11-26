@@ -306,7 +306,7 @@ export const ZONES = {
   },
   RELAY_B02_OUTSIDE: {
     name: "todo (b02-outside)",
-    description: "todo",
+    description: zoneInfo.relayB02OutsideDescription(),
     getActions: (): ZoneAction[] => {
       const actions: ZoneAction[] = [];
       //todo

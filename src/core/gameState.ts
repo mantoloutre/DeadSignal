@@ -14,6 +14,7 @@ export interface GameState {
   currentFrequency: string;
   discoveredSignals: string[];
   storyFlags: StoryFlag[];
+  visitedZone: ZoneId[];
   playerInventory: InventorySlot[];
   inactiveCommands: string[];
   relayA01BreakerPanel: BreakerState;
@@ -37,6 +38,7 @@ export const GAME_INITIAL_STATE: GameState = {
   pendingQGMessages: [],
   currentFrequency: "---.---",
   discoveredSignals: ["000.000"],
+  visitedZone: [],
   storyFlags: [],
   playerInventory: [],
   inactiveCommands: [],
@@ -55,7 +57,6 @@ export const FOCUS = {
   BREAKER_PANEL_CONNECTION: "BREAKER_PANEL_CONNECTION",
 } as const;
 let currentFocus: ZoneFocus | null = null;
-
 /*
 basic function to get the currentFocus
  */
@@ -174,6 +175,11 @@ export function parseSaveData(json: string): GameState | null {
       entry.count > 0
     );
   };
+  const maybeInvalidHasVisitedZone = (
+    visitedZone: unknown,
+  ): visitedZone is ZoneId => {
+    return typeof visitedZone === "string";
+  };
   const maybeInvalidInactiveCommand = (cmd: unknown): cmd is string => {
     return typeof cmd === "string";
   };
@@ -209,6 +215,9 @@ export function parseSaveData(json: string): GameState | null {
   )
     ? obj.pendingQGMessages.filter(maybeInvalidPendingQGMessages)
     : [...GAME_INITIAL_STATE.pendingQGMessages];
+  const validVisitedZone: ZoneId[] = Array.isArray(obj.visitedZone)
+    ? obj.visitedZone.filter(maybeInvalidHasVisitedZone)
+    : [...GAME_INITIAL_STATE.visitedZone];
   const validBreakerState: BreakerState = maybeInvalidBreakerState(
     obj.relayA01BreakerPanel,
   )
@@ -231,6 +240,7 @@ export function parseSaveData(json: string): GameState | null {
       ? obj.discoveredSignals.filter((s): s is string => typeof s === "string")
       : [...GAME_INITIAL_STATE.discoveredSignals],
     storyFlags: validStoryFlags,
+    visitedZone: validVisitedZone,
     playerInventory: validPlayerInventory,
     inactiveCommands: validInactiveCommands,
     relayA01BreakerPanel: validBreakerState,

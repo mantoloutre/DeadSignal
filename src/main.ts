@@ -32,7 +32,25 @@ import {
 
 gameBridge.loadZone = loadZone;
 gameBridge.renderZoneActions = renderZoneActions;
-
+gameBridge.addVisitedZone = addVisitedZone;
+gameBridge.hasVisitedZone = hasVisitedZone;
+/**
+ * function to verify if the player has visited a zone already
+ * @param zone the zone we are searching for
+ * @returns return true if the zone is visited, false if not
+ */
+export function hasVisitedZone(zone: ZoneId): boolean {
+  return currentState.visitedZone.includes(zone);
+}
+/**
+ * function to add a zone to the list of visited zone
+ * @param zone the zone we want to add
+ */
+export function addVisitedZone(zone: ZoneId): void {
+  if (!currentState.visitedZone.includes(zone)) {
+    currentState.visitedZone.push(zone);
+  }
+}
 /**
  //TODO correct the documentation <br>
  function to render in a dynamic way the actions for a zone<br>
@@ -69,6 +87,7 @@ export async function loadZone(zoneId: ZoneId): Promise<void> {
   const zone: Zone = ZONES[zoneId];
   //setFocus(null);
   currentState.currentZone = zoneId;
+  addVisitedZone(zoneId);
   saveTheDataToLocalStorage();
   getEl("zone-tag").textContent = `${zone.name}`;
   await printToTerminal(`ZONE: ${zone.name}`, "system");
