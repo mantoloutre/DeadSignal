@@ -32,7 +32,7 @@ export const BreakerStateRelayA01: BreakerState = {
 export type StoryFlag = (typeof StoryFlags)[keyof typeof StoryFlags];
 export const GAME_INITIAL_STATE: GameState = {
   app: "DEAD_SIGNAL",
-  version: 1,
+  version: 1.1,
   currentZone: "TRUCK_CABIN",
   powerLevel: 100,
   pendingQGMessages: [],
