@@ -15,8 +15,15 @@
 .system,
 .action,
 .YOU,
-.QG {
+.QG,
+.recording {
   font-size: 16px;
+}
+.recording::before {
+  content: "[RECORDING] : ";
+  color: var(--text-yellow-color);
+  font-weight: bold;
+  text-shadow: 0 0 3px var(--text-yellow-color);
 }
 .note::before {
   content: "[NOTE] : ";
@@ -24,11 +31,9 @@
   font-weight: bold;
   text-shadow: 0 0 3px var(--text-yellow-glow);
 }
-.note {
-  color: var(--text-yellow-color);
-  text-shadow: 0 0 3px var(--text-yellow-glow);
-}
-.log {
+.log,
+.note,
+.recording {
   color: var(--text-yellow-color);
   text-shadow: 0 0 3px var(--text-yellow-glow);
 }

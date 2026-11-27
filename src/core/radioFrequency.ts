@@ -248,6 +248,8 @@ export async function handleFrequency(): Promise<void> {
         "system",
       );
       break;
+    case FREQUENCY_REGISTRY.CREW_BLACKBOX.frequency:
+      await printToTerminal("its not done yet sorry...", "alert");
   }
 }
 

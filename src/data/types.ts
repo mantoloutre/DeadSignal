@@ -53,4 +53,5 @@ export type fromType =
   | "QG"
   | "log"
   | "action"
-  | "YOU";
+  | "YOU"
+  | "recording";
