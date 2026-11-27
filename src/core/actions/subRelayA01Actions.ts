@@ -291,3 +291,6 @@ async function verifyDrawingPanelClosed(): Promise<boolean> {
   }
   return true;
 }
+export async function goToRidgeSummit(): Promise<void> {
+  await printToTerminal("todo", "alert");
+}

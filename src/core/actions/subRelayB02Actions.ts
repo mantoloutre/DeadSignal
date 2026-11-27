@@ -13,17 +13,17 @@ export async function nuhuh(): Promise<void> {
 export async function inspectMarks(): Promise<void> {
   await printToTerminal(
     "Beside the cabinet door, scratched into the paint: groups of tally " +
-    "marks. Five, crossed. Five, crossed. Dozens of groups.",
+      "marks. Five, crossed. Five, crossed. Dozens of groups.",
     "system",
   );
   await printToTerminal(
     "The handwriting changes halfway down. Steadier at the top. " +
-    "Shaking at the bottom.",
+      "Shaking at the bottom.",
     "log",
   );
   await printToTerminal(
     "The last group has one extra mark. The sixth stroke trails " +
-    "off the door like it was drawn falling.",
+      "off the door like it was drawn falling.",
     "log",
   );
 }
@@ -35,13 +35,13 @@ export async function readDiagnostic(): Promise<void> {
   await printToTerminal("####################", "log");
   await printToTerminal(
     "Three failures. Three things standing between you and a " +
-    "live amplifier. You have a fuse-box keycard problem, a hardware " +
-    "problem and a knowledge problem",
+      "live amplifier. You have a fuse-box keycard problem, a hardware " +
+      "problem and a knowledge problem",
     "system",
   );
   await printToTerminal(
     "The mast above you creaks once in the dead air, like a throath " +
-    "clearing.",
+      "clearing.",
     "alert",
   );
 }
