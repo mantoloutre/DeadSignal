@@ -27,3 +27,24 @@ export async function inspectMarks(): Promise<void> {
     "log",
   );
 }
+export async function readDiagnostic(): Promise<void> {
+  await printToTerminal(
+    "NODE B-02 - FIELD DIAGNOSTIC: main bus fuse... missing.",
+    "log",
+  );
+  await printToTerminal(
+    "calibrator expension bay... empty. calibration sequence... not on file.",
+    "log",
+  );
+  await printToTerminal(
+    "Three failures. Three things standing between you and a " +
+      "live amplifier. You have a fuse-box keycard problem, a hardware " +
+      "problem and a knowledge problem",
+    "system",
+  );
+  await printToTerminal(
+    "The mast above you creaks once in the dead air, like a throath " +
+      "clearing.",
+    "alert",
+  );
+}

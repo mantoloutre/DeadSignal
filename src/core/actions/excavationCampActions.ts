@@ -84,13 +84,6 @@ export async function inspectTheCrewTruck(): Promise<void> {
   );
 }
 /**
- * function to handle open crew truck door action
- */
-export async function openTheTruckDoor(): Promise<void> {
-  await printToTerminal("todo", "system");
-  //todo make the blackbox appear
-}
-/**
  * function to handle the playing of the blackbox
  */
 export async function playTheBlackBox(): Promise<void> {
@@ -123,5 +116,13 @@ export async function inspectHalfRaisedMast(): Promise<void> {
       "it took when somebody let go of the crank.",
     "action",
   );
+  await printToTerminal(
+    "Painted on the base: RELAY C-03 - NODE 3 OF 3 - AETHEL COMMUNICATION " +
+      " / PROMETHEUS ARRAY.",
+      "log"
+  );
+  await printToTerminal(
+      "Node 3 of 3, A-01 feeds from the basin, "
+  )
   //todo finish this cuz it's not done
 }

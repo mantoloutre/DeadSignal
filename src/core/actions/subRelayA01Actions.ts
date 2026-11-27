@@ -13,7 +13,10 @@ import {
 } from "../../ui/dom.ts";
 import { gameBridge } from "../gameBridge.ts";
 import { addFlag, currentState, hasFlag, setFocus } from "../gameState.ts";
-import { doesThePlayerHasTheItem } from "../inventory.ts";
+import {
+  doesThePlayerHasTheItem,
+  removeItemFromInventory,
+} from "../inventory.ts";
 /*
 #############
 zone : BUNKER
@@ -202,6 +205,7 @@ export async function tryWithWireCutter(): Promise<void> {
   addFlag("REPAIRED_CONNEXION_WITH_WIRECUTTER");
   currentState.relayA01BreakerPanel.wire1 = true;
   setFocus("BREAKER_PANEL");
+  removeItemFromInventory("insulated_wirecutter");
 }
 export async function tryWithCrowbar(): Promise<void> {
   if (doesThePlayerHasTheItem("duct_tape")) {
@@ -226,7 +230,8 @@ export async function tryWithCrowbar(): Promise<void> {
         "together using the crowbar as a link for electricity.",
       "action",
     );
-  }
+  } //todo maybe add another way to get a crowbar or a hallogan bar?
+  removeItemFromInventory("crowbar");
 }
 
 /**

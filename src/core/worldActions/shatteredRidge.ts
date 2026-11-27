@@ -51,3 +51,10 @@ export const SHATTERED_RIDGE_TOP_ACTIONS = {
     oneTime: true,
   },
 } as const satisfies Record<string, ZoneAction>;
+export const SHATTERED_RIDGE_B02_ACTIONS = {
+  GO_BACK_SUMMIT: {
+    command: "climb to top",
+    description: "climb back to the top of the ridge",
+    execute: actionsFunc.nuhUh,
+  },
+} as const satisfies Record<string, ZoneAction>;

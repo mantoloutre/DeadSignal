@@ -31,6 +31,7 @@ export const StoryFlags = {
   RELAY_A01_ONLINE: "RELAY_A01_ONLINE",
   REPAIRED_CONNEXION_WITH_WIRECUTTER: "REPAIRED_CONNEXION_WITH_WIRECUTTER",
   REPAIRED_CONNEXION_WITH_DUCT_TAPE: "REPAIRED_CONNEXION_WITH_DUCT_TAPE",
+  REPAIRED_CONNECtION_WITH_CROWBAR: "REPAIRED_CONNECTION_WITH_CROWBAR",
   // easter egg? ( this would be like there is another condition and then
   // u go back there to re-inspect the sign i guess...
 

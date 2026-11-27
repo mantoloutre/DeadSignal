@@ -18,4 +18,8 @@ export const QG_MESSAGES = {
   TOLD_ABOUT_NOTE:
     "Nonsense! We don't leave in a fantasy here, there's nothing that's drawn to the " +
     "signal in this dead valley and monster don't exist.",
+  ORDER_AFTER_ACTIVATING_A01:
+  "Technician 4-Echo, carrier feed from Relay A-01 is confirmed online. "+
+      "Proceed over the ridge and restore Relay B-02, the eastern "+
+      "amplifier.",
 } as const;
