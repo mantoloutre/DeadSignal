@@ -1,4 +1,5 @@
 import { printToTerminal } from "../../ui/dom.ts";
+import { gameBridge } from "../gameBridge.ts";
 import { addDiscoveredFrequency } from "../radioFrequency.ts";
 /**
  * todo remove this
@@ -16,12 +17,12 @@ export async function goBackToWatchpost(): Promise<void> {
   );
   await printToTerminal(
     "The summit, the breach in the fence. Down the windless side.",
-    "system",
+    "action",
   );
   await printToTerminal(
     "You pass through the direction sign and the checkpoint " +
       "without even looking back",
-    "system",
+    "action",
   );
   await printToTerminal(
     "The watch tower rises against the gray sky, and from up close " +
@@ -34,6 +35,7 @@ export async function goBackToWatchpost(): Promise<void> {
     "system",
   );
   await printToTerminal("He watched everything happen, everyday...", "system");
+  await gameBridge.loadZone("WATCH_POST_OUTSIDE");
 }
 export async function inspectTheDrillRig(): Promise<void> {
   await printToTerminal(
@@ -61,30 +63,7 @@ export async function inspectTheDrillRig(): Promise<void> {
     "alert", //todo change this for log maybe?
   );
 }
-/**
- * function to handle the inspect crew truck action
- */
-export async function inspectTheCrewTruck(): Promise<void> {
-  await printToTerminal(
-    "The crew truck sits by the containers, doors open, cab full " +
-      "of drifted snow.",
-    "system",
-  );
-  await printToTerminal(
-    "The engine block is imploded. Whole. No fire, no crash. The pistons " +
-      "were pressed back down into the block, and the hood still carries " +
-      "the dent of a fist the size of the engine.",
-    "system",
-  );
-  //todo make it so the truck at the beginning the engine imploded instead
-  //of explosing.
-  await printToTerminal(
-    "You look back at the direction of your own truck. You don't " +
-      "say it out loud... You don't have to, to realise something....",
-    "alert",
-  );
-}
-export async function inspectCrewTruckV2(): Promise<void> {
+export async function inspectCrewTruck(): Promise<void> {
   await printToTerminal(
     "The crew truck sits nose-down in a drift, doors still open.",
     "system",
@@ -121,29 +100,6 @@ export async function inspectCrewTruckV2(): Promise<void> {
  * function to handle the playing of the blackbox
  */
 export async function playTheBlackBox(): Promise<void> {
-  await printToTerminal(
-    "You play the crew recorder back through its little speaker.",
-    "system",
-  );
-  await printToTerminal(
-    //TODO remove this maybe? or make a recording class
-    "just for ur info, this is a recording, not printed logs",
-    "YOU",
-  );
-  await printToTerminal(
-    "DAY 41: Cavity breakthrough at 3.2 kilometers. Rig's fine, " +
-      "but the depth gauge is drunk. Reads then meters more every " +
-      "hour. Corporate says keep drilling.",
-    "log",
-  );
-  await printToTerminal(
-    "DAY 42: Ambient hum on 940.700 measured INSIDE the cavity. It's not " +
-      "terrain noise. It repeats. Patterned. We told them. They want " +
-      "amplifier arrays on every ridge to 'resolve the carrier.' They built us RELAYS.",
-    "log",
-  );
-}
-export async function playTheBlackBoxV2(): Promise<void> {
   await printToTerminal(
     "You play the crew recorder through it's little speaker.",
     "action",
@@ -208,4 +164,28 @@ export async function inspectHalfRaisedMast(): Promise<void> {
     "alert",
   );
   //todo finish this cuz it's not done
+}
+export async function lookTowardCrater(): Promise<void> {
+  await printToTerminal(
+    "Past the camp, the ground opens. The dig site is a crater " +
+      "maybe 200 meters across, terraced down into blue-glowing ice",
+    "system",
+  );
+  await printToTerminal(
+    "At its center: a steel hatch, set into the crater floor. " +
+      "An airlock. No building. No mast. Just the hatch, and the light " +
+      "breathing under it.",
+    "system",
+  );
+  await printToTerminal(
+    "The blue glow doesn't flicker like fire. It swells and shrinks. " +
+      "40 seconds. Like the rock on the summit. Like breathing.",
+    "log",
+  );
+  await printToTerminal(
+    "A fat copper umbilical runs from the crater rim along the ridge " +
+      "wall, up the slope, into Relay B-02's cabinet. Power fed down from the " +
+      "relay. Somebody built this deliberately.",
+    "log",
+  );
 }

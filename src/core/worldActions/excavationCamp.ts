@@ -5,7 +5,7 @@ export const EXCAVATION_CAMP_TODO = {
   WALK_TOWARD_WATCHPOST: {
     command: "walk toward watchpost",
     description: "walk toward the watchpost",
-    execute: actionsFunc.nuhUh,
+    execute: actionsFunc.goBackToWatchpost,
   },
   WALK_BACK_UP: {
     command: "walk back ridge top",
@@ -15,13 +15,13 @@ export const EXCAVATION_CAMP_TODO = {
   INSPECT_CREW_TRUCK: {
     command: "inspect crew truck",
     description: "inspect the crew's truck",
-    execute: actionsFunc.nuhUh,
+    execute: actionsFunc.inspectCrewTruck,
     oneTime: true,
   },
-  TAKE_BLACKBOX: {
-    command: "take blackbox",
-    description: "take the blackbox that is there",
-    execute: actionsFunc.nuhUh,
+  LISTEN_BLACKBOX: {
+    command: "listen blackbox",
+    description: "listen to the blackbox that is there",
+    execute: actionsFunc.playTheBlackBox,
     oneTime: true,
   },
   INSPECT_DRILL_RIG: {
